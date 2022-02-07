@@ -18,11 +18,11 @@ env:
   BUILD_ALL: ${{ github.event.inputs.logLevel }}
   NX_HEAD: ${{ github.event.after }}
   NX_BASE: ${{ github.event.before }}
-  SHELL_APP_NAME: shell
   GCS_BUCKET: ${{ secrets.GCS_BUCKET_DEVELOP }}
   GCS_PROJECT: ${{ secrets.GCS_PROJECT_DEVELOP }}
   GCS_SA_KEY: ${{ secrets.GCS_SA_KEY_DEVELOP }}
   DEPLOY_PATH: apps
+  SHELL_APP_NAME: shell
 
 jobs:
   build_and_deploy:
