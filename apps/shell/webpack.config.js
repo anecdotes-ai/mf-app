@@ -6,9 +6,6 @@ workspaceJson.projects.auth.targets.serve.options.port
 
 const remoteApps = ['platform', 'auth'];
 
-// console.log(process.env);
-// throw new Error('aaaa')
-
 function buildRemotes() {
   const isCiProcess = process.env.CI;
 
