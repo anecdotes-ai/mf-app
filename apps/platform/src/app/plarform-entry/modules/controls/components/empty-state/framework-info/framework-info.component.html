@@ -1,0 +1,9 @@
+<div class="framework-icon">
+  <svg-icon [src]="getFrameworkIconLink(frameworkId)" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</div>
+<div class="framework-info">
+  <div class="framework-name">{{ frameworkName }}</div>
+  <div class="framework-controls-count">
+    {{ buildTranslationKey('controlsCount') | translate: { count: frameworkControlsCount } }}
+  </div>
+</div>

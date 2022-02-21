@@ -1,0 +1,47 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-policy"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-18 bold header">{{ buildTranslationKey('descriptions.header') | translate }}</span>
+            <form class="radioButtons" [formGroup]="formGroup">
+                <app-radio-button-group [buttons]="radioButtons" [formControl]="buttonControl"></app-radio-button-group>
+            </form>
+
+            <ng-container *ngIf="this.buttonControl.value !== null;">
+                <app-tip *ngIf="this.buttonControl.value" [tipType]="tipTypes.TIP">
+                    {{buildTranslationKey('descriptions.tipYes') | translate}}
+                </app-tip>
+                <app-tip *ngIf="!this.buttonControl.value" [tipType]="tipTypes.TIP">
+                    {{buildTranslationKey('descriptions.tipNo') | translate}}
+                </app-tip>
+            </ng-container>
+        </div>
+    </div>
+
+</div>
+<div class="footer">
+    <div class="onboarding-buttons">
+        <ng-container *ngIf="this.buttonControl.value !== null; else noSelected">
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="primary" size="fixed160" (click)="onNextClick()">
+                {{buildTranslationKey('buttons.next') | translate }}
+            </app-new-button>
+        </ng-container>
+
+
+
+        <ng-template #noSelected>
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="secondary" size="fixed160" (click)="onSkipClick()">
+                {{buildTranslationKey('buttons.skip') | translate }}
+            </app-new-button>
+        </ng-template>
+
+    </div>
+</div>

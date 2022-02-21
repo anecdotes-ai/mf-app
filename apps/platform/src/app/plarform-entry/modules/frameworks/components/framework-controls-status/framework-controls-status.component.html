@@ -1,0 +1,17 @@
+<ng-container *ngIf="controls$ | async as controls">
+  <div
+    class="controls-header flex flex-row items-center px-6 w-full h-16 bg-navy-10 border-b border-navy-30 rounded-t-md"
+  >
+    <div class="title main-font-18 font-bold text-navy-90">
+      {{ buildTranslationKey('controls') | translate: { controls_num: controls?.length || 0 } }}
+    </div>
+  </div>
+  <div class="flex-1 px-6 overflow-y-auto">
+    <app-control-statuses-chart [controls]="controls" [framework]="framework" [isAuditInProgress]="auditHasStarted()"></app-control-statuses-chart>
+  </div>
+  <div class="controls-footer flex flex-row justify-center border-t border-navy-40 h-20 px-6 py-5">
+    <app-new-button [type]="'secondary'" [size]="'responsive'" [svgIconPath]="'report'" class="report-btn w-full" (click)="generateReport()">
+      {{ buildTranslationKey('generateReport') | translate }}
+    </app-new-button>
+  </div>
+</ng-container>

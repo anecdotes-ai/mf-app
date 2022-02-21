@@ -1,0 +1,16 @@
+<section id="api-section">
+  <app-api-header #header></app-api-header>
+
+  <perfect-scrollbar>
+    <div class="central-content">
+      <svg-icon src="Jobs_image"></svg-icon>
+      <div class="center-description">
+        <span class="bold">{{ buildTranslationKey('comingSoon.description.header') | translate }}</span>
+        <span class="content">{{ buildTranslationKey('comingSoon.description.content') | translate }}</span>
+      </div>
+      <app-button id="openIntercom" class="main mulish cta-btn" (click)="openIntercom()">
+        {{ buildTranslationKey('button') | translate }}</app-button>
+    </div>
+
+  </perfect-scrollbar>
+</section>

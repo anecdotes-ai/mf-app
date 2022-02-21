@@ -1,0 +1,16 @@
+:host {
+  @apply w-full bg-navy-30 block py-5;
+
+  .max-width-container {
+    @apply flex items-center justify-between bg-transparent my-0 mx-auto;
+    max-width: 1000px;
+  }
+
+  app-framework-progress-bar {
+    width: 250px;
+  }
+
+  .framework-name {
+    font-feature-settings: 'pnum' on, 'lnum' on;
+  }
+}

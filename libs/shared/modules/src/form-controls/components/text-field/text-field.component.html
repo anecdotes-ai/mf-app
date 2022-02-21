@@ -1,0 +1,68 @@
+<app-control-header *ngIf="label" [label]="label" [labelParamsObj]="labelParamsObj" [index]="index" [required]="required"></app-control-header>
+<div class="wrapper" [class.pointer-events-none]="isDisabled$ | async"
+[class.is-with-addon]="addonText" [class.border-error]="errorsDisplayed">
+  <div class="h-full flex-1 relative">
+    <app-control-placeholder *ngIf="placeholder" [class.hidden]="!isPlaceholderDisplayed" #placeholderElement
+      [placeholder]="placeholder" [placeholderParamsObj]="placeholderParamsObj" [placeholderIcon]="placeholderIcon">
+  </app-control-placeholder>
+    <input
+        #textfield id="{{ fieldName }}-textfield"
+        class="outline-none bg-white w-full h-full font-main text-base border-none"
+        [ngClass]="{ 'absolute top-0 opacity-0': isPlaceholderDisplayed }"
+        [attr.type]="inputType"
+        [class.padding-right]="isClearButtonDisplayed"
+        [(ngModel)]="value"
+        (ngModelChange)="valueChangesEventEmitHandler($event)"
+        [disabled]="isDisabled$ | async"
+        [attr.maxLength]="maxLength"
+        [attr.min]="minValue"
+        [attr.max]="maxValue"
+        [attr.readOnly]="readonly"
+        [autocomplete]="suggestions?.length ? 'off' : 'on'"
+        (input)="input.emit($event)"
+        (blur)="inputBlur()"
+        (focusin)="inputFocusIn()"
+        (focusout)="inputFocusOut()"
+    />
+  </div>
+  <div *ngIf="isClearButtonDisplayed" class="clear-btn-wrapper flex flex-row items-center absolute h-full">
+    <app-clear-button (click)="clear()"></app-clear-button>
+  </div>
+  <div class="addon-text flex flex-row items-center bg-navy-30 whitespace-nowrap" *ngIf="addonText">{{ addonText | translate }}</div>
+
+  <div class="buttons flex items-center h-full mr-2 absolute right-0">
+    <ng-content select="app-button"></ng-content>
+    <ng-content select="button"></ng-content>
+
+    <ng-container *ngIf="removable">
+      <button (click)="removeControl.emit(fieldName)" class="remove-contol-button">
+        <svg-icon src='close'>
+        </svg-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="showHideText && textfieldElement">
+      <button (click)="toggleShowHide()" class="mulish white toggle-show-hide-password">
+        <svg-icon [src]="textfieldElement.nativeElement.type === 'password' ? 'show_n-a' : 'hide_n-a'">
+        </svg-icon>
+      </button>
+    </ng-container>
+  </div>
+
+</div>
+<ng-container *ngIf="textfieldElement$ | async as txtField">
+  <app-autocomplete *ngIf="txtField && suggestions?.length" [autocompleteData]="suggestions"
+    [maxItemsToDisplay]="suggestionsConfig?.maxItemsToDisplay" [inputElement]="txtField" (select)="value = $event">
+  </app-autocomplete>
+</ng-container>
+<div class="flex justify-end items-center w-full">
+  <app-control-errors class="flex-1 mt-1" *ngIf="errorsDisplayed" [errorTexts]="errorTexts"></app-control-errors>
+  <app-characters-counter *ngIf="displayCharactersCounter" [value]="value" [maxLength]="maxLength" class="top-0 mt-1"></app-characters-counter>
+</div>
+
+<ng-template #requiredPopover>
+  <div class="popover-container">
+    <span translate>
+      core.formControls.requiredTooltip
+    </span>
+  </div>
+</ng-template>

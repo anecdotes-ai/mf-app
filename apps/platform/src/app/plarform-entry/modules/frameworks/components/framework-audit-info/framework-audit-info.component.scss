@@ -1,0 +1,11 @@
+:host {
+  @apply box-border flex flex-col mb-6 bg-white border-navy-40 border-solid border rounded-md h-16 overflow-hidden;
+
+  &.has-info {
+    @apply h-36;
+  }
+
+  app-circle-loader {
+    @apply h-6 w-6;
+  }
+}

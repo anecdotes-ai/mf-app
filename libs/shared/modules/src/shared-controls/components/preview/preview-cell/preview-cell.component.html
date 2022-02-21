@@ -1,0 +1,16 @@
+<span class="main-span flex items-center" *ngFor="let cell of resolveCellValue(); let first = first">
+  <app-gap-mark *ngIf="cellGapped && isFirst" class="ml-2" [tooltipText]="tooltipText | translate"></app-gap-mark>
+  <ng-container *ngIf="viewFullData">
+    <app-searchable-text
+      *ngIf="cell !== undefined && cell !== null && cell !== ''; else nonBreakingSpace"
+      [openTooltipWhenOverflowedAndHovered]="true"
+      [openOnWidthOverflow]="true"
+      [ngbTooltip]="cell"
+      placement="top"
+      [text]="cell"
+    >
+    </app-searchable-text>
+    <ng-template #nonBreakingSpace>&nbsp;</ng-template>
+  </ng-container>
+  <span *ngIf="!viewFullData">{{ cell }}</span>
+</span>

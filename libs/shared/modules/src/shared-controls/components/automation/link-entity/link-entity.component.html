@@ -1,0 +1,16 @@
+<app-base-modal [iconPath]="icon" [titleTranslationKey]="buildTranslationKey('title')"
+    [descriptionTranslationKey]="buildTranslationKey('description')"
+    [leftCornerData]="{ icon: 'info', titleText: cornerTitle }" [footerTemplate]="footerTemplate">
+
+    <app-secondary-loading-animation *ngIf="!formGroup"></app-secondary-loading-animation>
+    <app-dynamic-form-outlet class="form" [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+    <p class="mulish help-text"> {{ buildTranslationKey('help') | translate }} <a *ngIf="helpLink"
+            [routerLink]="helpLink"> {{ buildTranslationKey('helpLink') | translate }} </a> </p>
+
+</app-base-modal>
+
+<ng-template #footerTemplate>
+    <app-button id="link-btn" [loading]="isLoading" [class.disabled]="!formGroup || formGroup.invalid" (click)="linkItemToParent()"
+        class="mulish main medium">{{ buildTranslationKey('linkEntityBtn') | translate }}
+    </app-button>
+</ng-template>

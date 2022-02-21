@@ -1,0 +1,13 @@
+<app-tenant-logo></app-tenant-logo>
+<section class="with-side-lines">
+    <div></div>
+</section>
+<section class="center-text">
+  <svg-icon class="status-icon" [src]="'status_error'"></svg-icon>
+  <h1><b>{{ buildTranslationKey('primaryText') | translate }}</b></h1>
+  <h2>{{ buildTranslationKey('secondaryText') | translate: { idp_name: context.accountLinking.currentIdpId } }}</h2>
+</section>
+<div class="footer">
+  <app-button id="continue-btn" (click)="linkCredentials()" class="main mulish medium">Yes</app-button>
+  <app-button id="cancel-btn" (click)="cancel()" class="secondary mulish medium">No</app-button>
+</div>

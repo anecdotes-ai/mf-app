@@ -1,0 +1,77 @@
+@import 'index';
+
+.hidden {
+  display: none;
+}
+
+.search-results-pagination {
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  min-height: 70px;
+}
+
+.search-results-header {
+  @include MulishBold(21px, 150%);
+}
+
+.prev-next-buttons {
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+}
+
+app-button {
+  background: $mc-white;
+  border: 1px solid $mc-navy-50;
+  width: 30px;
+  height: 30px;
+
+  svg-icon {
+    path {
+      fill: $mc-navy-70;
+    }
+  }
+
+  &:hover {
+    svg-icon {
+      path {
+        fill: $mc-navy-90;
+      }
+    }
+  }
+
+  &.disabled {
+    background: transparent;
+    border: 1px solid $mc-navy-50;
+    opacity: 1;
+
+    svg-icon {
+      path {
+        fill: $mc-navy-40;
+      }
+    }
+  }
+}
+
+.prev-btn {
+  transform: scale(-1, 1);
+  transform-origin: center;
+}
+
+.pagination-progress {
+  @include MulishFontStyle(13px, 150%);
+  color: $mc-navy-70;
+  padding: 0 15px;
+
+  .current-page {
+    @include MulishBold(13px, 150%);
+  }
+}
+
+.clear-search {
+  background: transparent;
+  border: transparent;
+  justify-content: flex-start;
+}

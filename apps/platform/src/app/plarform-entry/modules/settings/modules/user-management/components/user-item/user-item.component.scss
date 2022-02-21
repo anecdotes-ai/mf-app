@@ -1,0 +1,88 @@
+@import 'index';
+
+:host {
+  box-shadow: 0px 2px 3px rgb(4 41 62 / 4%);
+  // Background
+  @apply bg-white;
+
+  // Border
+  @apply border-b-0;
+  border: 1px solid;
+  @apply border-navy-90 border-opacity-20;
+
+  border-radius: 6px !important;
+  min-height: 70px;
+
+  // Display
+  @apply flex justify-center;
+
+  .user-wrapper {
+    @apply grid grid-cols-6 justify-center items-center;
+    grid-template-columns: 80px 200px 300px 120px 160px calc(100% - 860px);
+    width: 100%;
+  }
+
+  .email {
+    @include MulishFontStyle(13px, 23px);
+    color: $mc-navy-70;
+  }
+
+  .user-type {
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    span {
+      padding-left: 10px;
+      text-transform: capitalize;
+      @include MulishFontStyle(13px, 24px);
+      color: $mc-navy-90;
+
+      &.uppercase {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .name-lastname {
+    &.gray {
+      color: $mc-navy-70;
+    }
+    padding-left: 20px;
+    @include MerriWeatherBold(14px, 21px);
+    font-feature-settings: 'pnum' on, 'lnum' on;
+
+    /* Colors / Navy 90 */
+
+    color: $mc-navy-90;
+  }
+
+  .buttons,
+  app-frameworks-icon {
+    display: flex;
+    width: inherit;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+  }
+
+  #remove {
+    margin-right: 25px;
+  }
+
+  app-three-dots-menu {
+    margin-left: 10px;
+  }
+}
+
+:host::ng-deep {
+  app-button {
+    &:hover {
+      svg-icon {
+        svg * {
+          stroke: $mc-white !important;
+        }
+      }
+    }
+  }
+}

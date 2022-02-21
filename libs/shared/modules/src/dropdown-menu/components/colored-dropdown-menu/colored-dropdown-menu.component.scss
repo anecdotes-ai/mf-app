@@ -1,0 +1,10 @@
+@import './mat-menu-custom-styles.scss';
+
+// TODO: Remove this after global styles for mat-menu are fixed
+::ng-deep {
+  .colored-menu {
+    .mat-menu-content {
+      padding: 0 !important;
+    }
+  }
+}

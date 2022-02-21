@@ -1,0 +1,5 @@
+<svg-icon src="status_complete" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+<span class="header"><b>{{ buildTranslationKey('defaultEmptyResult.title') | translate}}</b></span>
+<span class="description">{{
+  evidence.evidence_empty_state || buildTranslationKey('defaultEmptyResult.description') | translate: evidence
+  }}</span>

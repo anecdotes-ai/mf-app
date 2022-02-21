@@ -1,0 +1,17 @@
+<app-base-modal
+  [iconPath]="'plugins/default'"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footer"
+  [leftCornerData]="{ icon: getCurrentFrameworkIcon() }"
+>
+  <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+  <span *ngIf="form.items.audit_range?.errors?.audit_range" class="audit-error text-error text-sm font-main ml-0.5">{{
+    buildTranslationKey('rangeError') | translate
+  }}</span>
+</app-base-modal>
+<ng-template #footer>
+  <app-new-button [clickOnEnter]="true" [loading]="isLoading" (click)="saveAudit()" [disabled]="!form.valid">
+    <span>{{ buildTranslationKey('saveButtonText') | translate }}</span>
+  </app-new-button>
+</ng-template>

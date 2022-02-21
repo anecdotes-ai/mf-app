@@ -1,0 +1,59 @@
+@import 'index';
+@import 'component-header-shared';
+
+:host {
+  padding: 20px 30px;
+  display: flex;
+  height: 81px;
+  background: $mc-navy-90;
+
+  span {
+    min-width: 0 !important;
+  }
+
+  .title-content {
+    span {
+      @include MulishBold();
+      color: $mc-white;
+
+      margin-right: 10px;
+    }
+  }
+
+  .items-wrapper {
+    width: 100%;
+  }
+
+  .customer-visit-info {
+    .info {
+      margin-right: 20px;
+      align-items: flex-start;
+      flex-direction: column;
+      .date-time {
+        @include MulishFontStyle(13px, 26px);
+        color: $mc-white;
+      }
+      .time-description {
+        @include MulishFontStyle(11px, 21px);
+        color: $mc-navy-50;
+      }
+    }
+    .icon-wrapper {
+      min-width: 46px;
+      min-height: 46px;
+      height: 46px;
+      background: $mc-navy-10;
+      box-sizing: border-box;
+      border-radius: 6px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        display: flex;
+      }
+    }
+  }
+}

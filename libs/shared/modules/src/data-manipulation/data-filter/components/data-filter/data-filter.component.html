@@ -1,0 +1,111 @@
+<div>
+  <ng-container *ngIf="initialized">
+    <div class="bg-navy-90 h-20 min-h-20 flex flex-row justify-between items-center">
+      <div class="flex flex-row ml-5 items-center">
+        <svg-icon [src]="'filter'" id="filter-icon" class="flex h-6 w-6"></svg-icon>
+        <span class="font-main text-2xl font-bold whitespace-nowrap text-white flex ml-3">{{ buildTranslationKey('filters') | translate: {
+          filters_count: filtersAmountInBrackets } }}</span>
+      </div>
+      <div class="flex flex-row items-center mr-3">
+        <app-button *ngIf="appliedFiltersCount" class="secondary-white mulish reset mr-1" (click)="reset()">
+          {{ buildTranslationKey('clearFilters') | translate }}
+        </app-button>
+        <app-cross-button id="collapse-filters" (click)="collapseComponent()"></app-cross-button>
+      </div>
+    </div>
+    <perfect-scrollbar>
+      <form *ngIf="formGroup" [formGroup]="formGroup">
+        <ng-container *ngFor="let def of builtFilteringDefinition">
+          <div @parent class="filter-field" [id]="def.fieldId" *ngIf="def.displayed">
+            <mat-expansion-panel expanded="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="display-name" translate> {{ def.translationKey }}</span>
+                  <svg-icon src="arrow-single" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-container *ngIf="getResolveOptionsVisibilityFromDef(def) as defs">
+                <ul>
+                  <ng-container *ngTemplateOutlet="ulContent; context: { fieldDefinition: defs.constantlyVisibleDefs}">
+                  </ng-container>
+                </ul>
+                <ng-container *ngIf="defs.dynamicalyVisibleDefs && defs.dynamicalyVisibleDefs.options.length">
+                  <ul [@expandField] class="expandable-field" #ulDynamicOptions
+                      *ngIf="fieldCollapsingObject[def.fieldId]" class="collapsable-list">
+                    <ng-container
+                      *ngTemplateOutlet="ulContent; context: { fieldDefinition: defs.dynamicalyVisibleDefs}">
+                    </ng-container>
+                  </ul>
+                  <app-new-button [type]="'secondary'" (click)="toggleShowMoreState(def)"
+                              class="secondary mulish full-size secondary-gray expand-collapse-btn">{{
+                    buildTranslationKey(resolveShowMoreButtonTranslationKey(def)) | translate
+                    }}</app-new-button>
+                </ng-container>
+              </ng-container>
+            </mat-expansion-panel>
+          </div>
+        </ng-container>
+      </form>
+    </perfect-scrollbar>
+  </ng-container>
+</div>
+
+<ng-template #ulContent let-fieldDefinition="fieldDefinition">
+  <ng-container [ngSwitch]="fieldDefinition.singleSelection ? 'single' : 'multi'">
+    <ng-container *ngSwitchCase="'single'">
+      <ng-container
+        *ngTemplateOutlet="singleSelection; context: { formGroup: formGroup, fieldDefinition: fieldDefinition }">
+      </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'multi'">
+      <ng-container
+        *ngTemplateOutlet="multiSelection; context: { formGroup: formGroup, fieldDefinition: fieldDefinition }">
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #singleSelection let-formGroup="formGroup" let-fieldDefinition="fieldDefinition">
+  <li class="{{ fieldDefinition.fieldId }}-option filter-option"
+      [class.with-icon]="option.icon || fieldDefinition.iconTemplate" *ngFor="let option of fieldDefinition.options">
+    <span>
+      <app-radio-button [allowToggle]="true"
+                        [formControl]="formGroup.controls[fieldDefinition.fieldId].get(option.optionId)">
+        <ng-container *ngTemplateOutlet="labelTemplate; context: { fieldDefinition: fieldDefinition, option: option }">
+        </ng-container>
+      </app-radio-button>
+    </span>
+  </li>
+</ng-template>
+
+<ng-template #multiSelection let-formGroup="formGroup" let-fieldDefinition="fieldDefinition">
+  <li class="{{ fieldDefinition.fieldId }}-option filter-option"
+    [class.with-icon]="option.icon || fieldDefinition.iconTemplate" *ngFor="let option of fieldDefinition.options">
+     <span *ngIf="isOptionDisplayed(option, fieldDefinition)">
+      <app-checkbox [formControl]="formGroup.controls[fieldDefinition.fieldId].get(option.optionId)">
+        <ng-container *ngTemplateOutlet="labelTemplate; context: { fieldDefinition: fieldDefinition, option: option }">
+        </ng-container>
+      </app-checkbox>
+     </span>
+  </li>
+</ng-template>
+
+<ng-template #labelTemplate let-fieldDefinition="fieldDefinition" let-currentOption="option">
+  <span class="checkbox-icon">
+    <ng-container *ngTemplateOutlet="
+        fieldDefinition.iconTemplate ? fieldDefinition.iconTemplate : iconTemplate;
+        context: { src: currentOption.icon, value: currentOption.value }
+      "></ng-container>
+  </span>
+  <span class="filter-option-label">
+    <span title="{{ currentOption.translationKey || currentOption.value | translate }}"
+      class="pr-1 text">{{ currentOption.translationKey || currentOption.value | translate }}</span>
+    <span  class="option-count">({{
+      calculateCount(fieldDefinition, currentOption)
+      }})</span>
+  </span>
+</ng-template>
+
+<ng-template #iconTemplate let-src="src">
+  <svg-icon *ngIf="src" preserveAspectRatio="none" [stretch]="true" svgClass="icon" [src]="src"></svg-icon>
+</ng-template>

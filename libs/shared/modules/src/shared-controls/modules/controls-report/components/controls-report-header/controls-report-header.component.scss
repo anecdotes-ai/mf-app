@@ -1,0 +1,23 @@
+@import 'index';
+@import 'component-header-shared';
+
+:host {
+  background: $mc-navy-90;
+  @include MulishBold(21px, 21px);
+
+  .report-for-company {
+    color: $mc-white;
+  }
+
+  app-date-view.last_modified_time::ng-deep {
+    app-metadata-view {
+      display: flex;
+      flex-direction: row-reverse;
+
+      .metadata-value {
+        padding-left: 5px;
+        color: $mc-border-default;
+      }
+    }
+  }
+}

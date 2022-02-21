@@ -1,0 +1,102 @@
+<app-global-loader *ngIf="!(isAllLoaded$ | async)"></app-global-loader>
+
+<perfect-scrollbar #scrollbar>
+  <ng-container *ngIf="isAllLoaded$ | async">
+    <ng-container *ngIf="isSubmitted$ | async; else mainContent">
+      <div class="submitted-page-wrapper">
+        <svg-icon src="submitted" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        <div class="submitted-page-header">{{ buildTranslationKey('submittedPageHeader') | translate }}</div>
+        <div class="submitted-page-description">{{ buildTranslationKey('submittedPageDescription') | translate }}</div>
+      </div>
+    </ng-container>
+    <app-anecdotes-footer [noBackground]="footerNoBackground$ | async"></app-anecdotes-footer>
+  </ng-container>
+</perfect-scrollbar>
+
+<ng-template #mainContent>
+  <ng-container *ngIf="isLinkValid$ | async; else invalidLink">
+    <div class="header">
+      <div class="container-big">
+        <div class="header-text">{{ buildTranslationKey('header') | translate: policy }}</div>
+        <div class="last-updated">
+          <span class="last-updated-label" translate>{{ buildTranslationKey('lastUpdated') }}</span>
+          <span>&nbsp;{{ policy.policy_last_edit_time | date: 'MMM d, y | H:mm' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container-big">
+        <div class="greeting">
+          {{ buildTranslationKey('greeting') | translate: { approver_name: approverUser.displayName } }}
+        </div>
+        <div class="information">
+          <div>
+            {{
+            buildTranslationKey('infoFirstPart')
+            | translate: { anecdotes_user: policy.policy_edited_by, policy_name: policy.policy_name }
+            }}
+          </div>
+          <div>{{ buildTranslationKey('infoMiddlePart') | translate }}</div>
+          <div>
+            {{ buildTranslationKey('infoLastPart') | translate }}&nbsp;{{ expirationDate | date: 'MMM d, y | H:mm' }}
+          </div>
+        </div>
+      </div>
+      <svg-icon class="dashed-line" src="dashed-line-large" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+
+      <div class="file container-small">
+        <div class="file-info">
+          <div class="file-name">
+            <span class="file-name-label" translate>{{ buildTranslationKey('fileName') }}</span>
+            &nbsp;
+            <span>{{ policy.evidence.evidence_name }}</span>
+          </div>
+
+          <app-new-button *ngIf="policy.evidence.evidence_url" type="secondary" size="medium" class="mulish"
+            (click)="viewLinkedFile()">
+            {{ buildTranslationKey('viewLinkedFile') | translate }}
+          </app-new-button>
+        </div>
+
+        <div class="file-prewiew">
+          <app-file-viewer [file]="file" [usePagination]="true"></app-file-viewer>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <div class="container-small">
+        <div class="submit-title">{{ buildTranslationKey('submitApproval') | translate }}</div>
+        <div class="submit-info">
+          {{
+          buildTranslationKey('submitInfo')
+          | translate: { anecdotes_user: policy.policy_edited_by, approver_name: approverUser.displayName }
+          }}
+        </div>
+        <app-checkbox
+          [valueLabel]="buildTranslationKey('iAmApprover') | translate: { approver_name: approverUser.displayName }"
+          [(ngModel)]="checkboxValue"></app-checkbox>
+        <app-text-area class="w-full" [label]="buildTranslationKey('addNote')" [resizable]="false" [rows]="3"
+          [formControl]="noteControl"></app-text-area>
+        <app-tip [tipType]="tipTypes.NOTICE">
+          {{ buildTranslationKey('tipText') | translate }}
+        </app-tip>
+
+        <div class="submit-btn-wrapper">
+          <app-new-button type="primary" size="medium" class="mulish" [disabled]="!checkboxValue"
+            [loading]="isSubmitting$ | async" (click)="submitApproval()">{{ buildTranslationKey('submit') | translate }}
+          </app-new-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #invalidLink>
+  <div class="invalid-link-wrapper">
+    <svg-icon src="plant" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <div class="invalid-link-header">{{ buildTranslationKey('invalidLinkHeader') | translate }}</div>
+    <div class="invalid-link-description">{{ buildTranslationKey('invalidLinkDescription') | translate }}</div>
+  </div>
+</ng-template>

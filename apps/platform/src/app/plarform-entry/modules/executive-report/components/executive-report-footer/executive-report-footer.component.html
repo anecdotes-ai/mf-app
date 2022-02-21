@@ -1,0 +1,16 @@
+<div class="items-wrapper">
+  <section class="info-items">
+    <div
+      class="content-element"
+      *ngFor="let contentRow of footerDisplayItems"
+      placement="bottom"
+      tooltipClass="footer-item-info"
+    >
+      <app-specific-information-item [content]="contentRow">
+        <span class="field-description">
+          {{ buildTranslationKey(contentRow.descriptionTranslateKey) | translate }}</span
+        >
+      </app-specific-information-item>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,31 @@
+:host {
+  @apply block relative text-navy-90 bg-white font-main text-base;
+
+  &.editable {
+    @apply min-h-10 focus:border-navy-90 border border-navy-50 rounded-md p-3;
+  }
+}
+
+::ng-deep {
+  #mentioning-popup {
+    @apply p-1 rounded-md bg-white;
+    box-shadow: 0px 2px 13px rgba(4, 41, 62, 0.4);
+  }
+}
+
+:host::ng-deep {
+  .person {
+    @apply text-blue-70;
+  }
+
+  .placeholder {
+    @apply text-navy-70;
+  }
+
+  .text-input {
+    .editable {
+      @apply outline-none;
+      overflow-wrap: anywhere;
+    }
+  }
+}

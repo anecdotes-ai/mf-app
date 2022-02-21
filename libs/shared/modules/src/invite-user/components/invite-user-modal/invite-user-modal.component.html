@@ -1,0 +1,18 @@
+<app-base-modal iconPath="profile-mask" [titleTranslationKey]="getTitle()"
+  [footerTemplate]="footerTemplate">
+  <app-dynamic-form-outlet [dynamicFormGroup]="formGroup" [class.invite-auditor]="isInviteAuditor"></app-dynamic-form-outlet>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+  <app-button [clickOnEnter]="true" id="create-user-btn" [loading]="creatingInProgress"
+    [class.disabled]="!isFormGroupValid" class="main mulish medium" (click)="send()">
+    {{ buildTranslationKey('sendBtn') | translate }}
+  </app-button>
+</ng-template>
+
+<ng-template #rolesDescription>
+  <div *ngFor="let roleDescription of rolesDescriptionMapper" class="role-element">
+    <span class="role-name">{{ roleDescription.role | translate }}</span>
+    <span class="role-text-description">{{ roleDescription.translationKey | translate }}</span>
+  </div>
+</ng-template>

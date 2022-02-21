@@ -1,0 +1,41 @@
+@import 'index';
+
+:host::ng-deep {
+  app-button:hover svg path {
+    stroke: $mc-white;
+  }
+}
+
+:host {
+  .exclusive-feature-content {
+    display: none;
+  }
+
+  .exclusive-feature-description {
+    @include MulishFontStyle(13px, 21px);
+    color: $mc-navy-70;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  &:hover {
+    .frameworks-select {
+      display: none;
+    }
+
+    .exclusive-feature-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.frameworks-select-content-wraper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding-top: 28.5px;
+}

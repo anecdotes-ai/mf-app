@@ -1,0 +1,21 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+  <svg-icon *ngIf="icon" [src]="icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+
+  <span class="content-container" #contentContainer>
+    <ng-content></ng-content>
+  </span>
+
+  <div class="coming-soon-content" *ngIf="comingSoon">
+    <svg-icon src="small_rocket" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span translate>{{ 'core.comingSoon' }}</span>
+  </div>
+
+  <div class="exclusive-feature-content" *ngIf="exclusiveFeature">
+    <svg-icon src="star" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span translate>{{ 'core.exclusiveFeature' }}</span>
+  </div>
+
+</ng-container>
+<ng-template #loadingTemplate>
+  <app-circle-loader></app-circle-loader>
+</ng-template>

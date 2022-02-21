@@ -1,0 +1,97 @@
+@import 'index';
+
+:host {
+  display: flex;
+  @include MulishFontStyle();
+  max-width: 650px;
+
+  .main-icon {
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .index-icon {
+    line-height: 21px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        fill: $mc-pink-50;
+      }
+    }
+
+    &.index-icon-coming-soon {
+      svg {
+        path {
+          fill: $mc-navy-70;
+        }
+      }
+    }
+  }
+
+  .coming-soon-icon {
+    svg {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .image-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    margin-right: 5px;
+
+    span.index {
+      margin-top: 3px;
+      position: absolute;
+      color: $mc-white;
+      font-size: 10px;
+    }
+  }
+
+  .text-container {
+    margin: 0 10px;
+
+    .coming-soon {
+      opacity: 0.5;
+    }
+  }
+}
+
+.description {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19.5px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+
+:host::ng-deep {
+  .title,
+  .description {
+    a,
+    a:hover {
+      color: $mc-navy-90;
+      text-decoration: underline;
+      cursor: pointer;
+
+      &.coming-soon {
+        opacity: 0.5;
+      }
+    }
+  }
+}

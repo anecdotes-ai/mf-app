@@ -1,0 +1,53 @@
+@import 'index';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+:host:not(.multipage) {
+  .content {
+    margin-bottom: 31px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+
+  > button {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    @include basicLight();
+    background: none;
+
+    &.active-page {
+      background: $mc-navy-90;
+      color: $mc-white;
+    }
+
+    &:hover:not(.active-page) {
+      background: $mc-background;
+    }
+  }
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.hidden-page {
+  width: 0;
+  overflow: hidden;
+}

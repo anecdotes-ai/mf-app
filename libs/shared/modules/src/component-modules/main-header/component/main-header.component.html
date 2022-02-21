@@ -1,0 +1,41 @@
+<section>
+  <span class="title">{{
+    buildTranslationKey('title') | translate: { count: inputModel.translationHeaderCount }
+  }}</span>
+</section>
+<ng-container *ngIf="inputModel.showOnlyTitle; else dataTemplate"></ng-container>
+
+<ng-template #dataTemplate>
+  <section *ngIf="inputModel.hasDataSort">
+    <app-data-sort
+      [data]="inputModel.data"
+      [liveSort]="inputModel.liveSort"
+      [sortDefinitions]="inputModel.sortDefinition"
+      (sort)="inputModel.sortHandler($event)"
+    ></app-data-sort>
+  </section>
+  <section>
+    <app-data-search
+      #searchComponent
+      (search)="search.emit($event)"
+      [searchDefinitions]="inputModel.searchDefinitions"
+      [placeholderTranslationKey]="buildTranslationKey('searchPlaceholder')"
+    >
+    </app-data-search>
+  </section>
+  <section>
+    <app-button
+      *ngIf="inputModel.hasActionBtn"
+      id="action-btn"
+      placement="bottom"
+      (click)="btnPressed.emit()"
+      [icon]="inputModel.btnIcon"
+      class="secondary medium mulish"
+    >
+      {{ buildTranslationKey('btn') | translate }}
+    </app-button>
+  </section>
+  <section>
+    <app-data-filter-button></app-data-filter-button>
+  </section>
+</ng-template>

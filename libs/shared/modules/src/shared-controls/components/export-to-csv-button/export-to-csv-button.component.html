@@ -1,0 +1,2 @@
+<app-new-button [svgIconPath]="iconPath" [type]="type" [disabled]="!isDataToPreviewExists" class="{{class}}" (click)="downloadFullCsvData()">
+  {{ buildTranslationKey('exportToCsv') | translate }}</app-new-button>

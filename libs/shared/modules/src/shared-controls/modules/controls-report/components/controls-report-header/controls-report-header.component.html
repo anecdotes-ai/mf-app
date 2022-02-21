@@ -1,0 +1,13 @@
+<div class="header-content">
+  <span
+    class="report-for-company"
+    translate
+    [translateParams]="{ company_name: customer?.customer_name ? customer.customer_name : '...' }"
+    >{{ buildTranslationKey('reportForCompany') }}</span
+  >
+  <app-date-view
+    class="last_modified_time"
+    [date]="reportGenerateDate"
+    [descriptionTranslationKey]="buildTranslationKey('lastUpdated')"
+  ></app-date-view>
+</div>

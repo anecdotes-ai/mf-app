@@ -1,0 +1,48 @@
+<div *ngIf="auditors || auditorsToDisplay">
+  <ul class="auditor-list flex flex-row">
+    <ng-container *ngFor="let auditor of auditorsToDisplay; trackBy: trackByFn">
+      <li class="inline-block h-5 w-5 relative cursor-default">
+        <ng-container *ngIf="auditor.status === invitationStatus.ACTIVE; else pendingStatus">
+          <app-avatar
+            name="{{ auditor.first_name }} {{ auditor.last_name }}"
+            ngbTooltip="{{ auditor.first_name }} {{ auditor.last_name }}"
+            placement="top bottom"
+          ></app-avatar>
+        </ng-container>
+        <ng-template #pendingStatus>
+          <svg-icon
+          class="h-5"
+            src="avatar_no_color"
+            preserveAspectRatio="none"
+            [stretch]="true"
+            ngbTooltip="{{ auditor.first_name }} {{ auditor.last_name }}"
+            placement="top bottom"
+          ></svg-icon>
+        </ng-template>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="auditors?.length > 4">
+      <li class="flex h-5 w-5 relative align-items-center overflow-hidden">
+        <svg-icon
+          preserveAspectRatio="none"
+          [stretch]="true"
+          src="user-icon-logo"
+          class="more-auditors relative w-5"
+        ></svg-icon>
+        <svg-icon
+          class="right-4 w-3 relative"
+          src="three-dots-menu"
+          preserveAspectRatio="none"
+          [ngbTooltip]="tooltipList"
+          placement="top bottom"
+        ></svg-icon>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+
+<ng-template #tooltipList>
+  <div class="flex flex-col">
+    <span *ngFor="let auditorName of moreAuditors" class="p-1">{{ auditorName }}</span>
+  </div>
+</ng-template>

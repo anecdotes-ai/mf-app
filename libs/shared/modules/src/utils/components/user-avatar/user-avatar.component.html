@@ -1,0 +1,36 @@
+<ng-container *ngIf="getFullName(); else anonymous">
+  <ng-container *ngIf="avatarUrl; else noPhoto">
+    <svg class="user-photo" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path
+        d="M13.6707 0.968688C8.9666 2.04023 6.2491 5.12555 4.5249 7.10237C2.6695 9.20851 0.401802 11.7396 0.0457166 15.6563C-0.216662 18.7046 0.664181 21.8638 2.33216 24.4134C6.06169 30.1221 13.2584 32.1729 19.8178 31.1937C23.1163 30.6949 26.6959 29.4201 28.9261 26.8521C31.9435 23.3973 31.981 19.2774 31.9997 17.5961C32.0372 11.3701 28.4951 3.7584 21.692 1.33819C17.9624 0.0264658 14.6077 0.746989 13.6707 0.968688Z"
+        [attr.fill]="'url(#' + logoId + ')'" />
+      <defs>
+        <pattern [attr.id]="logoId" x="0" y="0" width="1" height="1">
+          <image width="100%" height="100%" preserveAspectRatio="xMidYMid slice" [attr.href]="avatarUrl" />
+        </pattern>
+      </defs>
+    </svg>
+  </ng-container>
+  <ng-template #noPhoto>
+    <ng-container *ngTemplateOutlet="initials">
+    </ng-container>
+  </ng-template>
+</ng-container>
+
+<ng-template #initials let-userName="userName">
+  <div class="user-initials">
+    <div class="absolute flex justify-center items-center w-full h-full">
+      {{ getInitials() }}
+    </div>
+    <svg class="w-full h-full" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12.0729 1.33524L12.0729 1.33525L12.077 1.33429C12.8683 1.14706 15.6881 0.54336 18.8138 1.64242C24.5031 3.66695 27.5312 10.0834 27.4998 15.3923C27.4834 16.859 27.4434 20.2934 24.9338 23.1668L24.9328 23.1678C23.0947 25.2844 20.1021 26.3713 17.266 26.8002C11.6548 27.6375 5.58372 25.871 2.45923 21.0884L2.45905 21.0881C1.05592 18.9434 0.31918 16.2899 0.538057 13.7434C0.831396 10.5214 2.67725 8.42625 4.30119 6.58298L4.33447 6.54521L4.33447 6.54521L4.33609 6.54335C5.84174 4.81711 8.12752 2.23396 12.0729 1.33524Z"
+        stroke="#81939E" />
+    </svg>
+  </div>
+</ng-template>
+
+<ng-template #anonymous>
+  <svg-icon preserveAspectRatio="none" [stretch]="true" [src]="'empty-avatar'" class="anonymous-user"></svg-icon>
+</ng-template>

@@ -1,0 +1,5 @@
+<svg-icon *ngIf="newNotifications$ | async" 
+          class="absolute -top-3"
+          [ngClass]="{ 'right-0': xPosition === positionXEnum.RIGHT, 'right-4': xPosition === positionXEnum.LEFT }"
+          [src]="'pink-circle'">
+</svg-icon>

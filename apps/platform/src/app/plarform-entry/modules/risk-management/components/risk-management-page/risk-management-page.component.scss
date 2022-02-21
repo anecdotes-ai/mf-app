@@ -1,0 +1,11 @@
+@import 'index';
+
+:host::ng-deep {
+  app-main-header app-button#action-btn:hover path {
+    @apply stroke-white;
+  }
+
+  app-empty-state {
+    @apply h-full;
+  }
+}

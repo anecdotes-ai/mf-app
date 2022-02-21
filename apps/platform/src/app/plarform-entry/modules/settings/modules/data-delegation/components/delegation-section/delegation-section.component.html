@@ -1,0 +1,14 @@
+<ng-container *ngIf="items">
+    <svg-icon
+    [ngbTooltip]="buildTranslationKey(sectionName) | translate"
+    placement="auto"
+    tooltipClass="it-user-help-tooltip default-tooltip"
+    src="info-small"
+    preserveAspectRatio="none"
+    [stretch]="true"
+    ></svg-icon>
+    <span class="px-2">{{ this.sectionName }}</span>
+    <div class="flex flex-col py-2">
+        <app-delegation-item *ngFor="let item of items" class="p-3" [item]="item" (contact)="contact.emit()"></app-delegation-item>
+    </div>
+</ng-container>

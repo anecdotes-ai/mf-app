@@ -1,0 +1,8 @@
+@import 'index';
+:host::ng-deep {
+  app-checkbox {
+    * {
+      stroke: $mc-navy-70 !important;
+    }
+  }
+}

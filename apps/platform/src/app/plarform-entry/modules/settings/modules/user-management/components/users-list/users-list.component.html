@@ -1,0 +1,3 @@
+<ng-container *ngIf="extendedUsers?.length">
+  <app-user-item *ngFor="let user of extendedUsers; trackBy: trackByUser" [user]="user"></app-user-item>
+</ng-container>

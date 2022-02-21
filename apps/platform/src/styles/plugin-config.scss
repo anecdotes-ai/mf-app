@@ -1,0 +1,268 @@
+//Set default background to every element starting with class .plugin-bg-
+[class^='plugin-bg-'] {
+  background: rgba(237, 240, 241, 1);
+}
+
+.plugin-bg- {
+  &okta {
+    background: rgba(10, 44, 118, 0.13);
+  }
+
+  &github {
+    background: rgba(23, 21, 21, 0.13);
+  }
+
+  &gsuite {
+    background: rgba(66, 133, 244, 0.13);
+  }
+
+  &gdrive {
+    background: rgba(20, 169, 100, 0.13);
+  }
+
+  &aws {
+    background: rgba(255, 153, 0, 0.13);
+  }
+
+  &gcp {
+    background: rgba(234, 67, 53, 0.13);
+  }
+
+  &tenable {
+    background: rgba(11, 31, 65, 0.13);
+  }
+
+  &snowflake {
+    background: rgba(41, 181, 232, 0.13);
+  }
+
+  &gitlab {
+    background: rgba(226, 67, 41, 0.13);
+  }
+
+  &circle_ci {
+    background: rgba(52, 52, 52, 0.13);
+  }
+
+  &freshservice {
+    background: rgba(8, 199, 251, 0.13);
+  }
+
+  &bamboohr {
+    background: rgba(105, 197, 47, 0.13);
+  }
+
+  &pagerduty {
+    background: rgba(6, 172, 56, 0.13);
+  }
+
+  &slack {
+    background: rgba(58, 19, 62, 0.13);
+  }
+
+  &crowdstrike {
+    background: rgba(236, 56, 37, 0.13);
+  }
+
+  &aws_config {
+    background: rgba(205, 34, 100, 0.13);
+  }
+
+  &aws_guard_duty {
+    background: rgba(222, 45, 52, 0.13);
+  }
+
+  &zendesk {
+    background: rgba(3, 54, 61, 0.13);
+  }
+
+  &cloudflare {
+    background: rgba(244, 129, 31, 0.13);
+  }
+
+  &panorays {
+    background: rgba(0, 15, 75, 0.13);
+  }
+
+  &dropbox {
+    background: rgba(0, 97, 255, 0.13);
+  }
+
+  &anecdotes {
+    background: rgba(0, 220, 232, 0.13);
+  }
+
+  &greenhouse {
+    background: rgba(0, 133, 97, 0.13);
+  }
+
+  &jira {
+    background: rgba(38, 132, 255, 0.13);
+  }
+
+  &jamf_pro {
+    background: rgba(119, 142, 177, 0.13);
+  }
+
+  &bigquery {
+    background: rgba(70, 132, 237, 0.13);
+  }
+
+  &hibob {
+    background: rgba(228, 47, 83, 0.13);
+  }
+
+  &azure_ad {
+    background: rgba(83, 188, 237, 0.13);
+  }
+
+  &onelogin {
+    background: rgba(28, 31, 42, 0.13);
+  }
+
+  &confluence {
+    background: rgba(38, 132, 255, 0.13);
+  }
+
+  &office365 {
+    background: rgba(235, 60, 0, 0.13);
+  }
+
+  &bitbucket {
+    background: rgba(38, 132, 255, 0.13);
+  }
+
+  &qualys {
+    background: rgba(237, 46, 38, 0.13);
+  }
+
+  &salesforce {
+    background: rgba(0, 161, 224, 0.13);
+  }
+
+  &guru {
+    background: rgba(122, 225, 183, 0.13);
+  }
+
+  &aws_iam {
+    background: rgba(231, 55, 60, 0.13);
+  }
+
+  &aws_s3 {
+    background: rgba(63, 134, 36, 0.13);
+  }
+
+  &aws_rds {
+    background: rgba(67, 91, 221, 0.13);
+  }
+
+  &aws_ec2 {
+    background: rgba(223, 110, 16, 0.13);
+  }
+
+  &endpoint_manager {
+    background: rgba(0, 114, 197, 0.13);
+  }
+
+  &intercom {
+    background: rgba(24, 24, 24, 0.13);
+  }
+
+  &datadog {
+    background: rgba(99, 44, 166, 0.13);
+  }
+
+  &azure_devops {
+    background: rgba(0, 120, 215, 0.13);
+  }
+  &gcip {
+    background: rgba(68, 138, 216, 0.13);
+  }
+  &jumpcloud {
+    background: rgba(20, 161, 156, 0.13);
+  }
+  &snyk {
+    background: rgba(51, 49, 82, 0.13);
+  }
+  &gusto {
+    background: rgba(244, 93, 72, 0.13);
+  }
+  &comeet {
+    background: rgba(8, 0, 112, 0.13);
+  }
+  &gcp_iam {
+    background: rgba(68, 134, 247, 0.13);
+  }
+  &gcp_big_query {
+    background: rgba(70, 132, 237, 0.13);
+  }
+  &gcp_compute_engine {
+    background: rgba(68, 134, 247, 0.13);
+  }
+  &gcp_cloud_identity {
+    background: rgba(68, 138, 216, 0.13);
+  }
+  &jenkins {
+    background: rgba(51, 80, 97, 0.13);
+  }
+  &newrelic {
+    background: rgba(10, 176, 191, 0.13);
+  }
+  &servicenow {
+    background: rgba(129, 181, 161, 0.13);
+  }
+  &heroku {
+    background: rgba(67, 0, 152, 0.13);
+  }
+  &mongo_db {
+    background: rgba(16, 170, 80, 0.13);
+  }
+  &one_uem {
+    background: rgba(129, 212, 250, 0.13);
+  }
+  &gcp_storage {
+    background: rgba(70, 132, 237, 0.13);
+  }
+  &gcp_kms {
+    background: rgba(70, 132, 237, 0.13);
+  }
+  &gcp_logging {
+    background: rgba(70, 132, 237, 0.13);
+  }
+  &box {
+    background: rgba(0, 113, 247, 0.13);
+  }
+  &aws_kms {
+    background: rgba(222, 45, 52, 0.13);
+  }
+  &workday {
+    background: rgba(0, 103, 171, 0.13);
+  }
+  &jira_server {
+    background: rgba(38, 132, 255, 0.13);
+  }
+  &auth0 {
+    background: rgba(0, 0, 0, 0.13);
+  }
+  &aws_cloudtrail {
+    background: rgba(218, 45, 110, 0.13);
+  }
+  &azure_virtual_machine {
+    background: rgba(50, 175, 234, 0.13);
+  }
+  &azure_storage_account {
+    background: rgba(50, 175, 234, 0.13);
+  }
+  &azure_database {
+    background: rgba(50, 175, 234, 0.13);
+  }
+  &aws_waf {
+    background: rgba(222, 45, 52, 0.13);
+  }
+  &aws_cloud_watch {
+    background: rgba(218, 45, 110, 0.13);
+  }
+  &orca_security {
+    background: rgba(0, 128, 255, 0.13);
+  }
+}

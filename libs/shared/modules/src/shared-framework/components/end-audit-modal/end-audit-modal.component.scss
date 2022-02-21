@@ -1,0 +1,11 @@
+:host::ng-deep {
+  width: 600px;
+
+  .end-audit-text span {
+      @apply text-pink-70 font-bold;
+  }
+
+  app-text-field#endAudit {
+      @apply w-full mb-4;
+  }
+}

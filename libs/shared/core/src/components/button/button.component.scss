@@ -1,0 +1,358 @@
+@import 'index';
+
+:host {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  cursor: pointer;
+
+  .content-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &.coming-soon {
+    cursor: default;
+    border: 1px solid transparent;
+
+    &:active {
+      pointer-events: none;
+    }
+    &:active,
+    &:hover {
+      justify-content: center !important;
+      flex-direction: row;
+      align-items: center;
+      background-color: #dafdff !important;
+      border: 1px solid $mc-navy-90;
+
+      .coming-soon-content {
+        display: flex !important;
+        @include MulishFontStyle(13px, 21px);
+        height: inherit;
+        align-items: center;
+        text-align: center;
+        color: $mc-navy-90;
+
+        span {
+          color: $mc-navy-90 !important;
+          margin-left: 7px;
+        }
+
+        svg-icon {
+          height: 20px !important;
+        }
+      }
+
+      .content-container {
+        display: none;
+      }
+    }
+
+    .coming-soon-content {
+      display: none;
+    }
+  }
+
+  &.exclusive-feature {
+    border: 1px solid transparent;
+
+    &:active,
+    &:hover {
+      justify-content: center !important;
+      flex-direction: row;
+      align-items: center;
+      background-color: $mc-blue-50 !important;
+      border: 1px solid transparent !important;
+
+      .exclusive-feature-content {
+        display: flex !important;
+        @include MulishFontStyle(13px, 21px);
+        height: inherit;
+        align-items: center;
+        text-align: center;
+        color: $mc-navy-90;
+
+        span {
+          color: $mc-navy-90 !important;
+        }
+      }
+
+      .content-container {
+        display: none;
+      }
+    }
+
+    .exclusive-feature-content {
+      display: none;
+    }
+  }
+
+  &.no-action-cursor {
+    cursor: default;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  &.loading::ng-deep {
+    pointer-events: none;
+
+    app-circle-loader {
+      height: 20px;
+      width: 20px;
+
+      .sectionQuart {
+        .loaderQuart {
+          border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .loaderQuart:after {
+          top: -2px;
+          left: -2px;
+          bottom: -2px;
+          right: -2px;
+          border: 2px solid transparent;
+          border-top-color: $mc-white;
+        }
+      }
+    }
+  }
+
+  &.light-blue-grey {
+    background: $mc-background;
+
+    &:hover::ng-deep {
+      background: $mc-navy-90 !important;
+
+      span {
+        color: $mc-white !important;
+
+        svg-icon {
+          svg * {
+            stroke: $mc-white !important;
+          }
+        }
+      }
+    }
+  }
+
+  /* colors */
+  &.main {
+    color: $mc-white;
+    background: $mc-navy-90;
+  }
+
+  &.gray {
+    color: $mc-white;
+    background: $mc-navy-70;
+  }
+
+  &.white {
+    background: $mc-white;
+  }
+
+  &.center-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  &.secondary-white {
+    border: 1px solid $mc-white;
+    background: $mc-navy-90;
+    color: $mc-white !important;
+
+    &:hover {
+      background: $mc-white !important;
+      color: $mc-navy-90 !important;
+    }
+  }
+
+  &.secondary-gray {
+    &:hover {
+      background: $mc-background !important;
+      color: $mc-navy-90;
+
+      span {
+        color: $mc-navy-90;
+      }
+    }
+  }
+
+  &.secondary {
+    color: $mc-navy-90;
+    background: transparent;
+    border: 1px solid $mc-navy-90;
+
+    &.loading::ng-deep {
+      .sectionQuart {
+        .loaderQuart {
+          border: 2px solid rgba($color: $mc-navy-90, $alpha: 0.5);
+        }
+
+        .loaderQuart:after {
+          border-top-color: $mc-navy-90;
+        }
+      }
+    }
+
+    &:hover:not(.loading)::ng-deep {
+      background: $mc-navy-90;
+      color: $mc-white;
+    }
+  }
+
+  &.secondary-filled {
+    color: $mc-navy-90;
+    background: transparent;
+    border: 1px solid $mc-navy-90;
+
+    &.loading::ng-deep {
+      background-color: $mc-navy-90;
+      color: $mc-white;
+      .sectionQuart {
+        .loaderQuart {
+          border: 2px solid rgba($color: $mc-navy-90, $alpha: 0.5);
+        }
+
+        .loaderQuart:after {
+          border-top-color: $mc-white;
+        }
+      }
+    }
+
+    &:hover:not(.loading)::ng-deep {
+      background: $mc-navy-90;
+      color: $mc-white;
+    }
+  }
+
+  &.dark-blue::ng-deep {
+    background: $mc-navy-90;
+
+    span {
+      color: $mc-white;
+    }
+  }
+
+  &.orange::ng-deep {
+    background: $mc-orange-50;
+
+    span {
+      color: $mc-white;
+    }
+  }
+
+  /* end colors */
+
+  /* fonts */
+  &.mulish {
+    @include MulishFontStyle();
+  }
+
+  &.muli {
+    @include baseFontStyle();
+  }
+
+  &.text-underline {
+    text-decoration: underline;
+  }
+
+  /* end fonts */
+
+  /* size */
+  &.stretch {
+    width: 100%;
+    height: 40px;
+  }
+
+  &.medium {
+    min-width: 160px;
+    max-height: 40px;
+  }
+
+  &.small {
+    min-width: 107px;
+  }
+
+  &.responsive {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  &.full-size {
+    min-width: 100%;
+  }
+
+  /* endSize */
+
+  /* disabled state */
+  &.disabled {
+    pointer-events: none;
+
+    &.main {
+      background: $mc-disabled;
+    }
+
+    &.secondary {
+      opacity: 0.3;
+    }
+  }
+
+  /* end disabled state */
+
+  &:not(.content-exist) {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  &.content-exist {
+    svg-icon {
+      margin-right: 15px;
+    }
+  }
+
+  &.transparent {
+    color: $mc-navy-70;
+
+    svg-icon {
+      margin-right: 7px;
+
+      * {
+        stroke: $mc-navy-70;
+      }
+    }
+  }
+
+  &.btn-blue {
+    @include MulishFontStyle(13px, 18px);
+    background-color: $mc-blue-30;
+    border-color: $mc-blue-30;
+    color: $mc-navy-90;
+
+    &:hover {
+      background-color: $mc-blue-50 !important;
+      border-color: $mc-blue-50 !important;
+    }
+
+    &.disabled {
+      background-color: $mc-navy-70 !important;
+      border-color: $mc-navy-70 !important;
+    }
+  }
+
+  &.btn-white-blue {
+    @include MulishFontStyle(13px, 18px);
+    background: $mc-white;
+    color: $mc-navy-90;
+
+    &:hover {
+      background-color: $mc-blue-30 !important;
+      border-color: $mc-blue-30 !important;
+    }
+  }
+}

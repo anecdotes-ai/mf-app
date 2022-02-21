@@ -1,0 +1,7 @@
+:host {
+    @apply inline-block;
+}
+
+::ng-deep .linked-entities-tooltip svg path {
+    @apply fill-white;
+}

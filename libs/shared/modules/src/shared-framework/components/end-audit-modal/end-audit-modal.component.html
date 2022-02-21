@@ -1,0 +1,26 @@
+<app-base-modal
+  [iconPath]="'audit-history'"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footer"
+>
+  <app-text
+    class="content-title main-font-13 text-navy-90 font-bold mt-5 mb-2.5 text-left"
+    [text]="buildTranslationKey('contentTitle') | translate"
+  ></app-text>
+  <ul class="bullet-info main-font-13 text-navy-90 pl-4 list-disc list-outside">
+    <li>{{ buildTranslationKey('auditSnapshot') | translate }}</li>
+    <li>{{ buildTranslationKey('controlStatus') | translate }}</li>
+    <li>{{ buildTranslationKey('nextAudit') | translate }}</li>
+  </ul>
+  <app-tip class="mt-2.5 mb-3 w-full" [tipType]="tipTypes.TIP">
+    <app-text [text]="buildTranslationKey('manageAuditors') | translate"></app-text>
+  </app-tip>
+  <div class="end-audit-text main-font-13 text-navy-90 font-bold mb-2.5" [innerHtml]="buildTranslationKey('typeEndAudit') | translate"></div>
+  <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+</app-base-modal>
+<ng-template #footer>
+  <app-new-button [clickOnEnter]="true" [loading]="isLoading" (click)="endAudit()" [disabled]="!form.valid">
+    <span>{{ buildTranslationKey('okBtn') | translate }}</span>
+  </app-new-button>
+</ng-template>

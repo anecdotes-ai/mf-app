@@ -1,0 +1,35 @@
+@import '../shared-styles.scss';
+
+:host {
+  @include sharedStylesForComponent();
+}
+
+.text {
+  margin-bottom: 50px;
+}
+
+.with-side-lines {
+  margin: 40px 0;
+}
+
+.forgot-password-text {
+  color: $mc-navy-70;
+  margin: 21px 0;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+#next-btn {
+  margin: 0;
+}
+
+.customer-logo {
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-height: 50px;
+  }
+}

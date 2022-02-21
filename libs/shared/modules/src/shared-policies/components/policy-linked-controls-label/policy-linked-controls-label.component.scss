@@ -1,0 +1,9 @@
+::ng-deep {
+  .linked-icon-fill {
+    svg-icon {
+      svg path {
+        @apply fill-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@import 'index';
+
+li.filter-option {
+  min-width: 120px;
+  padding-right: 20px;
+}
+
+:host {
+  ::ng-deep {
+    app-checkbox {
+      svg {
+        padding-right: 0 !important;
+      }
+
+      svg-icon {
+        padding: 0 6px !important;
+      }
+
+      &:not(.disabled-checkbox) .filter-option-label {
+        color: $mc-navy-90;
+      }
+    }
+  }
+}

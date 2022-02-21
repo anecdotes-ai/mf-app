@@ -1,0 +1,24 @@
+<section class="dashboard-categories" [class.comingSoon]="emptyState">
+  <div class="wrapper-item grid 2xl:grid-cols-4 xl:grid-cols-3 grid-cols-2 2xl:gap-3 xl:gap-3 gap-8">
+    <div class="category-item w-full h-32" *ngFor="let category of categories">
+      <div class="categories-left-side">
+        <div class="category-header d-flex">
+          <div
+          class="title pl-3"
+          [ngbTooltip]="buildTranslationKey('tooltipTitle') | translate"
+          placement="top"
+          tooltipClass="required-mark-tooltip"
+          (click)="exploreControls(category)">
+            {{ category.category_name }}
+          </div>
+        </div>        
+      </div>
+      <div class="categories-right-side">
+        <div>
+          <app-chart-wave-percent [percent]="category.status_indications"
+            [isTabletSize]="(isTabletSize | async)?.matches"></app-chart-wave-percent>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

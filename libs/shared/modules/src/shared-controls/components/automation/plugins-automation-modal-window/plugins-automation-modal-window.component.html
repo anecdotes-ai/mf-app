@@ -1,0 +1,20 @@
+<app-base-modal
+  *ngIf="this.context$ | async as context"
+  [iconPath]="iconName"
+  [titleTranslationKey]="baseModalConfigData.titleKey"
+  [descriptionTranslationKey]="baseModalConfigData.descriptionKey"
+  [leftCornerData]="{ icon: 'info', titleText: context?.entityPath?.join('/') }"
+  [footerTemplate]="isBackEnabled ? backButtonFooter : null"
+>
+  <perfect-scrollbar>
+    <ng-container *ngFor="let pluginData of relatedPlugins; trackBy: trackByFn">
+      <app-big-plugin-item [pluginData]="pluginData"> </app-big-plugin-item>
+    </ng-container>
+  </perfect-scrollbar>
+</app-base-modal>
+
+<ng-template #backButtonFooter>
+  <app-button (click)="backModalButtonClick()" class="secondary mulish medium">
+    {{ buildSwitcherTranslationKey('footer.buttons.backToAllOptions') | translate }}
+  </app-button>
+</ng-template>

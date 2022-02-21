@@ -1,0 +1,11 @@
+<app-metadata-view
+  [ngbTooltip]="fullDate"
+  [keepOnHover]="true"
+  placement="bottom"
+  [metadataDescriptionTranslationKey]="descriptionTranslationKey"
+  [metadataValue]="resolveDisplayedDateMessage() | translate: {amount: amount}"
+></app-metadata-view>
+
+<ng-template #fullDate>
+  <span>{{ date | localDate: dateFormat }}</span>
+</ng-template>

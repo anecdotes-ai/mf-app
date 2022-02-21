@@ -1,0 +1,11 @@
+<app-three-dots-menu
+  *ngIf="!isLoading && calculatedControl"
+  [menuActions]="threeDotsMenuActions"
+  [context]="calculatedControl"
+  (click)="threeDotsMenuClick($event)">
+</app-three-dots-menu>
+<app-circle-loader
+  *ngIf="isLoading"
+  [appearance]="'dark'"
+>
+</app-circle-loader>

@@ -1,0 +1,10 @@
+.coming-soon-icon {
+  margin-left: 30px;
+}
+
+.empty-list-placeholder {
+    @apply text-navy-60 opacity-50 font-main text-base flex items-center;
+    height: 40px;
+    padding: 0 10px;
+    width: 100%;
+}

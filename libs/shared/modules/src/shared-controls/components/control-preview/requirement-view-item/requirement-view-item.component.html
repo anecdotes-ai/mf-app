@@ -1,0 +1,19 @@
+<ng-container *ngIf="requirement">
+  <div class="flex justify-start items-center py-4 pl-6 bg-navy-10 gap-x-2.5">
+    <span class="font-main font-bold text-navy-90 text-2xl">{{ requirement.requirement_name }}</span>
+    <app-element-info [requirementLike]="reqLike"></app-element-info>
+  </div>
+
+  <ng-container *ngIf="evidenceIds">
+    <ng-container *ngIf="evidenceIds.length; else noEvidences">
+      <app-evidence-view-item *ngFor="let evidenceId of evidenceIds" [evidenceId]="evidenceId"></app-evidence-view-item>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #noEvidences>
+  <div class="flex justify-center items-center gap-x-3 py-3.5 border-t border-b border-solid border-navy-30">
+    <svg-icon [src]="'document'"></svg-icon>
+    <span class="font-main text-base text-navy-70">{{ buildTranslationKey('noEvidenceYet') | translate }}</span>
+  </div>
+</ng-template>

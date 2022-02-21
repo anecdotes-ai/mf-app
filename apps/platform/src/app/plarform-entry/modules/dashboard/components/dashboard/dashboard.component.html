@@ -1,0 +1,8 @@
+<section id="dashboard-section">
+  <app-dashboard-header [data]="headerData$ | async"></app-dashboard-header>
+  <perfect-scrollbar class="dashboard-perfect-bar">
+    <div class="common-container">
+      <app-dashboard-frameworks [connectedServicesData]="connectedServicesData$ | async" [data]="frameworksSectionData$ | async"></app-dashboard-frameworks>
+    </div>
+  </perfect-scrollbar>
+</section>

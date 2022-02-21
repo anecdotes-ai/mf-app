@@ -1,0 +1,15 @@
+<anecdotes-comment-input
+  #textInput
+  class="text-input group w-full outline-none bg-transparent"
+  [editable]="editable"
+  [placeholder]="placeholder"
+  [formControl]="textControl"
+  (focusin)="gotFocus.emit()"
+  (focusout)="lostFocus.emit()"
+>
+<ng-template #optionTemplate let-user="user" let-isFocused="isFocused">
+  <app-dropdown-option [selected]="isFocused">
+    <app-user-logo [userId]="user.id" [fallbackUserName]="user.name"></app-user-logo><span>{{ user.name }}</span>
+  </app-dropdown-option>
+</ng-template>
+</anecdotes-comment-input>

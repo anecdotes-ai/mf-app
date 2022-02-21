@@ -1,0 +1,16 @@
+<app-coming-soon-button *ngIf="comingSoon; else allowPlugin">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</app-coming-soon-button>
+
+<ng-template #allowPlugin>
+  <app-new-button>
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </app-new-button>
+</ng-template>
+
+<ng-template #content>
+  <div class="small-icon">
+    <svg-icon [src]="serviceIcon$ | async" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+  </div>
+  <span>{{ pluginData.service_display_name }}</span>
+</ng-template>

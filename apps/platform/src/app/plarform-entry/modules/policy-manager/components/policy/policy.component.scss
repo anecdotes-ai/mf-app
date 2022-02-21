@@ -1,0 +1,44 @@
+@import 'index';
+
+.template-download-btn {
+  width: 40px;
+  height: 40px;
+}
+
+.template-download-btn:hover::ng-deep {
+  svg-icon * {
+    stroke: $mc-white;
+    fill: $mc-navy-90;
+  }
+}
+
+.actions {
+  grid-gap: 10px;
+}
+
+:host::ng-deep {
+  .manual-upload-btn:hover {
+    svg-icon * {
+      path {
+        stroke: $mc-white;
+        fill: $mc-navy-90;
+      }
+    }
+  }
+
+  #linkElementBtn {
+    svg-icon {
+      position: relative;
+      bottom: 2px;
+
+      svg * {
+        fill: $mc-white;
+      }
+    }
+  }
+}
+
+app-requirement-like {
+  border: 1px solid $mc-navy-50;
+  border-radius: 6px;
+}

@@ -1,0 +1,12 @@
+<app-base-modal *ngIf="control$ | async as control" [noHeader]="true" [noPadding]="true" class="block">
+  <section class="flex items-center justify-end h-14 pr-14 border-b border-navy-40">
+    <section class="flex-1 flex items-center">
+      <div class="flex-1 main-font-13 font-bold ellipsis mr-2 max-w-6xl pl-6">{{ context?.entityPath?.join('/') }}</div>
+      <app-new-button class="header-btn" (click)="viewFullControl()">
+        {{ buildTranslationKey('viewFullControl') | translate }}
+      </app-new-button>
+    </section>
+  </section>
+
+  <app-control-view-item [controlId]="control.control_id"></app-control-view-item>
+</app-base-modal>

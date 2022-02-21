@@ -1,0 +1,30 @@
+<ng-container *ngIf="risk">
+  <div class="flex flex-col">
+    <div class="font-main font-bold text-sm text-navy-90">{{ buildTranslationKey('sourceFieldName') | translate }}</div>
+    <app-risk-source-label class="mt-2" [riskId]="riskId"></app-risk-source-label>
+  </div>
+  <app-risk-editable-field
+    [fieldName]="buildTranslationKey('descriptionFieldName') | translate"
+    [fieldText]="risk.risk_description"
+    [placeholder]="buildTranslationKey('descriptionPlaceholder') | translate"
+    [submitOnEnter]="true"
+    (submit)="editDescription($event)"
+  >
+  </app-risk-editable-field>
+  <app-risk-editable-field
+    [fieldName]="buildTranslationKey('threatFieldName') | translate"
+    [fieldText]="risk.threat_description"
+    [placeholder]="buildTranslationKey('threatPlaceholder') | translate"
+    [submitOnEnter]="true"
+    (submit)="editThreat($event)"
+  >
+  </app-risk-editable-field>
+  <app-risk-editable-field
+    [fieldName]="buildTranslationKey('vulnerabilityFieldName') | translate"
+    [fieldText]="risk.vulnerability_description"
+    [placeholder]="buildTranslationKey('vulnerabilityPlaceholder') | translate"
+    [submitOnEnter]="true"
+    (submit)="editVulnerability($event)"
+  >
+  </app-risk-editable-field>
+</ng-container>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="currentTenant">
+  <app-tenant-logo></app-tenant-logo>
+  <section class="with-side-lines">
+    <div></div>
+  </section>
+  <section class="login-content">
+    <app-idps-login *ngIf="idps" [idps]="idps"></app-idps-login>
+    <div *ngIf="displayEmailLogin && idps" class="or-text with-side-lines">
+      <div></div>
+      <h5 class="center-text">{{ buildTranslationKey('orText') | translate }}</h5>
+      <div></div>
+    </div>
+    <app-email-login (signInEmailSent)="handleSignInEmailSent($event)" [tenant]="currentTenant" *ngIf="displayEmailLogin"></app-email-login>
+  </section>
+</ng-container>

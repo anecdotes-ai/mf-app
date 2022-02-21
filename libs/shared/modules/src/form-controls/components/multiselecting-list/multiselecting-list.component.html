@@ -1,0 +1,5 @@
+
+  <div class="item" *ngFor="let item of itemsList" [class.selected]="item.selected" (click)="selectionItemHandler(item)">    
+    <svg-icon [class.divided]="item.translationKey || item.text"  *ngIf="item.icon" [src]="item.icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>    
+    <span>{{ item.translationKey ? (item.translationKey | translate ) : item.text }}</span>    
+  </div>

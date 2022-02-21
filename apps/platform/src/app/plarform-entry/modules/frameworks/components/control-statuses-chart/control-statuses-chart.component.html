@@ -1,0 +1,16 @@
+<canvas baseChart [data]="doughnutChartData" [options]="chartOptions" [type]="doughnutChartType"> </canvas>
+<div class="chart-center flex flex-col items-center justify-center absolute top-0 h-52 text-center w-full">
+   <div class="percent secondary-font-24 text-navy-90 font-bold lining-nums proportional-nums">{{ percent }}%</div>
+   <div class="percent main-font-13 text-navy-80 w-16">{{ buildTranslationKey('controls') | translate }} {{ controlsGroupWithHighestValue.translationKey | translate }}</div>
+</div>
+<div class="flex flex-col">
+  <div
+    class="legend-item flex flex-row items-center py-4 pl-4 border-b border-navy-30 main-font-13 text-navy-90 cursor-pointer"
+    *ngFor="let status of controlsGroupedByStatus; trackBy: trackByFn"
+    (click)="exploreControls(status.key)"
+  >
+    <svg-icon preserveAspectRatio="none" [stretch]="true" [src]="status.icon"></svg-icon>
+    <div class="status-label flex-1 ml-2.5">{{ status?.translationKey | translate }}</div>
+    <div class="status-value">{{ status?.value }}</div>
+  </div>
+</div>

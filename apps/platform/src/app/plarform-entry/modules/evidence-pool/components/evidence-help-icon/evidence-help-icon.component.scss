@@ -1,0 +1,64 @@
+@import 'index';
+
+.help-tooltip {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  @include MulishFontStyle(13px, 23px);
+
+  section:not(:last-child) {
+    margin-bottom: 23px;
+  }
+
+  a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: $mc-white;
+  }
+
+  .api-call {
+    width: $evidence-help-width;
+  }
+}
+
+:host {
+  display: flex;
+}
+
+:host::ng-deep {
+  .help-icon {
+    width: 18px;
+    height: 18px;
+  
+    &.margin-top {
+      margin-top: 20px;
+    }
+  
+    &.margin-right {
+      margin-right: 5px;
+    }
+  
+    svg {
+      path:nth-of-type(1) {
+        stroke: $mc-navy-50;
+      }
+  
+      path:nth-of-type(2) {
+        fill: $mc-navy-50;
+      }
+    }
+  
+    &:hover,
+    &.tooltip-opened {
+      svg {
+        path:nth-of-type(1) {
+          stroke: $mc-navy-90;
+        }
+  
+        path:nth-of-type(2) {
+          fill: $mc-navy-90;
+        }
+      }
+    }
+  }  
+}

@@ -1,0 +1,17 @@
+<svg-icon class="main-icon" [src]="iconPath"></svg-icon>
+<div class="text-container">
+  <div class="flex flex-row font-main text-base text-navy-90 title">
+    <div *ngIf="index !== undefined" class="image-container">
+      <svg-icon class="index-icon" [class.index-icon-coming-soon]="comingSoon" [src]="'plugins/default'"></svg-icon>
+      <span class="index">{{ index }}</span>
+    </div>
+    <div class="flex flex-row title-text" [class.coming-soon]="comingSoon">
+      <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+    </div>
+  </div>
+  <p class="description" [class.coming-soon]="comingSoon">
+    <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+  </p>
+  <ng-content></ng-content>
+</div>
+<svg-icon *ngIf="comingSoon" [src]="'coming-soon-blue'" class="coming-soon-icon"></svg-icon>

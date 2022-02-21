@@ -1,0 +1,22 @@
+<app-risk-dates [riskId]="riskId"></app-risk-dates>
+<div class="relative flex-1 bg-navy-10 rounded-md grid grid-rows-3 px-5 pt-6 gap-6">
+  <app-risk-analysis-item
+    [riskId]="riskId"
+    [title]="buildTranslationKey('inherentRisk') | translate"
+    [analysisType]="'Inherent'"
+  ></app-risk-analysis-item>
+  <app-risk-analysis-item
+    [riskId]="riskId"
+    [title]="buildTranslationKey('residualRisk') | translate"
+    [analysisType]="'Residual'"
+  ></app-risk-analysis-item>
+  <app-risk-analysis-item
+    [riskId]="riskId"
+    [title]="buildTranslationKey('riskLevelTarget') | translate"
+    [analysisType]="'RiskLevelTarget'"
+  ></app-risk-analysis-item>
+  <span class="absolute flex items-center right-5 bottom-6" (click)="openRiskRegistryModal()">
+    <svg-icon [stretch]="true" src="info" preserveAspectRatio="none" class="mr-1"></svg-icon>
+    <span class="main-font-11 text-navy-90 ellipsis cursor-pointer underline">{{ buildTranslationKey('riskCalc') | translate }}</span>
+  </span>
+</div>

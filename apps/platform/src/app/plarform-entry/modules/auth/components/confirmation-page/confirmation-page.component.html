@@ -1,0 +1,15 @@
+<ng-container *ngIf="switcherContext$ | async as switcherContext">
+  <app-tenant-logo></app-tenant-logo>
+  <section class="with-side-lines">
+    <div></div>
+  </section>
+  <section class="center-text">
+    <svg-icon class="status-icon" [src]="'status_complete'"></svg-icon>
+    <h1>
+      <div class="sent-text truncate" placement="top" [ngbTooltip]="switcherContext.confirmation.enteredEmail"
+        [openTooltipWhenOverflowedAndHovered]="true" [openOnWidthOverflow]="true">{{
+        buildTranslationKey('emailSentText') | translate: switcherContext.confirmation }} </div>
+    </h1>
+    <h2>{{ buildTranslationKey('checkInboxText') | translate }}</h2>
+  </section>
+</ng-container>

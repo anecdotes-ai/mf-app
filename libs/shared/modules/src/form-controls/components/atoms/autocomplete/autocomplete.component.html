@@ -1,0 +1,21 @@
+<div
+  *ngIf="isAutocompleteDisplayed"
+  class="autocomplete-list custom-menu custom-menu-panel"
+  (document:click)="outsideClickHandler($event)"
+>
+  <div #customMenuContent class="custom-menu-content" [style.maxHeight]="calculatedMaxMenuHeight">
+    <perfect-scrollbar>
+      <div
+        *ngFor="let suggestion of matchedSuggestions; let i = index"
+        [id]="'option' + i"
+        class="autocomplete-item custom-menu-item"
+        [class.focus]="i === focusedSuggestionIndex"
+        (click)="selectSuggestion(suggestion)"
+      >
+        <span>
+          {{ suggestion }}
+        </span>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>

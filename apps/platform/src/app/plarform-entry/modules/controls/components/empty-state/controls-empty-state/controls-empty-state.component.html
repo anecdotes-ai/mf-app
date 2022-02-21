@@ -1,0 +1,69 @@
+<perfect-scrollbar *ngIf="frameworks$ | async as frameworks">
+  <div class="d-flex flex-column align-items-center">
+    <div class="header">{{ buildTranslationKey('header') | translate }}</div>
+    <div class="secondary-header">{{ buildTranslationKey('secondaryHeader') | translate }}</div>
+    <svg-icon class="dashed-line" src="dashed-line" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+
+  <div class="cards">
+    <app-onboarding-card
+      [colorType]="badgeColorTypes.PINK"
+      [badgeTranslationKey]="buildTranslationKey('anecdotesBadge')"
+      [headerTranslationKey]="buildTranslationKey('anecdotesHeader')"
+      [subheaderTranslationKey]="buildTranslationKey('anecdotesSubheader')"
+    >
+      <div class="anecdotes-content-wrapper">
+        <app-framework-info
+          [frameworkId]="anecdotesUnifiedFrameworkId"
+          [frameworkName]="anecdotesUnifiedFrameworkName"
+          [frameworkControlsCount]="anecdotesUnifiedControlsCount"
+        ></app-framework-info>
+        <div class="anecdotes-info">{{ buildTranslationKey('anecdotesInfo') | translate }}</div>
+      </div>
+      <div class="d-flex flex-column align-items-center">
+        <svg-icon src="dashed-spinned-line" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        <app-button
+          (click)="startWithAnecdotesEssentials()"
+          class="main mulish start-with-anecdotes"
+          [loading]="isStartWithAnecdotesLoading"
+        >
+          {{ buildTranslationKey('startWithBasics') | translate }}
+        </app-button>
+      </div>
+    </app-onboarding-card>
+
+    <svg-icon class="onboarding-or" src="onboarding-or" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+
+    <app-onboarding-card
+      *isAccountFeatureEnabled="features.AdoptFramework; else frameworksAdoptionDisabled"
+      [colorType]="badgeColorTypes.ORANGE"
+      [badgeTranslationKey]="buildTranslationKey('frameworksBadge')"
+      [headerTranslationKey]="buildTranslationKey('frameworksHeader')"
+      [subheaderTranslationKey]="buildTranslationKey('frameworksSubheader')"
+    >
+      <div class="frameworks-select-content-wraper">
+        <app-select-framework
+          [frameworks]="frameworks"
+          [selectedFrameworks]="selectedFrameworks"
+          (frameworkSelected)="selectFramework($event)"
+        ></app-select-framework>
+        <app-button
+          (click)="startWithFrameworkAdoption()"
+          class="main mulish start-with-framework-adoption"
+          [class.disabled]="!selectedFrameworks.size"
+          [loading]="isStartWithFrameworkAdoptionLoading"
+        >
+          {{ buildTranslationKey('adoptSelectedFrameworks') | translate: { count: selectedFrameworks.size } }}
+        </app-button>
+      </div>
+    </app-onboarding-card>
+  </div>
+
+  <div class="bottom-help-text" [innerHtml]="buildTranslationKey('bottomHelpText') | translate"></div>
+
+  <app-shaped-footer></app-shaped-footer>
+</perfect-scrollbar>
+
+<ng-template #frameworksAdoptionDisabled>
+  <app-exclusive-framework-adoption [frameworks]="frameworks$ | async"></app-exclusive-framework-adoption>
+</ng-template>

@@ -1,0 +1,21 @@
+:host::ng-deep {
+  @apply relative block;
+
+  .status-value {
+    @apply text-navy-70;
+  }
+
+  .legend-item:hover {
+    .status-label,
+    .status-value {
+      @apply font-bold text-navy-90;
+    }
+    .status-label {
+      @apply underline;
+    }
+  }
+
+  .legend-item:last-child {
+    @apply border-b-0 #{!important};
+  }
+}

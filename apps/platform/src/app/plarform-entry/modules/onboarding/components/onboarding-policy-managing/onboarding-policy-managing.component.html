@@ -1,0 +1,36 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-policy"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-18 bold header">{{ buildTranslationKey('descriptions.headerManage') | translate
+                }}</span>
+            <app-multiselectable-list [type]='"small"' [itemsList]="multiselectableItems"
+                (select)="pluginSelected($event)">
+            </app-multiselectable-list>
+        </div>
+    </div>
+
+</div>
+<div class="footer">
+    <div class="onboarding-buttons">
+        <ng-container *ngIf="!isAnyPluginSelected(); else selected">
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="secondary" size="fixed160" (click)="onNextClick()">
+                {{buildTranslationKey('buttons.skip') | translate }}
+            </app-new-button>
+        </ng-container>
+
+        <ng-template #selected>
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="primary" size="fixed160" (click)="onNextClick()">
+                {{buildTranslationKey('buttons.next') | translate }}
+            </app-new-button>
+        </ng-template>
+        <div>
+        </div>

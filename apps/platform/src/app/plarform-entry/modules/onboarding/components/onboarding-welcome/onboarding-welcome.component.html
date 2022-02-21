@@ -1,0 +1,24 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-welcome"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-32 bold header">{{ buildTranslationKey('descriptions.welcomeHeader') | translate
+                }}</span>
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.welcomDescriptionMain') | translate
+                }}</span>
+            <p>&nbsp;</p>
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.welcomeDescriptionSecondary') | translate
+                }}</span>
+        </div>
+    </div>
+</div>
+<div class="footer">
+
+    <div class="onboarding-buttons">
+        <app-new-button type="primary" size="fixed160" (click)="getStartedClick()">
+            {{buildTranslationKey('buttons.getStarted') | translate }}
+        </app-new-button>
+    </div>
+</div>

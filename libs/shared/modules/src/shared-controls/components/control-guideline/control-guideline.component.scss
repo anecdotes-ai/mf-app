@@ -1,0 +1,32 @@
+:host {
+  width: 600px;
+  height: 350px;
+  border: 2px solid;
+  @apply border-navy-90;
+
+  perfect-scrollbar::ng-deep {
+    .ps {
+      height: 290px;
+      padding-top: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    &.tabs-ofsetted {
+      .ps {
+        height: 240px;
+      }
+    }
+    .ps__rail-y {
+      margin-top: 10px;
+    }
+  }
+
+  .tabs-wrapper {
+    height: 50px;
+    .guidline-tab.selected {
+      @apply font-bold border-navy-90;
+      border-bottom: 1px solid;
+    }
+  }
+}

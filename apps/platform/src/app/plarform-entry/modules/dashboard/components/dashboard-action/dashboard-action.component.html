@@ -1,0 +1,16 @@
+<section class="dashboard-action">
+  <div class="header">
+    <span> {{ buildTranslationKey('header') | translate }}</span>
+  </div>
+  <perfect-scrollbar class="action-required-perfect-bar">
+    <ng-container *ngIf="data && data.length; else noActionsYet">
+      <app-dashboard-action-item *ngFor="let controlItem of data" [control]="controlItem"> </app-dashboard-action-item>
+    </ng-container>
+    <ng-template #noActionsYet>
+      <div id="no-actions-content">
+        <span class="no-actions-title">{{ buildTranslationKey('noActions.title') | translate }}</span>
+        <span class="no-actions-description">{{ buildTranslationKey('noActions.description') | translate }}</span>
+      </div>
+    </ng-template>
+  </perfect-scrollbar>
+</section>

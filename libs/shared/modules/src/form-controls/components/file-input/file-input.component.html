@@ -1,0 +1,26 @@
+<app-control-header *ngIf="label" [label]="label" [index]="index"
+  [required]="required"></app-control-header>
+
+<div
+  class="wrapper"
+  [class.is-disabled]="isDisabled$ | async"
+  (click)="selectFile($event)"
+  [class.file-changed]="value"
+>
+  <input
+    hidden
+    #fileUploadField
+    id="{{ fieldName }}-fileField"
+    type="file"
+    (change)="uploadFile()"
+    (click)="markAsDirty()"
+    [disabled]="isDisabled$ | async"
+  />
+  <div class="text-wrapper">
+    <span class="file-name" *ngIf="value; else selectFileText">{{ value.name }}</span>
+    <ng-template #selectFileText>
+      <span>{{ buildTranslationKey('selectFile') | translate }}</span>
+    </ng-template>
+  </div>
+</div>
+<app-control-errors *ngIf="dirty || !validateOnDirty" [errorTexts]="errorTexts"></app-control-errors>

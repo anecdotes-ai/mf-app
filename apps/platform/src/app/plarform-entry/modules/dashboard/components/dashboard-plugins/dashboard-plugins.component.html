@@ -1,0 +1,14 @@
+<div class="plugins-container">
+  <h5>{{ buildTranslationKey('mainTitle') | translate }}</h5>
+  <div class="list">
+    <ng-container *ngFor="let connectedService of recentlyConnectedServices">
+      <app-dashboard-plugin-icon [attr.id]="connectedService.service_id" [connectedPlugin]="connectedService"></app-dashboard-plugin-icon>
+    </ng-container>
+  </div>
+  <div class="footer">
+    <h6>
+      <span>{{newEvidenceAmount || 0}}</span>
+      {{ buildTranslationKey('title') | translate }}
+    </h6>
+  </div>
+</div>

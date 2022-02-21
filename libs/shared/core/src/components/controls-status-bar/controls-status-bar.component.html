@@ -1,0 +1,15 @@
+<div class="controls-status">
+  <div *ngIf="getControlsStatusBarData(); let statusData" class="status-bar-wrapper">
+    <ng-container *ngFor="let section of statusData">
+      <div
+        *ngIf="section.width && section.controlsAmount"
+        [style.width.%]="section.width"
+        [style.max-width.%]="section.width"
+        class="bar-section-wrapper"
+      >
+        <span *ngIf="displaySectionPercentage" class="bar-section-info">{{ section.controlsAmount }}</span>
+        <div class="bar-section" [class]="section.cssClass"></div>
+      </div>
+    </ng-container>
+  </div>
+</div>

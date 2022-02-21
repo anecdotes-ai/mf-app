@@ -1,0 +1,183 @@
+$interval-between-items: 20px;
+
+.sub-menu {
+  @apply left-full;
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0.2s;
+}
+
+:host::ng-deep .nav-link.active {
+  .navbar-item {
+    @apply bg-navy-30;
+    @apply text-navy-90;
+  }
+}
+
+:host:hover::ng-deep .nav-link {
+  .navbar-item {
+    @apply bg-navy-40;
+    @apply text-navy-90;
+
+    &.stroke {
+      svg {
+        * {
+          @apply stroke-navy-90;
+        }
+      }
+    }
+
+    &.fill {
+      :not(app-notification-badge path) {
+        @apply fill-navy-90;
+
+        &.stroke-path {
+          @apply stroke-navy-90;
+        }
+      }
+    }
+
+    &.mixed {
+      path,
+      rect {
+        @apply stroke-navy-90;
+      }
+
+      circle {
+        @apply fill-navy-90;
+      }
+    }
+  }
+}
+
+:host.disabled:hover,
+:host.disabled {
+  pointer-events: none;
+
+  .nav-link .navbar-item {
+    background: transparent;
+    @apply text-navy-50;
+
+    &.stroke {
+      svg {
+        * {
+          @apply stroke-navy-50;
+        }
+      }
+    }
+
+    &.fill {
+      * {
+        @apply fill-navy-50;
+
+        &.stroke-path {
+          @apply stroke-navy-50;
+        }
+      }
+    }
+
+    &.mixed {
+      path,
+      rect {
+        @apply stroke-navy-50;
+      }
+
+      circle {
+        @apply fill-navy-50;
+      }
+    }
+  }
+}
+
+:host:hover {
+  .sub-menu {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0s;
+  }
+}
+
+:host {
+  .navbar-item {
+    width: 100%;
+    .user-initials {
+      min-width: 17px;
+      height: 20px;
+      right: 23px;
+      top: 1.2px;
+      text-align: center;
+    }
+  }
+  .nav-item-descriprion {
+    margin-left: 12px;
+  }
+
+  .navBar-icon {
+    margin-left: 10px;
+
+    ::ng-deep {
+      path[fill] {
+        fill: currentColor;
+      }
+      path[stroke],
+      rect[stroke] {
+        stroke: currentColor;
+      }
+    }
+  }
+
+  .active-indicator {
+    position: absolute;
+    display: none;
+    border-radius: 0 28px 28px 0;
+    height: 100%;
+    width: 3px;
+  }
+
+  .nav-link {
+    z-index: 1050;
+    padding: 0;
+    @apply text-navy-70;
+    width: 100%;
+    position: relative;
+
+    &.bottom-link {
+      margin-top: auto;
+      margin-bottom: 15px;
+    }
+  }
+
+  .nav-link.active {
+    @apply text-navy-90;
+
+    .active-indicator {
+      display: block;
+    }
+  }
+
+  .navbar-item {
+    border-radius: 6px;
+    min-height: 46px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+}
+
+.leftOffsetted {
+  position: relative;
+  right: 17px;
+}
+
+@keyframes delayed-close {
+  0% {
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

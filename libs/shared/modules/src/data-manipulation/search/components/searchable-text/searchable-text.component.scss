@@ -1,0 +1,9 @@
+:host::ng-deep {
+  .search-highlight {
+    @apply bg-blue-10;
+
+    &.current-highlight {
+      @apply bg-blue-30;
+    }
+  }
+}

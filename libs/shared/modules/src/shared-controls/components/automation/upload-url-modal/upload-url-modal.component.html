@@ -1,0 +1,21 @@
+<app-base-modal
+  iconPath="url-modal"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [leftCornerData]="{ icon: 'info', titleText: controlRequirement.requirement_name }"
+  [footerTemplate]="footer"
+>
+  <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+</app-base-modal>
+
+<ng-template #footer>
+  <app-button
+    class="main mulish medium"
+    (click)="isEditMode ? updateUrl() : addUrl()"
+    [class.disabled]="!form.valid"
+    [loading]="isLoading$ | async"
+    [clickOnEnter]="true" 
+  >
+    <span>{{ buildTranslationKey(isEditMode ? 'updateUrlButtonText' : 'addUrlButtonText') | translate }}</span>
+  </app-button>
+</ng-template>

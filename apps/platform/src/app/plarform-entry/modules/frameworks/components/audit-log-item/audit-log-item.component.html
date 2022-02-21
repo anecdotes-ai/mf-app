@@ -1,0 +1,76 @@
+<div class="product-name items-center self-center secondary-font-14 font-bold text-navy-90 ellipsis">
+  {{ auditLog.product_name }}
+</div>
+<div *ngIf="!!auditLog.framework_fields?.type" class="soc-type items-center self-center main-font-13 text-navy-70">
+  {{ buildTranslationKey(auditLog.framework_fields.type) | translate }}
+</div>
+<ng-container
+  *ngTemplateOutlet="
+    infoTemplate;
+    context: {
+      visible: true,
+      valueTemplate: textValue,
+      value: getAuditPeriodValue(),
+      header: buildTranslationKey('auditPeriod') | translate
+    }
+  "
+></ng-container>
+<ng-container
+  *ngTemplateOutlet="
+    infoTemplate;
+    context: {
+      visible: true,
+      valueTemplate: auditLog.auditors?.length > 1 ? userList : textValue,
+      value: getInvitedAuditorValue(),
+      header: auditLog.auditors?.length || 0 | i18nPlural: auditorsMapping | translate
+    }
+  "
+>
+</ng-container>
+<ng-container
+  *ngTemplateOutlet="
+    infoTemplate;
+    context: {
+      visible: true,
+      valueTemplate: textValue,
+      value: buildTranslationKey('numControls') | translate: { count: auditLog.controls_count || 0 },
+      header: buildTranslationKey('inScope') | translate
+    }
+  "
+></ng-container>
+<div class="flex flex-row self-center">
+  <svg-icon class="mr-2" [src]="'status_complete'" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  <span class="main-font-13 font-bold text-blue-50 ellipsis">
+    {{ buildTranslationKey('auditCompleted') | translate }}</span
+  >
+</div>
+<div class="flex flex-row self-center col-span-2 justify-self-end">
+  <ng-container *ngIf="auditLog.snapshot_id; else emptySpan">
+    <app-new-button [type]="'secondary'" class="mr-3 w-28" (click)="viewControls()">
+      {{ buildTranslationKey('viewControls') | translate }}
+    </app-new-button>
+  </ng-container>
+</div>
+<ng-template
+  #infoTemplate
+  let-visible="visible"
+  let-valueTemplate="valueTemplate"
+  let-value="value"
+  let-header="header"
+>
+  <div *ngIf="visible" class="flex flex-col self-center overflow-hidden">
+    <ng-container *ngTemplateOutlet="valueTemplate; context: { value }"></ng-container>
+    <span class="main-font-11 text-navy-70 ellipsis">{{ header }}</span>
+  </div>
+</ng-template>
+
+<ng-template #userList let-value="value">
+  <app-auditor-list [auditors]="value"></app-auditor-list>
+</ng-template>
+<ng-template #textValue let-value="value">
+  <span class="main-font-13 text-navy-90 ellipsis">{{ value }}</span>
+</ng-template>
+
+<ng-template #emptySpan>
+  <span class="mr-3 w-28"></span>
+</ng-template>

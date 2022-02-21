@@ -1,0 +1,37 @@
+@import './index';
+
+header {
+  padding-top: 35px;
+}
+
+.coming-soon {
+  position: relative;
+
+  .cloud-yellow-bg {
+    transform: translate(0, 110px);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .cloud-blue-bg {
+    transform: translate(0, -45px);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  padding: 0 30px;
+
+  span {
+    display: block;
+    padding-bottom: 40px;
+    @include MulishBold(21px, 30px);
+    color: $mc-navy-90;
+  }
+}

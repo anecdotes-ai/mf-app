@@ -1,0 +1,21 @@
+<app-index-icon *ngIf="index" [index]="index"></app-index-icon>
+<svg-icon
+  *ngIf="infoTooltip"
+  [ngbTooltip]="infoTooltip"
+  [tooltipClass]="infoTooltipClass + ' ' + 'default-tooltip'"
+  [keepOnHover]="true"
+  [stretch]="true"
+  [class.tooltip-opened]="tooltipOnPreview.isOpen()"
+  #tooltipOnPreview="ngbTooltip"
+  [placement]="infoTooltipPlacement"
+  src="info"
+  preserveAspectRatio="none"
+  class="help-icon"
+></svg-icon>
+<span class="text" translate [translateParams]="labelParamsObj">{{ label }}</span>
+<span
+  *ngIf="required"
+  class="asterisk"
+  [ngbTooltip]="'core.formControls.requiredTooltip' | translate"
+  tooltipClass="required-mark-tooltip"
+></span>

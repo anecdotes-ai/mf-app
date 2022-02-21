@@ -1,0 +1,24 @@
+<div class="background-color-picker">
+  <span>Choose icons background:</span>
+  <input #colorPicker type="color" />
+  <button (click)="setDefaultBackground()">Set default icons background</button>
+</div>
+<div class="grid">
+  <ng-container *ngFor="let iconGroup of icons">
+    <div class="folder">
+      <h1 *ngIf="iconGroup.folder">{{ iconGroup.folder }}</h1>
+      <div class="folder-content">
+        <ng-container *ngFor="let iconPath of iconGroup.iconPaths">
+          <div class="card">
+            <div class="icon-wrapper" [style.background]="iconBackground">
+              <svg-icon [src]="iconPath"></svg-icon>
+            </div>
+            <div [title]="createCopyIconPathText(iconPath)" class="usage" (click)="copyToClipboard(iconPath)">
+              {{ iconPath }}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

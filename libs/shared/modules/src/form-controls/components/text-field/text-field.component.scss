@@ -1,0 +1,110 @@
+$padding: 0 11px 0 14px;
+$min-height: 40px;
+$border-radius: 6px;
+
+:host {
+  @apply inline-block relative;
+
+  &.active,
+  &.has-value {
+    .placeholder {
+      display: none;
+    }
+  }
+
+  button{
+    @apply justify-center items-center;
+    @apply cursor-pointer;
+    border-radius: 6px;
+    padding: 10px 0;
+  }
+
+  .remove-contol-button {
+    @apply bg-navy-10;
+    display: none;
+    width: 30px;
+    height: 30px;
+  }
+
+  .toggle-show-hide-password {
+    display: none;
+    padding: 0 5px;
+  }
+
+  &:hover {
+    .remove-contol-button {
+      @apply flex;
+    }
+  }
+
+  &.active .wrapper, .wrapper:hover {
+    @apply border-navy-90;
+  }
+
+  .wrapper {
+    @apply flex overflow-hidden relative border-solid border-navy-50 bg-white;
+    border-radius: $border-radius;
+    border-width: 1px;
+
+    &:hover {
+      ::ng-deep.buttons app-button {
+        display: flex !important;
+      }
+
+      .toggle-show-hide-password {
+        @apply flex;
+      }
+    }
+
+    ::ng-deep.buttons {
+      > :not(:first-child) {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .addon-text {
+    padding-left: 11px;
+    padding-right: 16px;
+    border-left: 1px;
+
+    @apply border-solid border-navy-50;
+  }
+
+  .buttons {
+    @apply flex-row;
+  }
+}
+
+input {
+  border-radius: $border-radius;
+  box-sizing: border-box;
+  padding: 0 40px 0 14px;
+  min-height: $min-height;
+}
+
+.is-with-addon {
+  @apply flex overflow-hidden border-solid border-navy-50;
+  border-radius: $border-radius;
+  border-width: 1px;
+}
+
+.clear-btn-wrapper {
+  right: 5px;
+}
+
+input.padding-right {
+  padding-right: 40px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

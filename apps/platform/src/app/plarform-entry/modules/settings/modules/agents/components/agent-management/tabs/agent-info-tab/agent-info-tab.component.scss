@@ -1,0 +1,18 @@
+:host {
+  @apply pt-0 p-5;
+
+  .description {
+    @apply text-navy-90 font-main text-base;
+    margin: 0 0 35px;
+  }
+
+  .metadata {
+    margin-top: 30px;
+  }
+
+  app-copy-text-field::ng-deep {
+    .buttons {
+      @apply flex-row-reverse;
+    }
+  }
+}

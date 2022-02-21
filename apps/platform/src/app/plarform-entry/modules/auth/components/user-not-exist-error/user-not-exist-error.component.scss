@@ -1,0 +1,13 @@
+@import '../shared-styles.scss';
+
+:host {
+    @include sharedStylesForComponent();
+}
+
+.with-side-lines {
+    margin: 30px 0;
+}
+
+.center-text {
+    gap: 15px;
+}

@@ -1,0 +1,7 @@
+<ng-container *ngIf="menuAction; else ngContent">
+  <svg-icon *ngIf="menuAction.icon" [ngClass]="menuAction.iconColorMode" [src]="menuAction.icon"></svg-icon>
+  <span class="whitespace-nowrap">{{ translationKey | translate: menuAction.translationKeyParams }}</span>
+</ng-container>
+<ng-template #ngContent>
+  <ng-content></ng-content>
+</ng-template>

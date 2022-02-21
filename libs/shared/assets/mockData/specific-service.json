@@ -1,0 +1,72 @@
+{
+  "service_auth_type": "GENERIC",
+  "service_auth_url": "https://github.com/apps/anecdotes-app-dev",
+  "service_availability_status": "AVAILABLE",
+  "service_families": ["Code management", "Developer tools"],
+  "service_fields": [
+    {
+      "description": "The email that the service account will impersonate as in order to retrieve necessary information about files you will later configure to be tracked",
+      "display_name": "Compliance Manager Email",
+      "field_name": "impersonate_as",
+      "mandatory_requirement": true,
+      "max_len": 10,
+      "param_type": "TEXT",
+      "regex_validator": ""
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Service Account",
+      "field_name": "service_account",
+      "mandatory_requirement": true,
+      "max_len": 5,
+      "param_type": "LONGTEXT",
+      "regex_validator": ""
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Some number",
+      "field_name": "some_number",
+      "mandatory_requirement": true,
+      "max_len": 0,
+      "param_type": "NUMBER",
+      "regex_validator": ""
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Some url",
+      "field_name": "some_url",
+      "param_type": "URL",
+      "regex_validator": ""
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Some email",
+      "field_name": "some_email",
+      "param_type": "EMAIL",
+      "regex_validator": ""
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Some Checkbox",
+      "field_name": "some_checkbox",
+      "param_type": "CHECKBOX"
+    },
+    {
+      "description": "The generated service account key",
+      "display_name": "Some FILE",
+      "field_name": "some_file",
+      "param_type": "FILE",
+      "mandatory_requirement": true
+    }
+  ],
+  "service_id": "box",
+  "service_status": "SERVICE_REMOVED",
+  "service_is_recommended": false,
+  "service_last_error": null,
+  "service_last_update": "2020-09-06T10:11:05+00:00",
+  "service_number_of_evidence": 12,
+  "service_parameters": {},
+  "service_secrets": null,
+  "service_type": "GENERIC",
+  "service_display_name": "CHIT_HUB"
+}

@@ -1,0 +1,34 @@
+<app-dropdown-control *ngIf="service" [class.invisible-dropdown]="logsDropdownInvisible" #serviceInstanceDropdown
+  [visibleItemsCount]="5" [selectedValue]="selectedDropdownValue" [selectFirstValue]="displayFirstValue"
+  [placeholderTranslationKey]="service.service_multi_account ? buildTranslationKey('dropdownPlaceholder') : null"
+  [displayValueSelector]="serviceInstanceDropdownItemDisplayValue" [data]="serviceInstances"
+  (select)="selectServiceInstanceLogsToDisplay($event)" class="mr-3"></app-dropdown-control>
+
+<ng-template 
+  *ngIf="(logsDropdownInvisible && !serviceInstances?.length) then noServiceLogs; else content">
+</ng-template>
+
+<ng-template #content>
+  <ng-container *ngIf="(displayedServiceLogs$ | async) as filteredServiceLogs; else loading">
+    <perfect-scrollbar *ngIf="filteredServiceLogs.length; else noServiceLogs" class="h-full w-full mb-8">
+      <app-virtual-scroll-renderer #renderer class="h-full w-full" [allItemsStream]="displayedServiceLogs$"
+        [filteredItemsStream]="displayedServiceLogs$">
+        <ng-template #itemTemplate let-item="item">
+          <div class="item-log">
+            <app-log-item [log]="item" [logSeverities]="serviceLogSeverity"></app-log-item>
+          </div>
+        </ng-template>
+      </app-virtual-scroll-renderer>
+    </perfect-scrollbar>
+  </ng-container>
+</ng-template>
+
+<ng-template #noServiceLogs>
+  <div class="emptyState">
+    <div class="item-log">{{ buildTranslationKey('emptyServiceLogs') | translate }}</div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <app-secondary-loading-animation></app-secondary-loading-animation>
+</ng-template>

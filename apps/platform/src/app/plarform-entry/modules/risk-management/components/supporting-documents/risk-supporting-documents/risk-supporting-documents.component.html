@@ -1,0 +1,35 @@
+<ng-container *ngIf="evidenceIds$ | async as evidenceIds">
+  <div class="flex flex-row items-center justify-between pl-8 pr-4 h-14 min-h-14"
+       [ngClass]="{ 'border-b border-navy-30': evidenceIds?.length }">
+    <div class="flex flex-row items-center">
+      <svg-icon
+        src="info"
+        class="w-3.5 h-3.5 mr-2"
+        [ngbTooltip]="tooltip"
+        [placement]="'top'"
+      >
+      </svg-icon>
+      <span class="font-main font-bold text-2xl text-navy-90"
+        >{{ buildTranslationKey('supportingDocumentsText') | translate }}&nbsp;({{ evidenceIds?.length || 0 }})
+      </span>
+    </div>
+    <app-risk-evidence-attach-button [riskId]="riskId"></app-risk-evidence-attach-button>
+  </div>
+
+  <ng-container #collectingEvidence="collectingEvidenceHost" collectingEvidenceHost [resourceId]="riskId"></ng-container>
+
+  <div
+    *ngIf="evidenceIds?.length || collectingEvidence.isCollectionInProgress"
+    [perfectScrollbar]="scrollbarConfig"
+    class="relative flex flex-1 flex-col my-1 px-1 gap-1">
+    <app-risk-evidence
+      *ngFor="let evidenceId of evidenceIds"
+      [riskId]="riskId"
+      [evidenceId]="evidenceId">
+    </app-risk-evidence>
+  </div>
+</ng-container>
+
+<ng-template #tooltip>
+  <span class="w-56">{{ buildTranslationKey('infoTooltip') | translate }}</span>
+</ng-template>

@@ -1,0 +1,41 @@
+<div class="flex-1 relative flex flex-col">
+  <app-cross-button class="absolute right-0 z-20" (click)="close.emit({})"></app-cross-button>
+  <app-tabs class="gap-0 gap" #tabsRef [tabs]="tabModel$ | async" [tabSize]="'relative'" (tabChange)="trackTabSelection($event)"></app-tabs>
+
+  <div class="flex flex-row h-20 w-full p-5 pr-2 justify-between">
+    <div class="flex flex-row gap-5">
+      <app-new-button
+        class="fill-white download-vm-button"
+        [type]="'primary'"
+        [size]="'responsive'"
+        [loading]="downloadVMButtonLoader$ | async"
+        [svgIconPath]="agentIconPathFactory('VM')"
+        (click)="downloadVM()"
+      >
+        {{ buildTranslationKey('downloadVirtualMachine') | translate }}
+      </app-new-button>
+      <app-coming-soon-button
+        class="stroke-navy-90"
+        [type]="'secondary'"
+        [size]="'responsive'"
+        [svgIconPath]="agentIconPathFactory('docker')"
+      >
+        {{ buildTranslationKey('runDockerContainer') | translate }}
+      </app-coming-soon-button>
+    </div>
+    <app-three-dots-menu [menuActions]="threeDotsMenu" [context]="selectedAgentViewItem"> </app-three-dots-menu>
+  </div>
+</div>
+
+<ng-template #info>
+  <app-agent-info-tab class="flex flex-col" [agent]="selectedAgentViewItem.agentObject"></app-agent-info-tab
+></ng-template>
+<ng-template #connectedPlugins>
+  <app-agent-connected-plugins-tab
+    class="flex flex-col px-5"
+    [agent]="selectedAgentViewItem.agentObject"
+  ></app-agent-connected-plugins-tab
+></ng-template>
+<ng-template #logs>
+  <app-agent-logs-tab class="flex flex-col px-5" [agent]="selectedAgentViewItem.agentObject"></app-agent-logs-tab
+></ng-template>

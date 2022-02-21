@@ -1,0 +1,29 @@
+<ng-container *ngIf="genericRelatedervices$ | async as services; else noRelevantPlugins">
+  <ng-container *ngIf="services?.length || disabled; else noRelevantPlugins">
+    <app-icon-button id="automatePluginBtn" #tip="ngbTooltip" [ngbTooltip]="automatePluginsTooltip" triggers="hover focus"
+      (mouseenter)="tip.open({ allConnected: getPluginsConnectedStatus(services) })" placement="top"
+      tooltipClass="default-tooltip" (click)="automatePlugins()" [svgIconPath]="'plugins'"
+      [class.plugins-automated]="getPluginsConnectedStatus(services)" [disabled]="disabled"></app-icon-button>
+  </ng-container>
+</ng-container>
+
+<ng-template #noRelevantPlugins>
+  <app-button id="noRelevantPluginsBtn" [ngbTooltip]="buildTranslationKey('noRelevantPluginsTooltip') | translate"
+    triggers="hover focus" placement="top" icon="plugins"
+    class="automate-plugins no-relevant-plugins no-action-cursor mulish"></app-button>
+</ng-template>
+
+<ng-template #automatePluginsTemplate>
+  <app-plugins-automation-modal-window iconName="automation" [relatedPlugins]="genericRelatedervices$ | async"
+    [cornerTitle]="controlRequirement.requirement_name">
+  </app-plugins-automation-modal-window>
+</ng-template>
+
+<ng-template #automatePluginsTooltip let-allConnected="allConnected">
+  <span *ngIf="allConnected; else notAllConnected">{{
+    buildTranslationKey('relevantPluginsAreConnectedTooltip') | translate
+    }}</span>
+  <ng-template #notAllConnected>
+    <span>{{ buildTranslationKey('connectRelevantPluginsTooltip') | translate }}</span>
+  </ng-template>
+</ng-template>

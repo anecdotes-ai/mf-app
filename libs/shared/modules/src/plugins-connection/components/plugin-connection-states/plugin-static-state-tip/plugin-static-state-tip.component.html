@@ -1,0 +1,34 @@
+<app-tip *ngIf="service.service_tip" [tipId]="service.service_id">{{ service.service_tip }}</app-tip>
+
+<ng-container *ngIf="service.service_tooltips?.length">
+  <app-tip
+    *ngFor="let tip of service.service_tooltips; index as i"
+    class="service-tip"
+    [permanent]="tip.permanent"
+    [tipId]="service.service_id + '-tip-' + i"
+    [tipType]="buildTipType(tip)"
+    class="service-tip"
+  >{{ tip.text }}</app-tip
+  >
+</ng-container>
+
+<app-tip
+  *ngIf="service.service_is_onprem"
+  class="permanent-tip"
+  [permanent]="true"
+  [tipId]="'permanent-onprem' + service.service_id"
+  [tipType]="PluginTipTypesToTipTypes.severity"
+  class="permanent-tip"
+>{{ buildTranslationKey('onPremNoticeText') | translate }}
+  <a (click)="openOnPremTipLink()">{{ buildTranslationKey('onPremNoticeLink') | translate }}</a></app-tip
+>
+
+<app-tip
+  *ngIf="service.service_multi_account"
+  class="permanent-tip"
+  [tipId]="'permanent-multiacc' + service.service_id"
+  [tipType]="PluginTipTypesToTipTypes.severity"
+  [permanent]="true"
+  >{{ buildTranslationKey('multipleAccountsNoticeText') | translate }}
+  <a (click)="opeMultiAccountsLink()">{{ buildTranslationKey('multipleAccountsNoticeLink') | translate }}</a></app-tip
+>

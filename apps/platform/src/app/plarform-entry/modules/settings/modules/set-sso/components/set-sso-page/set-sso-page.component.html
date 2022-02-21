@@ -1,0 +1,38 @@
+<ng-container *ngIf="loading$ | async; else loaded">
+  <div class="absolute w-full h-full bg-navy-30">
+    <app-loading-animation [width]="'270px'" height="270px"></app-loading-animation>
+  </div>
+</ng-container>
+<ng-template #loaded>
+  <div class="text-4xl font-bold border-solid border-navy-40 border-b p-6">{{ buildTranslationKey('title') | translate
+    }}</div>
+  <div class="grid grid-cols-2 gap-24 text-base px-6 py-5">{{ buildTranslationKey('description') | translate }}</div>
+  <div class="grid grid-cols-2 h-full px-6 gap-24">
+    <div>
+      <div class="flex flex-column gap-5">
+        <app-set-sso-button (setClick)="setSso(samlItem)" (editClick)="editSso(samlItem)"
+          *ngFor="let samlItem of samlItemsToDisplay" [samlItem]="samlItem"></app-set-sso-button>
+      </div>
+    </div>
+    <div class="flex flex-1 justify-center pb-7">
+      <ng-container *ngIf="componentsToSwitch; else sso_illustration">
+        <div class="flex flex-column border border-solid border-navy-40 rounded-md w-full h-full bg-white">
+          <div class="flex justify-between items-center px-5">
+            <div class="flex items-center gap-2 text-4xl text-navy-90 font-bold py-6">
+              <svg-icon class="h-7 w-7" [src]="'saml-items/' + ssoContext.selectedItemToSetSSO.type"> </svg-icon>
+              <span>{{ ssoContext.selectedItemToSetSSO.displayName }}</span>
+            </div>
+            <app-cross-button (click)="close()"></app-cross-button>
+          </div>
+          <div class="flex-1">
+            <ng-container #switcher="switcher" [componentsToSwitch]="componentsToSwitch" [sharedContext]="ssoContext">
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #sso_illustration>
+        <svg-icon class="sso_illustration w-4/5" [src]="'sso_illustration'"></svg-icon>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>

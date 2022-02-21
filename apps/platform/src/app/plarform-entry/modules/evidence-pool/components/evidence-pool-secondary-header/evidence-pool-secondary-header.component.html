@@ -1,0 +1,4 @@
+<div *ngIf="dataToDisplay" class="title">
+  <span *ngIf="filteredCount" class="info">{{ buildTranslationKey('title') | translate: { count: filteredCount } }}</span>
+</div>
+<app-data-sort [sortDefinitions]="sortDefinition" (sort)="sort.emit($event)"></app-data-sort>

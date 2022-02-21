@@ -1,0 +1,13 @@
+<div class="font-main text-base text-navy-90 {{fontSize}}">
+  <span class="percent">{{ percent$ | async }}%</span>
+  &nbsp;
+  <span class="percent-text">
+    <ng-container *ngIf="isAuditInProgress; else notInProgress">
+      {{ buildTranslationKey('auditProgressPercent') | translate }}
+    </ng-container>
+    <ng-template #notInProgress>
+      {{ buildTranslationKey('readyForAuditPercent') | translate }}
+    </ng-template>
+  </span>
+</div>
+<app-controls-progress-bar [controls]="controls$ | async"></app-controls-progress-bar>

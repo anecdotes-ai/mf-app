@@ -27,23 +27,39 @@
     ]
   },
   "projects": {
-    "auth": {
-      "tags": []
-    },
-    "gallery": {
-      "tags": []
-    },
     "platform": {
       "tags": []
     },
-    "shared-auth": {
-      "tags": []
-    },
-    "shared-data-store": {
+    "shared-assets": {
       "tags": []
     },
     "shell": {
       "tags": []
+    },
+    "shared-core": {
+      "tags": []
+    },
+    "shared-modules": {
+      "tags": []
     }
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "defaultProject": "shell"
 }

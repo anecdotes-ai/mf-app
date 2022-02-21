@@ -1,0 +1,9 @@
+<div class="border border-solid border-navy-40 rounded-md w-full h-full bg-white p-3">
+    <div *ngIf="item" class="flex flex-row flex-wrap items-center gap-5">
+        <svg-icon class="h-11 w-11" [src]="'data-delegation-icons/' + item.service"> </svg-icon>
+        <span class="font-secondary font-bold text-xl text-navy-90">{{this.item.displayName}}</span>
+        <div class="flex-auto flex flex-row-reverse">
+            <app-new-button class="flex-none w-40" [type]="'primary'" [size]="'stretch'" (click)="contact.emit()">{{ buildTranslationKey('buttonText') | translate }}</app-new-button>
+        </div>
+    </div>
+</div>

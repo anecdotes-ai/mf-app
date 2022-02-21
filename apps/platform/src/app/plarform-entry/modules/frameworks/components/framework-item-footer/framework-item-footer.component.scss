@@ -1,0 +1,9 @@
+:host {
+  height: 80px;
+  gap: 20px;
+  padding: 20px; // TODO: To be replaced with predefined gap from tailwind
+
+  .content-wrapper {
+    gap: 10px;
+  }
+}

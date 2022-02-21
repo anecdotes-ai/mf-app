@@ -1,0 +1,32 @@
+<app-base-modal
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="hasApplicableFrameworks ? freezeFrameworkFooter : undefined"
+  [iconPath]="'freeze-modal'"
+  class="freeze-modal"
+>
+    <div class="overflow-y-auto max-h-80 px-2">
+        <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>    
+    </div>
+
+</app-base-modal>
+
+<ng-template
+  #freezeFrameworkFooter
+  class="modal-footer bg-navy-70"
+>
+  <app-new-button
+    (click)="updateFreezeFramework()"
+    [disabled]="!isDirty"
+    class="ml-3"
+  >
+    {{ buildTranslationKey('footerSaveButtonText') | translate }}
+  </app-new-button>
+  <app-new-button
+    (click)="dismiss()"
+    [type]="'secondary'"
+    class="ml-3"
+    >
+    {{ buildTranslationKey('footerCancelButtonText') | translate }}
+  </app-new-button>
+</ng-template>

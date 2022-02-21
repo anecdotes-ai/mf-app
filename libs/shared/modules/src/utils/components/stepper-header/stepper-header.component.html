@@ -1,0 +1,6 @@
+<div class="flow-steps">
+  <div *ngFor="let currStep of steps; let i = index; trackBy: trackByFn" [class.selected-step]="i === currentStep" class="flow-single-step">
+    <svg-icon *ngIf="i" src="arrow-right" class="arrow-right" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span> {{ i + 1 }}. {{ currStep | translate }}</span>
+  </div>
+</div>

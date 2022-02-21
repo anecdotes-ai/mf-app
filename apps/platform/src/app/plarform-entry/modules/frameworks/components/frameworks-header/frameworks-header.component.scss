@@ -1,0 +1,11 @@
+@import 'index';
+
+@import 'component-header-shared';
+
+:host {
+  padding-left: 9px;
+}
+
+.items-wrapper {
+  margin-right: 30px;
+}

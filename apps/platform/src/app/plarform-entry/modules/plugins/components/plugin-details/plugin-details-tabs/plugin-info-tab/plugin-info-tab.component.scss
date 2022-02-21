@@ -1,0 +1,128 @@
+@import 'index';
+
+.description {
+  @include baseFontStyle(13px, 21px);
+  white-space: pre-wrap;
+  color: $mc-navy-90;
+  white-space: normal;
+  margin-bottom: 20px !important;
+}
+
+.why-connecting {
+  @include MerriWeatherBold(14px, 20px);
+
+  color: $mc-navy-90;
+  margin-bottom: 25px;
+}
+
+.can-be-automated {
+  position: relative;
+  min-height: 160px;
+  background: linear-gradient(0deg, $mc-navy-10, $mc-navy-10), $mc-white;
+  border-radius: 6px;
+  margin-bottom: 28px;
+  border: 1px solid $mc-navy-40;
+
+  .automation-label {
+    position: absolute;
+    padding-left: 90%;
+
+    svg-icon {
+      path:not([fill='none']):not([fill='transparent']):not([fill='white']) {
+        fill: $mc-navy-70 !important;
+      }
+    }
+  }
+
+  .automation-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: inherit;
+    min-height: inherit;
+    padding: 20px;
+    .tied-services {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .dashed-border-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 33px;
+        .dashed-border {
+          border-bottom: 1px dashed $mc-navy-70;
+        }
+      }
+    }
+
+    .text-info {
+      height: 100%;
+      margin-top: 20px;
+
+      .plugin-comment {
+        @include MulishFontStyle(13px, 21px);
+        color: $mc-navy-70;
+      }
+
+      .plugin-evidences-info {
+        @include MerriWeatherFontStyle(24px, 30px);
+        text-transform: capitalize;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        margin-top: 5px;
+        color: $mc-navy-90;
+      }
+
+      .plugin-comment,
+      .plugin-evidences-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    .service-icon-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      background: $mc-white;
+      border-radius: 6px;
+      border: 1px solid $mc-navy-40;
+
+      svg-icon {
+        align-self: center;
+        height: 32px;
+        width: 32px;
+
+        svg {
+          height: inherit;
+          width: inherit;
+        }
+      }
+
+      svg-icon * {
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+}
+
+.plugin-evidence-info-list {
+  margin-bottom: 23px;
+}
+
+#plugin-info-wrapper {
+  height: 100% !important;
+}
+
+:host::ng-deep .ps-content {
+  padding-right: 10px;
+}
+
+:host {
+  height: inherit;
+}

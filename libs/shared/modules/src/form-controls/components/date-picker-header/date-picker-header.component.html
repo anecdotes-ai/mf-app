@@ -1,0 +1,11 @@
+<div class="header-wrapper">
+  <span class="header-label">{{ periodLabel }}</span>
+  <div class="arrows-button">
+    <button (click)="previousClicked()">
+      <svg-icon class="arrow-left mr-1" src="arrow-single" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </button>
+    <button (click)="nextClicked()">
+      <svg-icon class="arrow-right" src="arrow-single" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </button>
+  </div>
+</div>

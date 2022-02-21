@@ -1,0 +1,23 @@
+:host::ng-deep {
+  .info-icon {
+    svg {
+      @apply h-3.5 w-3.5;
+
+      .info-icon-fill {
+          @apply fill-navy-50;
+      }
+      .info-icon-stroke {
+        @apply stroke-navy-50;
+      }
+    }
+
+    &:hover {
+      .info-icon-fill {
+          @apply fill-navy-90;
+      }
+      .info-icon-stroke {
+        @apply stroke-navy-90;
+      }
+    }
+  }
+}

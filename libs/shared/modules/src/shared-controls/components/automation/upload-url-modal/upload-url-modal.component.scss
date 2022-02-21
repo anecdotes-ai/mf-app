@@ -1,0 +1,22 @@
+@import 'index';
+
+:host {
+  width: 600px;
+}
+
+:host::ng-deep {
+  .base-modal-content {
+    padding-bottom: 45px;
+  }
+
+  app-control-header {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 25px;
+  }
+}

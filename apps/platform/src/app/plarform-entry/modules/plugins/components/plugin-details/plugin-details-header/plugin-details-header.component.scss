@@ -1,0 +1,115 @@
+
+::ng-deep {
+  .view-evidence-btn-tooltip {
+    span {
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.service-header {
+  display: flex;
+
+  .plugin-icon-container {
+    @apply bg-white;
+    display: flex;
+    justify-content: center;
+    min-height: 150px;
+    min-width: 150px;
+    border: 1px solid rgba(4, 41, 62, 0.05);
+    box-shadow: 0 2px 3px rgba(4, 41, 62, 0.1);
+    border-radius: 6px;
+
+    svg-icon {
+      height: 100%;
+      width: 100%;
+      align-self: center;
+      max-height: 100px;
+      max-width: 100px;
+
+      svg {
+        height: inherit;
+        width: inherit;
+      }
+    }
+  }
+
+  .service-header-text {
+    margin-left: 20px;
+
+    .buttons-wrapper {
+      display: flex;
+    }
+
+    .service-name-wrapper {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .service-name {
+        @apply font-secondary font-bold text-navy-90 text-5xl;
+        display: flex;
+        align-items: center;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+      }
+
+      .service-multiaccounts,
+      .service-onprem{
+        @apply bg-blue-90 text-white font-main text-lg;
+        padding: 4px 12px;
+        border-radius: 50px;
+      }
+
+      svg-icon {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+
+        svg {
+          height: 24px;
+          width: 24px;
+        }
+      }
+    }
+
+    .service-family {
+      @apply text-navy-50 border-navy-50;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid;
+      box-sizing: border-box;
+      border-radius: 50px;
+      height: 24px;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      padding: 0 15px;
+      margin: 10px 10px 0 0;
+    }
+  }
+
+  .families {
+    @apply font-main text-lg;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+}
+
+:host {
+  app-button:hover {
+    .plugin-tab-info svg {
+      path {
+        @apply fill-navy-90;
+      }
+      path:first-child {
+        fill: #fff;
+      }
+    }
+  }
+}

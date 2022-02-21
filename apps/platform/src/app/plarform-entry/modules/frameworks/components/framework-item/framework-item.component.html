@@ -1,0 +1,64 @@
+<section [ngClass]="{ 'rounded-tr-md rounded-tl-md bg-blue-90': inAudit && framework.is_applicable }"
+  class="header flex flex-row justify-between items-center bg-opacity-20 border-solid p-5">
+  <div class="flex flex-row flex-1 items-center overflow-ellipsis overflow-hidden">
+    <svg-icon [src]="frameworkService.getFrameworkIconLink(framework.framework_icon_id ?? framework.framework_id)"
+      preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <div class="flex flex-col ml-5">
+      <app-searchable-text [class.framework-name-comingsoon]="isComingSoon"
+        class="font-secondary text-3xl text-navy-90 bold" [text]="framework.framework_name">
+      </app-searchable-text>
+
+      <span *ngIf="isAvailable" class="text-base text-navy-90 font-main">
+        {{ buildTranslationKey('frameworkControls') | translate: {value: framework.number_of_related_controls} }}
+      </span>
+    </div>
+  </div>
+</section>
+
+<ng-container [ngSwitch]="framework.framework_status">
+
+  <section *ngSwitchCase="frameworkStatus.AVAILABLE" id="available" class="content flex flex-column flex-1 justify-between" [class.center-content]="contentLoader">
+    <app-secondary-loading-animation *ngIf="contentLoader; else allContentSections">
+    </app-secondary-loading-animation>
+    <ng-template #allContentSections>
+      <app-framework-progress-bar *ngIf="framework.is_applicable" [frameworkId]="framework.framework_id"
+        [isAuditInProgress]="inAudit">
+      </app-framework-progress-bar>
+      <div class="content flex flex-column p-0">
+        <div class="content-element" *ngFor="let contentRow of contentRowsToDisplay">
+          <app-specific-information-item [content]="contentRow">
+            <span class="field-description cursor-pointer hover:underline"
+              (click)="exploreControls( { key: contentRow.field, value: contentRow.fieldValue }); false"
+              [ngbTooltip]="buildTranslationKey('tooltip.exploreControls') | translate"
+              [disableTooltip]="!framework.is_applicable" [class.text-decoration-none]="!framework.is_applicable">
+              {{ buildTranslationKey(contentRow.descriptionTranslateKey) | translate }}</span>
+          </app-specific-information-item>
+        </div>
+        <span *ngIf="!framework.is_applicable" class="font-main text-lg text-navy-90">
+          <ng-container *ngIf="framework.framework_description">
+            {{ framework.framework_description }}
+          </ng-container>
+        </span>
+      </div>
+    </ng-template>
+  </section>
+
+  <section *ngSwitchCase="frameworkStatus.COMINGSOON" id="comingsoon" class="flex flex-column justify-center items-center flex-1">
+    <svg-icon src="coming-soon-framework" preserveAspectRatio="none" [stretch]="true"
+      class="coming-soon-framework-icon">
+    </svg-icon>
+  </section>
+  
+  <section *ngSwitchCase="frameworkStatus.NEW"  id="new" class="content flex flex-column flex-1 justify-between" >
+    <span class="font-main text-lg text-navy-90 content flex flex-column p-0">
+      {{ buildTranslationKey('addNewFramework') | translate }}
+    </span>
+  </section>
+
+</ng-container>
+
+<app-framework-item-footer *ngIf="!isComingSoon" [framework]="framework" [isAuditInProgress]="inAudit">
+  <app-framework-menu *visibleForRole="visibleForRoles" [currentUserRole]="currentUsersRole" [frameworkId]="framework.framework_id" [isAuditInProgress]="inAudit"
+    (actionStarted)="menuActionStarted()" (actionFinished)="menuActionFinished()" (click)='$event.stopPropagation();'>
+  </app-framework-menu>
+</app-framework-item-footer>

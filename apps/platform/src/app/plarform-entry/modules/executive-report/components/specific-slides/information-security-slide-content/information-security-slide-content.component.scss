@@ -1,0 +1,73 @@
+@import '../styles/common-slide-content-table.scss';
+
+:host {
+  &.screen-shot {
+    .row.category {
+      span.name {
+        @include MulishBold(20px, 28px);
+        color: $mc-navy-90;
+      }
+
+      .cell.framework {
+        span.percents {
+          @include MulishBold(20px, 28px);
+        }
+      }
+    }
+  }
+
+  flex-direction: column;
+
+  #information-security-slide-content {
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .cell.framework {
+    min-width: 185px;
+    width: 185px;
+  }
+
+  .row.category {
+    .cell:first-child {
+      justify-content: unset;
+    }
+
+    span.name {
+      @include MulishBold(13px, 21px);
+      color: $mc-navy-90;
+    }
+
+    .cell {
+      .category-icon {
+        margin-right: 10px;
+      }
+    }
+
+    .cell.framework {
+      span.percents {
+        @include MulishBold(16px, 21px);
+      }
+    }
+    height: 100%;
+  }
+
+  .row {
+    justify-content: left !important;
+    .cell:first-child {
+      width: 300px;
+    }
+  }
+
+  .bg-pink {
+    color: $mc-pink-50 !important;
+  }
+
+  .bg-orange {
+    color: $mc-orange-50 !important;
+  }
+
+  .bg-blue {
+    color: $mc-blue-50 !important;
+  }
+}

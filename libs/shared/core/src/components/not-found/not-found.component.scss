@@ -1,0 +1,65 @@
+@import './index.scss';
+
+:host {
+  height: inherit;
+}
+
+:host::ng-deep .search-not-found button[mat-flat-button] {
+  .mat-button-wrapper {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  color: $mc-white;
+
+  font-size: 13px;
+  line-height: 21px;
+
+  display: flex;
+  background: $mc-navy-90;
+  border-radius: 6px;
+  height: 40px;
+  width: 160px;
+}
+
+.search-not-found {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.not-found-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-advice {
+  font-size: 13px;
+  line-height: 21px;
+  color: $mc-navy-90;
+  margin-bottom: 15px;
+}
+
+.main-info {
+  @include MulishBold(21px, 26px);
+  color: $mc-navy-90;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.user-advice,
+app-button * {
+  @include MulishFontStyle(13px, 21px);
+}
+
+.buttons {
+  display: flex;
+
+  app-button:not(:last-child) {
+    margin-right: 20px;
+  }
+}

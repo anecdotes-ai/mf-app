@@ -1,0 +1,4 @@
+<div #container [style.height.px]="wrapperHeight" class="overflow-hidden relative z-10 text-justify bg-inherit">
+    <ng-content></ng-content>
+    <span *ngIf="isOverflown" class="absolute z-20 bottom-0 right-0 bg-inherit">...</span>
+</div>

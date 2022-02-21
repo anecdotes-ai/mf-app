@@ -1,0 +1,16 @@
+<app-colored-dropdown-control
+  class="text-white cursor-pointer"
+  [buttonBackgroundClass]="buttonBackgroundClass"
+  [radius]="'large'"
+  [verticalSize]="'small'"
+  [formControl]="control"
+  [data]="options"
+  [arrowEnabled]="true"
+  [noValueTextTranslationKey]="'riskManagement.select'"
+  [displayValueSelector]="displayValueSelector"
+  [clearEnabled]="true"
+  (clearSelection)="clearSelection()"
+  [visibleItemsCount]="5"
+  [tooltip]="!control.value ? (buildTranslationKey('notSetTooltip') | translate) : null"
+>
+</app-colored-dropdown-control>

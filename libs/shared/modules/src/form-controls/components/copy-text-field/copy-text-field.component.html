@@ -1,0 +1,20 @@
+<app-text-field
+  #textField
+  [required]="required"
+  [index]="index"
+  [errorTexts]="errorTexts"
+  [validateOnDirty]="validateOnDirty"
+  [readonly]="readonly"
+  [label]="label"
+  (valueChanges)="inputValue($event)"
+  [ngbTooltip]="buildTranslationKey('copyTooltipText') | translate"
+  [showHideText]="showHideText"
+  [inputType]="inputType"
+  placement="top-right"
+  tooltipClass="copy-tooltip default-tooltip "
+>
+  <button class="copy-button white mulish w-5 h-5 flex items-center justify-center" (click)="copyText()">
+    <svg-icon src='copy'>
+    </svg-icon>
+  </button>
+</app-text-field>

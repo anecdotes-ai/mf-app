@@ -1,0 +1,37 @@
+<section [searchScope] id="frameworks-section">
+  <app-frameworks-header #header></app-frameworks-header>
+  <app-search-results-pagination></app-search-results-pagination>
+
+  <perfect-scrollbar class="frameworks-perfect-bar">
+
+    <div *ngIf="!(header.modifiedDataList | async)?.length" class="content-not-found">
+      <app-not-found mainInfoTranslationKey="frameworks.notFound.mainInfo"
+        backToAllDataTranslationKey="frameworks.notFound.button" (backToAllDataBtnClick)="header.resetAllFilters()"
+        [userAdviceDisabled]="true"></app-not-found>
+    </div>
+
+    <div *ngIf="header.isFrameworksSeparated"
+      class="font-main font-bold text-navy-90 text-3xl flex align-items-center framework-group-info">{{
+      buildTranslationKey('myFrameworks') | translate: { value: header.applicableModifiedList?.length
+      } }}</div>
+    <app-items-renderer id="frameworks" class="w-full h-full"
+      [class.hidden]="!(header.modifiedDataList | async)?.length" [allItemsStream]="applicableFrameworksStream$"
+      [filteredItemsStream]="header.modifiedDataList" [idSelector]="selectFrameworkId">
+      <ng-template #itemTemplate let-item="item">
+        <app-framework-item [searchableRow]="item" #framework [framework]="item"></app-framework-item>
+      </ng-template>
+    </app-items-renderer>
+
+    <div *ngIf="header.isFrameworksSeparated"
+      class="font-main text-navy-90 font-bold text-3xl flex align-items-center framework-group-info">{{
+      buildTranslationKey('moreFrameworks') | translate: { value: header.notApplicableModifiedList?.length } }}</div>
+    <app-items-renderer id="frameworks" class="w-full h-full"
+      [class.hidden]="!(header.modifiedDataList | async)?.length" [allItemsStream]="notApplicableFrameworksStream$"
+      [filteredItemsStream]="header.modifiedDataList" [idSelector]="selectFrameworkId">
+      <ng-template #itemTemplate let-item="item">
+        <app-framework-item [searchableRow]="item" #framework [framework]="item"></app-framework-item>
+      </ng-template>
+    </app-items-renderer>
+
+  </perfect-scrollbar>
+</section>

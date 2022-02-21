@@ -1,0 +1,15 @@
+<div class="text-base">{{ serviceInstance.service_instance_display_name }}</div>
+<div class="flex justify-between wrapper-right-content text-base">
+  <div
+    class="flex flex-row items-center gap-2 font-main status-wrapper"
+    [ngClass]="accountItemStatusMapper[serviceInstance.service_status]?.class"
+  >
+    <svg-icon class="status-icon w-5 h-5" [src]="accountItemStatusMapper[serviceInstance.service_status]?.icon"></svg-icon>
+    <span class="font-bold">
+      {{ accountItemStatusMapper[serviceInstance.service_status]?.translationKey | translate }}</span
+    >
+  </div>
+  <div>
+    <app-three-dots-menu [menuActions]="threeDotsMenuActions" [context]="serviceInstance"></app-three-dots-menu>
+  </div>
+</div>

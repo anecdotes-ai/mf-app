@@ -1,0 +1,265 @@
+<div class="loading-animation-wrapper" *ngIf="displayAnimationLoader">
+  <app-loading-animation class="loading-animation"></app-loading-animation>
+</div>
+<section searchScope>
+  <app-secondary-loading-animation *ngIf="displayLoader | async"> </app-secondary-loading-animation>
+
+  <div *ngIf="(gridView$ | async) && rootEvidence.evidence_tip" class="evidence-tip-wrapper">
+    <app-tip [tipId]="rootEvidence.evidence_id" [tipType]="tipTypes.TIP">
+      <app-text [text]="rootEvidence.evidence_tip"></app-text>
+    </app-tip>
+  </div>
+  <ng-container *ngTemplateOutlet="displayAnimationLoader ? null : evidencePreview"></ng-container>
+</section>
+
+<ng-template #evidencePreview>
+  <ng-container *ngIf="gridView$ | async as data; else errorTemplate">
+    <app-evidence-preview-header
+      *ngIf="eventSource === evidenceSources.Controls"
+      [controlName]="controlInstance.control_name"
+      [requirementName]="requirementLike.name"
+    ></app-evidence-preview-header>
+
+    <app-evidence-preview-item
+      [controlRequirement]="controlRequirement"
+      [controlInstance]="controlInstance"
+      [framework]="framework"
+      [evidence]="evidenceDistinct$ | async"
+      [searchItemAmount]="searchItemAmount"
+      [evidenceDistinct]="evidenceDistinct$ | async"
+      [evidenceFullData]="evidenceFullData$ | async"
+      [sourceOfPreviewOpen]="eventSource"
+      [isDataToPreviewExists]="isDataToPreviewExists"
+      [class.pr-16]="eventSource === evidenceSources.EvidencePool"
+      [shouldDisplayExportButton]="true"
+    ></app-evidence-preview-item>
+
+    <div class="actions-group grid grid-cols-4 gap-x-8 items-end">
+      <div class="evidence-history flex flex-col w-full m-0">
+        <div class="title flex items-center mb-1">
+          <ng-container *ngIf="isHelpNeeded">
+            <ng-container
+              *ngTemplateOutlet="
+                helpIcon;
+                context: {
+                  placement: 'bottom-left',
+                  margin: 'margin-right',
+                  text: helpInfoTooltip,
+                  tooltipClass: 'evidence-help-tooltip'
+                }
+              "
+            >
+            </ng-container>
+          </ng-container>
+
+          <span class="text-navy-90">{{ buildTranslationKey('evidenceHistory') | translate }}</span>
+        </div>
+        <app-snapshot-menu
+          class="w-full"
+          [evidenceId]="rootEvidence.evidence_id"
+          [service]="relatedService$ | async"
+          (selectSnapshot)="selectEvidenceSnapshot($event)"
+          (selectHistoryPeriod)="selectHistoryPeriod($event)"
+          [lastDate]="snapshotLastTime"
+        ></app-snapshot-menu>
+      </div>
+
+      <div *ngIf="shouldDisplayServiceInstances" class="evidence-history flex flex-col w-full m-0">
+        <div class="title flex items-center mb-1">
+          <ng-container
+            *ngTemplateOutlet="
+              helpIcon;
+              context: { placement: 'top', margin: 'margin-right', text: evidenceInstanceSelection }
+            "
+          >
+          </ng-container>
+          <span class="text-navy-90">{{ buildTranslationKey('selectAccount') | translate }}</span>
+        </div>
+        <app-service-instance-menu
+          class="w-full"
+          #serviceInstanceMenu
+          [evidenceId]="rootEvidence.evidence_id"
+          [ininialEvidenceOriginatedBy]="rootEvidence.evidence_originated_by_instance_id"
+          [service]="relatedService$ | async"
+          [selectedHistoryPeriod]="evidenceHistoryPeriodSubject$ | async"
+          (selectSnapshot)="selectEvidenceSnapshot($event)"
+          [lastDate]="snapshotLastTime"
+        ></app-service-instance-menu>
+      </div>
+      <ng-container *ngIf="filterEvidenceData">
+        <div class="filter-evidence flex flex-col m-0">
+          <div class="title flex items-center mb-1">
+            <ng-container
+              *ngTemplateOutlet="
+                helpIcon;
+                context: { placement: 'top', margin: 'margin-right', text: filterEvidenceTooltipTemplate }
+              "
+            >
+            </ng-container>
+            <span class="text-navy-90">{{ buildTranslationKey('filterEvidence.title') | translate }}</span>
+          </div>
+          <app-dropdown-control
+            class="w-full"
+            #filterEvidenceDropdown
+            [visibleItemsCount]="5"
+            [displayValueSelector]="selectDisplayValueFromFilterEvidenceDropdownOption"
+            [searchEnabled]="true"
+            [data]="filterEvidenceData"
+            (select)="filterByFirstColumnCell($event)"
+          ></app-dropdown-control>
+        </div>
+      </ng-container>
+      <app-data-search
+        class="w-full"
+        [placeholderTranslationKey]="buildTranslationKey('search')"
+        [routeParamsDisabled]="true"
+        (search)="searchData($event)"
+        [data]="gridView.rows"
+        [searchDefinitions]="gridView.searchDefinitions"
+      >
+      </app-data-search>
+    </div>
+  </ng-container>
+
+    <div class="grid-wrapper pt-4" #fullDataWrapper>
+      <app-search-results-pagination> </app-search-results-pagination>
+      <app-not-found
+        *ngIf="isNotFoundScreenDisplayed"
+        (backToAllDataBtnClick)="resetSearch()"
+        [mainInfoTranslationKey]="buildTranslationKey('notFound.info')"
+        [backToAllDataTranslationKey]="buildTranslationKey('notFound.button')"
+        [userAdviceDisabled]="true"
+      >
+      </app-not-found>
+
+      <ng-container *ngIf="isDataToPreviewExists; else noDataToPreviewState">
+        <ng-container *ngTemplateOutlet="defaultState"></ng-container>
+      </ng-container>
+    </div>
+
+  <ng-template #defaultState>
+    <div [class.hidden]="isNotFoundScreenDisplayed" class="middle-content" [class.empty-data]="isGridEmpty">
+      <perfect-scrollbar [scrollIndicators]="true">
+        <app-evidence-empty-state
+          [evidence]="rootEvidence"
+          *ngIf="isGridEmpty; else previews"
+        ></app-evidence-empty-state>
+        <ng-template #previews>
+          <ng-container [ngSwitch]="viewType">
+            <app-cfg-evidence-grid
+              *ngSwitchCase="previewTypesEnum.Cfg"
+              [evidence]="rootEvidence"
+              [displayedGridView]="displayedGridView"
+              [evidenceDistinct$]="evidenceDistinct$"
+            >
+            </app-cfg-evidence-grid>
+            <app-table-like-evidence-grid
+              *ngSwitchDefault
+              [evidence]="rootEvidence"
+              [evidenceDistinct$]="evidenceDistinct$"
+              [displayedGridView]="displayedGridView"
+              [viewType]="viewType"
+            ></app-table-like-evidence-grid>
+          </ng-container>
+        </ng-template>
+      </perfect-scrollbar>
+    </div>
+  </ng-template>
+
+  <ng-template #noDataToPreviewState>
+    <div class="no-data-to-preview">
+      <svg-icon src="status_in_progress" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      <span class="header"> {{ buildTranslationKey('noDataToPreview.header') | translate }} </span>
+      <div class="description">
+        <span>{{ buildTranslationKey('noDataToPreview.descriptionFirstPart') | translate }}</span>
+        <app-button class="view-raw-data-btn mulish text-underline" (click)="viewRawData()">
+          {{ buildTranslationKey('noDataToPreview.descriptionInnerButtonText') | translate }}</app-button
+        >
+        <span>{{ buildTranslationKey('noDataToPreview.descriptionLastPart') | translate }}</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #errorTemplate>
+    <div class="error">
+      <div>{{ buildTranslationKey('cantPresentPreview') | translate }}</div>
+      <app-new-button [type]="'primary'" (click)="downloadFullData()">
+        {{ buildTranslationKey('downloadFullDataBtn') | translate }}</app-new-button
+      >
+    </div>
+  </ng-template>
+
+  <div class="report-wrapper">
+    <app-evidence-report></app-evidence-report>
+  </div>
+
+  <ng-template #attachLinkModal let-pluginData="pluginData">
+    <app-attach-link-modal-window
+      [evidence]="rootEvidence"
+      [filterCollectionResultFn]="filterCollectionResult.bind(this)"
+      [requirementLike]="requirementLike"
+      [pluginData]="pluginData"
+      [wasResourceUpdatedFn]="wasParentResourceUpdated"
+    >
+    </app-attach-link-modal-window>
+  </ng-template>
+
+  <ng-template #helpInfoTooltip>
+    <div class="help-tooltip">
+      <section>
+        <div>{{ rootEvidence.evidence_help || (buildTranslationKey('temporaryNA') | translate) }}</div>
+      </section>
+      <section *ngIf="evidenceApiQuery() | async as queryData" class="used-api-calls">
+        <div translate>
+          {{ buildTranslationKey('usedAPICall') | translate: { apiCallsCount: queryData?.length || 0 } }}
+        </div>
+        <ng-container *ngIf="queryData?.length; else NACalls">
+          <div *ngFor="let call of queryData | slice: 0:maxApiCalls" class="ellipsis api-call">{{ call }}</div>
+          <div translate>{{ buildTranslationKey('allApiCallsAvailable') | translate }}</div>
+        </ng-container>
+      </section>
+      <section>
+        <div>
+          {{ evidenceCollectionTimestamp | async | localDate: 'MMM d, yyyy | HH:mm:ss' }}
+          &nbsp;-&nbsp;
+          <a (click)="emitViewRawData()" translate>{{ buildTranslationKey('viewRawData') }}</a>
+        </div>
+      </section>
+    </div>
+  </ng-template>
+
+  <ng-template
+    #helpIcon
+    let-placementCfg="placement"
+    let-margingCfg="margin"
+    let-tooltipText="text"
+    let-tooltipClass="tooltipClass"
+  >
+    <svg-icon
+      [ngbTooltip]="tooltipText"
+      [keepOnHover]="true"
+      [stretch]="true"
+      [class.tooltip-opened]="tooltipOnPreview.isOpen()"
+      [class.invisible]="!isHelpNeeded"
+      #tooltipOnPreview="ngbTooltip"
+      [placement]="placementCfg"
+      src="info-help"
+      preserveAspectRatio="none"
+      class="help-icon"
+      [ngClass]="margingCfg"
+      [attr.tooltipclass]="tooltipClass ? tooltipClass + ' ' + 'default-tooltip' : 'default-tooltip'"
+    ></svg-icon>
+  </ng-template>
+</ng-template>
+
+<ng-template #filterEvidenceTooltipTemplate>
+  <app-text [text]="buildTranslationKey('filterEvidence.tooltip')"></app-text>
+</ng-template>
+
+<ng-template #evidenceInstanceSelection>
+  <app-text [text]="buildTranslationKey('selectInstanceDropdown.tooltip')"></app-text>
+</ng-template>
+
+<ng-template #NACalls>
+  <app-text [text]="buildTranslationKey('temporaryNA') | translate"></app-text>
+</ng-template>

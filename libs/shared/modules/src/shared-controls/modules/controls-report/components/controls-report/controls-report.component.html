@@ -1,0 +1,22 @@
+<perfect-scrollbar [class.hidden]="!(isAllLoaded$ | async)">
+  <app-controls-report-header [customer]="customer$ | async"> </app-controls-report-header>
+  <section class="content">
+    <div class="content-wrapper">
+      <div class="report-description">
+        <ng-container *ngTemplateOutlet="reportDescription"></ng-container>
+      </div>
+      <svg-icon class="section-splitter" src="control-report-splitter"></svg-icon>
+      <div class="controls-list" *ngFor="let control of controls$ | async">
+        <app-controls-report-item [control]="control" [framework]="framework$ | async"></app-controls-report-item>
+      </div>
+    </div>
+  </section>
+  <app-anecdotes-footer *ngIf="isAllLoaded$ | async"></app-anecdotes-footer>
+</perfect-scrollbar>
+<!-- TEMPLATES -->
+<ng-template #reportDescription>
+  <span class="title">
+    {{ buildTranslationKey('description.title') | translate }}
+  </span>
+  <app-text class="description" [text]="buildTranslationKey('description.description')"> </app-text>
+</ng-template>

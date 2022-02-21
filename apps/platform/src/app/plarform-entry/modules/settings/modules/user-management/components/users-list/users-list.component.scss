@@ -1,0 +1,30 @@
+@import 'index';
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  &.hidden {
+    visibility: hidden;
+  }
+
+  .text-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+
+    .users-count {
+      @include MulishBold(21px, 21px);
+      color: $mc-navy-90;
+      text-transform: capitalize;
+
+      &.uppercase {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  app-user-item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}

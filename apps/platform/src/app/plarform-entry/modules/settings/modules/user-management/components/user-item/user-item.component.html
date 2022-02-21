@@ -1,0 +1,59 @@
+<div class="user-wrapper" [searchableRow]="user" [scrollToElementOnFocus]="true" [rowTrackBy]="rowTrackBy">
+  <svg-icon class="user-icon" [src]="resolveUserIcon()" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  <span class="name-lastname gray" *ngIf="checkIsUserInPendingState(); else userActiveName">{{ userFullName + ' (' }}{{
+    buildTranslationKey('pendingUserState') | translate }})</span>
+  <app-searchable-text class="email truncate" [text]="user.email" placement="top" [ngbTooltip]="user.email"
+    [openTooltipWhenOverflowedAndHovered]="true" [openOnWidthOverflow]="true"></app-searchable-text>
+  <div class="user-type">
+    <svg-icon [src]="resolveUserTypeIconPath()" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span [class.uppercase]="user.role === role.It"> {{ user.role }}</span>
+  </div>
+  <app-date-view [date]="user.last_login" [descriptionTranslationKey]="
+        checkIsUserInPendingState() ? buildTranslationKey('sentInvitation') : buildTranslationKey('lastLogin')
+      "></app-date-view>
+  <div class="buttons">
+    <ng-container *ngIf="user.role === role.Auditor">
+      <ng-container *ngTemplateOutlet="auditorContent"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!isCurrentUser">
+      <ng-container *visibleForRole="[role.Admin]">
+        <app-button *ngIf="!checkIsUserInPendingState(); else pengingUserStateButtons" id="remove" [icon]="'remove'"
+          (click)="openRemoveConfirmationModal()" class="secondary-filled mulish content-exist small">{{
+          buildTranslationKey('button.remove') | translate }}</app-button>
+      </ng-container>
+    </ng-container>
+  </div>
+
+</div>
+
+<ng-template #userActiveName>
+  <span class="name-lastname d-flex">
+    <app-searchable-text [text]="userFullName"></app-searchable-text>
+    &nbsp;
+    <span *ngIf="isCurrentUser">{{ buildTranslationKey('me') | translate }}</span>
+  </span>
+</ng-template>
+
+<ng-template #auditorContent>
+  <app-frameworks-icon *ngIf="auditorFrameworkNames$ | async as frameworkNames"
+    class="flex m-2 mr-3 flex-wrap justify-end items-center" [relatedFrameworks]="frameworkNames"
+    [shouldDisplayIfNoControls]="true">
+  </app-frameworks-icon>
+</ng-template>
+
+<ng-template #pengingUserStateButtons>
+  <app-button id="resend" [icon]="'resend'" (click)="resendInvitation()" [loading]="resendButtonLoader$ | async"
+    class="secondary-filled mulish small content-exist">{{ buildTranslationKey('button.resend') | translate }}
+  </app-button>
+  <app-three-dots-menu #threeDotsMenuRef [menuActions]="threeDotsMenuActions"></app-three-dots-menu>
+</ng-template>
+
+<ng-template #confirmationModal>
+  <app-confirmation-modal-window icon="status_not_started"
+    [questionTranslationKey]="buildTranslationKey('confirmationModal.question')"
+    [questionTranslationParams]="{ user_name: userFullName }"
+    [confirmTranslationKey]="buildTranslationKey('confirmationModal.yesRemoveBtn')"
+    [dismissTranslationKey]="buildTranslationKey('confirmationModal.cancelBtn')"
+    [confirmationHandlerFunction]="removeUser.bind(this)">
+  </app-confirmation-modal-window>
+</ng-template>

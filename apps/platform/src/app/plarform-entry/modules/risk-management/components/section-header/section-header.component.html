@@ -1,0 +1,16 @@
+<svg-icon
+  [ngbTooltip]="tooltipText"
+  [keepOnHover]="true"
+  [stretch]="true"
+  [class.tooltip-opened]="tooltipOnPreview.isOpen()"
+  placement="top"
+  #tooltipOnPreview="ngbTooltip"
+  src="info"
+  preserveAspectRatio="none"
+  class="info-icon mr-2"
+  [attr.tooltipclass]="'default-tooltip'"
+></svg-icon>
+<div class="flex-1 text-navy-90 font-bold ellipsis">{{ headerText }}</div>
+<app-new-button [type]="buttonType" [size]="'responsive'" [svgIconPath]="buttonIcon" class="header-btn {{buttonType}}" (click)="buttonClicked.emit()">
+  {{ buttonText }}
+</app-new-button>

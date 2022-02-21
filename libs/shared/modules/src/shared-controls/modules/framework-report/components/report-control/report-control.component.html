@@ -1,0 +1,41 @@
+<mat-expansion-panel
+  *ngIf="control"
+  #matexpp
+  [searchableRow]="control"
+  [rowTrackBy]="rowTrackBy"
+  [expanded]="matexpp.expanded"
+  class="rounded-md shadow-none border border-solid border-navy-40"
+  hideToggle="true"
+>
+  <mat-expansion-panel-header class="h-auto p-6">
+    <mat-panel-title>
+      <div class="flex justify-center items-center mr-3">
+        <svg-icon
+          src="{{ matexpp.expanded ? 'minus' : 'plus' }}"
+          preserveAspectRatio="none"
+          [stretch]="true"
+        ></svg-icon>
+      </div>
+      <span class="font-main font-bold text-2xl flex items-center justify-center">
+        <app-searchable-text [text]="control.control_name"></app-searchable-text>
+      </span>
+    </mat-panel-title>
+    <mat-panel-description class="flex-grow-1 m-0 justify-end">
+      <div class="flex items-center justify-end">
+        <app-control-status class="pointer-events-none" [controlId]="control.control_id" [framework]="undefined">
+        </app-control-status>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="px-9">
+    <app-searchable-text class="block font-main text-navy-90 text-base mb-5" [text]="control?.control_description">
+    </app-searchable-text>
+    <p class="font-main font-bold text-base text-navy-90 mb-2.5">
+      {{ buildTranslationKey('req') | translate: { reqsAmount: control.control_number_of_requirements } }}
+    </p>
+    <app-report-requirement
+      *ngFor="let req of control.control_calculated_requirements"
+      [requirement]="req"
+    ></app-report-requirement>
+  </div>
+</mat-expansion-panel>

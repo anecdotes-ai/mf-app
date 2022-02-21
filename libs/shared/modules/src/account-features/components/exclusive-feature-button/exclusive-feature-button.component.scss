@@ -1,0 +1,11 @@
+:host {
+  &:hover {
+    @apply border-blue-50;
+    border: 1px solid;
+
+    .overlay {
+      @apply bg-blue-50;
+      @apply text-navy-90;
+    }
+  }
+}

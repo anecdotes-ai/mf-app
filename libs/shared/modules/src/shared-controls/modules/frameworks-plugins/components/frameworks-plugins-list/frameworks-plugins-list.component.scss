@@ -1,0 +1,10 @@
+:host {
+  width: 600px;
+  height: 645px;
+
+  &::ng-deep {
+    .base-modal-content {
+      @apply p-0;
+    }
+  }
+}

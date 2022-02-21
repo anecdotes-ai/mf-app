@@ -1,0 +1,38 @@
+<section class="main-content">
+  <div class="icon" *ngIf="icon">
+    <svg-icon [src]="icon" [stretch]="true"></svg-icon>
+  </div>
+  <div class="question" *ngIf="questionTranslationKey">
+    <app-text [text]="questionTranslationKey" [textParameters]="questionTranslationParams"></app-text>
+  </div>
+  <div class="aftermath" *ngIf="aftermathTranslationKey"><app-text [text]="aftermathTranslationKey" [textParameters]="aftermathTranslationParams"></app-text></div>
+  <div class="aftermath" *ngIf="aftermathTemplate">
+    <ng-container *ngTemplateOutlet="aftermathTemplate"></ng-container>
+  </div>
+</section>
+<section class="footer flex flex-row-reverse justify-between bg-navy-30 items-center px-8 h-20">
+  <div class="buttons flex" [class.primary-first]="primaryButtonFirst">
+    <app-new-button
+      *ngIf="confirmTranslationKey"
+      [type]="'primary'"
+      [size]="'medium'"
+      [loading]="isLoading"
+      (click)="confirm()"
+      class="mulish"
+    >
+      {{ confirmTranslationKey | translate }}
+    </app-new-button>
+    <app-new-button
+      *ngIf="dismissTranslationKey"
+      (click)="dismiss()"
+      [type]="'secondary'"
+      [size]="'medium'"
+      class="mulish"
+      >{{ dismissTranslationKey | translate }}
+    </app-new-button>
+  </div>
+  <app-checkbox *ngIf="localStorageKey"
+    [valueLabel]="dontShowTranslationKey | translate"
+    (changeValue)="changeValue($event.checked)">
+  </app-checkbox>
+</section>

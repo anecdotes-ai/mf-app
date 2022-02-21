@@ -1,0 +1,3 @@
+<span class="font-main text-3xl bold"> {{ buildTranslationKey('title') | translate : { amount: notificationsCount } }} </span>
+<app-new-button [type]="'basic'" [verticalSize]="'small'" [size]="'responsive'" [disabled]="!notificationsCount" (click)="clearAllClicked.emit()"> {{ buildTranslationKey('clearAll') | translate }}
+</app-new-button>

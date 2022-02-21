@@ -1,0 +1,38 @@
+@import 'index';
+
+:host {
+  width: 600px;
+}
+
+.title {
+  margin: 15px 0 10px 0;
+  @include MulishBold(21px, 31px);
+  color: $mc-navy-90;
+  text-align: center;
+}
+
+.description {
+  margin-bottom: 20px;
+  @include MulishFontStyle(13px, 21px);
+  color: $mc-navy-70;
+  text-align: center;
+}
+
+svg-icon {
+  margin-top: 20px;
+}
+
+:host::ng-deep {
+  .contact-us {
+    svg path {
+      stroke: $mc-white;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

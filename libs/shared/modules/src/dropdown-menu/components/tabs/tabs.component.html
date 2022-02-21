@@ -1,0 +1,51 @@
+<section *ngIf="tabsToDisplay.length" class="tabs relative z-10">
+
+  <ng-container *ngIf="useCarousel; else withoutCarousel">
+    <app-carousel [carouselMaxWidthInPercents]="carouselMaxWidthInPercents">
+      <ng-container *ngFor="let tab of tabsToDisplay; let i = index; trackBy: tabTrackBy">
+        <ng-container *carouselItem>
+          <ng-container *ngTemplateOutlet="tabOptionContent;context:{ tab, i }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </app-carousel>
+  </ng-container>
+
+  <ng-template #withoutCarousel>
+    <ng-container *ngFor="let tab of tabsToDisplay; let i = index; trackBy: tabTrackBy">
+      <ng-container *ngTemplateOutlet="tabOptionContent;context:{ tab, i }"></ng-container>
+    </ng-container>
+  </ng-template>
+
+</section>
+
+<ng-template #tabOptionContent let-tab="tab" let-i="i">
+  <app-tab-option
+    *visibleForRole="tab?.visibleFor"
+    [routerLink]="tab.routerLink"
+    [size]="tabSize"
+    [selected]="i === selectedTabIndex"
+    (click)="selectTab(i)"
+    [count]="tab.count"
+    [progress]="tab.progress"
+    [progressColor]="tab.progressColor"
+    [svgIconPath]="tab.icon"
+    [class.disabled]="disableTabsOnNoItems && !tab.count"
+  >
+    {{ tab.translationKey | translate }}
+  </app-tab-option>
+</ng-template>
+
+<div *ngIf="isShowBottomBorder" class="border-bottom">
+</div>
+<section *ngIf="allowTabTemplates" class="content flex-1">
+
+  <ng-container *ngFor="let tab of tabsToDisplay; let i = index">
+    <div
+      *ngIf="renderAllTabs || i === selectedTabIndex"
+      class="tab-content"
+      [ngClass]="{ 'w-0 overflow-hidden opacity-0': i !== selectedTabIndex }"
+    >
+      <ng-container *ngTemplateOutlet="tab.tabTemplate; context: tab.context"></ng-container>
+    </div>
+  </ng-container>
+</section>

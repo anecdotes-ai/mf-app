@@ -1,0 +1,308 @@
+@import '../preview-shared-styles.scss';
+
+$dropdown-width: 190px;
+
+:host {
+  @apply flex flex-col bg-navy-30 overflow-hidden relative;
+  word-break: normal;
+  width: 87vw;
+  max-height: 93vh;
+  height: 93vh;
+
+  &.url {
+    @apply h-auto;
+    min-height: 24vh;
+  }
+
+  app-secondary-loading-animation {
+    @apply absolute bg-white w-full h-full;
+    z-index: 999;
+  }
+
+  app-not-found {
+    @apply w-full h-full;
+  }
+
+  .grid-wrapper {
+    @apply relative flex flex-col w-full h-full overflow-hidden;
+
+    // Styles fo Default No Result view
+
+    .default-empty-result-table-grid-wrapper {
+      @apply grid gap-y-2.5;
+
+      .default-empty-header-value {
+        @apply relative bg-blue-70 font-main font-bold text-base text-white h-10;
+        min-width: 130px;
+
+        svg-icon {
+          @apply absolute right-0 transform rotate-90;
+
+          svg {
+            width: 14px;
+            height: 8px;
+          }
+
+          path {
+            @apply fill-white;
+          }
+        }
+      }
+
+      .first-column {
+        border-radius: 6px 0 0 0;
+      }
+
+      .last-column {
+        border-radius: 0 6px 0 0;
+      }
+    }
+
+    .default-empty-header-value {
+      @apply flex justify-center items-center border-r-0 border-l-0;
+    }
+
+    // End Styles fo Default No Result view
+  }
+
+  .no-data-to-preview {
+    @apply flex flex-col items-center justify-center h-full;
+
+    svg-icon {
+      @apply mb-2.5;
+    }
+
+    .header {
+      @apply font-main font-bold text-base text-navy-90;
+      margin-bottom: 5px;
+    }
+
+    .description * {
+      @apply font-main text-base text-navy-90;
+    }
+
+    .description {
+      app-button.view-raw-data-btn {
+        @apply py-0 px-1;
+      }
+    }
+  }
+
+  & > section {
+    @apply flex flex-col w-full h-full;
+  }
+
+  &.grid-empty {
+    .middle-content {
+      @apply h-auto;
+    }
+  }
+
+  &.list::ng-deep,
+  &.table::ng-deep,
+  &.log::ng-deep {
+    perfect-scrollbar {
+      border-radius: 6px;
+
+      .ps {
+        @apply bg-white border border-solid border-navy-50;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  &.cfg::ng-deep {
+    .empty-data {
+      perfect-scrollbar {
+        border-radius: 6px;
+        .ps {
+          @apply bg-white border border-solid border-navy-50;
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+
+  &::ng-deep {
+    @apply bg-white border-t border-solid border-navy-30 p-0;
+
+    .middle-content {
+      @apply h-full overflow-hidden pb-4 pr-8;
+    }
+
+    .grid-wrapper {
+      @apply bg-navy-30 pb-0 pr-0 pl-8;
+    }
+
+    app-grid {
+      @apply w-full h-full;
+
+      .row-value {
+        padding-right: 50px;
+      }
+    }
+
+    perfect-scrollbar {
+      @apply overflow-visible;
+
+      .ps-overlay {
+        @apply hidden;
+      }
+
+      .ps-content {
+        @apply pr-0;
+      }
+
+      & > .ps.ps--active-y {
+        & > .ps__rail-y {
+          @apply bg-none;
+          right: -20px !important;
+        }
+
+        .ps__rail-x {
+          @apply bg-none opacity-100;
+          bottom: -20px !important;
+
+          &:hover .ps__thumb-x {
+            height: 6px;
+          }
+        }
+      }
+    }
+
+    .help-icon {
+      width: 18px;
+      height: 18px;
+
+      &.margin-top {
+        @apply mt-5;
+      }
+
+      &.margin-right {
+        margin-right: 5px;
+      }
+
+      svg {
+        path:nth-of-type(1) {
+          @apply stroke-navy-50;
+        }
+
+        path:nth-of-type(2) {
+          @apply fill-navy-50;
+        }
+      }
+
+      &:hover,
+      &.tooltip-opened {
+        svg {
+          path:nth-of-type(1) {
+            @apply stroke-navy-90;
+          }
+
+          path:nth-of-type(2) {
+            @apply fill-navy-90;
+          }
+        }
+      }
+    }
+  }
+
+  .error {
+    @apply flex flex-col justify-center items-center;
+    min-height: 240px;
+
+    app-button {
+      margin-top: 11px;
+    }
+
+    > div {
+      @apply font-main text-base;
+    }
+  }
+
+  .actions-group {
+    @apply w-full bg-navy-30 relative py-4 px-8;
+
+    &:before {
+      @apply block bg-navy-40 absolute bottom-0;
+      height: 1px;
+      width: calc(100% - 60px);
+      content: '';
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    ::ng-deep {
+      app-data-search app-text-field {
+        @apply w-full;
+      }
+      app-dropdown-button {
+        @apply m-0;
+      }
+    }
+  }
+
+  app-data-search {
+    @apply mr-2.5 ml-auto;
+  }
+
+  app-search-results-pagination::ng-deep {
+    .search-results-pagination {
+      @apply h-auto pt-0 px-0 pb-10;
+      min-height: auto;
+    }
+  }
+
+  .evidence-history,
+  .filter-evidence {
+    @apply font-main text-base text-navy-70 mr-5;
+
+    .title {
+      @apply mr-2.5;
+    }
+
+    app-dropdown-control {
+      width: $dropdown-width;
+    }
+  }
+
+  app-evidence-empty-state {
+    @apply pt-14;
+  }
+
+  .evidence-tip-wrapper {
+    @apply bg-navy-30 py-2.5 px-8;
+  }
+
+  .report-wrapper {
+    @apply bg-navy-30 pt-0 pr-0 pb-4 pl-8;
+  }
+}
+
+::ng-deep {
+  #evidence-preview-modal {
+    #close-modal-btn {
+      @apply top-3 right-3;
+    }
+  }
+}
+
+.help-tooltip {
+  @apply w-full flex flex-col font-main text-base;
+
+  section:not(:last-child) {
+    @apply mb-6;
+  }
+
+  a {
+    @apply underline cursor-pointer text-white;
+  }
+
+  .api-call {
+    width: $evidence-help-width;
+  }
+
+  .used-api-calls {
+    @apply w-full;
+  }
+}

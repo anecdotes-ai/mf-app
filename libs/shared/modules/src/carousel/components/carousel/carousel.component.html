@@ -1,0 +1,28 @@
+<button
+  (click)="prev()"
+  class="btn btn-item justify-start"
+  [ngStyle]="{ width: buttonWidth + 'px' }"
+  [disabled]="setDisablingToPreviousButton"
+>
+  <svg-icon [src]="'open-arrow-icon'" class="transform rotate-180"></svg-icon>
+</button>
+<div class="carousel-wrap" [ngStyle]="carouselWrapperStyles">
+  <ul class="carousel-inner-container" [ngStyle]="{ columnGap: columnGap ? columnGap + 'px' : '' }" #carouselInner>
+    <ng-container *ngIf="currentWrapperWidth">
+      <li *ngFor="let slide of slides" class="slide-container" #slideItem>
+        <ng-template [ngTemplateOutlet]="slide.template"></ng-template>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+<button
+  (click)="next()"
+  class="btn btn-item justify-end"
+  [ngStyle]="{
+    'margin-left': columnGap ? -columnGap + 'px' : '',
+    width: buttonWidth + 'px'
+  }"
+  [disabled]="setDisablingToNextButton"
+>
+  <svg-icon [src]="'open-arrow-icon'"></svg-icon>
+</button>

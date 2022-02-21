@@ -1,0 +1,29 @@
+@import 'index';
+
+.flow-steps {
+  @include MulishFontStyle();
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  font-weight: 400;
+  color: $mc-navy-60;
+  svg-icon {
+    path {
+        fill: $mc-navy-40;
+    }
+  }
+}
+.flow-single-step {
+  padding-right: 16px;
+}
+.arrow-right {
+  padding-right: 16px;
+}
+.selected-step {
+  color: $mc-orange-70;
+  svg-icon {
+    path {
+        fill: $mc-orange-70;
+    }
+  }
+}

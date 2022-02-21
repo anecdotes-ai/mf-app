@@ -1,0 +1,18 @@
+<ng-container *ngIf="isEvidenceStatusDisplayed">
+    <div *ngIf="isNewStatus" class="status status-new font-main text-xs" [@hideStatus]>
+        <div class="text">{{ buildTranslationKey('new') | translate }}</div>
+    </div>
+    <div *ngIf="isNotMitigatedStatus" class="status status-not-mitigated" (click)="setEvidenceMitigatedStatus($event)">
+        <svg-icon src="exclamation" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+    <div class="statuses-buttons">
+        <app-icon-button *ngIf="!isNotMitigatedStatus" [svgIconPath]="'exclamation'"
+            class="not-mitigated-btn mitigation-status" [ngbTooltip]="buildTranslationKey('markTooltip') | translate"
+            tooltipClass="default-tooltip evidence-status-tooltip" (click)="setEvidenceNotMitigatedStatus($event)">
+        </app-icon-button>
+        <app-icon-button *ngIf="isNewStatus || isNotMitigatedStatus" class="mitigated-btn mitigation-status"
+            [svgIconPath]="'checkmark'" [ngbTooltip]="buildTranslationKey('gotItTooltip') | translate"
+            tooltipClass="default-tooltip evidence-status-tooltip" (click)="setEvidenceMitigatedStatus($event)">
+        </app-icon-button>
+    </div>
+</ng-container>

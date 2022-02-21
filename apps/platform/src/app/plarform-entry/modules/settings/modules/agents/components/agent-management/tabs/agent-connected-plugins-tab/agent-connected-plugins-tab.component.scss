@@ -1,0 +1,7 @@
+:host {
+  .item-wrapper {
+    &:not(:last-child) {
+      @apply border-solid border-navy-30 border-b;
+    }
+  }
+}

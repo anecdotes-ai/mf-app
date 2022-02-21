@@ -1,0 +1,119 @@
+@import './variables/index';
+@import './mixins/fonts';
+@import './media';
+
+:host {
+  app-tabs {
+    height: calc(100% - 30px);
+    ::ng-deep .tab-hidden {
+      display: none;
+    }
+  }
+
+  .wrapper-coming-soon {
+    position: relative;
+
+    app-coming-soon {
+      position: static;
+
+      ::ng-deep #coming-soon {
+        min-height: 190px;
+        @media (max-width: $Small) {
+          min-height: 210px;
+        }
+
+        .footer-elements {
+          svg-icon svg {
+            width: 70%;
+            height: 70%;
+          }
+        }
+      }
+
+      .empty-text {
+        margin-bottom: 60px;
+      }
+    }
+
+    .main-title {
+      font-weight: normal;
+      margin-bottom: 5px;
+      @include basicDark(21px, 30px);
+    }
+
+    .tab-content {
+      border-top: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+    }
+  }
+
+  .dashboard-frameworks,
+  .dashboard-frameworks-wrapper {
+    height: 100%;
+
+    ::ng-deep .tabs {
+      padding: 0;
+    }
+  }
+
+  .dashboard-frameworks {
+    display: flex;
+    flex-direction: column;
+
+    .main-title {
+      font-size: 21px;
+    }
+  }
+
+  .dashboard-frameworks {
+    ::ng-deep .tabs {
+      padding: 5px 0 10px 0;
+
+      > button {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          bottom: 0;
+          content: '';
+          display: block;
+          width: 0;
+          height: 2px;
+          background: $mc-navy-90;
+          transition: width 0.2s;
+        }
+
+        &.active {
+          border: 0 !important;
+          @include basicBold();
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    ::ng-deep {
+      .border-bottom {
+        margin: -22px 0 0 0;
+      }
+
+      .tab-content {
+        height: 100%;
+      }
+
+      .multiple-tabs .content {
+        margin-top: 0;
+        margin-bottom: 70px;
+      }
+    }
+  }
+
+  .col-12{
+    padding-right: 5px !important;
+  }
+}
+
+.tabs {
+  margin-top: -100px;
+}

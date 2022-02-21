@@ -1,0 +1,55 @@
+:host {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+:host:not(.full-data).cfg {
+    .main-span {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        > span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+:host.full-data.cfg {
+    margin: 5px 0;
+}
+
+:host.full-data::ng-deep {
+    span {
+        max-height: unset;
+        max-width: unset;
+        text-overflow: initial;
+    }
+}
+
+:host::ng-deep app-searchable-text, :host .main-span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+
+    span {
+        white-space: nowrap;
+    }
+}
+
+:host:not(.cfg) {
+    .main-span {
+        min-height: 27px;
+    }
+}
+
+.gap-flag {
+    margin-left: 5px;
+}

@@ -1,0 +1,26 @@
+<div>
+  <span class="title">{{ buildTranslationKey('title') | translate }}</span>
+</div>
+<div>
+  <app-data-search #searchComponent (search)="search.emit($event)" (inputText)="searchInputText.emit($event)" [searchDefinitions]="searchDefinitions"
+    [placeholderTranslationKey]="buildTranslationKey('searchPlugins')"></app-data-search>
+</div>
+<div>
+  <app-new-button
+    *ngIf="afterViewHookInitiated"
+    id="suggest-plugin-header-button"
+    [ngbTooltip]="tooltipText"
+    placement="bottom"
+    (click)="suggestPlugin.emit()"
+    [type]="'secondary'"
+    [size]="'medium'"
+    [verticalSize]="'medium'"
+    class="mulish"
+  >
+    {{ buildTranslationKey('suggestPluginBtn') | translate }}
+  </app-new-button>
+</div>
+
+<ng-template #tooltipText>
+  <app-text [text]="buildTranslationKey('tooltip') | translate"></app-text>
+</ng-template>

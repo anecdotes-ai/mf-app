@@ -1,0 +1,108 @@
+<app-secondary-loading-animation *ngIf="displayActionLoader"></app-secondary-loading-animation>
+
+<div class="evidence-item-mask">
+</div>
+
+<app-evidence-preview-header
+  *ngIf="shouldDisplayHeader"
+  [requirementName]="requirementLike.name"
+>
+</app-evidence-preview-header>
+
+<div #sharedContext="sharedContextAccessor" sharedContextAccessor class="evidence-element"
+  [class.hoverable]="!isReadOnly"
+  (click)="rowClick()"
+  [class.userflow-evidence-anecdotes]="isAnecdotesEvidence">
+  <div class="evidence-item-statuses" htmlElementRef #statusesRef="htmlElementRef">
+    <div class="evidence-statuses">
+      <app-evidence-mitigation-mark *ngIf="!(sharedContext.context.isAudit || isInPolicyContext || isReadOnly)" [evidence]="evidence"
+        [controlInstance]="controlInstance" [controlRequirement]="controlRequirement" [framework]="framework"
+        (clicked)="mitigationMarkClicked()">
+      </app-evidence-mitigation-mark>
+    </div>
+  </div>
+
+  <app-evidence-label [evidenceComply]="evidenceComply" [evidence]="evidence" [viewPreviewMode]="viewPreviewMode"
+    [framework]="framework" [eventSource]="evidenceSources.Controls" [controlInstance]="controlInstance"
+    [controlRequirement]="controlRequirement" [resourceType]="evidenceLike.resourceType" [policyId]="evidenceLike.id">
+  </app-evidence-label>
+
+  <div class="evidence-attractive-elements-section">
+    <app-evidence-metadata
+      [viewPreviewMode]="viewPreviewMode"
+      [evidence]="evidence"
+      [icon]="evidenceMetadatIcon"
+      [dateViewType]="dateViewTypes.Regular">
+    </app-evidence-metadata>
+
+    <div htmlElementRef #actionButtonsRef="htmlElementRef">
+      <ng-container *ngIf="!sharedContext.context.isAudit && !fullViewMode">
+        <ng-container *ngTemplateOutlet="isRemovable ? removeButton : ignoreButton">
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="viewPreviewMode || previewOpened" [@expandCollapse] class="preview-wrapper">
+  <app-policy-preview *ngIf="isPolicyPreview"
+    [policyId]="isInPolicyContext ? requirementLike.resourceId : evidenceLike.id" [policyContext]="isInPolicyContext"
+    (viewDocument)="viewDocument()">
+  </app-policy-preview>
+</div>
+
+<ng-template #confirmationModal>
+  <app-confirmation-modal-window
+    icon="status_not_started"
+    [aftermathTranslationKey]="buildTranslationKey('confirmationModal.aftermath')"
+    [questionTranslationKey]="buildTranslationKey('confirmationModal.question')"
+    [confirmTranslationKey]="buildTranslationKey('confirmationModal.deleteForeverBtn')"
+    [dismissTranslationKey]="buildTranslationKey('confirmationModal.noKeepItBtn')"
+    [confirmationHandlerFunction]="confirmRemoving.bind(this)">
+  </app-confirmation-modal-window>
+</ng-template>
+
+<ng-template #policyConfirmationModal>
+  <app-confirmation-modal-window icon="status_not_started" [aftermathTranslationKey]="buildTranslationKey('policyConfirmationModal.aftermath')"
+    [questionTranslationKey]="buildTranslationKey('policyConfirmationModal.question')"
+    [confirmTranslationKey]="buildTranslationKey('policyConfirmationModal.deleteForeverBtn')"
+    [dismissTranslationKey]="buildTranslationKey('policyConfirmationModal.noKeepItBtn')"
+    [confirmationHandlerFunction]="confirmRemoving.bind(this)">
+  </app-confirmation-modal-window>
+</ng-template>
+
+<ng-template #ignoreConfirmationModal>
+  <app-confirmation-modal-window icon="status_not_started"
+    [aftermathTranslationKey]="buildTranslationKey('confirmationModal.aftermathApproved')"
+    [questionTranslationKey]="buildTranslationKey('confirmationModal.questionIgnore')"
+    [confirmTranslationKey]="buildTranslationKey('confirmationModal.yesIgnore')"
+    [dismissTranslationKey]="buildTranslationKey('confirmationModal.noKeepItBtn')"
+    (confirmClick)="toggleEvidenceApplicability()">
+  </app-confirmation-modal-window>
+</ng-template>
+
+<ng-template #restoreConfirmationModal>
+  <app-confirmation-modal-window icon="status_not_started"
+    [aftermathTranslationKey]="buildTranslationKey('confirmationModal.aftermathApproved')"
+    [questionTranslationKey]="buildTranslationKey('confirmationModal.questionRestore')"
+    [confirmTranslationKey]="buildTranslationKey('confirmationModal.yesRestore')"
+    [dismissTranslationKey]="buildTranslationKey('confirmationModal.noKeepItBtn')"
+    (confirmClick)="toggleEvidenceApplicability()">
+  </app-confirmation-modal-window>
+</ng-template>
+
+<ng-template #ignoreButton>
+  <button class="ignore-btn" mat-icon-button [disableRipple]="true"
+    [ngbTooltip]="buildTranslationKey(evidence.evidence_is_applicable ? 'ignore' : 'unIgnore') | translate"
+    placement="top-right" (click)="ignoreClick(); $event.stopPropagation();">
+    <svg-icon src="hide" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </button>
+</ng-template>
+
+<ng-template #removeButton>
+  <button class="remove-btn" mat-icon-button [disableRipple]="true"
+    [ngbTooltip]="buildTranslationKey('remove') | translate: { resource: removeResourceType }" placement="top-right"
+    (click)="remove(); $event.stopPropagation();">
+    <svg-icon src="remove" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </button>
+</ng-template>

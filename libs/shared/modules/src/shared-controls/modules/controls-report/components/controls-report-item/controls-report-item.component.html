@@ -1,0 +1,23 @@
+<section class="header">
+  <span class="name">{{ control.control_name }}</span>
+  <span class="description">{{ control.control_description }}</span>
+  <span class="trusted-criterias" *ngIf="control_criterias_by_comma">
+    {{ buildTranslationKey('trustedCriterias') | translate: {criterias: control_criterias_by_comma } }}
+  </span>
+</section>
+<section class="content">
+  <ng-container *ngFor="let requirement of applicableRequirements">
+    <div class="requirement-item">
+      <span class="name">{{ requirement.requirement_name }}</span>
+      <span class="description">{{ requirement.requirement_help }}</span>
+      <div *ngIf="serviceIconPaths.get(requirement).length" class="connected-plugins">
+        <span class="description">{{ buildTranslationKey('connectedPlugins') | translate }}</span>
+        <div class="plugin-icons">
+          <div class="plugin-item" *ngFor="let iconPath$ of serviceIconPaths.get(requirement)">
+            <svg-icon class="w-full h-full" [src]="iconPath$ | async" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>

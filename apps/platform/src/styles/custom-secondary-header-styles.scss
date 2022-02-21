@@ -1,0 +1,55 @@
+@import 'index';
+
+:host {
+  display: flex;
+  height: 60px;
+  background: $mc-navy-10;
+  border-bottom: 1px solid $mc-navy-40;
+
+  app-data-tabs-select::ng-deep app-tabs::ng-deep {
+    .tabs {
+      padding-left: 19px;
+    }
+  }
+
+  app-three-dots-menu {
+    margin-left: 5px;
+  }
+
+  .controls-info-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding-right: 25px;
+
+    svg-icon {
+      svg {
+        g {
+          rect:first-child {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .controls-info {
+      span.related-controls {
+        @include MerriWeatherBold(16px, 20px);
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        margin-right: 5px;
+      }
+      span.description {
+        @include MulishFontStyle(13px, 23px);
+      }
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      text-transform: capitalize;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+    }
+  }
+}

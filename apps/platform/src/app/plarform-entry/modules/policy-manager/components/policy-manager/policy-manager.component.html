@@ -1,0 +1,5 @@
+<section [searchScope]>
+    <app-main-header [inputModel]="headerInput" (btnPressed)="addPolicy()"></app-main-header>
+    <app-policy-manager-content (policiesLoaded)="stopLoading()"></app-policy-manager-content>
+</section>
+

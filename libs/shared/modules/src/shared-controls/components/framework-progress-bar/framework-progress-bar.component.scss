@@ -1,0 +1,18 @@
+:host {
+  gap: 6px;
+
+  .percent {
+    @apply font-secondary text-xl font-bold;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+  }
+
+  .large {
+    .percent {
+      @apply font-secondary font-bold text-5xl;
+    }
+
+    .percent-text {
+      @apply font-secondary text-3xl;
+    }
+  }
+}

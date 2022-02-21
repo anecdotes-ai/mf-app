@@ -1,0 +1,78 @@
+<ng-container *ngIf="gridView">
+  <ng-container *ngTemplateOutlet="scrollDisabled ? contentTemplate : contentWithScrollTemplate"></ng-container>
+</ng-container>
+
+<ng-template #contentWithScrollTemplate>
+  <perfect-scrollbar #ps [disabled]="false" [scrollIndicators]="true">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </perfect-scrollbar>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <virtual-scroller *ngIf="useVirtualScroll; else virtualScrollDisabledTemplate" #scroller [parentScroll]="parentScroll"
+    [items]="displayedRows" [enableUnequalChildrenSizes]="true">
+    <table class="table-grid">
+      <thead #header>
+        <ng-container *ngTemplateOutlet="theadTemplate"></ng-container>
+      </thead>
+      <tbody #container>
+        <ng-container *ngTemplateOutlet="tbodyTemplate; context: { scroller: scroller, rows: scroller.viewPortItems }"></ng-container>
+      </tbody>
+    </table>
+  </virtual-scroller>
+  <ng-template #virtualScrollDisabledTemplate>
+    <table class="table-grid">
+      <thead>
+        <ng-container *ngTemplateOutlet="theadTemplate"></ng-container>
+      </thead>
+      <tbody>
+        <ng-container *ngTemplateOutlet="tbodyTemplate; context: { rows: displayedRows }"></ng-container>
+      </tbody>
+    </table>
+  </ng-template>
+</ng-template>
+
+<ng-template #theadTemplate>
+  <tr>
+    <th *ngFor="let column of gridView.header; first as isFirst; last as isLast; index as headerCellIndex"
+      [id]="createHeaderCellId(headerCellIndex)" (click)="columnHeaderClick(column)">
+      <div [class.first-column]="isFirst" [class.last-column]="isLast"
+        class="header-value {{ column === sortedBy ? currentSortDirection : '' }} {{ headerClass ? headerClass : '' }}">
+        <ng-container *ngTemplateOutlet="headerCell; context: { isFirst: isFirst, isLast: isLast, cellValue: column }">
+        </ng-container>
+      </div>
+    </th>
+  </tr>
+</ng-template>
+
+<ng-template #tbodyTemplate let-rows="rows" let-scroller="scroller">
+  <tr [searchableRow]="row" *ngFor="let row of rows; trackBy: rowTrackBy; index as rowIndex">
+    <td *ngFor="let cell of row.cells; first as isFirst; last as isLast; index as cellIndex"
+      [id]="createCellId(rowIndex, cellIndex)">
+      <div class="row-value" [class.first-column]="isFirst" [class.last-column]="isLast">
+        <ng-container *ngTemplateOutlet="rowCell; context: { isFirst: isFirst, isLast: isLast, cellValue: cell, stringCellValue: row.simplifiedCellsObject[gridView.header[cellIndex]],
+        rowIndex: rowIndex, cellHeader: gridView.header[cellIndex], rowId: row.rowId }">
+        </ng-container>
+      </div>
+    </td>
+  </tr>
+</ng-template>
+
+<ng-template #headerCell let-isFirst="isFirst" let-isLast="isLast" let-cellValue="cellValue">
+  <ng-container
+    *ngTemplateOutlet="headerTemplate || defaultHeaderCell; context: { isFirst: isFirst, isLast: isLast, sorted: cellValue === sortedBy, sortDirection: currentSortDirection, cellValue: cellValue }">
+  </ng-container>
+</ng-template>
+
+<ng-template #rowCell let-cellValue="cellValue" let-isFirst="isFirst" let-isLast="isLast" let-stringCellValue="stringCellValue" let-rowIndex="rowIndex" let-cellHeader="cellHeader" let-rowId="rowId">
+  <ng-container
+    *ngTemplateOutlet="cellTemplate || defaultRowCell; context: { isFirst: isFirst, isLast: isLast, cellValue: cellValue, stringCellValue: stringCellValue, rowIndex: rowIndex, cellHeader: cellHeader, rowId: rowId }">
+  </ng-container>
+</ng-template>
+
+<ng-template #defaultHeaderCell let-isFirst="isFirst" let-isLast="isLast" let-cellValue="cellValue">
+  <span>{{cellValue}}</span>
+</ng-template>
+<ng-template #defaultRowCell let-isFirst="isFirst" let-isLast="isLast" let-cellValue="cellValue">
+  <span>{{cellValue}}</span>
+</ng-template>

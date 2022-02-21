@@ -1,0 +1,42 @@
+$margin-padding: 0 30px;
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-flow: nowrap column;
+  gap: 12px;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  padding: $margin-padding;
+}
+
+.border-bottom {
+  margin: $margin-padding;
+}
+
+.border-bottom {
+  height: 1px;
+  @apply bg-navy-90 bg-opacity-10;
+  position: relative;
+  bottom: 1px;
+}
+
+:host.multiple-tabs {
+  .content {
+    margin-top: 20px;
+    overflow: auto;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
+.tab-content {
+  width: 100%;
+}

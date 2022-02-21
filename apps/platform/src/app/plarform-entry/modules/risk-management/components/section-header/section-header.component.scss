@@ -1,0 +1,25 @@
+:host::ng-deep {
+  @apply flex flex-row items-center h-14 min-h-14 pl-8 pr-4 bg-navy-10 rounded-t-lg font-main;
+
+  .info-icon {
+    svg {
+      @apply h-3.5 w-3.5;
+
+      .info-icon-fill {
+        @apply fill-navy-50;
+      }
+      .info-icon-stroke {
+        @apply stroke-navy-50;
+      }
+    }
+
+    &:hover {
+      .info-icon-fill {
+        @apply fill-navy-90;
+      }
+      .info-icon-stroke {
+        @apply stroke-navy-90;
+      }
+    }
+  }
+}

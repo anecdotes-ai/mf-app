@@ -1,0 +1,34 @@
+<div class="tabs-wrapper">
+  <app-data-tabs-select
+    class="policy-type-tabs"
+    [queryParamId]="policyTypeTabQueryParam"
+    [defaultTabId]="defaultTab"
+    [trackQueryParams]="true"
+    [tabs]="tabs"
+    [disableTabOnNoItems]="true"
+    (select)="toggleTab($event)"
+  ></app-data-tabs-select>
+</div>
+<app-selected-filters-list></app-selected-filters-list>
+<app-search-results-pagination></app-search-results-pagination>
+<perfect-scrollbar
+  *ngIf="!(isNotFoundState$ | async)"
+  #parentScroller
+  class="policy-perfect-bar"
+>
+  <app-policies-renderer
+    idPropertyName="policy_id"
+    [parentScroller]="parentScroller"
+    (rendered)="policiesLoaded.emit()"
+    [displayedData$]="displayedData$"
+  ></app-policies-renderer>
+</perfect-scrollbar>
+
+<ng-container *ngIf="(isNotFoundState$ | async) && searchInput">
+  <app-not-found
+    mainInfoTranslationKey="policyManager.searchNotFound.mainInfo"
+    [userAdviceDisabled]="true"
+    backToAllDataTranslationKey="policyManager.searchNotFound.clearSearchButton"
+    (backToAllDataBtnClick)="clearSearch()"
+  ></app-not-found>
+</ng-container>

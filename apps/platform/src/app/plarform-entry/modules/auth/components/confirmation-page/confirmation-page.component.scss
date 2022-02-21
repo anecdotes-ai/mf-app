@@ -1,0 +1,18 @@
+@import '../shared-styles.scss';
+
+:host {
+  @include sharedStylesForComponent();
+  width: auto;
+}
+
+.center-text {
+  gap: 15px;
+}
+
+.with-side-lines {
+  margin: 30px 0;
+}
+
+.sent-text {
+  max-width: 600px;
+}

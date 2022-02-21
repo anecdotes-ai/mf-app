@@ -1,0 +1,79 @@
+@import './index.scss';
+@import './mat-menu-custom-styles.scss';
+
+:host {
+  @apply h-full;
+  width: 22px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+
+  .statuses-buttons {
+    display: none;
+    z-index: 2;
+  }
+
+  .status {
+    height: 100%;
+    width: 100%;
+    color: $mc-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .status-new {
+    background-color: $mc-orange-50;
+
+    .text {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .status-not-mitigated {
+    background-color: $mc-pink-90;
+  }
+
+  .mitigation-status {
+    min-width: 22px;
+    max-width: 22px;
+  }
+
+  .statuses-buttons {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    app-icon-button {
+      width: 100%;
+      flex: 1;
+    }
+
+    .not-mitigated-btn {
+      background-color: $mc-pink-90;
+      border-top-right-radius: 6px;
+      border-radius: 0 6px 0px 0;
+    }
+
+    .mitigated-btn {
+      background-color: $mc-navy-90;
+      border-bottom-right-radius: 6px;
+      border-radius: 0 0px 6px 0;
+    }
+  }
+}
+
+:host:hover {
+  .statuses-buttons {
+    display: flex;
+  }
+
+  .status {
+    display: none;
+  }
+}

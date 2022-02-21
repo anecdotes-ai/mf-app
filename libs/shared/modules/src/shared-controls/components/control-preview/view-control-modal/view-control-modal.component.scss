@@ -1,0 +1,25 @@
+:host::ng-deep {
+  @apply bg-white;
+  width: 87vw;
+  max-height: 93vh;
+  height: 93vh;
+
+  app-base-modal {
+    .base-modal-content {
+      @apply h-full
+    }
+  }
+
+  app-control-view-item {
+    @apply block;
+    height: calc(100% - 3.5rem);
+  }
+
+  perfect-scrollbar {
+    height: calc(100% - 206px);
+  }
+}
+
+:host::ng-deep + #close-modal-btn {
+  @apply top-2.5 right-1;
+}

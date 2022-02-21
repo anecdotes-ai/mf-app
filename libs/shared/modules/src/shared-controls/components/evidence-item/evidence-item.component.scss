@@ -1,0 +1,256 @@
+@import './index.scss';
+@import './mat-menu-custom-styles.scss';
+
+// userflow classes are created for design purposes (to add flows in userflow).
+// please, don't touch them.
+
+$evidenceElementHeight: 64px;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  &.ignored {
+    .evidence-element {
+      cursor: auto !important;
+    }
+  }
+
+  &:not(.ignored) {
+    .evidence-item-mask {
+      display: none;
+    }
+    &:hover {
+      &::ng-deep {
+        app-evidence-copy-name .icon-wrapper {
+          @apply visible;
+        }
+      }
+    }
+  }
+
+  .evidence-element {
+    cursor: pointer;
+  }
+
+  &.preview-supported {
+    .open-evidence-preview-icon {
+      position: absolute;
+      left: 50%;
+      transform: translate(50%, 0);
+    }
+
+    .open-evidence-preview-icon {
+      margin-right: 64px;
+    }
+  }
+
+  &.view-preview-mode {
+    .right-evidence-section {
+      margin-right: 95px;
+    }
+
+    .evidence-element {
+      cursor: default;
+    }
+  }
+
+  app-three-dots-menu {
+    margin-bottom: 0 !important;
+  }
+}
+
+app-secondary-loading-animation {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: $mc-white;
+  z-index: 999;
+}
+
+.evidence-element,
+.evidence-description-section,
+.evidence-attractive-elements-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.evidence-description-section {
+  max-width: 50%;
+}
+
+.evidence-property-value-description {
+  @include MulishFontStyle();
+  color: $mc-navy-50;
+}
+
+.evidence-name {
+  padding-left: 14px;
+  margin-right: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.evidence-service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border: 1px $mc-navy-50 solid;
+  border-radius: 3px;
+
+  svg-icon {
+    svg {
+      max-height: 22px;
+      max-width: 22px;
+    }
+  }
+}
+
+.arrow-single {
+  transform: rotate(90deg);
+  margin: 0 12px 0 15px;
+
+  svg {
+    width: 10px;
+    height: 5px;
+  }
+
+  * {
+    fill: $mc-navy-50;
+  }
+}
+
+.evidence-type {
+  min-height: 43px;
+  min-width: 34px;
+}
+
+.evidence-name {
+  @include MerriWeatherFontStyle(14px, 20px);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: $mc-navy-90;
+}
+
+.evidence-coming-soon {
+  span {
+    @include basicLight(13px, 16px);
+  }
+}
+
+.evidence-item-mask {
+  position: absolute;
+  width: 100%;
+  height: inherit;
+
+  background: $mc-white;
+  opacity: 0.5;
+}
+
+.evidence-property-value {
+  @include MulishFontStyle();
+  font-style: normal;
+  font-weight: normal;
+  color: $mc-navy-90;
+  /* or 200% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.mat-focus-indicator {
+  outline: none !important;
+}
+
+.ignore-btn,
+.remove-btn {
+  border: 1px solid $mc-navy-40;
+  margin-right: 10px;
+  line-height: unset;
+  border-radius: 6px;
+  visibility: hidden;
+
+  &:hover {
+    border: 1px solid $mc-navy-90;
+    background: $mc-background;
+  }
+}
+
+.ignore-btn {
+  svg-icon {
+    svg {
+      path {
+        fill: $mc-navy-70;
+      }
+    }
+  }
+
+  &:hover {
+    svg-icon {
+      svg {
+        path {
+          fill: $mc-navy-90;
+        }
+      }
+    }
+  }
+}
+
+.remove-btn {
+  svg-icon {
+    svg {
+      path {
+        stroke: $mc-navy-70;
+      }
+    }
+  }
+
+  &:hover {
+    svg-icon {
+      svg {
+        path {
+          stroke: $mc-navy-90;
+        }
+      }
+    }
+  }
+}
+
+.evidence-item-statuses {
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 100%;
+  z-index: 1;
+}
+
+.evidence-element {
+  position: relative;
+  padding-left: 42px;
+  justify-content: space-between;
+  padding-top: 6.5px;
+  padding-bottom: 6.5px;
+  height: $evidenceElementHeight;
+
+  &.hoverable:hover {
+    .ignore-btn,
+    .remove-btn {
+      visibility: visible;
+    }
+  }
+}
+
+.preview-wrapper {
+  height: calc(100% - 56px);
+  display: flex;
+  flex-direction: column;
+  background-color: $mc-background;
+}

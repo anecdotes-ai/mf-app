@@ -1,0 +1,24 @@
+<svg-icon class="custom-icon" *ngIf="icon" [src]="icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+<span class="title" *ngIf="selectedItem">{{ dataSelectDefinition.valueSelector(selectedItem) }}</span>
+<button
+  id="select-btn"
+  [matMenuTriggerFor]="menu"
+  #menuTrigger="matMenuTrigger"
+  [class.opened]="menuOpened | async"
+  (menuClosed)="menuOpened.next(false)"
+  (menuOpened)="menuOpened.next(true)"
+>
+  <svg-icon *ngIf="data?.length > 1" src="chevrone" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button
+    class="custom-menu-item"
+    *ngFor="let item of data"
+    mat-menu-item
+    [disableRipple]="true"
+    [class.selected]="item === selectedItem"
+    (click)="selectItem(item)"
+  >
+    <div>{{ dataSelectDefinition.valueSelector(item) }}</div>
+  </button>
+</mat-menu>

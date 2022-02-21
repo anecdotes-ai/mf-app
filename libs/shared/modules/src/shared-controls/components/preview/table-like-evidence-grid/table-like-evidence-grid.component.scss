@@ -1,0 +1,54 @@
+@import '../preview-shared-styles.scss';
+
+:host::ng-deep {
+  app-grid {
+    .table-grid {
+      @apply -my-2.5 mx-0;
+      border-spacing: 0 10px;
+
+      .row-value {
+        @apply font-main text-navy-80 text-base opacity-80 flex-col;
+        min-height: 50px;
+        align-items: initial;
+      }
+
+      .header-value,
+      .row-value {
+        @apply py-0 px-4;
+      }
+
+      .header-value {
+        @apply min-h-10 max-h-10;
+
+        .sort-indicator {
+          @apply ml-9;
+
+          path {
+            @apply fill-white;
+          }
+        }
+
+        &.ASC {
+          .sort-indicator {
+            @apply transform rotate-0;
+          }
+        }
+
+        &.DSC {
+          .sort-indicator {
+            @apply transform rotate-180;
+          }
+        }
+      }
+
+      .first-column {
+        @apply pl-9;
+      }
+
+      .header-value {
+        @apply bg-blue-70 font-main font-bold text-base text-white;
+        min-width: 130px;
+      }
+    }
+  }
+}

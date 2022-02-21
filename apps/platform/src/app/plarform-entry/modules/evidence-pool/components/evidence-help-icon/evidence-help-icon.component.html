@@ -1,0 +1,44 @@
+<svg-icon
+  [ngbTooltip]="helpInfoTooltip"
+  [keepOnHover]="true"
+  [stretch]="true"
+  [class.tooltip-opened]="tooltipOnPreview.isOpen()"
+  #tooltipOnPreview="ngbTooltip"
+  [placement]="placement"
+  src="info-help"
+  preserveAspectRatio="none"
+  class="help-icon margin-right"
+  tooltipClass="default-tooltip evidence-help-tooltip-right"
+></svg-icon>
+
+<ng-template #helpInfoTooltip>
+  <div class="help-tooltip">
+    <section>
+      <div>{{ evidence.evidence_help || (buildTranslationKey('temporaryNA') | translate) }}</div>
+    </section>
+    <section class="used-api-calls">
+      <div translate>
+        {{
+          buildTranslationKey('usedAPICall') | translate: { apiCallsCount: evidence.evidence_api_query?.length || 0 }
+        }}
+      </div>
+      <ng-container *ngIf="evidence.evidence_api_query?.length; else NACalls">
+        <div *ngFor="let call of evidence.evidence_api_query | slice: 0:maxApiCalls" class="ellipsis api-call">
+          {{ call }}
+        </div>
+        <div translate>{{ buildTranslationKey('allApiCallsAvailable') | translate }}</div>
+      </ng-container>
+    </section>
+    <section>
+      <div>
+        {{ evidence.evidence_collection_timestamp | localDate: 'MMM d, yyyy | HH:mm:ss' }}
+        &nbsp;-&nbsp;
+        <a (click)="viewRawData()" translate>{{ buildTranslationKey('viewRawData') }}</a>
+      </div>
+    </section>
+  </div>
+</ng-template>
+
+<ng-template #NACalls>
+  <app-text [text]="buildTranslationKey('temporaryNA') | translate"></app-text>
+</ng-template>

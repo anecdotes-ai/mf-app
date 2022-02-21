@@ -1,0 +1,50 @@
+@import '../preview-shared-styles.scss';
+:host::ng-deep {
+  app-grid {
+    .table-grid {
+      border-spacing: 0 10px;
+      @apply -my-2.5 mx-0;
+
+      // Styles for CFG evidence
+      .header-value {
+        @apply relative;
+
+        svg-icon {
+          @apply absolute right-0 transform rotate-90;
+
+          svg {
+            @apply h-4 w-3.5;
+          }
+
+          path {
+            @apply fill-white;
+          }
+        }
+      }
+
+      .header-value,
+      .row-value {
+        @apply flex justify-center items-center border-t border-b border-solid border-navy-50;
+      }
+
+      .row-value {
+        @apply bg-white text-base text-navy-80 opacity-80 flex-col px-8 py-2;
+        min-height: 50px;
+        align-items: initial;
+      }
+
+      .first-column {
+        @apply border-l border-solid border-navy-50 rounded-tl-md rounded-bl-md;
+      }
+
+      .last-column {
+        @apply border-r border-solid border-navy-50 rounded-tr-md rounded-br-md;
+      }
+
+      .header-value {
+        @apply bg-blue-70 font-main font-bold text-base text-white h-10;
+        min-width: 130px;
+      }
+    }
+  }
+}

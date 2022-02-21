@@ -1,0 +1,52 @@
+@import 'index.scss';
+
+:host {
+  display: block;
+  @include MulishFontStyle();
+  color: $mc-navy-90;
+  margin-bottom: 5px;
+
+  & .text::after {
+    content: ':';
+  }
+
+  .help-icon {
+    padding-right: 10px;
+  }
+
+  .help-icon,
+  .help-icon > svg {
+    path:first-child {
+      stroke: $mc-navy-70;
+    }
+    path:last-child {
+      fill: $mc-navy-70;
+    }
+
+    &:hover {
+      path:first-child {
+        stroke: $mc-navy-90;
+      }
+      path:last-child {
+        fill: $mc-navy-90;
+      }
+    }
+  }
+}
+
+app-index-icon {
+  margin-right: 7px;
+}
+
+:host[required] {
+  .asterisk {
+    &::after {
+      content: '*';
+      margin-left: 2px;
+      color: $mc-pink-50;
+      @include MulishFontStyle(21px);
+    }
+  }
+}
+
+

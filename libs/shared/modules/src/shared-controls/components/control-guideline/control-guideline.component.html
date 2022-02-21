@@ -1,0 +1,31 @@
+<app-base-modal [inverse]="true" [noPadding]="true" [noHeader]="true"
+    [leftCornerData]="{ titleText: buildTranslationKey('title') | translate : {controlName: control.control_name}}">
+    <div class="close-icon absolute top-4 right-4 cursor-pointer" (click)="onCloseBtnClick()">
+        <svg-icon src="guideline-close-btn"></svg-icon>
+    </div>
+
+    <perfect-scrollbar *ngIf="!inTabsMode; else tabsContent">
+        <div class="text-wrapper">
+            {{control.control_guidance_for_customers}}
+        </div>
+    </perfect-scrollbar>
+</app-base-modal>
+
+<ng-template #tabsContent>
+    <div class="tabs-wrapper tabs-ofsetted flex flex-row bg-navy-10">
+        <div class="guidline-tab flex-grow-1 flex justify-center font-main text-2xl items-center cursor-pointer"
+            *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.selected]="tab.isActive">
+            {{ buildTranslationKey(tab.translationKey) | translate }}
+        </div>
+    </div>
+
+    <perfect-scrollbar class="h-60">
+        <div class="text-wrapper font-main">
+            {{textToDisplay}}
+        </div>
+    </perfect-scrollbar>
+
+    <div class="close-icon absolute top-4 right-4 cursor-pointer" (click)="onCloseBtnClick()">
+        <svg-icon src="guideline-close-btn"></svg-icon>
+    </div>
+</ng-template>

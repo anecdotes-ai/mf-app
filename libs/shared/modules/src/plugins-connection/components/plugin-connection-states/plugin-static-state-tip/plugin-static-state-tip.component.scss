@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  padding: 20px 20px 0;
+
+  app-tip {
+    width: 100%;
+    box-sizing: border-box;
+    &:not(:first-of-type){
+      margin-top: 10px !important;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: underline;
+
+      &:hover {
+        @apply text-orange-90;
+      }
+    }
+  }
+}

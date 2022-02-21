@@ -1,0 +1,10 @@
+:host {
+  height: 70px;
+  @apply flex flex-row justify-between items-center w-full;
+  @apply bg-white;
+  @apply px-8;
+}
+
+app-dropdown-control {
+  min-width: 414px;
+}

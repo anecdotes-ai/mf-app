@@ -1,0 +1,26 @@
+@import 'palette';
+
+::ng-deep {
+  .action-menu {
+    width: auto !important;
+    min-width: auto !important;
+    max-width: initial !important;
+
+    app-dropdown-options-backdrop {
+      &.small {
+        min-width: 190px;
+      }
+
+      &.medium {
+        min-width: 230px;
+      }
+    }
+
+    .mat-menu-content {
+      // TODO: Remove this after global styles for mat-menu are fixed
+      padding: 0 !important;
+      width: auto;
+      min-width: auto;
+    }
+  }
+}

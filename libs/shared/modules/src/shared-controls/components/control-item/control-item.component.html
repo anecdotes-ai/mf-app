@@ -1,0 +1,111 @@
+<ng-container #sharedContext="sharedContextAccessor" sharedContextAccessor>
+  <app-comment-bubble #commentingPanelTrigger class="absolute -right-3 -top-3 z-50" [resourceId]="calculatedControl?.control_id" [resourceType]="'Control'"></app-comment-bubble>
+  <mat-expansion-panel *ngIf="calculatedControl" [searchableRow]="calculatedControl" [rowTrackBy]="rowTrackBy"
+    [scrollToElementOnFocus]="true" (searchFocusIn)="matexpp.open()" (searchFocusLeave)="matexpp.close()" #matexpp
+    [expanded]="calculatedControl.control_is_applicable && matexpp.expanded"
+    [disabled]="!calculatedControl.control_is_applicable" class="control-expansion-element" [class.border-blue-90]="commentingPanelTrigger.isFocused"
+    [class.userflow-control-anecdotes]="isAnecdotesControl" hideToggle="true" (opened)="setInitialExpansionProceeded()">
+    <mat-expansion-panel-header *ngIf="!calculatedControl.control_is_applicable" class="control-disabled-mask">
+    </mat-expansion-panel-header>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <app-newly-added-label *ngIf="isNewlyAdded && !isReadOnly && !viewOnly"></app-newly-added-label>
+        <div class="control collapse-control-item">
+          <svg-icon *ngIf="calculatedControl.control_is_applicable" class="expand-evidences"
+            [class.collapsed]="matexpp.expanded" src="{{matexpp.expanded ? 'minus' : 'plus'}}" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        </div>
+        <span class="control control-name">
+          <app-searchable-text [text]="calculatedControl.control_name"></app-searchable-text>
+        </span>
+        <app-note-element *ngIf="!viewOnly" [resourceType]="resourceTypeEnum.Control" [resourceId]="controlInstance.control_id" [source]="sources.Controls">
+        </app-note-element>
+        <app-gap-mark *ngIf="isGapped$| async" [tooltipText]="'gapAnalysis.gapDetected' | translate">
+        </app-gap-mark>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="flex items-center">
+          <app-control-status [controlId]="calculatedControl.control_id" [isControlFreeze]="calculatedControl.is_snapshot"
+          [framework]="framework" [control]="viewOnly ? calculatedControl : null" [viewOnly]="viewOnly">
+          </app-control-status>
+        </div>
+        <div class="flex flex-row flex-1 justify-end items-center right-part">
+          <app-control-owner *ngIf="!framework.is_snapshot"
+            class="mr-5"
+            [framework]="framework" 
+            [controlId]="calculatedControl.control_id"
+            [isDisabled]="isReadOnly">
+          </app-control-owner>
+          <div *ngIf="isAnecdotesFramework" class="control control-related-frameworks">
+            <app-frameworks-icon [tooltipTemplateType]="templateTypes.controls" [relatedFrameworks]="calculatedControl.control_related_frameworks_names">
+            </app-frameworks-icon>
+          </div>
+          <!--
+            This is a temporary solution for SOC 2 verified && HIPAA, should be more robust.
+          -->
+          <div *ngIf="isControlWithFrameworkLabels" class="control control-related-frameworks mr-7">
+            <app-frameworks-icon [tooltipTemplateType]="templateTypes.controls" [relatedFrameworks]="filteredFrameworkRelatedControls"> </app-frameworks-icon>
+          </div>
+          <app-control-menu *ngIf="!viewOnly" [controlId]="calculatedControl.control_id" [frameworkId]="framework.framework_id">
+          </app-control-menu>
+          <app-multiselect-checkmark  *ngIf="!viewOnly" (click)="$event.stopPropagation()" (valueChange)="multiSelectValueChange($event)"
+            [item]="calculatedControl"></app-multiselect-checkmark>
+        </div>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <div class="control control-details">
+      <div class="control-details-wrapper">
+        <div class="control-expanded-description">
+          <mat-chip-list class="category-list" multiple>
+            <mat-chip *ngFor="let category of [calculatedControl.control_category]" [disableRipple]="true">
+              <span>{{ category }}</span>
+            </mat-chip>
+          </mat-chip-list>
+          <p class="control-description" *ngIf="calculatedControl.control_is_custom">
+            {{ buildTranslationKey('controlCreatedBy') | translate: {
+            username: calculatedControl.control_edited_by,
+            time: calculatedControl.control_last_edit_time | localDate: 'MMM d, yyyy | HH:mm:ss'
+            } }}
+          </p>
+          <p class="control-description">
+            <app-searchable-text (focusIn)="matexpp.open()" [text]="calculatedControl.control_description">
+            </app-searchable-text>
+          </p>
+
+          <ng-container *ngIf="isFrameworkWithGuideline(framework.framework_name)">
+            <p class="guideline-link underline font-main text-base cursor-pointer w-max text-navy-90"
+              (click)="openGuidelineModal()"
+              *ngIf="controlInstance.control_guidance_for_providers || controlInstance.control_guidance_for_customers ; else emptyLink">
+              {{buildTranslationKey('implementationGuildlines') | translate}}
+            </p>
+
+            <ng-template #emptyLink>
+              <p class="guideline-link underline font-main text-base cursor-pointer w-max text-navy-70"
+                [ngbTooltip]="buildTranslationKey('emptyTooltip') | translate" placement="top">
+                {{buildTranslationKey('implementationGuildlines') | translate}}
+              </p>
+            </ng-template>
+
+          </ng-container>
+        </div>
+      </div>
+      <div [class.hidden]="!matexpp.expanded" class="control-expanded-collected-info">
+        <app-secondary-loading-animation *ngIf="!initialExpansionProceeded">
+        </app-secondary-loading-animation>
+        <app-control-requirement-list *ngIf="initialExpansionProceeded" [displayedRequirementsAndEvidences]="displayedRequirementsAndEvidences"
+          [framework]="framework" [controlInstance]="framework.is_snapshot ? controlInstance : calculatedControl" [viewOnly]="viewOnly">
+        </app-control-requirement-list>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <ng-template #applicabilityToggleTooltip>
+    <span>{{
+      (this.calculatedControl.control_is_applicable
+      ? buildTranslationKey('applicabilityTooltip.makeNotApplicable')
+      : buildTranslationKey('applicabilityTooltip.makeApplicable')
+      ) | translate
+      }}</span>
+  </ng-template>
+</ng-container>
+

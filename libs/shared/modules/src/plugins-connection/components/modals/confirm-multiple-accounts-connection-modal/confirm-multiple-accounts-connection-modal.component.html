@@ -1,0 +1,21 @@
+<app-confirmation-modal-window
+  [icon]="'automation'"
+  [questionTranslationKey]="buildTranslationKey('question')"
+  [questionTranslationParams]="{accountsAmount: accountsToBeConnected.length}"
+  [confirmTranslationKey]="buildTranslationKey('confirmation')"
+  [dismissTranslationKey]="buildTranslationKey('dismiss')"
+  [confirmationHandlerFunction]="connectAccountsHandler"
+  [closeModalAfterDismissing]="true"
+  [primaryButtonFirst]="false"
+  [aftermathTemplate]="contentTemplate"
+></app-confirmation-modal-window>
+
+<ng-template #contentTemplate>
+  <span>{{ buildTranslationKey('aftermath') | translate }}</span>
+
+  <perfect-scrollbar>
+    <div class="flex flex-col mt-4 font-main text-2xl text-navy-90">
+      <div *ngFor="let item of accountsToBeConnected; let i = index" class="mb-2">{{ i + 1 }}. {{ item }}</div>
+    </div>
+  </perfect-scrollbar>
+</ng-template>

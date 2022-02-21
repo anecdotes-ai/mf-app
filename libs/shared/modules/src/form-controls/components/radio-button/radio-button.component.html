@@ -1,0 +1,7 @@
+<svg class="mr-2.5" height="18" width="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle class="outer" cx="9" cy="9" r="8.5" />
+  <circle *ngIf="value" class="fill-navy-90" cx="9" cy="9" r="5" />
+</svg>
+<span class="gap-x-1.5 flex font-main text-base" [class]="value ? 'active' : ''">
+  <ng-content></ng-content>
+</span>

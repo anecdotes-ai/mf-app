@@ -1,0 +1,15 @@
+<span class="title-wrapper">
+  <span class="info header-title">
+    {{ buildTranslationKey('title') | translate }}
+  </span>
+</span>
+<div *ngIf="!isEmptyStateWithNoEvidence" class="items-wrapper">
+  <app-data-search
+    #search
+    [searchDefinitions]="searchDefinitions"
+    [placeholderTranslationKey]="buildTranslationKey('searchEvidence')"
+  ></app-data-search>
+
+  <app-filter-button [hidden]="!filtersBtnDisplayed" id="filters-btn" (click)="filtersButtonClick()">
+  </app-filter-button>
+</div>

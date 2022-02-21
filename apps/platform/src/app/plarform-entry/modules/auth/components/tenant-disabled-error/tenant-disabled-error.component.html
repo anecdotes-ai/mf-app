@@ -1,0 +1,11 @@
+<app-tenant-logo></app-tenant-logo>
+<section class="with-side-lines">
+    <div></div>
+</section>
+<section class="center-text">
+  <svg-icon class="status-icon" [src]="'status_error'"></svg-icon>
+  <h1><b>{{ buildTranslationKey('primaryText') | translate }}</b></h1>
+  <h2>
+    <app-text [text]="buildTranslationKey('secondaryText')"></app-text>
+  </h2>
+</section>

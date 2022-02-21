@@ -1,0 +1,15 @@
+:host {
+  @apply flex justify-between items-center py-2 bg-white;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  .right-section {
+    @apply flex items-center;
+  }
+
+  &::ng-deep {
+    app-export-to-csv-button app-new-button {
+      @apply max-w-32;
+    }
+  }
+}

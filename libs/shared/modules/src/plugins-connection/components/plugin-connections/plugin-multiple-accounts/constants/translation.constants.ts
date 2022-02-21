@@ -1,0 +1,1 @@
+export const multipleAccountsTranslationRootKey = 'openedPlugin.multipleAccounts';

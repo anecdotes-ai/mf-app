@@ -1,0 +1,64 @@
+<div *ngIf="!!fieldName" class="text-sm text-navy-90 font-bold ellipsis mb-1">{{ fieldName }}</div>
+<div class="flex-1">
+  <ng-container *ngIf="formControl; else txtTemplate">
+    <div class="editable-field flex flex-col h-full">
+      <textarea
+        #textarea
+        [formControl]="formControl"
+        [rows]="rowsCount"
+        (keydown)="$event.stopPropagation()"
+        (keydown.enter)="hasChanges && formControl.valid && submitEditing($event)"
+        (keydown.shift.enter)="preventNewLine($event)"
+        class="p-2 outline-none text-base text-navy-90 min-h-full resize-none rounded-md border border-navy-50 bg-white focus:border-navy-90"
+        [class.h-8]="rowsCount <= 1"
+        [class.h-18]="rowsCount > 1"
+        [class.overflow-y-hidden]="rowsCount <= 1"
+      ></textarea>
+      <div class="self-end relative mt-1">
+        <div class="flex gap-2 absolute right-full">
+          <app-icon-button class="w-8 h-8 bg-white" [type]="'secondary'" [svgIconPath]="'chip-remove'" (click)="cancelEditing()">
+          </app-icon-button>
+          <app-icon-button
+            class="w-8 h-8"
+            [type]="'primary'"
+            [disabled]="!hasChanges || !formControl.valid"
+            [svgIconPath]="'checkmark'"
+            (click)="submitEditing($event)"
+          >
+          </app-icon-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #txtTemplate>
+  <div
+    #el
+    #dir="multilineText"
+    [ngClass]="{ 'text-navy-70': fieldText, 'text-navy-60': !fieldText, 'h-9': rowsCount <= 1 }"
+    class="displayed-text flex hoverable group bg-navy-10 hover:bg-navy-30 cursor-pointer p-2 rounded-md min-h-10 overflow-hidden text-base"
+    [multilineTextWithElipsis]="rowsCount > 1"
+    [linesCount]="rowsCount"
+    (click)="enableEditableMode(); $event.stopPropagation()"
+    [ngbTooltip]="dir.isOverflown ? fullTextTooltip : null"
+    [placement]="'top'"
+  >
+    <ng-container *ngIf="fieldText; else placeholderTemplate">
+      <ng-container *ngIf="!isSearchable; else searchable">
+      {{ textToDisplay }}
+    </ng-container>
+    </ng-container>
+    <ng-template #placeholderTemplate>
+      {{ placeholder }}
+    </ng-template>
+    <ng-template #searchable>
+      <app-searchable-text class="font-main font-bold text-xl text-navy-90 max-w-full overflow-hidden overflow-ellipsis inline-block" [text]="textToDisplay"></app-searchable-text>
+    </ng-template>
+
+  </div>
+</ng-template>
+
+<ng-template #fullTextTooltip>
+  <span class="w-56">{{ textToDisplay }}</span>
+</ng-template>

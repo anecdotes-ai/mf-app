@@ -1,0 +1,46 @@
+<ng-container [ngSwitch]="evidenceType$ | async">
+  <ng-container *ngSwitchCase="evidencePreviewTypeEnum.EvidencePreview">
+    <ng-container *ngTemplateOutlet="evidencePreview"></ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="evidencePreviewTypeEnum.FilePreview">
+    <ng-container *ngTemplateOutlet="filePreview"></ng-container>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="evidencePreviewTypeEnum.UrlPreview">
+    <ng-container *ngTemplateOutlet="urlPreview"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #evidencePreview>
+  <app-evidence-tabular-preview
+    [controlInstance]="control$ | async"
+    [requirementLike]="requirementLike$ | async"
+    [framework]="framework$ | async"
+    [eventSource]="eventSource"
+    [previewData]="evidencePreviewData$ | async"
+    [rootEvidence]="(evidenceLike$ | async).evidence"
+  >
+  </app-evidence-tabular-preview>
+</ng-template>
+
+<ng-template #filePreview>
+  <app-file-preview
+    [evidence]="evidence$ | async"
+    [controlInstance]="control$ | async"
+    [requirement]="controlRequirement$ | async"
+    [framework]="framework$ | async"
+    [eventSource]="eventSource"
+  >
+  </app-file-preview>
+</ng-template>
+
+<ng-template #urlPreview>
+  <app-url-preview
+    [eventSource]="eventSource"
+    [requirementLike]="requirementLike$ | async"
+    [rootEvidence]="(evidenceLike$ | async).evidence"
+    [controlInstance]="control$ | async"
+    [framework]="framework$ | async"
+  ></app-url-preview>
+</ng-template>

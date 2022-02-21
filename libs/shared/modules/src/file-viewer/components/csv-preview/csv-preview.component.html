@@ -1,0 +1,6 @@
+<virtual-scroller #scroller [parentScroll]="parentScroll" [items]="parsedRows">
+    <ng-container *ngFor="let row of scroller.viewPortItems">
+      <span class="row-index">{{ row.index + 1 }}</span>
+      <span class="row-value">{{ row.value }}</span>
+    </ng-container>
+</virtual-scroller>

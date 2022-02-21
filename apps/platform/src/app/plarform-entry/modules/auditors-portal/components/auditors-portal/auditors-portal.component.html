@@ -1,0 +1,38 @@
+<div class="header">
+    <div class="logo">
+        <svg-icon src="anecdotes_logo" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        <span class="text-4xl text-navy-90">{{ 'auditorsPortal.auditorPortal' | translate }}</span>
+    </div>
+    <div class="logout-btn">
+        <app-button class="secondary mulish medium" id="logout" (click)="logOut()">
+            {{ 'userMenu.logOut' | translate }}
+        </app-button>
+    </div>
+</div>
+<div class="divider"></div>
+<div class="auditor-name">
+    <span class="text-4xl text-navy-90">{{ 'auditorsPortal.hello' | translate }} {{ auditorName$ | async }}!</span>
+</div>
+<div class="divider"></div>
+<div class="content">
+
+    <div class="flex flex-row mx-20 mt-5 justify-start">
+        <ng-container *ngFor="let tenant of availableTenants$ | async">
+            <div class="tenant flex flex-column justify-between rounded-md mr-8">
+                <div class="flex m-4 items-center">
+                    <svg-icon src="anecdotes_logo" preserveAspectRatio="none" class="company-logo rounded-md mr-4" [stretch]="true">
+                    </svg-icon>
+                    <span>{{ tenant }}</span>
+                </div>
+                <div class="m-2.5">
+                    <app-button class="main mulish stretch" id="enter-platform" (click)="tenantExchange(tenant)">
+                        {{ 'auditorsPortal.enterPlatform' | translate }}
+                    </app-button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="absolute bottom-0 flex min-w-full justify-center">
+    <svg-icon src="empty-state-shapes" class="footer-img"></svg-icon>
+</div>

@@ -1,0 +1,16 @@
+<app-circle-progress #circleProgress *ngIf="!isNullOrUndefined(progress) && progress >= 0" [progress]="progress"
+  [progressColor]="progressColor" [tabIcon]="svgIconPath"></app-circle-progress>
+<div [class.pb-3]="progress" class="flex flex-row items-center">
+  <svg-icon class="w-4 h-4 mr-1" *ngIf="svgIconPath && isNullOrUndefined(progress)" [src]="svgIconPath">
+  </svg-icon>
+  <span class="text-wrapper inline-flex items-center">
+    <span class="text">
+      <ng-content></ng-content>
+    </span>
+    <ng-container *ngIf="!isNullOrUndefined(count) && count >= 0">
+      &nbsp;
+      <span class="count">{{ '(' + count + ')' }}</span>
+    </ng-container>
+  </span>
+</div>
+<div *ngIf="selected" class="selection-mark absolute bottom-0 border-solid border-navy-90 border-b-2 w-full"></div>

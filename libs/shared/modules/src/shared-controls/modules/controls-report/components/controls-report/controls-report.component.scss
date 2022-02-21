@@ -1,0 +1,79 @@
+@import 'index';
+
+$content-width: 1000px;
+
+:host {
+
+  &.on-printing {
+    height: auto !important;
+  }
+
+  display: flex;
+  background: $mc-white;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  ::ng-deep {
+    app-controls-report-header > *,
+    .content-wrapper {
+      width: $content-width;
+    }
+
+   .controls-list:not(:last-child) {
+      margin-bottom: 50px;
+    }
+
+    perfect-scrollbar {
+      .ps__rail-y {
+        margin-top: 82px;
+      }
+    }
+  }
+
+  app-controls-report-header,
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  app-controls-report-header {
+    margin-bottom: 60px;
+  }
+
+  app-anecdotes-footer {
+    margin-top: 100px;
+  }
+
+  .section-splitter {
+    display: flex;
+    margin: 50px 0;
+  }
+
+  .report-description {
+    display: flex;
+    flex-direction: column;
+    .title {
+      @include MerriWeatherBold(34px, 52px);
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      margin-bottom: 10px;
+
+      /* Colors / Navy 90 */
+      color: $mc-navy-90;
+    }
+
+    .description {
+      @include MulishFontStyle(21px, 31px);
+      color: $mc-navy-70;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}

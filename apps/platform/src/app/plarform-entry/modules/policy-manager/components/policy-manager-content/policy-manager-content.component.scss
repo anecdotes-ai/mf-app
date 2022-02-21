@@ -1,0 +1,26 @@
+@import "index";
+:host {
+  @apply flex flex-col;
+  height: calc(100% - 86px);
+
+
+  .policy-perfect-bar,
+  app-not-found {
+    flex: 1;
+  }
+
+  app-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .policy-perfect-bar {
+    padding: 20px 30px 0;
+    overflow-y: auto;
+  }
+
+  &::ng-deep .policy-type-tabs app-tabs {
+    @apply bg-navy-10 border-navy-40 border-b border-solid border-navy-40;
+  }
+}

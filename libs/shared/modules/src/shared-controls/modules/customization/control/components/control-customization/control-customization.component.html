@@ -1,0 +1,18 @@
+<app-base-modal
+  iconPath="item-customization"
+  [titleTranslationKey]="buildTranslationKey(isEditMode ? 'editControlTitle' : 'addControlTitle')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footerTemplate"
+>
+  <div class="wrapper dashed-border">
+    <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+  </div>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+    <div class="buttons">
+      <app-button [clickOnEnter]="true" id="submit-form-btn" [class.disabled]="form?.invalid" [loading]="submitFormBtnLoader$ | async" (click)="submitFormBtnClick()" class="mulish medium main">{{
+        buildTranslationKey(isEditMode ? 'footer.updateControlBtn' :'footer.createControlBtn') | translate
+      }}</app-button>
+    </div>
+</ng-template>

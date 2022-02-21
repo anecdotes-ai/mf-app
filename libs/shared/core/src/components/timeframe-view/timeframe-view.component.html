@@ -1,0 +1,13 @@
+<ng-container *ngVar="getTimeFrameObject() as timeFrame">
+  <ng-container *ngIf="timeFrame.from && timeFrame.to">
+    <app-date-view [date]="timeFrame.from" [dateFormat]="timeFrameDateFormat"
+    [descriptionTranslationKey]="fromTranslationKey"></app-date-view>
+  <div>
+    <span class="time-frame-separator">
+      &nbsp;-&nbsp;
+    </span>
+  </div>
+  <app-date-view [date]="timeFrame.to" [dateFormat]="timeFrameDateFormat"
+    [descriptionTranslationKey]="toTranslationKey"></app-date-view>
+  </ng-container>
+</ng-container>

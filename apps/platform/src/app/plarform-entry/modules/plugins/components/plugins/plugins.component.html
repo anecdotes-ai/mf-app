@@ -1,0 +1,67 @@
+<div [searchScope]>
+  <ng-container *ngIf="groupedPluginsByCategory">
+    <ng-container *ngVar="isNotFoundState$ | async as isNotFoundState">
+      <app-plugins-header (suggestPlugin)="suggestPlugin()" (searchInputText)="searchInput()">
+      </app-plugins-header>
+
+      <div class="tabs-wrapper">
+        <app-data-tabs-select
+          #tabsComponent
+          [queryParamId]="pluginsSelectTabFamilyQueryparam"
+          [defaultTabId]="dafaultTab"
+          [trackQueryParams]="true"
+          [tabs]="tabs"
+          (select)="toggleTab($event)"
+        ></app-data-tabs-select>
+      </div>
+      <app-search-results-pagination></app-search-results-pagination>
+
+      <app-empty-state
+        *ngIf="isFavoriteTabDisplayed && (isNoFavoritePluginsState$ | async); else notFoundState"
+        [mainDescriptionText]="buildTranslationKey('favoritePluginsEmptyState.mainDescriptionText') | translate"
+        [secondaryDescriptionText]="buildTranslationKey('favoritePluginsEmptyState.secondaryDescriptionText')  | translate"
+        [mainButtonText]="buildTranslationKey('favoritePluginsEmptyState.mainButtonText') | translate"
+        (mainActionClick)="selectAllPluginsTab()"
+        [includePlugins]="true"
+        >
+      </app-empty-state>
+
+      <ng-template #notFoundState>
+        <app-not-found
+        *ngIf="isNotFoundState"
+        #filtersNotFound
+        [additionalActionEnabled]="true"
+        mainInfoTranslationKey="plugins.searchNotFound.mainInfo"
+        userAdviceTranslationKey="plugins.searchNotFound.userAdvice"
+        backToAllDataTranslationKey="plugins.searchNotFound.clearSearchButton"
+        additionalActionTranslationKey="plugins.searchNotFound.additionalActionButton"
+        (backToAllDataBtnClick)="clearSearch()"
+        (additionalActionBtnClick)="suggestPlugin()"
+      ></app-not-found>
+      </ng-template>
+
+      <perfect-scrollbar [class.hidden]="isNotFoundState" class="plugins-perfect-bar">
+        <div class="wrapper">
+          <div class="plugin-family">
+            <div
+              [class.hidden]="isFamilyHidden(family)"
+              *ngFor="let family of groupedPluginsByCategory; trackBy: familyTrackByWithIndex"
+            >
+              <div class="family-name">{{ family.familyName }}</div>
+              <div class="plugins">
+                <app-big-plugin-item
+                  #pluginComponent
+                  *ngFor="let plugin of family.plugins; trackBy: pluginTrackByWithIndex"
+                  [searchableRow]="plugin"
+                  [class.hidden]="isPluginHidden(plugin)"
+                  [pluginData]="plugin"
+                >
+                </app-big-plugin-item>
+              </div>
+            </div>
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </ng-container>
+  </ng-container>
+</div>

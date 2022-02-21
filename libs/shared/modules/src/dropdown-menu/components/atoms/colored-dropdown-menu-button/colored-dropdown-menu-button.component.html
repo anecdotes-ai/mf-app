@@ -1,0 +1,37 @@
+<div
+  [ngClass]="{
+    'rounded-full': radius === 'large',
+    'rounded-md': radius === 'small'
+  }"
+  class="background z-10 w-full h-full {{ buttonBackgroundClass }}"
+>
+  <div
+    [ngClass]="{
+      'h-6': verticalSize === 'small',
+      'h-8': verticalSize === 'medium',
+      'cursor-default': isReadOnly,
+      'cursor-pointer': !isReadOnly,
+      'px-3': horizontalSize === 'small',
+      'px-4': horizontalSize === 'medium'
+    }"
+    class="relative z-20 flex items-center font-main text-sm overflow-hidden"
+    tooltipClass="default-tooltip"
+  >
+    <span
+      [ngbTooltip]="tooltip"
+      [placement]="tooltipPlacement"
+      [openTooltipWhenOverflowedAndHovered]="true"
+      [openOnWidthOverflow]="true"
+      [keepOnHover]="keepTooltipOnOver"
+      class="flex-1 whitespace-nowrap overflow-hidden overflow-ellipsis"
+    >
+      <ng-content></ng-content>
+    </span>
+    <svg-icon
+      *ngIf="arrowEnabled && !isReadOnly"
+      [ngClass]="{ 'transform rotate-180': isOpen }"
+      class="arrow-icon w-4 h-3 transform rotate-180"
+      [src]="'arrow-down'"
+    ></svg-icon>
+  </div>
+</div>

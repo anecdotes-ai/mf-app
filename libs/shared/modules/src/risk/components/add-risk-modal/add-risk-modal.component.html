@@ -1,0 +1,14 @@
+<app-base-modal
+  [iconPath]="'plugins/default'"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footer"
+  [leftCornerData]="{ icon: 'risk-fire' }"
+>
+  <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+</app-base-modal>
+<ng-template #footer>
+  <app-new-button [clickOnEnter]="true" [loading]="isLoading" (click)="addRisk()" [disabled]="!form.valid">
+    <span>{{ buildTranslationKey('saveButtonText') | translate }}</span>
+  </app-new-button>
+</ng-template>

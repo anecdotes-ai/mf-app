@@ -1,0 +1,38 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/onboarding-plugins"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-18 bold header">{{ buildTranslationKey('descriptions.header') | translate }}</span>
+            <span class="main-font-13 description">{{ buildTranslationKey('descriptions.desctiptionUnderheader') | translate }}</span>
+
+            <ng-container *ngFor="let item of groupedMultiselectItems; let i = index">
+                <span class="main-font-13 bold plugin-family">{{item[0].data.service_families[0]}}</span>
+                <app-multiselectable-list [type]='"small"' [itemsList]="item" (select)="pluginSelected($event)">
+                </app-multiselectable-list>
+            </ng-container>
+        </div>
+    </div>
+
+</div>
+<div class="footer">
+
+    <div class="onboarding-buttons">
+
+        <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+            {{buildTranslationKey('buttons.back') | translate }}
+        </app-new-button>
+        <app-new-button *ngIf="!isAnyPluginSelected(); else selected" type="secondary" size="fixed160"
+            (click)="onNextClick()">
+            {{buildTranslationKey('buttons.skip') | translate }}
+        </app-new-button>
+
+        <ng-template #selected>
+            <app-new-button type="primary" size="fixed160" (click)="onNextClick()">
+                {{buildTranslationKey('buttons.next') | translate }}
+            </app-new-button>
+        </ng-template>
+
+    </div>
+</div>

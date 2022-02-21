@@ -1,0 +1,90 @@
+@import './index.scss';
+
+:host {
+  display: flex;
+  width: 100%;
+  height: 415px;
+  &.actions-exists {
+    .action-required-perfect-bar {
+      ::ng-deep {
+        .ps-content {
+          height: auto !important;
+        }
+      }
+    }
+  }
+
+  border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+  border-radius: 6px;
+
+  .dashboard-action {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .header {
+    background: $mc-navy-90;
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    height: 49px;
+    display: flex;
+
+    span {
+      margin-left: 18px;
+      @include MulishBold(16px, 26px);
+      display: flex;
+      align-items: center;
+
+      color: $mc-white;
+    }
+  }
+
+  .action-required-perfect-bar {
+    height: 100%;
+    background-color: $mc-white;
+    border-radius: 0 0 6px 6px;
+
+    ::ng-deep {
+      .ps-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+      }
+    }
+  }
+
+  #no-actions-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    .no-actions-title {
+      @include MulishBold(21px, 26px);
+      color: $mc-navy-90;
+      padding-bottom: 20px;
+    }
+
+    .no-actions-description {
+      @include MulishFontStyle(13px, 18px);
+      color: $mc-navy-90;
+
+      width: 100%;
+      white-space: pre-wrap;
+      text-align: center;
+    }
+  }
+
+  app-dashboard-action-item {
+    &:hover {
+      background: $mc-navy-10;
+    }
+
+    &:not(:last-child) {
+      border: 1px solid $mc-background;
+    }
+  }
+}

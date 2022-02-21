@@ -1,0 +1,49 @@
+@import './variables/palette';
+
+:host::ng-deep {
+  .items-container {
+    @apply flex flex-row flex-wrap justify-start;
+    gap: 25px;
+    padding: 0 25px 25px 25px;
+  }
+
+  .framework-group-info{
+    width: 239px;
+    height: 70px;
+    padding-left: 25px ;
+  }
+}
+
+perfect-scrollbar {
+  height: calc(100% - 82px);
+}
+
+app-search-results-pagination:not(.hidden) ~ perfect-scrollbar {
+  height: calc(100% - 82px - 70px); // header is 82px height and pagination is 70px height
+}
+
+#frameworks-section {
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+:host::ng-deep .ps-content {
+  position: relative;
+  height: auto !important;
+  min-height: 100%;
+}
+
+app-not-found,
+.not-found {
+  height: inherit;
+  width: inherit;
+}
+
+.content-not-found {
+  height: calc(100vh - 82px);
+}

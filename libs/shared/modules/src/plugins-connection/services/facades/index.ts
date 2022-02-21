@@ -1,0 +1,2 @@
+export { PluginConnectionFacadeService } from './plugin-connection-facade/plugin-connection-facade.service';
+export { MultipleAccountsConnectionHelperService } from './multiple-accounts-connection-helper/multiple-accounts-connection-helper.service';

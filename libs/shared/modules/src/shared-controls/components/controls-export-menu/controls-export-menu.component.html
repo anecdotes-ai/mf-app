@@ -1,0 +1,12 @@
+<app-action-menu-button
+  [menuActions]="exportMenuActions"
+  [icon]="'export'"
+  [listWidth]="'medium'"
+  [buttonTextTranslationKey]="buildTranslationKey('exportMenuButton')"
+  [buttonSize]="'responsive'"
+  [menuPositionX]="'before'"
+  [menuPositionY]="'below'"
+  [type]="'secondary'"
+  [loading]="exportLoading$ | async"
+>
+</app-action-menu-button>

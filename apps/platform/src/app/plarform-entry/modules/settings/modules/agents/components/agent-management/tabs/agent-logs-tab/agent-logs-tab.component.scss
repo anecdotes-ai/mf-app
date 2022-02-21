@@ -1,0 +1,63 @@
+@import 'index';
+
+:host {
+  display: flex;
+  width: 100%;
+  height: 300px;
+}
+
+:host::ng-deep {
+  .has-error {
+    color: $mc-text-error;
+  }
+
+  .service-logs {
+    margin-bottom: 30px;
+    width: 100%;
+  }
+
+  .item-log {
+    @include MulishFontStyle();
+    color: $mc-navy-90;
+    position: relative;
+    border-bottom: 1px solid $mc-navy-40;
+    padding: 15px 35px 15px 0;
+
+    * {
+      white-space: normal;
+    }
+
+    app-date-view {
+      margin-right: 20px;
+
+      * {
+        color: $mc-navy-70;
+      }
+    }
+
+    .arrow {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      transition: transform 0.1s;
+
+      svg {
+        @apply rotate-180;
+      }
+
+      .rotate svg {
+        @apply rotate-0;
+      }
+    }
+  }
+
+  .wrapper-item-log {
+    height: 24px;
+    overflow: hidden;
+  }
+
+  .show {
+    overflow: visible;
+    height: auto;
+  }
+}

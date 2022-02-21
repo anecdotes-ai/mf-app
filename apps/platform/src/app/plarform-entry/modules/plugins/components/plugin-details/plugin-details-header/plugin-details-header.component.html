@@ -1,0 +1,71 @@
+<div class="service-header">
+  <div class="plugin-icon-container">
+    <svg-icon [src]="serviceIcon$ | async" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+
+  <div class="service-header-text">
+    <div class="service-name-wrapper">
+      <span class="service-name">{{ service.service_display_name }}</span>
+      <span
+        *ngIf="service.service_is_onprem"
+        class="service-onprem"
+      >{{buildTranslationKey('onPremMark') | translate}}
+      </span>
+      <span
+      *ngIf="service.service_multi_account"
+      class="service-multiaccounts"
+    >{{buildTranslationKey('multiAccountsMark') | translate}}
+    </span>
+      <svg-icon
+        *ngIf="getPluginStatusIcon(service.service_status) as icon"
+        [src]="icon"
+        preserveAspectRatio="none"
+        [stretch]="true"
+      ></svg-icon>
+      <app-favorite-plugin-star-button [pluginId]="service.service_id"></app-favorite-plugin-star-button>
+    </div>
+
+    <div class="families">
+      <div *ngFor="let family of service.service_families" class="service-family">
+        <span>{{ family }}</span>
+      </div>
+    </div>
+
+    <div class="mt-5 buttons-wrapper">
+      <app-new-button [type]="'secondary'" [svgIconPath]="'plugin-tab-info'" [size]="'medium'" (click)="howToConnect()">
+        {{ buildTranslationKey('howToConnect') | translate }}
+      </app-new-button>
+      <ng-container *visibleForRole="[role.Admin, role.User]">
+        <div
+          class="view-evidence-wrapper"
+          [ngbTooltip]="
+            (viewEvidenceButtonTooltipDisplay$ | async) && !(viewEvidenceButtonLoader$ | async)
+              ? viewEvidencetooltipText
+              : null
+          "
+          [keepOnHover]="true"
+          placement="top"
+          tooltipClass="default-tooltip view-evidence-btn-tooltip"
+        >
+          <app-new-button
+            #navigateToEvidenceBtn
+            *ngIf="isViewEvidenceButtonDisplay$ | async"
+            id="view-evidence-on-header-btn"
+            [type]="'primary'"
+            [size]="'medium'"
+            [disabled]="isViewEvidenceButtonDisabled$ | async"
+            (click)="redirectToEvidencePool()"
+            [loading]="viewEvidenceButtonLoader$ | async"
+            class="main medium mulish ml-2"
+          >
+            <span>{{ buildTranslationKey('viewEvidence') | translate }}</span>
+          </app-new-button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #viewEvidencetooltipText>
+  <span [innerHtml]="buildTranslationKey('viewEvidenceTooltip') | translate"></span>
+</ng-template>

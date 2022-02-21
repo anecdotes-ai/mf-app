@@ -1,0 +1,21 @@
+@import 'index';
+:host {
+  padding: 0 25px;
+  display: grid;
+  grid-template-columns: 1fr min-content min-content;
+  column-gap: 25px;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.suggest-plugin-tooltip::ng-deep {
+  max-width: 50px;
+}
+
+.title {
+  @include MulishBold(21px);
+  color: $mc-navy-90;
+}

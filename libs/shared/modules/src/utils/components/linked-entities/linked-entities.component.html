@@ -1,0 +1,28 @@
+<div *ngIf="linkedEntitiesGroups?.length && overallEntitiesCount">
+  <span [ngbTooltip]="tooltipTemplate" [keepOnHover]="true" placement="top bottom"
+    tooltipClass="default-tooltip linked-entities-tooltip"
+    class="text-blue-70 inline-block hover:bg-blue-90-15 bg-blue-90-10 text-base blue-70 px-4 py-0.5 rounded-t-full rounded-b-full whitespace-nowrap min-w-24 text-center">
+    {{ textInLabel | translate: { overallEntitiesCount } }}
+  </span>
+</div>
+
+<ng-template #tooltipTemplate>
+  <div class="flex flex-col content-start min-w-52 max-h-52 overflow-auto pl-1 pt-1 pb-1 pr-0">
+    <p class="font-semibold mb-4">
+      {{ textInTooltip | translate: { overallEntitiesCount } }}
+    </p>
+    <div *ngFor="let linkedEntitiesGroup of linkedEntitiesGroups" class="mb-4">
+      <span class="font-semibold inline-block mb-2">{{ linkedEntitiesGroup.title }}:</span>
+      <ul class="pl-3">
+        <li *ngFor="let entity of linkedEntitiesGroup.entities" class="underline cursor-pointer mb-2">
+          <div class="flex flex-row items-center justify-between" (click)="linkClick.next(entity)">
+            <span class="max-w-36 inline-block overflow-hidden whitespace-nowrap overflow-ellipsis">
+              {{ entity.title }}
+            </span>
+            <svg-icon src="newscreen" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

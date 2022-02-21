@@ -1,0 +1,59 @@
+:host.disabled::ng-deep,
+:host:hover.disabled::ng-deep {
+  @apply cursor-default;
+
+  .outer {
+    @apply stroke-navy-50;
+  }
+
+  span {
+    @apply text-navy-50;
+
+    svg * {
+      @apply stroke-navy-50;
+    }
+  }
+}
+
+:host::ng-deep {
+  @apply cursor-pointer;
+
+  svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .outer {
+    @apply stroke-navy-70;
+  }
+
+  span {
+    @apply text-navy-70;
+
+    svg * {
+      @apply stroke-navy-70;
+    }
+  }
+
+  span.active * {
+    @apply text-navy-90;
+
+    svg * {
+      @apply stroke-navy-90;
+    }
+  }
+}
+
+:host:hover::ng-deep {
+  .outer {
+    @apply stroke-navy-90;
+  }
+
+  span {
+    @apply text-navy-90;
+
+    svg * {
+      @apply stroke-navy-90;
+    }
+  }
+}

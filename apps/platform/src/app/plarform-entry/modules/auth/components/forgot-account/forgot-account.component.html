@@ -1,0 +1,17 @@
+<section class="customer-logo">
+    <svg-icon [src]="'mobile/logotype_onwhite'"></svg-icon>
+</section>
+<section class="with-side-lines">
+</section>
+<section class="text center-text font-main">
+    <span class="text-5xl text-navy-90">
+        {{ buildTranslationKey('getAccountUrl') | translate }}
+    </span>
+    <span class="text-base text-navy-70 forgot-password-text">{{ buildTranslationKey('enterYourEmail') | translate }}</span>
+</section>
+<section class="form">
+    <app-dynamic-form-outlet [dynamicFormGroup]="dynamicFormGroup"></app-dynamic-form-outlet>
+    <app-button [class.disabled]="dynamicFormGroup.invalid" [loading]="isProcessing$ | async" id="next-btn"
+        class="main mulish stretch action-btn" (click)="submit()">{{
+        buildTranslationKey('sendBtn') | translate }}</app-button>
+</section>

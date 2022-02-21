@@ -1,0 +1,13 @@
+:host {
+    @apply inline-block;
+}
+
+:host {
+    &:hover .time-ago, .date {
+        @apply hidden;
+    }
+
+    &:hover .date {
+        display: initial;
+    }
+}

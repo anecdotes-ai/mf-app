@@ -1,0 +1,50 @@
+@import 'variables/palette';
+
+button {
+  @apply bg-transparent;
+  border-radius: 5px; // TODO: To be replaced with value from design system
+  width: 40px; // TODO: To be replaced with value from design system
+  height: 40px; // TODO: To be replaced with value from design system
+}
+
+:host.dark {
+  button.open, button:hover {
+    @apply bg-navy-30;
+
+    svg path {
+      @apply fill-navy-90;
+    }
+  }
+
+  button svg path {
+    @apply fill-navy-70;
+  }
+}
+
+:host.light {
+  button.open, button:hover {
+    @apply bg-navy-30;
+
+    svg path {
+      @apply fill-navy-90;
+    }
+  }
+
+  button svg path {
+    @apply fill-white;
+  }
+}
+
+::ng-deep {
+  .three-dots-menu {
+    min-height: 0 !important;
+    &.medium {
+      width: 230px;
+    }
+
+    .mat-menu-content {
+      // TODO: Remove this after global styles for mat-menu are fixed
+      padding: 0 !important; 
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<app-global-loader></app-global-loader>
+<section id="executive-report-section" [class.hidden]="!(isAllLoaded$ | async)">
+  <app-executive-report-header [lastUpdateDate]="lastUpdateDate"></app-executive-report-header>
+
+  <perfect-scrollbar class="executive-report-perfect-bar">
+    <ng-container *ngFor="let slideContentData of slidesContentData$ | async">
+      <app-executive-report-slide [slideContent]="slideContentData" [lastUpdateDate]="lastUpdateDate"></app-executive-report-slide>
+    </ng-container>
+  </perfect-scrollbar>
+
+  <app-executive-report-footer [data]="footerSectionData$ | async"></app-executive-report-footer>
+</section>

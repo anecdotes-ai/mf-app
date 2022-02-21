@@ -1,0 +1,28 @@
+@import 'component-header-shared';
+
+$side-marging: 25px;
+
+:host {
+  .header-info {
+    margin-left: $side-marging;
+  }
+
+  .items-wrapper {
+    margin-right: $side-marging;
+  }
+
+  .invite-user-btn::ng-deep {
+    .content-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 20px;
+    }
+
+    svg-icon {
+      path:nth-child(3) {
+        fill: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import 'global-loading-animation';
+
+:host {
+  height: 100%;
+
+  #executive-report-section {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+}

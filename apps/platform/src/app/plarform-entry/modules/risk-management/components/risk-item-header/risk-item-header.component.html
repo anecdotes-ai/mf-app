@@ -1,0 +1,60 @@
+<div class="flex flex-row items-center w-full">
+  <div class="risk-grid flex-1 min-w-0">
+    <span>
+      <app-risk-category-indicator class="z-10" [riskId]="riskId"></app-risk-category-indicator>
+    </span>
+    <span class="overflow-visible">
+      <span class="w-full max-w-lg flex items-center z-10 overflow-visible">    
+        <ng-container *ngIf="isOpen; else simpleText">
+          <app-risk-editable-field
+          class="max-w-2xl z-10"
+          [fieldText]="risk.name"
+          (submit)="editRiskName($event)"
+          [rowsCount]="1"
+          [submitOnEnter]="true"
+          [isSearchable]="true"
+          [isRequired]="true"
+          (click)="$event.stopPropagation()"
+        ></app-risk-editable-field>  
+        </ng-container>
+      </span>
+    </span>
+    <span>
+      <app-risk-level-indicator class="z-10 ml-2" [riskId]="riskId"></app-risk-level-indicator>
+    </span>
+    <span>
+      <app-risk-effects class="z-10 ml-2" [riskId]="riskId"></app-risk-effects>
+    </span>
+    <span>
+      <app-risk-strategy-indicator class="z-10 ml-2" [riskId]="riskId"></app-risk-strategy-indicator>
+    </span>
+    <span
+      ><span class="controls-number ml-2">{{ risk.mitigation_control_ids?.length || 0 }}</span></span
+    >
+    <span>
+      <app-risk-owner class="z-10" [riskId]="riskId"></app-risk-owner>
+    </span>
+  </div>
+  <app-risk-item-menu class="z-10 mr-2" [riskId]="riskId"></app-risk-item-menu>
+</div>
+
+<div
+  [ngClass]="{ 'opacity-0 group-hover:opacity-100': !isOpen, 'transform rotate-180': isOpen }"
+  class="flex justify-center items-center w-full h-full absolute top-0 z-0"
+>
+  <svg-icon [src]="'arrow-down'"></svg-icon>
+</div>
+
+<ng-template #simpleText>
+  <app-searchable-text       
+    [ngbTooltip]="nameOverflowTemplate"
+    [placement]="'top'"
+    [openTooltipWhenOverflowedAndHovered]="true"
+    [openOnWidthOverflow]="true"
+    [text]="risk.name"
+    class="font-main font-bold text-xl text-navy-90 max-w-full inline-block overflow-hidden overflow-ellipsis ellipsis"></app-searchable-text>
+</ng-template>
+
+<ng-template #nameOverflowTemplate>
+  <span class="break-words">{{ risk.name }}</span>
+</ng-template>

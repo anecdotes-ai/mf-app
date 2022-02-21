@@ -1,0 +1,108 @@
+<app-plugin-label
+  *ngIf="pluginData.service_is_new"
+  [type]="pluginLabelTypeEnum.NewPlugin"
+  [translationKey]="'newMark'"
+  [position]="'left'"
+>
+</app-plugin-label>
+
+<app-plugin-label
+  *ngIf="pluginData.service_is_onprem"
+  [type]="pluginLabelTypeEnum.PremPlugin"
+  [translationKey]="'onPremMark'"
+  [position]="'right'"
+>
+</app-plugin-label>
+
+<div class="header plugin-bg-{{pluginData.service_id.toLowerCase()}}" >
+  <div class="icon-wrapper">
+    <svg-icon class="w-full h-full" [src]="serviceIcon"></svg-icon>
+  </div>
+  <div class="plugin-name">
+    <app-searchable-text [text]="pluginData.service_display_name"></app-searchable-text>
+  </div>
+</div>
+<div
+  *ngIf="pluginData.service_availability_status === serviceAvailabilityStatusEnum.COMINGSOON; else availableTemplate"
+  class="coming-soon"
+>
+  <span>{{ buildTranslationKey('comingSoon') | translate }}</span>
+</div>
+<ng-template #availableTemplate>
+  <div class="footer">
+    <ng-container *ngTemplateOutlet="footer"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #info>
+  <ng-container [ngSwitch]="pluginData.service_type">
+    <ng-container *ngSwitchCase="serviceTypeEnum.FILEMONITOR">
+      <app-text [text]="buildTranslationKey('pluginIsNotConnected.fileMonitorInfo')"></app-text>
+    </ng-container>
+    <ng-container *ngSwitchCase="serviceTypeEnum.COLLABORATION">
+      <app-text [text]="buildTranslationKey('pluginIsNotConnected.collaborationInfo')"></app-text>
+    </ng-container>
+    <ng-container *ngSwitchCase="serviceTypeEnum.TICKETING">
+      <app-text [text]="buildTranslationKey('pluginIsNotConnected.ticketingInfo')"></app-text>
+    </ng-container>
+    <ng-container *ngSwitchDefault [ngSwitch]="pluginData.service_status">
+      <ng-container *ngSwitchCase="serviceStatusEnum.INSTALLED">
+        <app-text [text]="buildTranslationKey('pluginConnected.automaticallyCollected')"></app-text>
+        <app-text [text]="buildTranslationKey('evidence')" [textParameters]="pluginData"></app-text>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <app-text [text]="buildTranslationKey('pluginIsNotConnected.anecdotesCanAutomate')"></app-text>
+        <app-text [text]="buildTranslationKey('evidence')" [textParameters]="pluginData"></app-text>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #footer>
+  <ng-container [ngSwitch]="pluginData.service_status">
+    <ng-container *ngSwitchCase="serviceStatusEnum.INSTALLED">
+      <ng-container
+        *ngTemplateOutlet="
+          statusBtn;
+          context: { btnClass: 'connected-mark', iconSrc: 'status_complete', translationKey: 'connectedStatus' }        "
+      >
+      </ng-container>
+      <ng-container *ngTemplateOutlet="favouriteMark"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="serviceStatusEnum.INSTALLATIONFAILED">
+      <ng-container *ngTemplateOutlet="failedMark"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="serviceStatusEnum.CONNECTIVITYFAILED">
+      <ng-container *ngTemplateOutlet="failedMark"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <app-new-button [type]="'primary'" class="explore-btn mulish">{{
+        buildTranslationKey('pluginIsNotConnected.exploreBtn') | translate
+      }}</app-new-button>
+      <ng-container *ngTemplateOutlet="favouriteMark"></ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #failedMark>
+  <ng-container
+    *ngTemplateOutlet="
+      statusBtn;
+      context: { btnClass: 'failed-mark', iconSrc: 'status_not_started', translationKey: 'errorStatus' }
+    "
+  >
+  </ng-container>
+  <ng-container *ngTemplateOutlet="favouriteMark"></ng-container>
+</ng-template>
+
+<ng-template #statusBtn let-btnClass="btnClass" let-iconSrc="iconSrc" let-translationKey="translationKey">
+  <app-new-button  [type]="'basic'" [class]="btnClass" class="status-btn">
+    <svg-icon class="status-icon" [src]="iconSrc" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span>{{ buildTranslationKey(translationKey) | translate }}</span>
+  </app-new-button>
+</ng-template>
+
+<ng-template #favouriteMark>
+  <div class="dividing-line"></div>
+  <app-favorite-plugin-star-button [pluginId]="pluginData.service_id"></app-favorite-plugin-star-button>
+</ng-template>

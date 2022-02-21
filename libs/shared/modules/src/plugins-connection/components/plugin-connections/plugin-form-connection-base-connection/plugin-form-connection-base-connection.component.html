@@ -1,0 +1,141 @@
+<app-plugin-custom-state
+  [contentTemplate]="content"
+  [footerTemplate]="footer"
+  [displayHeader]="true"
+  [displayHeaderThreeDotsMenu]="displayThreeDotsMenu"
+  [aboveFooterContentTemplate]="aboveFooterTemplate"
+  [leftSideHeaderContent]="pendingAccountInformation"
+  [customDescriptionTranslationKey]="addAnotherAccountButtonVisible ? 'addAdditionalAccount' : null"
+  [playSuccessAnimation]="showSuccessAnimation | async"
+></app-plugin-custom-state>
+
+<ng-template #content>
+  <div class="flex flex-col flex-1 w-full">
+    <app-all-plugin-connection-forms
+      class="flex"
+      [class.opacity-30]="isEditableMode"
+      #allForms
+      [service]="service"
+      (formsCreated)="allFormsCreatedHandler()"
+    ></app-all-plugin-connection-forms>
+    <div
+      *ngIf="connectivityFailure$ | async"
+      [ngbTooltip]="connectivityFailure$ | async"
+      tooltipClass="default-tooltip connection-error-tooltip"
+      [placement]="'top-left'"
+      class="connectivity-error flex h-full"
+    >
+      <svg-icon src="status_not_started"></svg-icon
+      ><span class="failure-message">{{ connectivityFailure$ | async }}</span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #footer>
+  <ng-container
+    *ngTemplateOutlet="service.service_multi_account ? multipleConnectionPluginButtons : singleConnectionPluginButtons"
+  ></ng-container>
+</ng-template>
+
+<ng-template #singleConnectionPluginButtons>
+  <div class="button-group">
+    <ng-container *ngTemplateOutlet="mainActionsButtons"></ng-container>
+    <app-new-button
+      *ngIf="cleanFormButtonVisible"
+      [type]="'secondary'"
+      (click)="clearFormClick()"
+      [disabled]="isClearButtonDisabled$ | async"
+      id="clear-form"
+      >{{ buildTranslationKey('clearFormButtonText') | translate }}</app-new-button
+    >
+
+    <app-new-button *ngIf="editFormButtonVisible" id="edit" [type]="'secondary'" (click)="editForm()">{{
+      buildTranslationKey('editPluginButtonText') | translate
+    }}</app-new-button>
+
+    <app-new-button *ngIf="cancelEditFormButtonVisible" [type]="'secondary'" (click)="cancelEditForm()" id="cancel"
+      >{{ buildTranslationKey('cancelEditPluginButtonText') | translate }}
+    </app-new-button>
+  </div>
+</ng-template>
+
+<ng-template #mainActionsButtons>
+  <app-new-button
+    *ngIf="connectButtonVisible"
+    (click)="connectPluginButtonClick()"
+    id="connect"
+    [disabled]="isConnectButtonDisabled()"
+    >{{
+      resolveConnectButtonTextTranslationKey() | translate: { count: pendingInstancesCount }
+    }}</app-new-button
+  >
+  <app-new-button
+    *ngIf="reconnectButtonVisible"
+    (click)="resolveReconnectProcess()"
+    id="reconnect"
+    [disabled]="isConnectButtonDisabled()"
+    >{{ buildTranslationKey('reconnectPluginButtonText') | translate }}
+  </app-new-button>
+</ng-template>
+
+<ng-template #multipleConnectionPluginButtons>
+  <div class="button-group">
+    <app-new-button
+      *ngIf="isBackButtonVisible"
+      (click)="stateCloseClickHandler()"
+      id="add-another-account"
+      [type]="'secondary'"
+      [size]="'responsive'"
+      >{{ buildTranslationKey('back') | translate }}
+    </app-new-button>
+    <div
+      *ngIf="addAnotherAccountButtonVisible"
+      [ngbTooltip]="isAddingAccountsLimit ? addingAccountsLimitReached : null"
+      placement="top"
+      tooltipClass="default-tooltip"
+      class="button-wrapper"
+    >
+      <app-new-button
+        (click)="addAnotherAccountClick()"
+        id="add-another-account"
+        [type]="'secondary'"
+        [size]="'responsive'"
+        [disabled]="addAnotherAccountButtonDisabled"
+        >{{ buildTranslationKey('saveAndAddAnotherAccount') | translate }}
+      </app-new-button>
+    </div>
+
+    <ng-container *ngTemplateOutlet="mainActionsButtons"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #aboveFooterTemplate>
+  <app-invite-it-user [plugin]="service"></app-invite-it-user>
+</ng-template>
+
+<ng-template #pendingAccountInformation>
+  <ng-container *ngIf="pendingInstancesCount > 1">
+    <div
+      *ngIf="pendingInstancesCount - 1 as pendingAccountsExcludingCurrent"
+      [ngbTooltip]="pendingAccountsTooltip"
+      placement="top"
+      tooltipClass="default-tooltip"
+    >
+      <span class="pending-accounts-header mr-2">{{
+        pendingAccountsExcludingCurrent
+          | i18nPlural: pendingAccountsPluralMapping
+          | translate: { count: pendingAccountsExcludingCurrent }
+      }}</span>
+      <svg-icon src="info-small" class="align-middle" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #pendingAccountsTooltip>
+  <div class="flex flex-col">
+    <span *ngFor="let instanceName of pendingInstancesNamesExcludingCurrent"> {{ instanceName }}</span>
+  </div>
+</ng-template>
+
+<ng-template #addingAccountsLimitReached>
+  <span> {{ buildTranslationKey('accountsLimitReached') | translate }}</span>
+</ng-template>

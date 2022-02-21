@@ -1,0 +1,9 @@
+@import 'variables/_button.variables';
+
+:host.custom-size {
+  max-width: $filters-button-width;
+  width: $filters-button-width;
+  height: $filters-button-height;
+  border-radius: $filters-button-border-radius;
+  justify-content: flex-start;
+}

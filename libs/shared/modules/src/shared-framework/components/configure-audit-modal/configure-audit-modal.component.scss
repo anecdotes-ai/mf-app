@@ -1,0 +1,28 @@
+@import 'index';
+
+:host::ng-deep {
+  width: 800px;
+
+  app-dynamic-form-outlet > form {
+    @apply grid gap-y-5;
+
+    app-text-field {
+      @apply w-full;
+    }
+  }
+
+  app-dynamic-form-outlet#audit_range form {
+    @apply flex flex-row items-end;
+
+    app-date-picker {
+      @apply flex-1;
+    }
+    app-date-picker#start_date {
+      @apply mr-4;
+    }
+  }
+
+  app-radio-button-group#soc_type app-control-header {
+    @apply mb-5;
+  }
+}

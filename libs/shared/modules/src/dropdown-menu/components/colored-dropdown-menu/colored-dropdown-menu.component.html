@@ -1,0 +1,13 @@
+<app-colored-dropdown-menu-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"
+  [buttonBackgroundClass]="buttonBackgroundClass" [radius]="radius" [buttonIcon]="buttonIcon" [isReadOnly]="isReadOnly"
+  [tooltip]="tooltip" [tooltipPlacement]="tooltipPlacement" [verticalSize]="verticalSize" [isOpen]="isOpen"
+  [keepTooltipOnOver]="!isReadOnly">{{
+  buttonText | translate }}</app-colored-dropdown-menu-button>
+
+<mat-menu #menu="matMenu" [class]="'colored-menu'" xPosition="after">
+  <app-dropdown-options-backdrop>
+    <app-dropdown-option *ngFor="let menuAction of menuActions" [menuAction]="menuAction" [context]="context">
+    </app-dropdown-option>
+    <ng-content select="[slot='dropdown-footer']"></ng-content>
+  </app-dropdown-options-backdrop>
+</mat-menu>

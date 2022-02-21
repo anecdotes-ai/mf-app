@@ -1,0 +1,29 @@
+<ng-container *ngIf="(notifications$ | async) as notifications; else loading">
+    <perfect-scrollbar *ngIf="notifications?.length; else emptyState" #perfectScroll>
+        <app-virtual-scroll-renderer id="notificationsList" class="w-full h-full" [allItemsStream]="notifications$"
+            [idSelector]="selectNotificationId" [filteredItemsStream]="notifications$">
+            <ng-template #itemTemplate let-item="item">
+                <app-comment-notification *ngIf="isComment(item); else genericNotification" [notification]="item"
+                    (clicked)="notificationClicked(item)" (removed)="notificationRemoved(item.id)">
+                </app-comment-notification>
+                <ng-template #genericNotification>
+                    <app-notification-item [notification]="item" (clicked)="notificationClicked(item)"
+                        (removed)="notificationRemoved(item.id)">
+                    </app-notification-item>
+                </ng-template>
+            </ng-template>
+        </app-virtual-scroll-renderer>
+    </perfect-scrollbar>
+</ng-container>
+
+<ng-template #loading>
+    <app-secondary-loading-animation></app-secondary-loading-animation>
+</ng-template>
+
+
+<ng-template #emptyState>
+    <div id="emptyState" class="w-full h-full flex flex-col items-center justify-center">
+        <svg-icon class="pb-8" src="Roi"></svg-icon>
+        <span class="font-main text-3xl text-navy-70"> {{ buildTranslationKey('emptyList') | translate }} </span>
+    </div>
+</ng-template>

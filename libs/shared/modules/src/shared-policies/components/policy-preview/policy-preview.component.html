@@ -1,0 +1,38 @@
+<div
+  *ngIf="policyContext && isLoaded"
+  class="preview-top"
+  [class.no-preview]="!hasPreview"
+  [class.pt-0]="isPreviewFromControls"
+>
+  <div *ngIf="hasPreview" class="d-flex items-center">
+    <!-- Will be added when we finish adding history in BE -->
+    <!-- <app-dropdown-control id="history-dropdown" [data]="approversHistoryMenu" [displayValueSelector]="displayValueSelector" ></app-dropdown-control> -->
+    <div class="title font-main text-base">
+      <span class="next-cycle">{{ buildTranslationKey('nextCycle') | translate }} </span>
+      <span class="bold">{{ policy.next_cycle_date | date: dateFormat }}</span>
+    </div>
+  </div>
+
+  <div class="flex gap-5">
+    <app-new-button
+      id="view-document-btn"
+      [type]="hasPreview ? 'primary' : 'secondary'"
+      [size]="'fixed160'"
+      (click)="openFullDocumentClick()"
+    >
+      {{ buildTranslationKey('viewDocument') | translate }}</app-new-button
+    >
+
+    <app-new-button
+      id="policy-settings-btn"
+      [type]="hasPreview ? 'secondary' : 'primary'"
+      [size]="'fixed160'"
+      svgIconPath="policy-settings"
+      (click)="openPolicySettings()"
+    >
+      {{ buildTranslationKey('policySettingsBtn') | translate }}</app-new-button
+    >
+  </div>
+</div>
+
+<app-policy-approval *ngIf="isLoaded" [policyContext]="true" [policyId]="policyId"></app-policy-approval>

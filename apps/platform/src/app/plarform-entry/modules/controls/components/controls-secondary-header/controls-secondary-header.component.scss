@@ -1,0 +1,5 @@
+@import 'custom-secondary-header-styles';
+
+:host {
+  @apply flex flex-row justify-between items-center h-14 min-h-14 pr-5 pl-6;
+}

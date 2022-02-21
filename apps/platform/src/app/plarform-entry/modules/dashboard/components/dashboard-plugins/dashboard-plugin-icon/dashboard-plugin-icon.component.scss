@@ -1,0 +1,25 @@
+@import 'index';
+
+:host {
+  width: 25%;
+  height: 100%;
+  padding-top: 13px;
+  cursor: pointer;
+
+  &:nth-child(4) {
+    border-right: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .item {
+    text-align: center;
+
+    svg-icon {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}

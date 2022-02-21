@@ -1,0 +1,25 @@
+<app-colored-dropdown-menu
+  [menuActions]="menuActions"
+  [buttonText]="currentValue"
+  [tooltip]="isReadOnly ? tooltipWithMetadata : ''"
+  [tooltipPlacement]="'top'"
+  [buttonBackgroundClass]="buttonBGClass"
+  (click)="dropDownMenuClick($event)"
+  [radius]="'large'"
+  [buttonIcon]="'arrow-down'"
+  [isReadOnly]="isReadOnly"
+>
+  <div
+    *ngIf="hasValue"
+    class="clear-btn cursor-pointer flex flex-row font-main hover:bg-navy-40 items-center text-base p-2.5 gap-x-2.5 rounded-sm border-t border-navy-30"
+    slot="dropdown-footer"
+    (click)="clearSelected()"
+  >
+    <svg-icon [stretch]="true" [src]="'clear-form'"></svg-icon>
+    <span class="whitespace-nowrap">{{ buildTranslationKey('clear') | translate }}</span>
+  </div>
+</app-colored-dropdown-menu>
+
+<ng-template #tooltipWithMetadata>
+  <div>{{ buildTranslationKey('riskTagTooltip') | translate }}</div>
+</ng-template>

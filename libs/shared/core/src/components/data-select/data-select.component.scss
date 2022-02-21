@@ -1,0 +1,57 @@
+@import 'index';
+@import './mat-menu-custom-styles.scss';
+
+:host::ng-deep {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+
+  #select-btn {
+    border: none;
+    outline: none;
+
+    @include basicBold();
+
+    &.opened {
+      svg-icon {
+        svg {
+          path {
+            fill: $mc-navy-90;
+          }
+        }
+      }
+    }
+
+    svg-icon {
+      svg {
+        path {
+          fill: $mc-navy-70;
+        }
+        transform: rotate(90deg);
+        width: 20px;
+        height: 20px;
+        margin-bottom: 3px;
+
+        .background {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.title,
+.mat-menu-item {
+  @include basicLight;
+}
+
+.mat-menu-item {
+  outline: none;
+
+  &.selected {
+    @include basicBold();
+  }
+
+  background: $mc-white;
+}

@@ -1,0 +1,18 @@
+<div class="flex-1 border-t border-b border-solid border-navy-40 p-5">
+  <div class="text-base text-navy-90 mb-9">
+    <div>{{ buildTranslationKeyForSSOItem('descriptionFirstPart') | translate }}</div>
+    <div>
+      <span>{{ buildTranslationKey('descriptionMiddlePart') | translate }}</span>
+      <span>&nbsp;</span>
+      <a class="hover:text-navy-90 underline" [attr.href]="selectedSSOItem.articleLink" target="_blank">{{
+        buildTranslationKey('descriptionSecondPart') | translate
+        }}</a>
+    </div>
+  </div>
+  <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+</div>
+<div class="flex p-5 gap-5">
+  <app-new-button *ngIf="!isEditMode" [type]="'primary'" [disabled]="formGroup.invalid || !isValueChanged" [loading]="connectOrUpdateProcessing$ | async" (click)="connect()">{{ buildTranslationKey('connectBtn') | translate }}</app-new-button>
+  <app-new-button *ngIf="isEditMode" [type]="'primary'" [disabled]="formGroup.invalid  || !isValueChanged" [loading]="connectOrUpdateProcessing$ | async" (click)="connect()">{{ buildTranslationKey('updateBtn') | translate }}</app-new-button>
+  <app-new-button *ngIf="isEditMode" [type]="'secondary'" [loading]="disconnectProcessing$ | async" (click)="disconnect()">{{ buildTranslationKey('disconnectBtn') | translate }}</app-new-button>
+</div>

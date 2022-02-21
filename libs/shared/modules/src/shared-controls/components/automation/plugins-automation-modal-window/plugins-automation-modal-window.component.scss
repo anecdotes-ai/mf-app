@@ -1,0 +1,92 @@
+@import 'index';
+
+:host::ng-deep {
+  app-base-modal {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    position: relative;
+    overflow: hidden;
+    transition: all 10s;
+
+    &.loading > *:not(.loader-wrapper) {
+      opacity: 0;
+    }
+
+    .content-wrapper {
+      padding: 0;
+    }
+
+    .loader-wrapper {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+
+      app-secondary-loading-animation {
+        height: 50%;
+        width: 50%;
+      }
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .base-modal-content {
+      height: 310px !important;
+      display: flex;
+      padding: 0;
+
+      perfect-scrollbar::ng-deep {
+        margin: 0 5px;
+        .ps {
+          .ps-content {
+            padding: 0 58px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+          }
+        }
+      }
+
+      app-big-plugin-item {
+        margin-bottom: 20px;
+        height: 170px;
+
+        .info {
+          display: none;
+        }
+      }
+    }
+
+    app-text {
+      align-items: center;
+    }
+  }
+}
+
+app-base-modal {
+  .title {
+    margin-top: 20px;
+    @include basicBold(21px);
+  }
+
+  .description {
+    @include basicLight();
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    padding: 0 50px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,89 @@
+<div
+  class="audit-header flex flex-row items-center pl-6 pr-4 w-full h-16 bg-navy-10 border-b border-navy-30 rounded-t-md"
+>
+  <div class="title main-font-18 font-bold text-navy-90 flex-1">
+    {{ buildTranslationKey('auditInfo') | translate }}
+  </div>
+  <app-new-button *ngIf="!audit" [type]="'secondary'" class="setup-btn" (click)="setupAudit()">
+    {{ buildTranslationKey('setupAudit') | translate | titlecase }}
+  </app-new-button>
+  <app-new-button *ngIf="!auditors.length" [type]="'secondary'" class="invite-btn ml-4" (click)="inviteAuditor()">
+    {{ buildTranslationKey('inviteAuditor') | translate | titlecase }}
+  </app-new-button>
+  <app-three-dots-menu *ngIf="!isLoading && (!!auditors.length || audit)" class="ml-4" [menuActions]="threeDotsMenu">
+  </app-three-dots-menu>
+  <app-circle-loader *ngIf="isLoading" [appearance]="'dark'"></app-circle-loader>
+</div>
+<div *ngIf="!!auditors.length || audit" class="grid grid-cols-4 grid-rows-1 gap-6 px-6 py-4 max-h-20">
+  <div *ngIf="audit" class="product-name flex flex-col center-content overflow-hidden">
+    <span class="secondary-font-14 font-bold text-navy-90 ellipsis">{{ audit.product_name }}</span>
+    <span *ngIf="audit.framework_fields?.type" class="main-font-13 text-navy-70">{{
+      buildTranslationKey('configureAuditModal.' + audit.framework_fields.type) | translate
+    }}</span>
+  </div>
+  <ng-container
+    *ngTemplateOutlet="
+      infoTemplate;
+      context: {
+        visible: audit?.audit_date,
+        icon: 'Calender',
+        valueTemplate: textValue,
+        value: audit?.audit_date | date: dateFormat,
+        header: buildTranslationKey('auditDate') | translate
+      }
+    "
+  >
+  </ng-container>
+  <ng-container
+    *ngTemplateOutlet="
+      infoTemplate;
+      context: {
+        visible: audit?.framework_fields?.range_start,
+        icon: 'Calender',
+        valueTemplate: textValue,
+        value: getDateRangeValue(),
+        header: buildTranslationKey('auditRange') | translate
+      }
+    "
+  >
+  </ng-container>
+  <ng-container
+    *ngTemplateOutlet="
+      infoTemplate;
+      context: {
+        visible: !!auditors.length,
+        icon: 'user-types/auditor',
+        valueTemplate: auditors.length > 1 ? userList : textValue,
+        value: getAssignedAuditorValue(),
+        header: auditors.length | i18nPlural: auditorsMapping | translate
+      }
+    "
+  >
+  </ng-container>
+</div>
+
+<ng-template
+  #infoTemplate
+  let-visible="visible"
+  let-icon="icon"
+  let-valueTemplate="valueTemplate"
+  let-value="value"
+  let-header="header"
+>
+  <div *ngIf="visible" class="flex flex-row items-center">
+    <div class="w-12 h-12 border border-navy-30 rounded-md mr-3 flex flex-col items-center justify-center">
+      <svg-icon [src]="icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+    <div class="flex flex-col overflow-hidden">
+      <ng-container *ngTemplateOutlet="valueTemplate; context: { value }"></ng-container>
+      <span class="main-font-11 text-navy-70 ellipsis">{{ header }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #userList let-value="auditors">
+  <app-auditor-list [auditors]="auditors"></app-auditor-list>
+</ng-template>
+<ng-template #textValue let-value="value">
+  <span class="main-font-13 text-navy-90 ellipsis">{{ value }}</span>
+</ng-template>

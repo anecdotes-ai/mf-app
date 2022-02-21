@@ -1,0 +1,15 @@
+:host::ng-deep {
+  position: absolute;
+  bottom: 0;
+  margin-left: 15px;
+  margin-bottom: 30px;
+  z-index: 996;
+
+  > *:not(:last-child) {
+    margin-bottom: 10px !important;
+  }
+
+  > * {
+    width: auto !important;
+  }
+}

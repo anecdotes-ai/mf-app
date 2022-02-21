@@ -1,0 +1,57 @@
+<ng-template #templateRef let-frameworks="currentPage">
+  <div id="frameworks-status-slide-content" class="slide-content-table">
+    <div class="header row">
+      <div class="cell"></div>
+      <div class="cell status-bar">
+        <div>
+          <svg-icon src="status_not_started" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+          <span>{{ buildTranslationKey('notStartedControls') | translate }}</span>
+        </div>
+        <div>
+          <svg-icon src="status_in_progress" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+          <span>{{ buildTranslationKey('controlsInProgress') | translate }}</span>
+        </div>
+        <div>
+          <svg-icon src="status_complete" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+          <span>{{ buildTranslationKey('completedControls') | translate }}</span>
+        </div>
+      </div>
+      <div class="cell status">
+        <div>
+          <svg-icon src="percent" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+          <span>{{ buildTranslationKey('status') | translate }}</span>
+        </div>
+      </div>
+      <div class="cell automated-evidence">
+        <div>
+          <svg-icon
+            class="automated_evidence"
+            src="automated_evidence"
+            preserveAspectRatio="none"
+            [stretch]="true"
+          ></svg-icon>
+          <span>{{ buildTranslationKey('automatedEvidence') | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngFor="let framework of frameworks">
+      <div class="row">
+        <div class="framework cell">
+          <svg-icon [src]="frameworkService.getFrameworkIconLink(framework.framework_id, true)"></svg-icon>
+          <span class="name">{{ framework.framework_name }}</span>
+        </div>
+        <div class="controls-status cell">
+          <app-controls-status-bar *ngVar="getProgressBarDefinition(framework) as pb" [maxValue]="pb.overallCount" [progressBarDefinition]="pb.pbDefinition"></app-controls-status-bar>
+        </div>
+        <div class="completed-controls-percentage cell">
+          <span> {{ getCompletedControlsPercentage(framework) }} % </span>
+        </div>
+        <div class="automated evidence cell">
+          <span>{{ getEvidenceAutomationCount(framework) }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<app-pager id="pager" #pager [data]="data.frameworks" [itemsPerPage]="5" [template]="templateRef"></app-pager>

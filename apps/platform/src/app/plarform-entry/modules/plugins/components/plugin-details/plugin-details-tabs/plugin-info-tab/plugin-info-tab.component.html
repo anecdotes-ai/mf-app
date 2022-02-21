@@ -1,0 +1,34 @@
+<div id="plugin-info-wrapper">
+  <perfect-scrollbar class="plugins-perfect-bar">
+    <p class="description">{{ service.service_description }}</p>
+    <div class="why-connecting">{{ buildTranslationKey('whyConnecting') | translate: service }}</div>
+    <div class="can-be-automated">
+      <div class="automation-content">
+        <div class="tied-services">
+          <div class="service-icon-wrapper">
+            <svg-icon src="plugins/anecdotes"> </svg-icon>
+          </div>
+          <div class="dashed-border-wrapper">
+            <span class="dashed-border"></span>
+          </div>
+          <div class="service-icon-wrapper">
+            <svg-icon [src]="serviceIcon$ | async" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+          </div>
+        </div>
+        <div class="text-info">
+          <div class="plugin-comment">
+            <span translate> {{ buildTranslationKey(resolveCommentTranslationKey) }}</span>
+          </div>
+          <div class="plugin-evidences-info">
+              <span translate [translateParams]="service">{{ buildTranslationKey(resolveDescriptionInfoTranslationKey) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="plugin-evidence-info-list">
+    <app-plugin-info-evidence *ngFor="let evidence of service.service_evidence_list" 
+    [evidenceInstance]="evidence" 
+    [service]="service"></app-plugin-info-evidence>
+  </div>
+  </perfect-scrollbar>
+</div>

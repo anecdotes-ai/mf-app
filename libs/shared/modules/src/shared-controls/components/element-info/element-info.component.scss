@@ -1,0 +1,49 @@
+@import 'index';
+
+:host {
+  .info-wrapper::ng-deep {
+    margin-right: 10px;
+    color: $mc-navy-90;
+    position: relative;
+    top: 3px;
+
+    .info-icon {
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        .info-icon-fill {
+          fill: $mc-navy-90;
+        }
+        .info-icon-stroke {
+          stroke: $mc-navy-90;
+        }
+      }
+    }
+  }
+}
+
+.element-help-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .metadata {
+    margin-bottom: 10px;
+  }
+
+  .timestamp {
+    font-weight: bold;
+  }
+
+  .related-frameworks {
+    @apply mt-3;
+  }
+
+  .separator-line {
+    @apply bg-navy-70 mb-3 block;
+    height: 1px;
+    width: 100%;
+  }
+}

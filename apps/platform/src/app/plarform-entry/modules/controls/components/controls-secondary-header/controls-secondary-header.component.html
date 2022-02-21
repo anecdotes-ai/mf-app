@@ -1,0 +1,20 @@
+<ng-container *ngIf="framework">
+  <app-dropdown-control
+    class="min-w-96"
+    [formControl]="categoriesControl"
+    [selectFirstValue]="false"
+    [data]="controlsCategories$ | async"
+    [searchEnabled]="true"
+    [searchFieldPlaceholder]="buildTranslationKey('searchPlaceholder')"
+    (select)="selectCategory($event)"
+  >
+  </app-dropdown-control>
+  <div class="flex items-center gap-7">
+    <app-controls-status-barr [controls]="filteredControls$ | async"></app-controls-status-barr>
+    <app-controls-export-menu
+      [filteredData]="filteredData"
+      [framework]="framework"
+      [appliedFiltersNames]="appliedFiltersNames"
+    ></app-controls-export-menu>
+  </div>
+</ng-container>

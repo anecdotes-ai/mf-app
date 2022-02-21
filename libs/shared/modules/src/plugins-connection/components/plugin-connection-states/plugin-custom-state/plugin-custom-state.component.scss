@@ -1,0 +1,28 @@
+@import '../shared/styles/shared-plugin-states.scss';
+:host {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .flex-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content:  space-between;
+
+    app-plugin-static-state-tip {
+      position: relative;
+      app-tip {
+        margin: 0;
+      }
+    }
+
+    #above-footer-content {
+      position: relative;
+    }
+  }
+}

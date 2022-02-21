@@ -1,0 +1,34 @@
+@import 'index';
+
+:host::ng-deep {
+  &:hover {
+    input {
+      background: $mc-navy-10;
+    }
+    .copy-button{
+      background-color: $mc-navy-10;
+    }
+  }
+  app-text-field {
+    width: 100%;
+    input {
+      background: $mc-white;
+      color: $mc-navy-70;
+      padding-right: 40px;
+    }
+
+    .buttons {
+      right: 0;
+      top: 0;
+      height: 100%;
+    }    
+  }  
+}
+
+.white {
+    background-color: $mc-white;
+  }
+
+.mulish {
+  @include MulishFontStyle();
+}

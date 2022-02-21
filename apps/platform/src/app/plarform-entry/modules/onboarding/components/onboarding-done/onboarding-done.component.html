@@ -1,0 +1,39 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-done"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <svg-icon class="party-image" src="onboarding/party-time"></svg-icon>
+
+            <span class="main-font-32">{{ buildTranslationKey('descriptions.header') | translate }}</span>
+            <br /><br />
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.first') | translate }}</span>
+            <br /><br />
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.second') | translate }}</span>
+            <a class="main-font-13 bold" [href]="buildTranslationKey('links.linkHref') | translate"> {{ buildTranslationKey('links.help') | translate }}</a>
+            <span class="main-font-13"> {{ buildTranslationKey('descriptions.third') | translate}}</span>
+            <a class="main-font-13 bold" (click)="onIntercomClick()"> {{ buildTranslationKey('links.intercom') |
+                translate }}
+            </a>
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.fourth') | translate }}</span>
+            <br /><br />
+            <span class="main-font-13 bold">{{ buildTranslationKey('descriptions.whatsNext') |
+                translate}}</span>
+            <br />
+            <span class="main-font-13">{{ buildTranslationKey('descriptions.startWith') | translate }}</span>
+        </div>
+    </div>
+</div>
+<div class="footer">
+
+    <div class="onboarding-buttons">
+        <app-new-button type="secondary" (click)="onPolicyClick()" size="fixed160" svgIconPath="onboarding/policy">
+            {{buildTranslationKey('buttons.policy') | translate }}
+        </app-new-button>
+        <app-new-button type="secondary" (click)="onPluginsMarketClick()" size="fixed160"
+            svgIconPath="onboarding/plugin">
+            {{buildTranslationKey('buttons.plugins') | translate }}
+        </app-new-button>
+    </div>
+</div>

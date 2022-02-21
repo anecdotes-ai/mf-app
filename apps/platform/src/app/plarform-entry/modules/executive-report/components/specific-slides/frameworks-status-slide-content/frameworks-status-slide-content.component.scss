@@ -1,0 +1,69 @@
+@import '../styles/common-slide-content-table.scss';
+
+:host::ng-deep {
+  .slide-content-table {
+    .header.row {
+      height: 70px;
+      .cell {
+        span {
+          @include MulishFontStyle(13px, 18px);
+
+          color: $mc-navy-70;
+        }
+      }
+      .cell.status-bar {
+        padding: 0 5px;
+        justify-content: space-between;
+
+        div {
+          svg-icon {
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .cell.status,
+      .cell.automated-evidence {
+        svg-icon {
+          margin-right: 5px;
+        }
+      }
+
+      svg-icon.automated_evidence {
+        svg * {
+          fill: $mc-navy-70 !important;
+        }
+      }
+    }
+
+    .row {
+      height: 100px;
+
+      .cell {
+        &.framework {
+          justify-content: start;
+          span {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    .cell:nth-of-type(1) {
+      min-width: 260px;
+      width: 260px;
+    }
+
+    .cell:nth-of-type(2) {
+      min-width: 550px;
+      width: 550px;
+    }
+
+    .cell:nth-of-type(3) {
+      width: 100px;
+    }
+    .cell:nth-of-type(4) {
+      width: 200px;
+    }
+  }
+}

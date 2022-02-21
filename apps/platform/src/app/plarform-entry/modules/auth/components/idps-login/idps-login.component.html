@@ -1,0 +1,4 @@
+<app-button [icon]="buildIdpIconPath(idp)" (click)="loginUsingIdp(idp)" *ngFor="let idp of idps" class="main mulish stretch">
+  {{ buildTranslationKey('loginWith') | translate: idp }}&nbsp;<span class="idp-name">{{ idp.idp_type }}</span>
+</app-button>
+

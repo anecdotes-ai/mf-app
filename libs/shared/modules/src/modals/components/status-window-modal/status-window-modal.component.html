@@ -1,0 +1,41 @@
+<div class="status-message">
+  <header class="flex-1">
+    <div>
+      <ng-container [ngSwitch]="statusType">
+        <app-success-animation
+          *ngSwitchCase="statusTypesEnum.SUCCESS"
+          width="50px"
+          height="50px"
+          [activateAnimation]="true"
+        ></app-success-animation>
+        <svg-icon
+          *ngSwitchCase="statusTypesEnum.ERROR"
+          class="w-10 h-10"
+          [src]="'status_not_started'"
+          preserveAspectRatio="none"
+          [stretch]="true"
+        ></svg-icon>
+      </ng-container>
+    </div>
+    <div class="title">
+      <app-text [text]="buildTranslationKey('title') | translate"></app-text>
+    </div>
+    <ng-container *ngVar="(buildTranslationKey('description') | translate) as translatedDescription">
+      <div *ngIf="translatedDescription !== buildTranslationKey('description')" class="description">
+        <app-text *ngIf="withDescriptionText" [text]="translatedDescription"></app-text>
+      </div>
+    </ng-container>
+  </header>
+  <footer>
+    <ng-container *ngTemplateOutlet="customButtons ? customButtonsTemplate : defaultBtnTemplate"> </ng-container>
+  </footer>
+</div>
+
+<ng-template #customButtonsTemplate>
+  <app-new-button *ngIf="customButtons.mainButton as btn" [attr.id]="btn.id" [size]="'medium'" [type]="'primary'" [clickOnEnter]= "true" (click)="customButtonHandlerExecute(btn)" class="mulish"> {{ buildTranslationKey(btn.translationKeyPart) | translate }}</app-new-button>
+  <app-new-button *ngIf="customButtons.secondaryButton as btn" [attr.id]="btn.id" [size]="'medium'" [type]="'secondary'" (click)="customButtonHandlerExecute(btn)" class="mulish"> {{ buildTranslationKey(btn.translationKeyPart) | translate }}</app-new-button>
+</ng-template>
+
+<ng-template #defaultBtnTemplate>
+  <app-new-button [size]="'medium'" [type]="'primary'" [clickOnEnter]="true" (click)="close()" class="mulish"> {{ buildTranslationKey('btn') | translate }}</app-new-button>
+</ng-template>

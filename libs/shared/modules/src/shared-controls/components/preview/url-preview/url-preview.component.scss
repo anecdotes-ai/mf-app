@@ -1,0 +1,33 @@
+:host {
+  @apply flex flex-col bg-navy-30 overflow-hidden h-auto;
+  width: 87vw;
+  min-height: 20vh;
+
+  .evidence-tip-wrapper {
+    @apply bg-navy-30 py-2.5 px-8;
+  }
+
+  &::ng-deep {
+    & .icon-copy {
+      svg-icon {
+        svg * {
+          @apply fill-navy-30;
+        }
+      }
+    }
+
+    & .icon-newtab {
+      svg-icon {
+        svg * {
+          @apply fill-white;
+        }
+      }
+    }
+
+    #evidence-preview-modal {
+      #close-modal-btn {
+        @apply top-3 right-3;
+      }
+    }
+  }
+}

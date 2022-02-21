@@ -1,0 +1,140 @@
+@import 'index';
+
+:host::ng-deep {
+  app-button {
+    &:hover {
+      svg-icon {
+        svg * {
+          stroke: $mc-white !important;
+        }
+      }
+    }
+  }
+}
+
+:host {
+  padding: 0 30px;
+  display: flex;
+  justify-content: center;
+
+  height: inherit;
+  width: inherit;
+
+  .slide-wrapper {
+    width: 100%;
+    max-width: 1306px;
+
+    .header {
+      display: flex;
+      width: inherit;
+      height: 80px;
+
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        @include MulishBold(21px, 26px);
+        color: $mc-navy-90;
+        margin-left: 30px;
+      }
+
+      app-button {
+        svg-icon {
+          vertical-align: text-bottom;
+        }
+        height: fit-content;
+      }
+    }
+
+    .content {
+      display: flex;
+      .slide-wrapper {
+        height: 638px;
+
+        background: $mc-white;
+        border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.05);
+        box-shadow: 0px 2px 3px rgba($color: $mc-navy-90, $alpha: 0.1);
+        border-radius: 6px;
+      }
+    }
+
+    .footer {
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .date-time {
+          @include MulishFontStyle(13px, 26px);
+          color: $mc-dark-gray;
+        }
+      }
+
+      .logo-block {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        span {
+          @include MulishFontStyle(13px, 26px);
+          color: $mc-navy-70;
+          margin-right: 10px;
+        }
+        svg-icon {
+          align-self: center;
+          height: 15px;
+          min-height: 15px;
+          width: 100px;
+          svg {
+            height: inherit;
+            vertical-align: top;
+            width: inherit;
+            :not(:nth-last-child(-n + 3)) {
+              fill: $mc-navy-70;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.screen-shot::ng-deep {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 100%;
+    width: 100%;
+
+    .download-button {
+      display: none;
+    }
+
+    #generic-slide-wrapper {
+      min-width: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .content {
+      height: 100%;
+      width: 100%;
+
+      .slide-wrapper {
+        max-height: inherit;
+        height: inherit;
+        min-height: 100%;
+        min-width: inherit;
+        max-width: inherit;
+        width: 100% !important;
+      }
+    }
+  }
+}

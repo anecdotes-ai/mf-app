@@ -1,0 +1,13 @@
+<div class="coming-soon" *ngIf="isMobileDisplay">
+  <header class="text-center">
+    <svg-icon src="mobile/logotype_onwhite" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </header>
+  <section class="wrapper">
+    <div class="text-center aligner-item">
+      <span>{{ buildTranslationKey('notSupportYet') | translate }}</span>
+      <span>{{ buildTranslationKey('useLatestVersion') | translate }}</span>
+    </div>
+  </section>
+  <svg-icon class="cloud-yellow-bg" src="mobile/cloud-yellow" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  <svg-icon class="cloud-blue-bg" src="mobile/cloud-blue" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</div>

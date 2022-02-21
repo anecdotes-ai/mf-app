@@ -1,0 +1,10 @@
+<div *ngIf="framework" class="max-width-container">
+  <div class="flex items-center gap-x-4">
+    <svg-icon [src]="buildIconPath(framework.framework_id)"></svg-icon>
+    <span class="framework-name font-secondary text-navy-90 text-5xl">{{ framework.framework_name }}</span>
+    <span class="font-main text-navy-90 text-3xl"
+      >{{ applicableControlsCount }} {{ buildTranslationKey('controlsAmount') | translate }}</span
+    >
+  </div>
+  <app-framework-progress-bar [frameworkId]="framework.framework_id" [fontSize]="'large'"></app-framework-progress-bar>
+</div>

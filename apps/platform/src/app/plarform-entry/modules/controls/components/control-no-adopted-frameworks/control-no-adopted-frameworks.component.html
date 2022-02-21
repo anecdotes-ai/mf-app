@@ -1,0 +1,6 @@
+<app-coming-soon [iconSectionDisplay]="false">
+  <div class="center-description text-center no-adopted-frameworks">
+    <span>{{ buildTranslationKey('title') | translate }}</span>
+    <app-button (click)="navigateToFrameworks()" class="main mulish medium">{{ buildTranslationKey('buttonText') | translate }}</app-button>
+  </div>
+</app-coming-soon>

@@ -1,0 +1,60 @@
+@import './index.scss';
+
+.wrapper {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+
+  .middle-content {
+    display: flex;
+
+    .central-content {
+      align-self: center;
+    }
+  }
+
+  .central-content {
+    color: $mc-navy-90;
+    text-align: center;
+
+    .main-description {
+      @include MulishFontStyle(21px, 31.5px);
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .secondary-description {
+      @include MulishFontStyle(13px, 19.5px);
+      margin-bottom: 20px;
+    }
+
+    #main-button::ng-deep path {
+      @apply stroke-white;
+    }
+  }
+
+  .plugin-group1,
+  .plugin-group2 {
+    align-self: flex-end;
+    position: relative;
+  }
+
+  .plugin-group1 {
+    margin-right: 6vw;
+  }
+
+  .plugin-group2 {
+    margin-left: 2vw;
+  }
+}
+
+.host {
+  height: 100%
+}
+
+
+:host::ng-deep perfect-scrollbar {
+  .ps-content {
+    height: 100%;
+  }
+}

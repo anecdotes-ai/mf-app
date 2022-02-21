@@ -1,0 +1,16 @@
+<ng-container *ngIf="file">
+  <ng-container [ngSwitch]="getFileType()">
+    <ng-container *ngSwitchCase="fileTypeEnum.CSV">
+      <app-csv-preview [file]="file"></app-csv-preview>
+    </ng-container>
+    <ng-container *ngSwitchCase="fileTypeEnum.Image">
+      <app-image-preview [file]="file"></app-image-preview>
+    </ng-container>
+    <ng-container *ngSwitchCase="fileTypeEnum.PDF">
+      <app-pdf-preview [file]="file" [useScroll]="useScroll"></app-pdf-preview>
+    </ng-container>
+    <ng-container *ngSwitchCase="fileTypeEnum.Office">
+      <app-office-preview [file]="file" [useScroll]="useScroll" [usePagination]="usePagination"></app-office-preview>
+    </ng-container>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,32 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+  <app-colored-dropdown-menu
+    *ngIf="calculatedControl"
+    [ngClass]="{ 'pointer-events-none': viewOnly }"
+    class="text-white font-bold"
+    [menuActions]="menuActions"
+    [buttonText]="getButtonText()"
+    [tooltip]="tooltipWithMetadata"
+    [tooltipPlacement]="'top'"
+    [buttonBackgroundClass]="buttonBGClass"
+    [isReadOnly]="readonly"
+    (click)="dropDownMenuClick($event)"
+  >
+  </app-colored-dropdown-menu>
+</ng-container>
+<ng-template #tooltipWithMetadata>
+  <app-control-status-tooltip
+  [controlStatus]="calculatedControl.control_status"
+  [controlLastEditTime]="calculatedControl.control_last_edit_time"
+  ></app-control-status-tooltip>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <app-circle-loader [appearance]="'dark'"></app-circle-loader>
+</ng-template>
+
+<ng-template #errorTemplate>
+  <span class="flex items-center">
+    {{ 'controls.error-freeze.description' | translate }}
+    <a class="text-navy-90 cursor-pointer underline-offset-auto ml-0.5" (click)="openIntercom()">{{ 'controls.error-freeze.contact' | translate }}</a>
+  </span>
+</ng-template>

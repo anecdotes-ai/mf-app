@@ -1,0 +1,99 @@
+@import 'index';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+
+  &.background {
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  z-index: 1000;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+#modal-window,
+#alert {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: $mc-white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#alert {
+  width: 600px;
+  height: 242px;
+
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    .message {
+      @include MulishFontStyle();
+      font-weight: bold;
+      font-size: 21px;
+      color: $mc-navy-90;
+      margin-top: 20px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    background: $mc-background;
+    width: 100%;
+
+    app-button {
+      margin: 20px 28px 20px 0;
+      background: $mc-navy-90;
+      min-width: 160px;
+
+      @include basicWhite();
+
+      &.disabled {
+        background: $mc-disabled;
+      }
+    }
+  }
+}
+
+#close-modal-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+
+  height: 40px;
+  width: 40px;
+
+  border-radius: 6px;
+
+  path {
+    stroke: $mc-navy-70;
+  }
+
+  &:hover {
+    background: $mc-navy-30;
+    path {
+      stroke: $mc-navy-90;
+    }
+  }
+}

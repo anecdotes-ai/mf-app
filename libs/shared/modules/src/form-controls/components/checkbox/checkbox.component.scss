@@ -1,0 +1,56 @@
+@import 'index';
+
+:host {
+  cursor: pointer;
+
+  @include MulishFontStyle();
+  color: $mc-navy-70;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .checkbox {
+    height: 18px;
+    padding-right: 10px;
+  }
+
+  .checkmark, .border {
+    stroke: $mc-navy-70;
+  }
+
+  .checkmark {
+    display: none;
+  }
+
+  &.checked {
+    color: $mc-navy-90;
+
+    .checkmark, .border {
+      stroke: $mc-navy-90;
+    }
+
+    .checkmark {
+      display: inline;
+    }
+  }
+
+  .label-text {
+    width: inherit;
+    word-break: break-word;
+  }
+
+  &.disabled-checkbox {
+    pointer-events: none;
+  }
+}
+
+.label {
+  margin-bottom: 12px;
+  &::after {
+    content: '?';
+  }
+}

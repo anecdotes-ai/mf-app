@@ -1,0 +1,21 @@
+<app-colored-dropdown-control
+  class="text-navy-90"
+  [buttonBackgroundClass]="'bg-navy-30 hover:bg-navy-40'"
+  [radius]="'large'"
+  [addingEnabled]="true"
+  [searchEnabled]="true"
+  [verticalSize]="'small'"
+  [formControl]="formControl"
+  [data]="sources$ | async"
+  [searchFieldPlaceholder]="buildTranslationKey('searchFieldPlaceholder') | translate"
+  [entityNameText]="buildTranslationKey('entityName') | translate"
+  [displayValueSelector]="sourceDisplayValueSelector"
+  (addNew)="addAndSelectNewSource($event)"
+  [clearEnabled]="true"
+  (clearSelection)="clearSelection()"
+  [displayEmptyState]="false"
+  [selectFirstValue]="false"
+  [shouldDisableAddOptionHandler]="shouldDisableAddOption"
+  [tooltip]="!formControl.value ? (buildTranslationKey('notSetTooltip') | translate) : null"
+>
+</app-colored-dropdown-control>

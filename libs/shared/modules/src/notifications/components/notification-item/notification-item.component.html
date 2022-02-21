@@ -1,0 +1,16 @@
+<svg-icon class="col-start-2 row-span-3" [src]="icon"></svg-icon>
+<span class="col-start-3 text-sm mt-2.5 truncate" 
+      placement="top" 
+      [ngbTooltip]="path"
+      [openTooltipWhenOverflowedAndHovered]="true"
+      [openOnWidthOverflow]="true"> {{ path }} </span>
+<span class="col-start-3 row-start-2 text-base bold truncate" 
+      placement="top" 
+      [ngbTooltip]="notification.content"
+      [openTooltipWhenOverflowedAndHovered]="true"
+      [openOnWidthOverflow]="true"> {{ notification.content }}</span>
+<app-time class="col-start-3 row-start-3 text-lg text-navy-70 mb-2.5" [date]="notification.creation_time"
+    [dateFormat]="shortDate"></app-time>
+<app-icon-button class="col-start-4 row-span-3 invisible group-hover:visible" [type]="'basic'"
+    [svgIconPath]="'trash-bucket'" (click)="remove($event)"></app-icon-button>
+ 

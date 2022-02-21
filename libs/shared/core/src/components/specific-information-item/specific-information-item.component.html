@@ -1,0 +1,26 @@
+<div class="icon-border-wrapper" [class.no-border]="content.hideIconWrapper">
+  <svg-icon [ngClass]="content.icon" [src]="content.icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</div>
+
+<div class="element-info" [class.one-row]="content.oneLineContent">
+  <span class="element-description">
+    <span class="element-value">
+      <ng-container [ngSwitch]="content.valueTypeToRepresent">
+        <ng-container *ngSwitchCase="specificContentRowValueTypes.PERCENTAGE">
+          <ng-container *ngIf="!content.maxValue; else calculatePercentage"> {{ content.value }} % </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="specificContentRowValueTypes.NUMBER"> {{ content.value }}</ng-container>
+        <ng-container *ngSwitchCase="specificContentRowValueTypes.DIVIDE">
+          {{ content.value }} / {{ content.maxValue }}</ng-container
+        >
+        <ng-container *ngSwitchCase="specificContentRowValueTypes.DOLLAR"> ${{ content.value | number }}</ng-container>
+        <ng-container *ngSwitchDefault>
+          {{ content.value }}
+        </ng-container>
+      </ng-container>
+    </span>
+    <ng-content> </ng-content>
+  </span>
+</div>
+
+<ng-template #calculatePercentage> {{ getPercentsFunc(content.value, content.maxValue) }} % </ng-template>

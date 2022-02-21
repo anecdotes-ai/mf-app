@@ -1,0 +1,12 @@
+.approve-on-behalf-modal {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  min-height: 211px;
+}
+
+:host::ng-deep {
+  app-text-area {
+    width: 100%;
+  }
+}

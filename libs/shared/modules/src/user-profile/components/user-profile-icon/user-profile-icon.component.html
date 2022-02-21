@@ -1,0 +1,20 @@
+<div class="user-icon-wrapper">
+  <svg
+    [ngStyle]="{ 'height.px': iconHeightPx, 'width.px': iconWidthPx }"
+    viewBox="0 0 46 46"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
+    <path
+      d="M19.6516 0.579814C12.8895 2.14322 8.98308 6.64477 6.50454 9.52899C3.83741 12.6019 0.577591 16.2948 0.0657177 22.0093C-0.311452 26.457 0.95476 31.0663 3.35248 34.7862C8.71368 43.1154 19.0589 46.1074 28.4881 44.6788C33.2297 43.951 38.3754 42.0911 41.5813 38.3443C45.9188 33.3036 45.9726 27.2926 45.9996 24.8396C46.0535 15.7557 40.9617 4.65007 31.1822 1.11892C25.821 -0.794909 20.9986 0.25635 19.6516 0.579814Z"
+      fill="url(#pattern1)"
+    />
+    <defs>
+      <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use attr.xlink:href="#{{ iconInstanceName }}" />
+      </pattern>
+      <image attr.id="{{ iconInstanceName }}" width="1" height="1" attr.xlink:href="{{ avatarLink }}" />
+    </defs>
+  </svg>
+</div>

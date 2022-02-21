@@ -1,0 +1,38 @@
+@import 'variables/palette';
+
+.selected-items-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+:host {
+  .selected-item {
+    background: $mc-white;
+    border: 1px solid $mc-white;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    color: $mc-navy-90;
+    min-height: 25px;
+    padding: 5px 10px;
+
+    svg-icon {
+      margin-left: 13px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      svg-icon::ng-deep path {
+        stroke: $mc-navy-90;
+      }
+    }
+  }
+}
+
+app-checkbox {
+  width: 100%;
+}

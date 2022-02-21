@@ -1,0 +1,27 @@
+.framework-bubble {
+  @apply font-main text-lg uppercase text-blue-70 bg-blue-90-10;
+  border-radius: 46px;
+  padding: 3px 12px;
+
+  &:hover {
+    @apply bg-blue-90-15;
+  }
+}
+
+.controls-list {
+  @apply flex flex-col items-start;
+  width: fit-content;
+
+  .framework {
+    @apply font-bold;
+    margin-bottom: 5px;
+  }
+
+  .control-name {
+    margin-left: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

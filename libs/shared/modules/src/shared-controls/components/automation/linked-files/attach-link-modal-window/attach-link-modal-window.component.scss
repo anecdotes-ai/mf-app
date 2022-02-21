@@ -1,0 +1,60 @@
+@import 'index';
+
+:host::ng-deep {
+  app-base-modal {
+    width: 600px;
+  }
+
+  app-tip app-text {
+    text-align: left;
+  }
+
+  app-tabs {
+    @include MulishFontStyle(13px, 21px);
+
+    .tabs {
+      border-bottom: 1px solid $mc-navy-40;
+      margin-bottom: 10px;
+      padding: 0;
+
+      button {
+        margin: 0 !important;
+        border: unset !important;
+        padding-bottom: 25px;
+        border-bottom: 2px solid $mc-navy-90 !important;
+      }
+      svg-icon {
+        align-self: center;
+        display: flex;
+
+        svg {
+          height: inherit;
+          width: inherit;
+        }
+      }
+    }
+  }
+}
+
+:host {
+  .attach-link-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    span:not(.connection-details-link) {
+      @include MulishFontStyle(13px, 21px);
+      color: $mc-navy-90;
+      margin: 10px 0;
+    }
+  }
+}
+
+.connection-details-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+app-tip {
+  width: 100%;
+  margin-top: 35px;
+}

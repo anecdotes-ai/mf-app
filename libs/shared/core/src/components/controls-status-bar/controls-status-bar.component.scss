@@ -1,0 +1,88 @@
+@import './index.scss';
+
+:host {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .status-bar-wrapper {
+    width: 100% !important;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row-reverse;
+    border-radius: 40px;
+    overflow: hidden;
+
+    .bar-section-wrapper:first-child {
+      .bar-section {
+        margin-right: 0 !important;
+      }
+    }
+
+    .bar-section-wrapper:last-child {
+      .bar-section {
+        margin-left: 0 !important;
+      }
+    }
+
+    .bar-section-wrapper {
+      height: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+
+      span.bar-section-info {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        bottom: 15px;
+        right: 0;
+        text-align: center;
+        @include MulishFontStyle(13px, 21px);
+        letter-spacing: 0.06em;
+        color: $mc-navy-90;
+      }
+
+      .bar-section {
+        height: 8px;
+        margin: 0 2px;
+      }
+    }
+  }
+
+  .not-started {
+    background: $mc-pink-50;
+  }
+
+  .in-progress {
+    background: $mc-orange-50;
+  }
+
+  .completed {
+    background: $mc-blue-50;
+  }
+
+  .compliant {
+    background: $mc-blue-50;
+  }
+
+  .gap {
+    background: $mc-pink-70;
+  }
+
+  .issue {
+    background: $mc-orange-70;
+  }
+
+  .comply {
+    background: $mc-blue-70;
+  }
+
+  .reduced-percents {
+    background: $mc-background;
+  }
+}

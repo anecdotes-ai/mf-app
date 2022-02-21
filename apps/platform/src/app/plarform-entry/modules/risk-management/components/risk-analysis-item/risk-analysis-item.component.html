@@ -1,0 +1,59 @@
+<span class="font-main font-bold text-sm mb-1 text-navy-90 mb-2.5 block">{{ title }}</span>
+<section class="grid grid-cols-4 gap-x-3">
+  <section *ngIf="!!analysisFields.impact" class="flex">
+    <span class="flex flex-col flex-1">
+      <span class="main-font-12 text-navy-90 mb-2">{{ buildTranslationKey('impact') | translate }}</span>
+      <app-risk-impact-indicator
+        [riskId]="riskId"
+        [riskField]="analysisFields.impact"
+        (editing)="onEditing($event)"
+        (editingDone)="onEditingDone()"
+      ></app-risk-impact-indicator>
+    </span>
+    <span class="text-navy-70 main-font-14 align-self-center">X</span>
+  </section>
+  <section *ngIf="!!analysisFields.liklihood" class="flex">
+    <span class="flex flex-col flex-1">
+      <span class="main-font-12 text-navy-90 mb-2">{{ buildTranslationKey('likelihood') | translate }}</span>
+      <app-risk-liklihood-indicator
+        [riskId]="riskId"
+        [riskField]="analysisFields.liklihood"
+        (editing)="onEditing($event)"
+        (editingDone)="onEditingDone()"
+      ></app-risk-liklihood-indicator>
+    </span>
+    <span class="text-navy-70 main-font-24 align-self-center">=</span>
+  </section>
+  <section *ngIf="!!analysisFields.riskLevel">
+    <span class="flex flex-col">
+      <span class="main-font-12 text-navy-90 mb-2 ellipsis">{{ buildTranslationKey('riskLevel') | translate }}</span>
+      <app-chip
+        *ngIf="!isLoading; else loadingTemplate"
+        class="{{ riskLevelBackgroundClass }} h-6 ellipsis w-min font-main font-bold text-sm text-white capitalize"
+      >
+        {{ riskLevelTitle }}
+      </app-chip>
+    </span>
+  </section>
+  <section *ngIf="!!analysisFields.financialImpact" class="flex flex-col">
+    <span class="main-font-12 text-navy-90 ellipsis">{{ buildTranslationKey('financialImpact') | translate }}</span>
+    <app-risk-editable-field
+      [fieldText]="risk[analysisFields.financialImpact]"
+      [placeholder]="buildTranslationKey('notSet') | translate"
+      (submit)="editFinancialImpact($event)"
+      [rowsCount]="1"
+      [submitOnEnter]="true"
+    ></app-risk-editable-field>
+  </section>
+  <section *ngIf="!!analysisFields.riskLevelTarget" class="flex flex-col">
+    <app-risk-level-indicator
+      [riskId]="riskId"
+      [riskLevelField]="analysisFields.riskLevelTarget"
+      [editable]="true"
+    ></app-risk-level-indicator>
+  </section>
+</section>
+
+<ng-template #loadingTemplate>
+  <app-circle-loader [appearance]="'dark'" class="h-5 w-5 ml-4"></app-circle-loader>
+</ng-template>

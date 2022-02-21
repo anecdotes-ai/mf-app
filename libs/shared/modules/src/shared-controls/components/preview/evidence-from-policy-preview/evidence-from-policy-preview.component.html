@@ -1,0 +1,135 @@
+<div *ngIf="!isLoaded; else fileLoadedTemplate" class="loading-animation-wrapper">
+  <app-loading-animation class="loading-animation"></app-loading-animation>
+</div>
+
+<ng-template #fileLoadedTemplate>
+  <div *ngIf="evidenceLike.evidence.evidence_tip" [class.evidence-tip-wrapper]="!checkTipHidden()">
+    <app-tip #tipRef [tipId]="evidenceLike.evidence.evidence_id" [tipType]="tipTypes.TIP">
+      <app-text [text]="evidenceLike.evidence.evidence_tip"></app-text>
+    </app-tip>
+  </div>
+
+  <app-evidence-preview-header
+    [controlName]="controlInstance.control_name"
+    [requirementName]="controlRequirement.requirement_name"
+  ></app-evidence-preview-header>
+
+  <ng-container *ngTemplateOutlet="notSupportedPreview ? fallbackPolicy : filePreviewPolicy"></ng-container>
+</ng-template>
+
+<ng-template #filePreviewPolicy>
+  <ng-container *ngTemplateOutlet="evidenceLabelSection"></ng-container>
+  <ng-container *ngTemplateOutlet="policyApprovalSection"></ng-container>
+
+  <div class="preview-wrapper">
+    <ng-container *ngIf="showTabular; then tabularPreviewSection; else showFilePreview"></ng-container>
+
+    <ng-template #showFilePreview>
+      <perfect-scrollbar class="rounded-md">
+        <app-file-viewer [file]="file" [useScroll]="true"></app-file-viewer>
+      </perfect-scrollbar>
+    </ng-template>
+  </div>
+
+  <app-evidence-report class="evidence-report"></app-evidence-report>
+</ng-template>
+
+<ng-template #fallbackPolicy>
+  <ng-container *ngTemplateOutlet="evidenceLabelSection"></ng-container>
+  <ng-container *ngTemplateOutlet="policyApprovalSection"></ng-container>
+
+  <div class="preview-wrapper">
+    <ng-container *ngIf="showTabular; then tabularPreviewSection; else previewFallback"></ng-container>
+
+    <ng-template #previewFallback>
+      <div class="flex flex-col justify-center items-center h-full">
+        <svg-icon src="status_complete" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        <span class="header"> {{ buildTranslationKey('header') | translate }} </span>
+      </div>
+    </ng-template>
+  </div>
+
+  <app-evidence-report class="evidence-report"></app-evidence-report>
+</ng-template>
+
+<ng-template #evidenceLabelSection>
+  <div class="evidence-label">
+    <app-evidence-label
+      [evidenceComply]="evidenceComply"
+      [evidence]="evidenceLike.evidence"
+      [framework]="framework"
+      [eventSource]="evidenceSources.FullData"
+      [controlInstance]="controlInstance"
+      [controlRequirement]="controlRequirement"
+      [resourceType]="evidenceLike.resourceType"
+      [policyId]="evidenceLike.id"
+    >
+    </app-evidence-label>
+
+    <div class="flex">
+      <app-evidence-metadata
+        [evidence]="evidenceLike.evidence"
+        [dateViewType]="dateViewTypes.TimeAgo"
+        [contextSource]="eventSource"
+        [shouldDisplay]="true"
+        [displaySearchItemsAmount]="true"
+        class="mr-12"
+      >
+      </app-evidence-metadata>
+
+      <app-new-button
+        [clickOnEnter]="true"
+        [size]="'responsive'"
+        class="whitespace-nowrap"
+        (click)="downloadEvidence()"
+        [svgIconPath]="'export'"
+      >
+        {{ buildTranslationKey('downloadEvidenceBtn') | translate }}
+      </app-new-button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #policyApprovalSection>
+  <div class="flex justify-between items-center px-7 mb-4" [class.no-preview]="!hasPreview">
+    <div *ngIf="hasPreview" class="flex items-center">
+      <!-- Will be added when we finish adding history in BE -->
+      <!-- <app-dropdown-control id="history-dropdown" [data]="approversHistoryMenu" [displayValueSelector]="displayValueSelector" ></app-dropdown-control> -->
+      <div class="title font-main text-base">
+        <span class="next-cycle">{{ buildTranslationKey('nextCycle') | translate }} </span>
+        <span class="bold">{{ policy.next_cycle_date | date: dateFormat }}</span>
+      </div>
+    </div>
+    <ng-container *ngIf="showTabular; then viewFileBtn; else viewApprovalLogButton"></ng-container>
+    <ng-template #viewFileBtn>
+      <app-new-button
+        (click)="togglePreview()"
+        [svgIconPath]="'show_n-a'"
+        [size]="'fixed160'"
+        class="justify-center view-file-btn whitespace-nowrap ml-auto"
+      >
+        {{ buildTranslationKey('viewFile') | translate }}
+      </app-new-button>
+    </ng-template>
+    <ng-template #viewApprovalLogButton>
+      <app-new-button
+        (click)="togglePreview()"
+        [svgIconPath]="'policy-settings'"
+        [size]="'fixed160'"
+        class="justify-center view-file-btn whitespace-nowrap ml-auto"
+      >
+        {{ buildTranslationKey('viewApprovalLog') | translate }}
+      </app-new-button>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #tabularPreviewSection>
+  <perfect-scrollbar [style.height]="'min-content'">
+    <app-policy-approval
+      class="pointer-events-none"
+      [policy]="policy"
+      [policyContext]="true"
+    ></app-policy-approval>
+  </perfect-scrollbar>
+</ng-template>

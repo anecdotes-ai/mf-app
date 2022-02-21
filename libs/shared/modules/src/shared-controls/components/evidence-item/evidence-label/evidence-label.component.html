@@ -1,0 +1,22 @@
+<div *ngIf="!inPluginPage" [ngbTooltip]="
+        evidence.evidence_service_display_name === 'manual' || viewPreviewMode
+          ? null
+          : evidence.evidence_service_display_name
+      " placement="top" class="evidence-service flex justify-center items-center p-1">
+  <app-evidence-icon class="w-full h-full" *ngIf="!inPluginPage" [evidenceServiceId]="evidence.evidence_service_id"></app-evidence-icon>
+</div>
+<svg-icon *ngIf="!inEvidencePool && !inPluginPage" class="arrow-single" src="arrow-single" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+<div *ngIf="inEvidencePool && !inPluginPage" class='dash'></div>
+<div class="evidence-type flex items-center">
+  <svg-icon *ngIf="fileType" [src]="fileType.icon" preserveAspectRatio="none" [stretch]="true">
+  </svg-icon>
+</div>
+<app-searchable-text class="evidence-name"
+  [ngbTooltip]="evidenceName"
+  placement="top"
+  [openTooltipWhenOverflowedAndHovered]="true"
+  [openOnWidthOverflow]="true"
+  [text]="evidenceName"
+></app-searchable-text>
+<app-gap-mark *ngIf="!evidenceComply" [tooltipText]="'gapAnalysis.evidenceDontComply' | translate" (mouseover)="sendEvent()"></app-gap-mark>
+<app-evidence-copy-name [entityName]="evidenceName" [source]="eventSource"></app-evidence-copy-name>

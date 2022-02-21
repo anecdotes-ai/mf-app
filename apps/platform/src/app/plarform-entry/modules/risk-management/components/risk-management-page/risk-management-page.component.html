@@ -1,0 +1,26 @@
+<ng-container *ngIf="loading$ | async; else loaded">
+  <div class="absolute w-full h-full bg-navy-30">
+    <app-loading-animation [width]="'270px'" height="270px"></app-loading-animation>
+  </div>
+</ng-container>
+<ng-template #loaded>
+  <section [searchScope] class="h-full flex flex-col">
+    <app-main-header [inputModel]="headerInput" (btnPressed)="addRisk()"></app-main-header>
+    <app-risk-management-content
+      *ngIf="!!risks?.length"
+      [allRisks]="risks"
+      [sortedRisks]="dataToDisplay"
+      [riskCategories]="riskCategories"
+      [riskSources]="riskSources"
+    ></app-risk-management-content>
+    <app-empty-state
+      *ngIf="!risks?.length"
+      [mainDescriptionText]="buildTranslationKey('noRisks') | translate"
+      [secondaryDescriptionText]="buildTranslationKey('noRisksDesc') | translate"
+      [mainButtonText]="buildTranslationKey('header.btn') | translate"
+      [mainButtonIcon]="'Add'"
+      (mainActionClick)="addRisk()"
+    >
+    </app-empty-state>
+  </section>
+</ng-template>

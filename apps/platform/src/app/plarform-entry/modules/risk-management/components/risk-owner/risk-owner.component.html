@@ -1,0 +1,8 @@
+<app-user-dropdown-control
+  *ngIf="usersStream$ | async as users"
+  #ownerDropdown
+  [formControl]="formControl"
+  [users]="users"
+  [currentUserEmail]="currentUserEmail$ | async"
+>
+</app-user-dropdown-control>

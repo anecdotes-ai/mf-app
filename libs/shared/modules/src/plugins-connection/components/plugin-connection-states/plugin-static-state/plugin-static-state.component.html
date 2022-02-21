@@ -1,0 +1,76 @@
+<app-plugin-static-state-header id="header"
+  *ngIf="headerDisplayed"
+  [service]="service"
+  [displayThreeDotsMenu]="displayHeaderThreeDotsMenu"
+  [displayCloseButton]="displayCloseButton"
+></app-plugin-static-state-header>
+
+<section id="content-section">
+  <app-plugin-static-state-tip
+    *ngIf="displayServiceTipIfExists"
+    [service]="service"
+  ></app-plugin-static-state-tip>
+  <div id="state-content">
+    <div class="icon-wrapper">
+      <ng-container *ngIf="isIconComponentType; else displayIconPath">
+        <ng-template #iconComponentContainer></ng-template>
+      </ng-container>
+      <ng-template #displayIconPath>
+        <svg-icon [src]="iconAsPath" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      </ng-template>
+    </div>
+    <div class="descriptions-wrapper">
+      <div *ngIf="mainDescription" translate [translateParams]="switcherContextData" class="main-description font-main font-bold text-navy-90">
+        {{ mainDescription }}
+      </div>
+      <div *ngIf="secondaryDescription" translate [translateParams]="switcherContextData" class="secondary-description font-main text-navy-90">
+        {{ secondaryDescription }}
+      </div>
+    </div>
+    <div
+      *ngIf="
+        buttonsPosition === actionButtonsPositionEnum.Center ||
+        buttonsPosition === actionButtonsPositionEnum.CenterReverse
+      "
+      class="button-group center-position"
+      [class.reverse]="buttonsPosition === actionButtonsPositionEnum.CenterReverse"
+    >
+      <ng-container *ngTemplateOutlet="buttons"></ng-container>
+    </div>
+  </div>
+
+  <div id="above-footer-content">
+    <ng-template #aboveFooterComponentContainer></ng-template>
+  </div>
+</section>
+<section *ngIf="footerDisplayed" id="footer-section">
+  <div
+    *ngIf="
+      buttonsPosition === actionButtonsPositionEnum.FooterReverse ||
+      buttonsPosition === actionButtonsPositionEnum.Footer
+    "
+    class="button-group"
+    [class.reverse]="buttonsPosition === actionButtonsPositionEnum.FooterReverse"
+  >
+    <ng-container *ngTemplateOutlet="buttons"></ng-container>
+  </div>
+</section>
+
+<ng-template #buttons>
+  <app-new-button
+    *ngIf="mainButton"
+    (click)="mainButton.action(switcher, switcherContextData)"
+    class="main mulish medium"
+  >
+    <span>{{ mainButton.translationKey | translate: service }}</span>
+  </app-new-button>
+  <app-new-button
+    #secondaryBtn
+    *ngIf="secondaryButton"
+    [type]="'secondary'"
+    (click)="secondaryButton.action(switcher, switcherContextData)"
+    class="secondary mulish medium"
+  >
+    <span>{{ secondaryButton.translationKey | translate: service }}</span>
+  </app-new-button>
+</ng-template>

@@ -1,0 +1,9 @@
+<button *ngIf="allowLogToDisplay" class="arrow" (click)="showMore()">
+  <svg-icon [class.rotate]="log.visible" src="arrow-single" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</button>
+<div #wrapper class="wrapper-item-log" [class.show]="log.visible">
+  <span #wrapperText>
+    <app-date-view [date]="getDateTimeOfLog()"></app-date-view>
+    <span [class.has-error]="log?.severity === logSeverities.ERROR">{{ log.message }}</span>
+  </span>
+</div>

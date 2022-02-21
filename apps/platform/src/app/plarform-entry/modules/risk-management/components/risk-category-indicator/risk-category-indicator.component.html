@@ -1,0 +1,23 @@
+<app-colored-dropdown-control
+  class="text-navy-90"
+  [buttonBackgroundClass]="'bg-navy-20 hover:bg-navy-40'"
+  [radius]="'large'"
+  [addingEnabled]="true"
+  [searchEnabled]="true"
+  [verticalSize]="'small'"
+  [formControl]="control"
+  [data]="allCategories$ | async"
+  [searchFieldPlaceholder]="buildTranslationKey('searchFieldPlaceholder') | translate"
+  [entityNameText]="buildTranslationKey('entityName') | translate"
+  [displayValueSelector]="selectRiskCategoryDisplayValue"
+  (addNew)="addAndSelectNewCategory($event)"
+  [displayEmptyState]="false"
+  [valueTemplate]="categoryTemplate"
+  [shouldDisableAddOptionHandler]="shouldDisableAddOption"
+  [tooltip]="!control.value ? (buildTranslationKey('notSetTooltip') | translate) : null"
+>
+</app-colored-dropdown-control>
+
+<ng-template #categoryTemplate let-displayValue="displayValue">
+  <app-searchable-text [text]="displayValue"></app-searchable-text>
+</ng-template>

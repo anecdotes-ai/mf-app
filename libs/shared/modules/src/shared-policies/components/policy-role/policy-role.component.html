@@ -1,0 +1,13 @@
+<div class="info-container">
+  <span class="info-text"> {{ buildCurrTranslationKey('description') | translate }} </span>
+</div>
+<div *ngFor="let formGroup of formGroups; let i = index" class="group-row">
+  <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+  <app-icon-button *ngIf="formGroups.length > 1" type="basic" class="secondary responsive remove-btn"
+    svgIconPath="remove" (click)="removeRow(i)"></app-icon-button>
+</div>
+<div class="add-more" *ngIf="isAddMoreVisible">
+  <app-new-button [type]="'basic'" [size]="'fixed160'" [svgIconPath]="'add_line'" (click)="addMore()" class="add-icon"
+    [disabled]="isAddMoreDisable">
+    {{buildTranslationKey('addPeople') | translate}}</app-new-button>
+</div>

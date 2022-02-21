@@ -1,0 +1,37 @@
+@import 'index';
+
+:host::ng-deep {
+  width: 600px;
+
+  .left-corner {
+    @apply w-full flex justify-center left-0 top-20 #{!important};
+    margin-left: 1px !important;
+
+    div svg-icon svg {
+      height: 1.8rem;
+
+      path:first-child {
+        @apply stroke-white stroke-2;
+      }
+    }
+  }
+
+  .base-modal-header svg {
+    @apply w-12;
+
+    path {
+      @apply fill-orange-50;
+    }
+  }
+
+  app-dynamic-form-outlet > form {
+    @apply grid gap-y-5;
+    
+    app-text-field {
+      @apply w-full;
+    }
+    app-dropdown-button {
+      @apply mr-0;
+    }
+  }
+}

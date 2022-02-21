@@ -1,0 +1,30 @@
+<div
+  class="flex flex-row items-center gap-2"
+>
+  <app-data-sort
+    #sortComponent
+    [sortDefinitions]="sortDefinitions"
+    [icon]="'filter-evidence'"
+    [displayFieldSelector]="false"
+    [changeQueryParams]="false"
+    [data]="allEvidences$ | async"
+    (sort)="handleSort($event)">
+  </app-data-sort>
+  <app-dropdown-control
+    [searchEnabled]="true"
+    [searchFieldPlaceholder]="this.buildTranslationKey('selectPluginSearch')"
+    [placeholderTranslationKey]="this.buildTranslationKey('selectPlugin')"
+    [data]="pluginNames"
+    [selectFirstValue]="false"
+    (select)="handlePluginFilter($event)"
+  >
+  </app-dropdown-control>
+</div>
+<app-data-search
+  class="mr-1"
+  [placeholderTranslationKey]="this.buildTranslationKey('searchByPluginName')"
+  [data]="filteredEvidence"
+  [searchDefinitions]="searchDefinitions"
+  [routeParamsDisabled]="true"
+  (search)="handleSearch($event)">
+</app-data-search>

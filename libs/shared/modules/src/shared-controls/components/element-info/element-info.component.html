@@ -1,0 +1,31 @@
+<div
+  class="info-wrapper"
+  [ngbTooltip]="help"
+  placement="top-left bottom-left"
+  tooltipClass="default-tooltip element-help-tooltip"
+>
+  <svg-icon src="info" class="info-icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</div>
+
+<ng-template #help>
+  <div class="element-help-wrapper">
+    <ng-container *ngIf="requirementLike.addedBy && requirementLike.isCustom">
+      <div class="metadata">
+        <span> {{ buildTranslationKey('addedBy') | translate: { name: requirementLike.addedBy } }} </span>
+        <span class="timestamp"> {{ editTimeDate | date: dateFormat }} </span>
+      </div>
+    </ng-container>
+
+    <div class="help-text">{{ requirementLike.description }}</div>
+
+    <ng-container *ngIf="isFrameworksNotEmpty">
+      <div class="related-frameworks">
+        <div class="separator-line"></div>
+        <span class="text-base text-white font-bold font-main mb-3 block">
+          {{ buildTranslationKey('relatedFrameworksText') | translate }}:</span
+        >
+        <span>{{ prepareFrameworksToString() }}</span>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

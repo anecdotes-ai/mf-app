@@ -1,0 +1,9 @@
+<app-dynamic-form-outlet [dynamicFormGroup]="dynamicFormGroup"></app-dynamic-form-outlet>
+<app-button
+  (click)="sendSignInLink()"
+  [loading]="isProcessing$ | async"
+  [class.disabled]="dynamicFormGroup.invalid"
+  id="sign-in-btn"
+  class="main mulish stretch action-btn"
+  >{{ buildTranslationKey('signInBtn') | translate }}</app-button
+>

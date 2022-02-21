@@ -1,0 +1,7 @@
+:host::ng-deep {
+  @apply w-75;
+
+  .items-container {
+    @apply flex flex-col gap-5 p-3;
+  }
+}

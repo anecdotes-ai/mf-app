@@ -1,0 +1,37 @@
+<ng-container
+  *ngTemplateOutlet="agentItem.itemState === agentViewItemState.EXISTING ? existingAgent : createNewAgent"
+></ng-container>
+
+<ng-template #createNewAgent>
+  <div class="create-new-wrapper flex flex-row w-full justify-center items-center">
+    <svg-icon [src]="'agents/connector'"></svg-icon>
+    <app-text-field
+      class="bg-navy-10 h-full flex-grow ml-3 font-bold font-secondary"
+      [formControl]="createAgentFormControl"
+      [placeholder]="buildTranslationKey('createNewAgentPlaceholder') | translate"
+    ></app-text-field>
+    <app-new-button
+      [type]="'secondary'"
+      [disabled]="!newAgentTextField?.value"
+      [size]="'responsive'"
+      [loading]="saveBtnLoader"
+      (click)="saveAgent.emit(newAgentTextField?.value)"
+      >{{ buildTranslationKey('saveAgentButton') | translate }}</app-new-button
+    >
+  </div>
+</ng-template>
+<ng-template #existingAgent>
+  <div class="existing-item-wrapper flex flex-row w-full justify-start items-center">
+    <svg-icon [src]="'agents/connector'"></svg-icon>
+    <span class="font-bold font-secondary ml-3 agent-name">
+      {{ agentItem.agentObject.name }}
+    </span>
+  </div>
+  <div
+    class="flex flex-row items-center gap-2 font-main status-wrapper font-main text-base"
+    [ngClass]="statusMapper[agentItem.agentObject.status.general_status]?.class"
+  >
+    <svg-icon class="status-icon" [src]="statusMapper[agentItem.agentObject.status.general_status]?.icon"></svg-icon>
+    <span class="font-bold"> {{ statusMapper[agentItem.agentObject.status.general_status]?.translationKey | translate }}</span>
+  </div>
+</ng-template>

@@ -1,0 +1,32 @@
+<div class="use-img-container center-content">
+  <div>
+    <div
+      id="user-logo"
+      [ngbPopover]="menuTemplate"
+      [keepOnHover]="true"
+      popoverClass="default-popover user-profile-menu-popover"
+      [placement]="placementPosition"
+    >
+      <app-user-profile-icon
+        [avatarLink]="profileAvatarSrc"
+        iconInstanceName="mainIcon"
+        [iconWidthPx]="iconWidthPx"
+        [iconHeightPx]="iconHeightPx"
+      ></app-user-profile-icon>
+    </div>
+  </div>
+</div>
+
+<ng-template #menuTemplate>
+  <div class="popover-container">
+    <div class="current-user">
+      {{ buildTranslationKey('currentUser') | translate: { currentUser: (currentUser$ | async)?.email } }}
+    </div>
+    <ng-container *ngFor="let item of menuItems">
+      <a *visibleForRole="item.visibleFor" (click)="item.action()" [id]="item.key" [class.hidden]="!item.visible">
+        <svg-icon [src]="'user-menu/' + item.icon"></svg-icon>
+        <span>{{ buildTranslationKey(item.key) | translate }} </span>
+      </a>
+    </ng-container>
+  </div>
+</ng-template>

@@ -1,0 +1,15 @@
+@import '../../plugin-form-connection-base-connection/plugin-form-connection-base-connection.component.scss';
+
+:host {
+  app-plugin-account-item {
+    &:not(:last-child) {
+      @apply border-b border-navy-30;
+    }
+  }
+
+  &::ng-deep {
+    #state-content {
+      padding: 0 !important;
+    }
+  }
+}

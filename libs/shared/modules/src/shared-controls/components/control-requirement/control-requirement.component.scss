@@ -1,0 +1,302 @@
+@import 'index';
+@import './media';
+
+:host {
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+  &.ignored {
+    .requirement-name {
+      text-decoration-line: line-through;
+      color: $mc-navy-70;
+    }
+  }
+
+  .name-wrapper {
+    .info-wrapper {
+      margin-right: 10px;
+      color: $mc-navy-90;
+
+      .info-icon {
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover {
+          .info-icon-fill {
+            fill: $mc-navy-90 !important;
+          }
+        }
+      }
+    }
+
+    display: flex;
+    align-items: center;
+    width: 45%;
+
+    @media (max-width: $Medium) {
+      width: 33%;
+    }
+  }
+
+  .slack-info {
+    cursor: pointer;
+    min-width: 100px;
+    margin-left: 15px;
+
+    span {
+      @include MulishItalic(11px, 16px);
+      margin-left: 5px;
+      box-sizing: border-box;
+      padding: 5px 10px 0 0;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      .default-info {
+        display: none;
+      }
+
+      .dismiss {
+        display: inline;
+        text-decoration-line: underline;
+      }
+    }
+
+    .dismiss {
+      display: none;
+    }
+  }
+}
+
+app-circle-loader::ng-deep {
+  height: 20px;
+  width: 20px;
+
+  .sectionQuart {
+    .loaderQuart {
+      border: 2px solid $mc-navy-50;
+    }
+
+    .loaderQuart:after {
+      top: -2px;
+      left: -2px;
+      bottom: -2px;
+      right: -2px;
+      border: 2px solid transparent;
+      border-top-color: $mc-navy-90;
+    }
+  }
+}
+
+.requirement-row {
+  background: $mc-navy-10;
+  padding-left: 25px;
+
+  &.hoverable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &.row-rolled {
+    &:hover {
+      .arrow-single {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.requirement-name {
+  @include MulishBold(16px, 150%);
+  color: $mc-navy-90;
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 550px;
+}
+
+.requirement-row,
+.evidence-wrapper {
+  min-height: 56px;
+}
+
+.evidence-wrapper {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid $mc-background;
+  position: relative;
+
+  *:first-child {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: $mc-navy-90;
+  }
+
+  *:last-child {
+    width: 100%;
+  }
+}
+
+.no-evidences {
+  height: 42px;
+  color: $mc-navy-70;
+  @include MulishFontStyle(13px, 150%);
+  border-top: #edf0f1 1px solid;
+
+  svg-icon {
+    margin-right: 10px;
+  }
+}
+
+.actions {
+  grid-gap: 10px;
+  height: 100%;
+}
+
+.status-block {
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  color: $mc-white !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include MulishBold(11px, 140%);
+
+  &.pending {
+    background-color: $mc-orange-70;
+
+    &:hover {
+      background-color: $mc-orange-50;
+    }
+  }
+
+  &.empty {
+    background-color: $mc-pink-70;
+
+    &:hover {
+      background-color: $mc-pink-50;
+    }
+  }
+
+  &.approved {
+    background-color: $mc-blue-60;
+
+    &:hover {
+      background-color: $mc-blue-50;
+    }
+  }
+}
+
+.arrow-single {
+  position: absolute;
+  left: 50%;
+
+  @media (max-width: $Medium) {
+    position: static;
+    margin-right: 15px;
+  }
+
+  svg {
+    position: relative;
+    left: -50%;
+    width: 20px;
+    height: 20px;
+
+    @media (max-width: $Medium) {
+      position: static;
+    }
+  }
+
+  * {
+    fill: $mc-navy-70;
+  }
+
+  &.rolled {
+    visibility: hidden;
+  }
+}
+
+.pending-icon {
+  opacity: 0.5;
+}
+
+:host::ng-deep {
+  .automate {
+    svg-icon {
+      position: relative;
+      bottom: 2px;
+      *:not(:last-child) {
+        fill: $mc-navy-90;
+      }
+    }
+
+    margin-right: 14px;
+  }
+
+  $automation-buttonsize: 40px;
+
+  .automate-plugins-button-wrapper {
+    min-height: $automation-buttonsize;
+    min-width: $automation-buttonsize;
+    width: $automation-buttonsize;
+    margin-right: 15px;
+  }
+}
+
+.progress-bar-wrapper {
+  width: 160px;
+  height: 8px;
+  margin-right: 20px;
+}
+
+app-secondary-loading-animation {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: $mc-white;
+  z-index: 3000;
+}
+
+.hidden {
+  display: none;
+}
+
+.requirement-tooltip-container {
+  width: 260px;
+}
+
+.approve-tip-text {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+app-three-dots-menu {
+  margin-right: 10px;
+}
+
+.requirement-help-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .metadata {
+    margin-bottom: 10px;
+  }
+
+  .timestamp {
+    font-weight: bold;
+  }
+}
+
+:host::ng-deep {
+  .info-icon:hover {
+    .info-icon-fill {
+      fill: $mc-navy-90;
+    }
+  }
+}

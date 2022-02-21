@@ -1,0 +1,31 @@
+<ng-container *ngIf="resourceData.noteExists; else addNoteTemplate">
+  <ng-container *ngIf="!isLoaded; else tooltipContentTemplate">
+    <app-circle-loader></app-circle-loader>
+  </ng-container>
+  <ng-template #tooltipContentTemplate>
+    <div class="content flex flex-col">
+      <span class="bold">{{ buildTranslationKey('tooltip.note') | translate }}:</span>
+      <span [innerHtml]="note.note_text | linkify" class="text"></span>
+    </div>
+    <div class="metadata-info flex flex-row">
+      <app-metadata-view
+        class="flex flex-row-reverse"
+        metadataValue="@{{ removeWhiteSpacesFunc(note.note_updated_by) }}"
+        [metadataDescriptionTranslationKey]="buildTranslationKey('tooltip.lastModifiedBy')"
+      ></app-metadata-view>
+      &nbsp;
+      <span>{{ buildTranslationKey('tooltip.onDateText') | translate }}</span>
+      &nbsp;
+      <span class="bold">{{note.note_timestamp | localDate: dateFormat}}</span>
+    </div>
+    <div class="footer">
+      <a class="edit-note" (click)="editRequirementNote()">{{ buildTranslationKey('tooltip.editNoteLink') | translate }}</a>
+      <span>|</span>
+      <a class="remove" (click)="removeRequirementNoteClick()">{{ buildTranslationKey('tooltip.removeNoteLink') | translate }}</a>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #addNoteTemplate>
+  {{buildTranslationKey('tooltip.addNoteText') | translate}}
+</ng-template>

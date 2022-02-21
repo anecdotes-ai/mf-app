@@ -1,0 +1,20 @@
+<form *ngIf="dynamicFormGroup" [formGroup]="dynamicFormGroup">
+  <ng-container *ngFor="let item of formBody; trackBy: trackByFn">
+    <ng-container *ngTemplateOutlet="item.template; context: item.context"></ng-container>
+  </ng-container>
+</form>
+
+<ng-template #defaultControlWrapper let-control="control" let-name="name">
+  <ng-container [dynamicFormControlOutlet]="control" [name]="name"></ng-container>
+</ng-template>
+
+<ng-template #defaultTemplateWrapper let-templateModel="templateModel">
+  <ng-container
+    *ngTemplateOutlet="templateModel.displayed ? templateModel.templateRef : null; context: templateModel.context"
+  >
+  </ng-container>
+</ng-template>
+
+<ng-template #formGroupTemplate let-formModel="formModel" let-name="name">
+  <app-dynamic-form-outlet [id]="name" [dynamicFormGroup]="formModel"></app-dynamic-form-outlet>
+</ng-template>

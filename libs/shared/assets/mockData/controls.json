@@ -1,0 +1,80 @@
+[
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038daa240",
+    "control_id": 1,
+    "control_name": "Access control policy and procedures",
+    "control_related_frameworks": ["ISO27001", "PCI-DSS"],
+    "control_has_automated_evidence_collected": true,
+    "control_status": "IN_PROGRESS",
+    "control_is_applicable": true,
+    "control_category": "Access Control Requirements",
+    "control_description": "Access to the AWS and GCP management interfaces is restricted to authorized individuals. The access is performed using two factors authentication: (1) username and password and (2) a secure ID token",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  },
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038daa241",
+    "control_id": 2,
+    "control_name": "Procedures",
+    "control_related_frameworks": ["ISO27001", "PCI-DSS"],
+    "control_has_automated_evidence_collected": false,
+    "control_status": "NOT_STARTED",
+    "control_is_applicable": true,
+    "control_category": "Lorem ipsum",
+    "control_description": "Access control policy and procedures developed based on the business needs, well-documented, approved and published to relevant personnel.",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  },
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038daa242",
+    "control_id": 3,
+    "control_name": "Access control policy",
+    "control_related_frameworks": [],
+    "control_has_automated_evidence_collected": true,
+    "control_status": "COMPLIANT",
+    "control_is_applicable": false,
+    "control_category": "Other Control Requirements",
+    "control_description": "Access control policy and procedures developed based on the business needs, well-documented, approved and published to relevant personnel.",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  },
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038ssas32",
+    "control_id": 4,
+    "control_name": "Control mock data tests2",
+    "control_related_frameworks": ["ISO27001", "PCI-DSS", "DSS", "DSS"],
+    "control_has_automated_evidence_collected": false,
+    "control_status": "COMPLIANT",
+    "control_is_applicable": false,
+    "control_category": "Access Control Requirements",
+    "control_description": "Access control policy and procedures developed based on the business needs, well-documented, approved and published to relevant personnel.",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  },
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038daa243",
+    "control_id": 5,
+    "control_name": "Requirements specification",
+    "control_related_frameworks": ["PCI-DSS"],
+    "control_has_automated_evidence_collected": true,
+    "control_status": "COMPLIANT",
+    "control_is_applicable": false,
+    "control_category": "Access Control Requirements",
+    "control_description": "Access control policy and procedures developed based on the business needs, well-documented, approved and published to relevant personnel.",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  },
+  {
+    "control_instance_id": "8dd09925-622b-4f57-b2f7-ca3038daa244",
+    "control_id": 6,
+    "control_name": "Automatization",
+    "control_related_frameworks": ["ISO27001"],
+    "control_has_automated_evidence_collected": true,
+    "control_status": "COMPLIANT",
+    "control_is_applicable": true,
+    "control_category": "Requirements control",
+    "control_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "control_number_of_required_evidence": 4,
+    "control_number_of_collected_evidence": 1
+  }
+]

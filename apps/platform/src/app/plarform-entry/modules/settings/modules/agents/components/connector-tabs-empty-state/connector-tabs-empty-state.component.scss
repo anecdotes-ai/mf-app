@@ -1,0 +1,9 @@
+:host {
+  @apply flex items-center flex-col;
+  margin-top: 50px;
+
+  span {
+    @apply font-main text-2xl text-navy-90 font-bold;
+    margin-top: 10px;
+  }
+}

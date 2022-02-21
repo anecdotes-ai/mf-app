@@ -1,0 +1,56 @@
+@import './mat-menu-custom-styles.scss';
+@import '../../plugin-connection-states/shared/styles/shared-plugin-states.scss';
+
+:host {
+  @apply flex flex-col h-full;
+
+  #content-section {
+    @apply flex flex-grow;
+
+    align-items: initial;
+    justify-content: initial;
+  }
+
+  &::ng-deep {
+    #content-section {
+      padding: 0 !important;
+    }
+    #state-content {
+      @apply p-5;
+    }
+  }
+}
+
+.errorText {
+  @apply font-main text-sm text-pink-70;
+}
+
+.connectivity-error {
+  @apply inline-block max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap;
+
+  svg-icon {
+    margin-right: 10px;
+  }
+
+  @apply mt-6 font-main capitalize text-pink-70;
+}
+
+.button-group {
+  @apply border-none flex flex-row justify-start mr-5 ml-5;
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  app-button,
+  .button-wrapper,
+  app-new-button {
+    @apply mr-5;
+
+    &:last-child {
+      @apply mr-0;
+    }
+  }
+}
+
+.pending-accounts-header {
+  @apply underline font-normal text-2xl;
+}

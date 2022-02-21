@@ -1,0 +1,7 @@
+<ng-container *ngIf="statusMapping[status] as resolvedStatus">
+  <svg-icon [src]="resolvedStatus.icon" preserveAspectRatio="none" [stretch]="true">
+  </svg-icon>
+  <span [class]="resolvedStatus.class">{{
+     buildTranslationKey(resolvedStatus.translationKey) | translate
+    }}</span>
+</ng-container>

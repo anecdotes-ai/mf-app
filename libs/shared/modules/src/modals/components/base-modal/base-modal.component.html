@@ -1,0 +1,30 @@
+<section *ngIf="leftCornerData" class="left-corner ml-4">
+  <div>
+    <svg-icon
+      *ngIf="leftCornerData.icon"
+      [src]="leftCornerData.icon"
+      preserveAspectRatio="none"
+      [stretch]="true"
+    ></svg-icon>
+    <span
+      *ngIf="leftCornerData.titleText" [innerHTML]="leftCornerData.titleText"
+      class="left-corner-text ellipsis"
+    ></span>
+  </div>
+</section>
+<section class="base-modal-header">
+  <svg-icon *ngIf="iconPath" [src]="iconPath"></svg-icon>
+  <span *ngIf="titleTranslationKey" class="title"><app-text [text]="titleTranslationKey"></app-text></span>
+  <section *ngIf="descriptionTemplate" class="description">
+    <ng-container *ngTemplateOutlet="descriptionTemplate"></ng-container>
+  </section>
+  <span *ngIf="descriptionTranslationKey" class="description"
+    ><app-text [text]="descriptionTranslationKey" [textParameters]="descriptionParams"></app-text
+  ></span>
+</section>
+<section class="base-modal-content">
+  <ng-content></ng-content>
+</section>
+<section *ngIf="footerTemplate" class="base-modal-footer">
+  <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+</section>

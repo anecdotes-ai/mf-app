@@ -1,0 +1,12 @@
+<div class="logo-wrapper flex flex-row items-center">
+  <svg-icon src="anecdotes_logo"> </svg-icon>
+
+  <div class="main-description">
+    <span> {{ (headerTitleTranslationKey ? buildTranslationKey(headerTitleTranslationKey) : buildTranslationKey('connectPluginInfo')) | translate }}</span>
+  </div>
+</div>
+
+<ng-content select="#left-content"></ng-content>
+<app-three-dots-menu *ngIf="displayThreeDotsMenu" [menuActions]="threeDotsMenu" [context]="service">
+</app-three-dots-menu>
+<app-icon-button *ngIf="displayCloseButton" class="h-10 w-10" [svgIconPath]="'close'" type="basic" (click)="closeBtnClick.emit({})" ></app-icon-button>

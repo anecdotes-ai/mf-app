@@ -1,0 +1,77 @@
+@import './variables/palette';
+
+:host {
+  width: 291px;
+  height: 365px;
+  border: 1px solid $mc-navy-40;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgba(4, 41, 62, 0.1);
+
+  &:hover.applicable {
+    cursor: pointer;
+    @apply border-navy-70;
+    @apply cursor-pointer;
+    box-shadow: 0 2px 3px rgba($color: $mc-navy-90, $alpha: 0.1);
+  }
+
+  &.in-audit:hover {
+    @apply border-blue-90;
+  }
+
+  &.coming-soon {
+    cursor: default;
+    &:hover {
+      @apply border-navy-40;
+    }
+    .header {
+      svg-icon, app-searchable-text {
+        @apply opacity-50;
+      }
+    }
+  }
+}
+
+section.content {
+  border-bottom: 1px solid $mc-navy-30;
+}
+
+.content {
+  gap: 20px; // TODO: To be replaced with predefined gap from tailwind
+  padding: 20px; // TODO: To be replaced with predefined padding from tailwind
+}
+
+.footer {
+  height: 140px;
+  gap: 20px;
+  padding: 20px; // TODO: To be replaced with predefined gap from tailwind
+}
+
+.header {
+  position: relative;
+  height: 77px;
+  margin: -1px -1px 0;
+
+  &:before {
+    position: absolute;
+    @apply block bg-navy-40;
+    content: '';
+    bottom: 0;
+    left: 50%;
+    height: 1px;
+    width: calc(100% - 2px);
+    transform: translateX(-50%);
+  }
+
+  svg-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.font-secondary {
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.field-description {
+  padding-right: 6px;
+}

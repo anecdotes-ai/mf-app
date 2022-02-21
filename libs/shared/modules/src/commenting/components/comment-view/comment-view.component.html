@@ -1,0 +1,41 @@
+<app-user-logo class="relative top-2" [userId]="userId" [fallbackUserName]="fallbackUserName"></app-user-logo>
+<div class="flex-1 flex flex-col font-main">
+  <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-col">
+      <div class="text-base font-bold text-navy-90">{{ fallbackUserName }}</div>
+      <app-time class="text-lg text-navy-70" [date]="date" [dateFormat]="shortDate"></app-time>
+    </div>
+    <app-three-dots-menu *ngIf="displayMenu" [menuActions]="menuActions"></app-three-dots-menu>
+  </div>
+  <div class="mt-3">
+    <div>
+      <app-comment-input
+        #input
+        [editable]="isEditable"
+        class="w-full"
+        [formControl]="textControl"
+        (gotFocus)="inputGotFocus()"
+      ></app-comment-input>
+      <div *ngIf="isInputFocused" class="flex flex-row gap-3 mt-3">
+        <app-new-button
+          class="w-20"
+          [type]="'primary'"
+          [verticalSize]="'small'"
+          [disabled]="textControl.invalid || body === textControl.value"
+          [size]="'responsive'"
+          (click)="confirmEdit()"
+        >
+          {{ buildTranslationKey('editBtn') | translate }}</app-new-button
+        >
+        <app-new-button
+          class="w-20"
+          [type]="'basic'"
+          [verticalSize]="'small'"
+          [size]="'responsive'"
+          (click)="cancelEdit()"
+          >{{ buildTranslationKey('cancelBtn') | translate }}</app-new-button
+        >
+      </div>
+    </div>
+  </div>
+</div>

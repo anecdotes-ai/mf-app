@@ -1,0 +1,18 @@
+@import 'index';
+
+:host {
+  display: flex;
+  align-items: center;
+  @include MulishFontStyle(13px, 19px);
+  color: $mc-navy-90;
+  margin: 13px 20px;
+
+  svg-icon {
+    height: 21px;
+  }
+}
+
+.invite-link {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,0 +1,14 @@
+:host::ng-deep {
+  @apply inline-flex justify-center items-center relative max-w-full;
+
+  &:hover,
+  &.active {
+    .background {
+      @apply filter brightness-90;
+    }
+  }
+
+  svg-icon.arrow-icon svg path {
+    @apply fill-white;
+  }
+}

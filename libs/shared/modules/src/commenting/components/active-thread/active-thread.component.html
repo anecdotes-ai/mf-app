@@ -1,0 +1,41 @@
+<div *ngIf="thread$ | async as thread" class="group">
+  <app-thread-header
+    class="group-hover:bg-blue-70 group-hover:text-white"
+    [focused]="isFocused$ | async"
+    [resourceTypeDisplayName]="resource.resourceTypeDisplayName"
+    [resourceDisplayName]="resource.resourceDisplayName"
+  >
+    <app-resolve-button
+      *ngIf="shouldMenuBeDisplayed(thread.initiatorId)"
+      class="cursor-pointer group-hover:opacity-100 opacity-0"
+      [class.opacity-100]="isFocused$ | async"
+      (click)="$event.stopPropagation(); resolveThread()"
+    ></app-resolve-button>
+  </app-thread-header>
+  <div class="divide-y divide-navy-30">
+    <app-comment-view
+      [date]="thread.createdAt"
+      [userId]="thread.initiatorId"
+      [fallbackUserName]="thread.initiatorName"
+      [body]="thread.body"
+      [displayMenu]="shouldMenuBeDisplayed(thread.initiatorId)"
+      [commentType]="'thread'"
+      [commentId]="thread.id"
+      (edit)="editThread(thread.id, $event)"
+      (delete)="deleteThread()"
+    ></app-comment-view>
+    <app-comment-view
+      *ngFor="let comment of comments$ | async"
+      [date]="comment.createdAt"
+      [userId]="comment.commenterId"
+      [fallbackUserName]="comment.commenterName"
+      [body]="comment.body"
+      [displayMenu]="shouldMenuBeDisplayed(comment.commenterId)"
+      [commentType]="'comment'"
+      [commentId]="comment.id"
+      (edit)="editComment(comment.id, $event)"
+      (delete)="deleteComment(comment.id)"
+    ></app-comment-view>
+  </div>
+  <app-reply [threadId]="thread.id"></app-reply>
+</div>

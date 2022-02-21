@@ -1,0 +1,11 @@
+<div
+  class="flex flex-column justify-center items-center flex-1 border-t border-b border-solid border-navy-40 p-5 gap-3">
+  <svg-icon [src]="'status_not_started'"></svg-icon>
+  <div class="text-4xl text-navy-90 font-bold">{{ buildTranslationKey('disconnectConfirmationText') | translate: {
+    ssoItemDisplayName: selectedSSOItem.displayName } }}</div>
+</div>
+<div class="flex p-5 gap-5">
+  <app-new-button [type]="'primary'" [loading]="disconnectProcessing$ | async" (click)="confirm()">{{
+    buildTranslationKey('confirmDisconnectBtn') | translate }}</app-new-button>
+  <app-new-button [type]="'secondary'" (click)="back()">{{ buildTranslationKey('backBtn') | translate }}</app-new-button>
+</div>

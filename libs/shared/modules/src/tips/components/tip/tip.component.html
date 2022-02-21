@@ -1,0 +1,13 @@
+<svg-icon [src]="icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+<div><ng-content></ng-content></div>
+<svg-icon
+  *ngIf="tipId && !permanent"
+  id="close-icon"
+  src="close"
+  preserveAspectRatio="none"
+  [stretch]="true"
+  [ngbTooltip]="buildTranslationKey('closeAndDontShow') | translate"
+  [tooltipClass]="'default-tooltip tip-tooltip' + ' ' + tooltipPosition"
+  [placement]="tooltipPosition"
+  (click)="closeTip()"
+></svg-icon>

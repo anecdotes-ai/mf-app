@@ -1,0 +1,23 @@
+.has-error {
+  @apply text-pink-70;
+}
+
+.arrow {
+  @apply absolute right-0 top-3;
+
+  svg-icon {
+    @apply transform rotate-180 transition transition-transform;
+  }
+
+  svg-icon.rotate {
+    @apply transform rotate-0
+  }
+}
+
+.wrapper-item-log {
+  @apply h-6 overflow-hidden;
+}
+
+.show {
+  @apply h-auto overflow-visible;
+}

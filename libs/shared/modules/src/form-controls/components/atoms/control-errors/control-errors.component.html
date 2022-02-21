@@ -1,0 +1,18 @@
+<ng-container *ngIf="control">
+  <ng-container *ngIf="buildErrorTexts() as errTexts">
+    <span>
+      <ng-container *ngFor="let errTxt of errTexts; let first = first; let last = last">
+        <ng-container *ngIf="!first && !last">
+          &nbsp;
+        </ng-container>
+        <ng-container
+          *ngTemplateOutlet="isErrorTextTemplateRef(errTxt) ? errTxt : plainErrorText; context: { text: errTxt }"
+        ></ng-container>
+      </ng-container>
+    </span>
+  </ng-container>
+</ng-container>
+
+<ng-template #plainErrorText let-text="text">
+  {{ text | translate }}
+</ng-template>

@@ -1,0 +1,10 @@
+<div class="filters-list" [class.hidden]="!(filters$ | async)?.length">
+  <div class="filter-item" *ngFor="let filter of filters$ | async">
+    <span>{{ filter.translationKey || filter.value | translate }}&nbsp;({{ filter.calculatedCount }})</span>
+    <svg-icon src="chip-remove" preserveAspectRatio="none" [stretch]="true" (click)="resetFilterOption(filter)">
+    </svg-icon>
+  </div>
+  <button (click)="resetAllFilters()" class="clear-filters">
+    {{ buildTranslationKey('clearFilters') | translate }}
+  </button>
+</div>

@@ -1,0 +1,103 @@
+<div class="middle-content" [class.empty-data]="!hasPreview">
+  <app-grid class="bg-white font-main text-base" [searchEnabled]="false" [headerTemplate]="headerCellTemplate"
+    [cellTemplate]="cellTemplate" [gridView]="gridView" [scrollDisabled]="true" [headerClass]="'bg-blue-70 bold'"
+    [class.not-policy-context]="!policyContext">
+  </app-grid>
+  <app-policy-preview-empty-state *ngIf="!hasPreview" (linkClick)="openPolicySettings()">
+  </app-policy-preview-empty-state>
+</div>
+
+<div *ngIf="hasPreview && !policy.has_roles" class="empty-state bg-white font-main text-base"
+  [class.not-policy-context]="!policyContext">
+  <div class="bold">{{ buildTranslationKey('notDefined') | translate }}</div>
+  <div>
+    <span (click)="openPolicySettings()" class="link">{{ buildTranslationKey('openPolicySetting') | translate }} </span>
+    <span>{{ buildTranslationKey('setRoles') | translate }}</span>
+  </div>
+</div>
+
+<ng-template #headerCellTemplate let-cellValue="cellValue">
+  <span [title]="cellValue">{{ buildTranslationKey(cellValue) | translate }}</span>
+</ng-template>
+
+<ng-template #cellTemplate let-cellValue="cellValue" let-isFirst="isFirst" let-rowIndex="rowIndex"
+  let-cellHeader="cellHeader">
+  <ng-container
+    *ngTemplateOutlet="getCellTemplate(cellHeader, isFirst); context: { rowIndex: rowIndex, cellValue: cellValue }">
+  </ng-container>
+</ng-template>
+
+<ng-template #status let-cellValue="cellValue" let-rowIndex="rowIndex">
+  <ng-container
+    *ngTemplateOutlet="policyContext ? statusPolicyContext : statusNotPolicyContext; context: { rowIndex: rowIndex, cellValue: cellValue }">
+  </ng-container>
+</ng-template>
+
+<ng-template #statusPolicyContext let-cellValue="cellValue" let-rowIndex="rowIndex">
+  <div [ngbTooltip]="declineOrApprove" placement="left" [keepOnHover]="true" [closeOnClick]="true"
+    class="status-block pending">
+    <app-status-badge [hoverable]="true" [status]="cellValue" [loading]="!!statusLoading[rowIndex]"></app-status-badge>
+  </div>
+  <ng-template #declineOrApprove>
+    <ng-container
+      *ngTemplateOutlet="isApproved(cellValue[0]) ? declineTooltip : approveOnBehalfTooltip context: { rowIndex: rowIndex, status: cellValue[0] }">
+    </ng-container>
+  </ng-template>
+</ng-template>
+
+<ng-template #statusNotPolicyContext let-cellValue="cellValue" let-rowIndex="rowIndex">
+  <app-status-badge [ngbTooltip]="isPending(cellValue[0]) && approverLastNotified(rowIndex) ? pendingTooltip : ''"
+    placement="left" [hoverable]="false" [status]="cellValue"></app-status-badge>
+
+  <ng-template #pendingTooltip>
+    <ng-container *ngTemplateOutlet="lastNotifiedTemplate; context: { rowIndex: rowIndex }">
+    </ng-container>
+  </ng-template>
+</ng-template>
+
+<ng-template #firstColumnCellTemplate let-cellValue="cellValue" let-rowIndex="rowIndex">
+  <span>{{ rowIndex + 1 }}</span>
+  <span [title]="cellValue" class="first-col-value bold font-main text-base">{{ cellValue }}</span>
+</ng-template>
+
+<ng-template #approveTime let-cellValue="cellValue">
+  <span *ngIf="cellValue[0]" [title]="cellValue">{{ buildTranslationKey('approvedOn') | translate }} {{ cellValue |
+    date: dateFormat }}</span>
+</ng-template>
+
+<ng-template #comment let-cellValue="cellValue">
+  <div *ngIf="cellValue[0]" [ngbTooltip]="cellValue" placement="top" [keepOnHover]="true" class="comment-value">
+    <svg-icon class="existed-note-icon" src="comment_dark" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+</ng-template>
+
+<ng-template #otherCols let-cellValue="cellValue">
+  <span [title]="cellValue">{{ cellValue }}</span>
+</ng-template>
+
+<ng-template #declineTooltip let-status="status" let-rowIndex="rowIndex">
+  <span class="font-main text-base link" (click)="approveOnBehalf(rowIndex, status)">
+    {{ buildTranslationKey('declineApprove') | translate }}
+  </span>
+</ng-template>
+
+<ng-template #approveOnBehalfTooltip let-status="status" let-rowIndex="rowIndex">
+  <div class="grid">
+    <ng-container *ngTemplateOutlet="lastNotifiedTemplate; context: { rowIndex: rowIndex }">
+    </ng-container>
+    <span class="font-main text-base link row-start-2 col-start-1" (click)="sendForApproval(rowIndex)">
+      {{ sendForApprovalTooltipTranslationKey(status, rowIndex) | translate }}
+    </span>
+    <span class="row-start-2 col-start-2"> &nbsp;|&nbsp; </span>
+    <span class="font-main text-base link row-start-2 col-start-3" (click)="approveOnBehalf(rowIndex, status)">
+      {{ buildTranslationKey('approveOnBehalf') | translate }}
+    </span>
+  </div>
+
+</ng-template>
+
+<ng-template #lastNotifiedTemplate let-rowIndex="rowIndex">
+  <span *ngIf="approverLastNotified(rowIndex) as lastNotified" class="col-span-3">
+    {{ buildTranslationKey('sentAt') | translate: { lastNotified: lastNotified | date: dateFormat } }}
+  </span>
+</ng-template>

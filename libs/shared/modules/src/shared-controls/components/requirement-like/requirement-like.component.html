@@ -1,0 +1,46 @@
+<div (click)="rowClick($event)" class="element-row" [class.row-rolled]="!expanded" [class.hoverable]="expandable">
+    <ng-container *ngIf="requirementLike">
+        <div class="flex items-center">
+            <app-searchable-text class="element-name" [text]="requirementLike.name"></app-searchable-text>
+            <app-element-info #infoButtonRef [requirementLike]="requirementLike">
+            </app-element-info>
+            <app-note-element
+              [resourceType]="resourceType"
+              [resourceId]="requirementLike.resourceId"
+              [source]="sources.PolicyManager"
+              [policyType]="requirementLike.type"
+            >
+            </app-note-element>
+            <div *ngIf="requirementLike.type" class="policy-type">{{requirementLike.type}}</div>
+            <!-- TODO: Add this part for requirement -->
+            <!-- <ng-container *ngTemplateOutlet="controlRequirement.requirement_has_pending_slack_task && sentViaSlack"> -->
+        </div>
+    </ng-container>
+
+    <svg-icon *ngIf="expandable" [class.rolled]="!expanded" class="arrow-single" src="arrow-down"
+        preserveAspectRatio="none" [stretch]="true">
+    </svg-icon>
+    <div *ngIf="requirementLike" #actionButtonsRef class="actions" (click)="$event.stopPropagation()">
+        <app-policy-linked-controls-label class="frameworks-labels" [policyId]="requirementLike.resourceId">
+        </app-policy-linked-controls-label>
+        <ng-container *ngTemplateOutlet="actionBtnTemplate"></ng-container>
+        <app-three-dots-menu #threeDotsMenuRef [menuActions]="requirementLike.threeDotsMenuActions"
+            [context]="menuContext">
+        </app-three-dots-menu>
+    </div>
+
+    <app-newly-added-label *ngIf="isNewlyAdded"></app-newly-added-label>
+</div>
+
+<div @parent>
+    <ng-container #collectingEvidence="collectingEvidenceHost" collectingEvidenceHost [resourceId]="requirementLike.resourceId"></ng-container>
+
+    <div *ngIf="expandable && expanded" [@expandCollapseReq]="requirementLike?.isEnabled"
+        (@expandCollapseReq.done)="expandCollapseReqAnimationDone()" class="evidence-wrapper">
+        <ng-container>
+            <app-evidences-list (tryAgain)="tryAgainCollectEvidence($event)" [controlInstance]="" [forceExpand]="childrenExpanded"
+                [viewPreviewMode]="viewPreviewMode"
+                [noEvidencesTemplate]="noEvidenceTemplate" [requirementLike]="requirementLike" [source]='source.PolicyManager'></app-evidences-list>
+        </ng-container>
+    </div>
+</div>

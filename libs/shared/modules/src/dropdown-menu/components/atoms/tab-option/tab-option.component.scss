@@ -1,0 +1,48 @@
+@mixin distanceBetweenOptions {
+  & {
+    @apply ml-3;
+  }
+
+  &:first-child {
+    @apply ml-0;
+  }
+}
+
+:host {
+  @apply text-navy-70;
+  padding: 0 6px;
+
+  &.disabled {
+    @apply pointer-events-none text-navy-60;
+  }
+  
+  &.relative {
+    min-height: inherit;
+    @include distanceBetweenOptions();
+    @apply text-base;
+  }
+
+  &.small {
+    min-height: 25px;
+    @include distanceBetweenOptions();
+  }
+
+  &.medium {
+    min-height: 70px;
+    @include distanceBetweenOptions();
+
+    .text-wrapper {
+      min-height: 29px;
+    }
+
+    app-circle-progress {
+      width: 130px;
+    }
+  }
+
+  &.large {
+    min-height: 82px;
+    @apply text-2xl;
+    @include distanceBetweenOptions();
+  }
+}

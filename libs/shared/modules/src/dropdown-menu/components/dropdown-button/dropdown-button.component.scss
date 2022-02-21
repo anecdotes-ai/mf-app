@@ -1,0 +1,35 @@
+@import 'variables/palette';
+
+:host {
+    height: 40px;
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 0 10px 0 10px;
+    margin-right: 10px;
+}
+
+:host::ng-deep {
+    .arrow {
+        @apply fill-navy-40;
+    }
+}
+
+:host::ng-deep {
+    .chevrone svg {
+        @apply transform rotate-90;
+        position: absolute;
+        right: 1%;
+    }
+
+    .selected-field {
+        overflow: auto;
+        width: 88%;
+        position: absolute;
+    }
+}
+
+:host:hover::ng-deep, :host.open::ng-deep {
+    .arrow {
+        @apply fill-navy-90;
+    }
+}

@@ -1,0 +1,11 @@
+:host::ng-deep {
+  @apply font-main h-full flex flex-col;
+
+  .header {
+    @apply bg-navy-10;
+
+    &.audit-in-progress {
+      @apply bg-blue-90-15;
+    }
+  }
+}

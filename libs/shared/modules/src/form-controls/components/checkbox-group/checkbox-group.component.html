@@ -1,0 +1,16 @@
+<app-control-header 
+    *ngIf="label" 
+    [label]="label" 
+    [index]="index" 
+    [required]="required"
+>
+</app-control-header>
+<div class="wrapper" [class.is-disabled]="isDisabled$ | async" [class.file-changed]="value" (blur)="markAsDirty()">
+  <ng-container *ngFor="let checkbox of checkboxes">
+    <app-checkbox
+      [valueLabel]="checkbox.valueLabel"
+      [ngModel]="checkbox.value"
+      (changeValue)="groupValueChange($event, checkbox)"
+    ></app-checkbox>
+  </ng-container>
+</div>

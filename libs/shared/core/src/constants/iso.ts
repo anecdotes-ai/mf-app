@@ -1,0 +1,1 @@
+export const ISO270182019Id='1344551125';

@@ -1,0 +1,75 @@
+<!-- Content of the notification -->
+<div>
+  <div class="content-wrapper">
+    <div class="main-content-wrapper">
+      <div class="icon-wrapper">
+        <svg-icon class="icon" [src]="serviceIcon$ | async"> </svg-icon>
+        <svg-icon class="status-icon" [src]="resolveStatusIcon()"></svg-icon>
+      </div>
+      <div class="main-content">
+        <span class="loading-evidences-text" *ngIf="isLoading; else content">
+          <span>{{ buildTranslationKey('loading') | translate }}</span>
+          <span>{{ notificationData.service_display_name }}</span>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="notificationData.displaySecondaryContent" class="secondary-content-wrapper">
+      <ng-container [ngSwitch]="getCollectionStatus()" *ngIf="notificationData">
+        <div class="secondary-content" *ngSwitchCase="collectionStatuses.FAILED">
+          <app-button (click)="navigateToPluginLogs()" routerLinkActive="active"
+            class="main mulish medium center-content secondary-white">
+            <span>{{ buildTranslationKey('failure.buttons.goToPluginLogsPage') | translate }}</span>
+          </app-button>
+        </div>
+        <div class="secondary-content" *ngSwitchCase="collectionStatuses.SUCCESS">
+          <ng-container
+            *ngTemplateOutlet="isEvidenceCollectedNotificationMetaType() ? collectionSuccessRegularButton : gotItButton">
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!-- Right side of notification content -->
+  <ng-container *ngIf="isLoading; else closeButton">
+    <div class="loader-wrapper">
+      <app-circle-loader></app-circle-loader>
+    </div>
+  </ng-container>
+  <ng-template #closeButton>
+    <button class="close-btn" (click)="preClosing()">
+      <svg-icon preserveAspectRatio="none" [stretch]="true" src="close"></svg-icon>
+    </button>
+  </ng-template>
+</div>
+
+<!-- Templates definition -->
+
+<ng-template #content>
+  <ng-container [ngSwitch]="getCollectionStatus()">
+    <!-- Successfully collected content -->
+    <div class="column-content" *ngSwitchCase="collectionStatuses.SUCCESS">
+      <span class="bold">{{ buildTranslationKey('success.title') | translate }}</span>
+      <span *ngIf="isEvidenceCollectedNotificationMetaType()" class="success-text" [ngClass]="userflowSuccessClass">
+        <span class="bold" translate [translateParams]="notificationData.collectionMessageData">
+          {{ buildTranslationKey('success.collectedEvidences') }}
+        </span>
+        {{ buildTranslationKey('success.collectedEvidencesFurtherText') | translate }}
+      </span>
+    </div>
+    <!-- Collection failed content -->
+    <div class="column-content" *ngSwitchCase="collectionStatuses.FAILED">
+      <span class="bold">{{ buildTranslationKey('failure.title') | translate }}</span>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #collectionSuccessRegularButton>
+  <app-button *visibleForRole="[role.Admin, role.User]"
+    (click)="navigateToEvidencePool()" class="main mulish medium center-content secondary-white"><span>{{
+      buildTranslationKey('success.buttons.refreshPage') | translate }}</span></app-button>
+</ng-template>
+
+<ng-template #gotItButton>
+  <app-button (click)="preClosing()" class="main mulish medium center-content secondary-white"><span>{{
+      buildTranslationKey('success.buttons.gotIt') | translate }}</span></app-button>
+</ng-template>

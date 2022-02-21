@@ -1,0 +1,43 @@
+:host.risk-grid, .risk-grid {
+  @apply flex items-center ml-5;
+
+  > * {
+    @apply flex justify-start items-center mx-2;
+
+    // category
+    &:nth-child(1) {
+      @apply w-32 mr-1;
+      @apply overflow-hidden
+    }
+
+    // name
+    &:nth-child(2) {
+      @apply flex-1 min-w-0;
+    }
+
+    // level
+    &:nth-child(3) {
+      @apply w-20;
+    }
+
+    // effect
+    &:nth-child(4) {
+      @apply w-28;
+    }
+
+    // strategy
+    &:nth-child(5) {
+      @apply w-24;
+    }
+
+    // controls
+    &:nth-child(6) {
+      @apply w-12;
+    }
+
+    // owner
+    &:nth-child(7) {
+      @apply w-11;
+    }
+  }
+}

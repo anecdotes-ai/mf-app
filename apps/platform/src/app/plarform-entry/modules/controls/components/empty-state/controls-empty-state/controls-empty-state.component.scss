@@ -1,0 +1,102 @@
+@import 'index';
+
+:host::ng-deep {
+  .bottom-help-text span {
+    font-weight: bold;
+  }
+
+  .ps-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  app-shaped-footer {
+    position: relative;
+  }
+
+  app-onboarding-card {
+    height: 433px;
+  }
+
+  .start-with-anecdotes {
+    min-width: 200px;
+  }
+
+  .start-with-framework-adoption {
+    min-width: 220px;
+  }
+}
+
+.header {
+  @include MerriWeatherBold(44px, initial);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: $mc-navy-90;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.secondary-header {
+  @include MulishFontStyle(18px, 19px);
+  color: $mc-navy-90;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.dashed-line {
+  margin-bottom: 46px;
+}
+
+.cards {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .onboarding-or {
+    margin: 0 10px;
+  }
+}
+
+.bottom-help-text {
+  min-height: 50px;
+  @include MulishFontStyle(13px, 19px);
+  color: $mc-navy-90;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anecdotes-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px 10px 10px;
+  border-radius: 6px;
+  width: 320px;
+  border: 1px solid $mc-navy-30;
+  background: $mc-white;
+  margin-top: 25px;
+}
+
+.anecdotes-info {
+  @include MulishFontStyle(13px, 19px);
+  color: $mc-navy-70;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.frameworks-select-content-wraper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding-top: 28.5px;
+}

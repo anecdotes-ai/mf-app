@@ -1,0 +1,89 @@
+<div class="flex flex-row" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <app-colored-dropdown-menu-button
+    [buttonBackgroundClass]="buttonBackgroundClass"
+    [radius]="radius"
+    [isReadOnly]="isReadOnly"
+    [tooltip]="tooltip ?? defaultTooltip"
+    [tooltipPlacement]="tooltipPlacement"
+    [keepTooltipOnOver]="!value"
+    [verticalSize]="verticalSize"
+    [horizontalSize]="'small'"
+    [arrowEnabled]="arrowEnabled && !!data?.length"
+    [isOpen]="isDropdownOpened"
+    (click)="toggleDropdown($event)"
+  >
+    <ng-container *ngIf="value; else noValueTemplate">
+
+      <ng-container *ngIf="!valueTemplate; else customTemplate">
+        {{ getDisplayValue(value) | translate }}
+      </ng-container>
+
+      <ng-template #customTemplate>
+        <ng-container *ngTemplateOutlet="valueTemplate; context: {displayValue: getDisplayValue(value)}"></ng-container>
+      </ng-template>
+
+    </ng-container>
+
+    <ng-template #noValueTemplate>
+      {{ noValueTextTranslationKey || 'components.dropdowns.coloredDropdownControl.notSet' | translate }}
+    </ng-template>
+  </app-colored-dropdown-menu-button>
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isDropdownOpened"
+  [cdkConnectedOverlayPanelClass]="overlayPanelClass"
+  (backdropClick)="close()"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+>
+  <app-dropdown-options-backdrop class="min-w-36" #openableElement>
+    <app-dropdown-search-input
+      *ngIf="searchEnabled"
+      class="w-full"
+      [formControl]="searchField"
+      [placeholder]="searchFieldPlaceholder | translate"
+      (click)="searchFieldClick($event)"
+    ></app-dropdown-search-input>
+    <perfect-scrollbar [style.max-height]="listMaxHeight + 'px'" [config]="{ suppressScrollX: true }">
+      <div
+        *ngFor="let item of displayedData"
+        [ngbTooltip]="itemHoverTooltip?.displayCondition(item) ? itemHoverTooltip.templateTooltip : undefined"
+      >
+        <app-dropdown-option
+          [style.height]="buttonHeight + 'px'"
+          [disabled]="getIsValueDisabled(item)"
+          [selected]="item === value"
+          (click)="selectItem(item)"
+        >
+          <ng-container *ngTemplateOutlet="customOption; context: { thisItem: item }"></ng-container>
+        </app-dropdown-option>
+      </div>
+      <span *ngIf="displayEmptyState && !displayedData?.length" class="empty-list-placeholder">{{ emptyListPlaceholder | translate }}</span>
+    </perfect-scrollbar>
+    <app-add-option
+      *ngIf="addingEnabled && searchField.value"
+      [entityNameText]="entityNameText"
+      [value]="searchField.value"
+      [disabled]="shouldDisableAddOptionHandler ? shouldDisableAddOptionHandler(searchField.value): false"
+      (click)="addClick()"
+    >
+    </app-add-option>
+    <app-clear-option
+      *ngIf="clearEnabled && value && !searchField.value"
+      [text]="'components.dropdowns.coloredDropdownControl.clear' | translate"
+      (click)="clearClick()">
+    </app-clear-option>
+  </app-dropdown-options-backdrop>
+</ng-template>
+
+<ng-template #customOption let-item="thisItem">
+  <svg-icon *ngIf="item.icon" [src]="item.icon"></svg-icon>
+  <span>{{ getDisplayValue(item) }}</span>
+</ng-template>
+
+<ng-template #defaultTooltip>
+  <span>{{getDisplayValue(value)}}</span>
+</ng-template>

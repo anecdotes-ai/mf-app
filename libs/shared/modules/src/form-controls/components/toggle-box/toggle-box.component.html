@@ -1,0 +1,22 @@
+<div class="bg-white mt-3 px-5 border h-12 rounded-lg flex items-center justify-between w-full"
+[ngClass]="{ 'shadow border-navy-50 hover:border-navy-90': value, 'border-navy-40 hover:border-navy-50': !value || comingSoon, 'cursor-pointer': !comingSoon, 'pointer-events-none': comingSoon}">
+    <div class="h-5 flex items-center" [ngClass]="{ 'filter grayscale opacity-50': !value }">
+        <svg-icon class="icon h-5 w-5 mr-2.5" *ngIf="iconSrc" [src]="iconSrc"></svg-icon>
+        <span class="font-secondary h-6 pt-0.5 font-bold inline-block align-middle text-xl">
+            {{ title }}
+        </span>
+        <span *ngIf="value && subtitle"
+                class="h-6 font-light text-navy-70 pt-0.5 ml-2 pl-2 border-l border-navy-70 inline-block align-top text-base">
+            {{ subtitle }}
+        </span>
+    </div>
+    <div class="py-1.5 h-6 flex items-center">
+        <ng-container *ngIf="!comingSoon; else comingSoonIcon">
+            <app-toggle [formControl]="toggleControl"></app-toggle>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #comingSoonIcon>
+    <svg-icon class="coming-soon-icon" src="coming-soon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</ng-template>

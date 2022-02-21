@@ -1,0 +1,53 @@
+@import '../preview-shared-styles.scss';
+
+$heightAllDataWithoutFilePreview: 284px;
+$tipHeight: 60px;
+
+:host {
+  @apply flex flex-col bg-navy-30;
+  min-height: 392px; // IMPORTANT. TO LET ANIMATION WORK AS EXPECTED HEIGHT FOR THE COMPONENT MUST BE PREDEFINED BY STATIC VALUE
+  width: 87vw;
+  height: 93vh;
+
+  ::ng-deep {
+    .ps-content {
+      @apply h-full;
+    }
+
+    .view-file-btn {
+      svg * {
+        @apply stroke-white;
+      }
+    }
+  }
+
+  .evidence-tip-wrapper {
+    @apply px-8 py-2.5 self-start;
+  }
+
+  &.have-tip .preview-wrapper {
+    @apply flex-grow px-6;
+    max-height: calc(93vh - #{$heightAllDataWithoutFilePreview} - #{$tipHeight});
+  }
+
+  .preview-wrapper {
+    @apply flex-grow px-6;
+    max-height: calc(93vh - #{$heightAllDataWithoutFilePreview});
+  }
+
+  .evidence-label {
+    @apply flex justify-between bg-white items-center px-7 min-h-16 mb-8;
+
+    &:hover {
+      &::ng-deep {
+        app-evidence-copy-name .icon-wrapper {
+          @apply visible;
+        }
+      }
+    }
+  }
+
+  .evidence-report {
+    @apply bg-navy-30 pb-5 mt-auto px-7;
+  }
+}

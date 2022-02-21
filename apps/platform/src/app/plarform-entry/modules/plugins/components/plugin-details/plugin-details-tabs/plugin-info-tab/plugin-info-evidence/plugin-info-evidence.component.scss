@@ -1,0 +1,39 @@
+@import 'index';
+
+.plugin-info-evidence-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  height: 56px;
+  margin-bottom: 1px;
+  border-left: 3px solid $mc-navy-90;
+
+  app-evidence-label{
+    max-width: 100%;
+    margin-left: 39px;
+  }
+
+  .plugin-container {
+    width: 98%;
+
+    .plugin-icon {
+      margin-left: 39px;
+    }
+
+    .plugin-name {
+      /* Typo B / Merriweather 13 Regular */
+      font-family: Merriweather;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 150%;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      margin-left: 18px;
+    }
+  }
+
+  .info-wrapper {
+    margin-right: 20px;
+  }
+}

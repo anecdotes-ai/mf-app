@@ -1,0 +1,10 @@
+:host {
+    @apply inline-flex items-center justify-center;
+}
+
+:host::ng-deep {
+    svg {
+        width: inherit;
+        height: inherit;
+    }
+}

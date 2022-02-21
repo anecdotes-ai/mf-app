@@ -1,0 +1,23 @@
+:host::ng-deep {
+  app-avatar {
+    svg-icon {
+      @apply w-5;
+
+      svg path {
+        @apply fill-white;
+      }
+    }
+    span.user-initials {
+      @apply text-navy-70 text-xs min-w-full right-5 #{!important};
+      top: 3px !important;
+    }
+  }
+
+  .more-auditors svg path {
+    @apply fill-white;
+  }
+
+  li:nth-child(n + 2) {
+    @apply -ml-1;
+  }
+}

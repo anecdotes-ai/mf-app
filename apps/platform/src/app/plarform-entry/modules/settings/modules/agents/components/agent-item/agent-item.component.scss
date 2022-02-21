@@ -1,0 +1,62 @@
+@import 'index';
+
+:host {
+  @apply flex bg-navy-10 rounded-md px-5;
+  width: 100%;
+  height: 70px;
+
+  cursor: pointer;
+  border: 1px solid transparent;
+  &.selected {
+    @apply bg-white border-navy-90 border-solid;
+    box-shadow: 0 2px 3px rgba($color: $mc-navy-90, $alpha: 0.1);
+  }
+
+  &:hover {
+    &:not(.selected) {
+      box-shadow: 0 2px 3px rgba($color: $mc-navy-90, $alpha: 0.1);
+      @apply bg-white border-navy-70 border-solid;
+    }
+  }
+
+  .agent-name {
+    @apply overflow-hidden overflow-ellipsis;
+    max-width: 300px;
+  }
+
+  .status-wrapper {
+    width: 90px;
+    min-width: 90px;
+  }
+
+  .status-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  ::ng-deep {
+    .create-new-wrapper {
+      app-text-field {
+        @apply font-bold font-secondary;
+        background: transparent !important;
+
+        * {
+          background: transparent !important;
+          @apply font-bold font-secondary;
+        }
+        input {
+          @apply font-bold font-secondary;
+        }
+        .wrapper {
+          * {
+            @apply font-bold font-secondary;
+          }
+          align-items: center;
+          border: unset;
+          display: flex;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

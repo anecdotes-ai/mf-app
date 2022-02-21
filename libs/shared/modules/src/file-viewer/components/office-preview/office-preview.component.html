@@ -1,0 +1,14 @@
+<app-secondary-loading-animation *ngIf="isLoading" class="loading-animation"></app-secondary-loading-animation>
+
+<div #viewer class="viewer" [class.hidden]="isLoading" [style.height]="documentHeight + 'px'"></div>
+<div *ngIf="usePagination" class="pagination">
+    <ngb-pagination *ngIf="!isLoading" [collectionSize]="pageCount" [pageSize]="1" [maxSize]="5" [rotate]="true"
+        [ellipses]="false" (pageChange)="setPage($event)">
+        <ng-template ngbPaginationNext>
+            <svg-icon src="open-arrow-icon" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+        </ng-template>
+        <ng-template ngbPaginationPrevious>
+            <svg-icon class="prev-btn" src="open-arrow-icon" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+        </ng-template>
+    </ngb-pagination>
+</div>

@@ -1,0 +1,11 @@
+<div class="max-width-container">
+  <span class="font-main font-bold text-white text-4xl">
+    {{ buildTranslationKey('company') | translate: { company_name: companyName } }}
+  </span>
+
+  <app-date-view
+    class="last_modified_time"
+    [date]="reportDate"
+    [descriptionTranslationKey]="buildTranslationKey('lastUpdated')"
+  ></app-date-view>
+</div>

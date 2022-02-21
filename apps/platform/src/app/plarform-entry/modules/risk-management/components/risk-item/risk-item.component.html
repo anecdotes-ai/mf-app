@@ -1,0 +1,22 @@
+<mat-expansion-panel *ngIf="risk" #expansionPanel [expanded]="isExpanded" class="border border-solid border-navy-40 bg-white shadow-md"
+[class.hover:border-navy-70]="!isExpanded">
+  <mat-expansion-panel-header class="py-2.5 h-auto flex-row" (click)="headerClicked($event)">
+    <mat-panel-description>
+      <app-risk-item-header [riskId]="risk.id" [isOpen]="isExpanded"></app-risk-item-header>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div *ngIf="isExpanded" class="item-container grid grid-cols-2 gap-5 px-5 pb-5" [class.filter-open]="isFilterPanelOpen">
+    <div>
+      <app-risk-info [riskId]="risk.id"></app-risk-info>
+    </div>
+    <div>
+      <app-risk-analysis class="h-full" [riskId]="risk.id"></app-risk-analysis>
+    </div>
+    <div class='mitigation-container'>
+      <app-mitigation-controls-section [riskId]="risk.id"></app-mitigation-controls-section>
+    </div>
+    <div class='supporting-docs-container'>
+      <app-risk-supporting-documents [riskId]="risk.id"></app-risk-supporting-documents>
+    </div>
+  </div>
+</mat-expansion-panel>

@@ -1,0 +1,54 @@
+<app-base-modal
+  iconPath="automate"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [leftCornerData]="{ icon: 'info', titleText: context?.entityPath?.join('/') }"
+  [footerTemplate]="footer"
+>
+  <div *ngIf="formControl" class="wrapper">
+    <app-tabs #tabsRef [tabs]="tabModel$ | async"></app-tabs>
+  </div>
+</app-base-modal>
+
+<ng-template #footer>
+  <div class="button-group">
+    <app-button *ngIf="isBackHandler" class="secondary mulish medium" (click)="backButtonHandler()">
+      <span>{{ buildTranslationKey('backButtonText') | translate }}</span>
+    </app-button>
+    <app-button
+      class="main mulish medium"
+      [clickOnEnter]="true"
+      (click)="connect()"
+      [class.disabled]="!isFormControlValid()"
+      [loading]="isLoading$ | async"
+    >
+      <span>{{ buildTranslationKey('connectLinkButtonText') | translate }}</span>
+    </app-button>
+  </div>
+</ng-template>
+
+<ng-template #tabContentTemplate>
+  <div class="attach-link-content">
+    <span>{{ buildTranslationKey('attachLinkInputTitle') | translate: pluginData }}</span>
+    <app-text-field [errorTexts]="inputErrorTexts" [formControl]="formControl"></app-text-field>
+    <app-tip *ngIf="isFolderCollectionSupported" tipId="folder-link-attach" [tipType]="tipTypes.NOTICE">
+      <app-text [text]="buildTranslationKey('folderLinkAttachTip') | translate: pluginData"></app-text>
+    </app-tip>
+  </div>
+</ng-template>
+
+<ng-template #connectionFailedErrorText>
+  {{ buildTranslationKey('connectionFailed.failedToConnect') | translate: pluginData }}
+  <span class="connection-details-link" (click)="navigateToPlugin()">{{
+    buildTranslationKey('connectionFailed.connectionDetails') | translate
+  }}</span>
+  {{ buildTranslationKey('connectionFailed.areValid') | translate }}
+</ng-template>
+
+<ng-template #evidenceCollectionFailedErrorText>
+  {{ buildTranslationKey('evidenceCollectionFailed.failedToCollect') | translate }}
+  <span class="connection-details-link" (click)="navigateToPlugin('logs')">{{
+    buildTranslationKey('evidenceCollectionFailed.pluginsLogs') | translate
+    }}</span>
+  {{ buildTranslationKey('evidenceCollectionFailed.contactSupport') | translate }}
+</ng-template>

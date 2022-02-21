@@ -1,0 +1,66 @@
+@import 'index';
+
+::ng-deep {
+  .tip-tooltip {
+    &.top-right {
+      left: 13px !important;
+    }
+  }
+}
+
+:host {
+  position: relative;
+  @apply relative flex items-center;
+  border-radius: 6px;
+  width: fit-content;
+  padding: 10px 50px 10px 10px;
+
+  @include MulishFontStyle(11px, 16.5px);
+
+  div {
+    margin-left: 10px;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &.tip {
+    @apply text-blue-90 bg-blue-0;
+  }
+
+  &.notice {
+    @apply text-orange-90 bg-orange-10;
+  }
+
+  &.error {
+    @apply text-pink-90 bg-pink-0;
+  }
+
+  &.tip::ng-deep #close-icon svg path {
+    @apply stroke-blue-70;
+  }
+
+  &.notice::ng-deep #close-icon svg path {
+    @apply stroke-orange-70;
+  }
+
+  &.error::ng-deep #close-icon svg path {
+    @apply stroke-pink-70;
+  }
+}
+
+:host::ng-deep {
+  #close-icon svg path {
+    @apply stroke-1;
+  }
+
+  #close-icon:hover svg path {
+    @apply stroke-navy-90;
+  }
+}
+
+#close-icon {
+  @apply absolute cursor-pointer;
+  right: 15px;
+}

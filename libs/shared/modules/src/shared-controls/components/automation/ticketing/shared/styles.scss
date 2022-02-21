@@ -1,0 +1,61 @@
+@import 'index';
+
+:host::ng-deep {
+  app-base-modal {
+    width: 600px;
+  }
+  app-tabs {
+    @include MulishFontStyle(13px, 21px);
+
+    .tabs {
+      border-bottom: 1px solid $mc-navy-40;
+      margin-bottom: 10px;
+      padding: 0;
+
+      button {
+        margin: 0 !important;
+        border: unset !important;
+        padding-bottom: 25px;
+        border-bottom: 2px solid $mc-navy-90 !important;
+      }
+      svg-icon {
+        align-self: center;
+        display: flex;
+
+        svg {
+          height: inherit;
+          width: inherit;
+        }
+      }
+    }
+  }
+
+  app-dropdown-control:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+
+:host {
+  .content-block {
+    display: flex;
+    flex-direction: column;
+    @include MulishFontStyle(13px, 21px);
+    color: $mc-navy-90;
+    margin-bottom: 30px;
+
+    .description {
+      width: 540px;
+      white-space: pre;
+      white-space: pre-line;
+    }
+
+    .article-link {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    app-dynamic-form-outlet {
+      margin-top: 20px;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div class="w-full flex flex-row items-center">
+  <svg-icon *ngIf="icon" [src]="icon" preserveAspectRatio="none" [stretch]="true" class="pr-1"></svg-icon>
+  <span class="metadata-value flex-1 text-navy-90 overflow-hidden overflow-ellipsis">
+    {{ metadataValue }}
+  </span>  
+</div>
+<span *ngIf="metadataDescriptionTranslationKey" class="metadata-description w-full text-navy-50 overflow-hidden overflow-ellipsis">
+  {{ metadataDescriptionTranslationKey | translate }}
+</span>

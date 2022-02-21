@@ -1,0 +1,23 @@
+:host::ng-deep {
+
+  .left-corner {
+    @apply w-full flex justify-center left-0 top-20 #{!important};
+    margin-left: 1px !important;
+
+    div svg-icon svg {
+      height: 1.8rem;
+
+      path:first-child {
+        @apply stroke-white stroke-2;
+      }
+    }
+  }
+
+  .base-modal-header svg {
+    @apply w-12;
+
+    path {
+      @apply fill-blue-70;
+    }
+  }
+}

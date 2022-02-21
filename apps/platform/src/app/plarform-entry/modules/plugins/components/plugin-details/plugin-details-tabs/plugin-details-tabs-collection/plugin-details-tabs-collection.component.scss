@@ -1,0 +1,20 @@
+:host ::ng-deep app-tabs {
+  section.content {
+    margin-top: 0 !important;
+  }
+  .tabs {
+    padding: 0;
+  }
+  .border-bottom {
+    margin: 0;
+  }
+}
+
+:host {
+  height: calc(100% - 150px);
+  margin-top: 20px;
+}
+
+.tabs-wrapper {
+  height: 100%;
+}

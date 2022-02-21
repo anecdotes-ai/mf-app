@@ -1,0 +1,130 @@
+@import 'index';
+
+@import 'component-header-shared';
+
+:host::ng-deep {
+  .info-icon {
+    position: absolute;
+    top: -7px;
+    right: -20px;
+
+    path {
+      @apply fill-navy-80;
+    }
+  }
+}
+
+:host {
+  border-radius: 0 0 12px 0;
+  @apply bg-navy-90;
+  padding: 0 20px;
+
+  .overlapped-background-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-right: 0;
+    height: inherit;
+    width: 65px;
+    @apply bg-navy-90;
+  }
+
+  .items-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    .info-items {
+      display: flex;
+      height: 100%;
+      flex-direction: row;
+
+      .content-element:not(:last-of-type) {
+        margin-right: 50px;
+      }
+    }
+  }
+
+  .executive-report {
+    height: 48px;
+
+    app-button {
+      height: 100%;
+      width: 100%;
+
+      span {
+        @apply text-navy-90;
+      }
+
+      svg-icon {
+        margin-right: 10px;
+
+        svg * {
+          @apply stroke-navy-90;
+        }
+      }
+    }
+  }
+
+  app-specific-information-item::ng-deep {
+    .icon-border-wrapper {
+      @apply bg-navy-80;
+      border: unset;
+
+      svg-icon {
+        &.automated_evidence {
+          svg {
+            :not(:first-child) {
+              @apply fill-navy-90;
+            }
+          }
+        }
+
+        &.applicable {
+          rect {
+            @apply stroke-white;
+            fill: none !important;
+          }
+          circle {
+            fill: white !important;
+          }
+        }
+
+        &.plugins {
+          svg * {
+            fill: none !important;
+            @apply stroke-white;
+
+            rect {
+              stroke: none;
+            }
+          }
+        }
+      }
+    }
+
+    .element-value {
+      @include MerriWeatherBold(24px, 30px);
+    }
+
+    .element-info {
+      position: relative;
+
+      .element-description {
+        * {
+          @apply text-white;
+        }
+      }
+    }
+  }
+}
+
+// Tooltip style only for header
+::ng-deep .header-item-info .tooltip-inner {
+  text-align: left;
+  min-width: 245px;
+  white-space: pre-wrap;
+  padding: 10px;
+}

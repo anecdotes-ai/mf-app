@@ -1,0 +1,13 @@
+:host::ng-deep {
+  @apply min-w-8 w-8 min-h-8 h-8;
+
+  .anonymous-user svg path {
+    @apply stroke-navy-70;
+  }
+}
+
+.anonymous-user,
+.user-initials,
+.user-photo {
+  @apply w-full h-full min-w-full min-h-full;
+}

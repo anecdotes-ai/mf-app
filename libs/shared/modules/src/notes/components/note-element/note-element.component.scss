@@ -1,0 +1,45 @@
+@import 'index';
+
+:host {
+  cursor: pointer;
+  margin-right: 10px;
+  height: auto;
+  width: 20px;
+  position: relative;
+  top: 3px;
+
+  &:hover {
+    .empty-note::ng-deep {
+      path:last-child {
+        @apply fill-navy-90;
+      }
+    }
+  }
+
+  .existed-note-icon {
+    path:first-child {
+      @apply fill-navy-30;
+    }
+
+    &:hover {
+      path:first-child {
+        @apply fill-white;
+      }
+    }
+  }
+}
+
+app-circle-loader {
+  width: 20px;
+  height: 20px;
+}
+
+// Styles for Note tooltip
+::ng-deep {
+  .note-tooltip {
+    left: -10px !important;
+    .tooltip-inner {
+      max-width: 500px;
+    }
+  }
+}

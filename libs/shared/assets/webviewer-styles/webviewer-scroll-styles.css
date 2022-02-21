@@ -1,0 +1,26 @@
+/* this styles are needed to apply them inside webviewer, since webviewer is an iframe */
+/* they are used by providing a path to this file in css option of webviewer constructor */
+
+.DocumentContainer {
+  border: none;
+  margin-bottom: -5px !important;
+}
+
+.pageContainer {
+  width: 100% !important;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.pageContainer * {
+  width: 100% !important;
+}
+
+.document {
+  width: 100% !important;
+}
+
+.pageSection {
+  width: 100% !important;
+  margin: 0 0 5px 0 !important;
+}

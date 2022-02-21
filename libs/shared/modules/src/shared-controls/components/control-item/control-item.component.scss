@@ -1,0 +1,328 @@
+@import 'index';
+@import 'styles';
+@import 'variables/palette';
+
+// userflow classes are created for design purposes (to add flows in userflow).
+// please, don't touch them.
+
+.control-expansion-element {
+  background: $mc-white;
+  border-bottom: unset;
+  box-shadow: 0px 2px 3px rgb(4 41 62 / 4%);
+  border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+  border-radius: 6px !important;
+  min-height: 70px;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+mat-expansion-panel-header:not(.control-disabled-mask):hover {
+  background: none !important;
+}
+
+.control-expansion-element:hover {
+  box-shadow: 0px 2px 3px rgb(4 41 62 / 4%);
+  border: 1px solid rgba(4, 41, 62, 0.2);
+}
+
+.control-expansion-element.disabled-control:hover {
+  border: 1px solid rgba(4, 41, 62, 0.1);
+}
+
+// Multiselect related stiles
+:host {
+  app-multiselect-checkmark {
+    position: absolute;
+    right: 10px;
+  }
+
+  &:not(:hover) {
+    app-multiselect-checkmark {
+      display: none;
+    }
+    .not-owner::ng-deep .owner-dropdown-button:not(.owner-loading):not(.owner-dropdown-button.dropdown-open) {
+      @apply invisible;
+    }
+  }
+
+  .not-owner::ng-deep .owner-dropdown-button.dropdown-open {
+    @apply flex;
+  }
+
+  &.selected {
+    app-multiselect-checkmark {
+      display: flex;
+    }
+    .control-expansion-element {
+      border: 1px solid #81939e;
+      box-sizing: border-box;
+      /* White box basic shadow */
+      box-shadow: 0px 2px 3px rgba(4, 41, 62, 0.1);
+      border-radius: 6px;
+    }
+  }
+
+  .control-expansion-element {
+    &.hover {
+      app-multiselect-checkmark {
+        display: flex;
+      }
+    }
+  }
+}
+
+.disabled-control {
+  box-shadow: none !important;
+}
+
+.control-disabled-mask {
+  background: rgba(237 240 241 / 50%);
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+}
+
+// These styles allow three dots menu and multiselect checkmark to be functional when control is disabled
+app-control-menu,
+app-multiselect-checkmark {
+  z-index: 101;
+}
+
+:host::ng-deep {
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+
+  .mat-progress-bar {
+    height: inherit;
+    border-radius: 20px;
+  }
+
+  .mat-progress-bar-element {
+    background-color: $mc-background;
+  }
+}
+
+// Change margin value if needed to disable top spacin when the item is expanded
+.mat-expansion-panel-spacing {
+  margin: 0;
+}
+
+.control-evidence-collection .control-evidence-collection {
+  mat-icon {
+    height: 18px;
+    width: 18px;
+  }
+}
+
+.control-related-frameworks {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+mat-expansion-panel-header {
+  min-height: inherit;
+  height: 70px;
+}
+
+mat-panel-description {
+  width: 360px;
+  max-width: 360px;
+  grid-gap: 10px;
+
+  margin-right: 13px;
+
+  .control-evidence-collection {
+    width: auto;
+    text-align: center;
+    margin: 0 20px;
+  }
+}
+
+.collapse-control-item {
+  align-items: center;
+  display: flex;
+
+  margin-right: 14px;
+  width: 22px;
+  height: 20px;
+}
+
+span,
+svg-icon,
+.control {
+  align-self: center;
+}
+
+mat-icon {
+  vertical-align: bottom;
+}
+
+mat-chip {
+  background: unset !important;
+
+  box-sizing: border-box;
+  border-radius: 30px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+// Control framework elements styling
+.framework-list mat-chip {
+  span {
+    margin: 0 auto;
+  }
+  color: $mc-navy-70 !important;
+  height: 18px;
+  width: 36px;
+  padding: 0;
+  margin: 0;
+  margin: 0 4px;
+
+  border: 1px solid $mc-navy-70;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 18px;
+  /* identical to box height, or 180% */
+
+  text-transform: uppercase;
+
+  min-height: 18px;
+  min-width: 36px;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.category-list mat-chip {
+  width: max-content;
+  padding: 2px 6px;
+  margin-right: 10px;
+  background: $mc-navy-30 !important;
+  height: 24px;
+  min-height: 24px;
+  span {
+    @include MulishFontStyle(12px, 18px);
+    padding: 3px 10px;
+  }
+
+  color: $mc-navy-80;
+
+  margin-bottom: 14px;
+}
+
+.control-description {
+  @include MulishFontStyle(13px, 20px);
+  /* or 154% */
+  color: $mc-navy-70;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.control-details-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 31px;
+}
+
+.control-expanded-description {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+}
+
+.mat-chip.mat-standard-chip::after {
+  background: unset !important;
+}
+
+.collapse-control-item mat-icon,
+.control-name,
+.mat-slide-toggle {
+  color: $mc-navy-90;
+}
+
+.control-name {
+  @include MulishBold(16px, 150%);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  margin-right: 10px;
+}
+
+app-note-element {
+  align-self: center;
+  margin-left: 10px;
+}
+
+//Toggle styling
+
+.mat-slide-toggle.mat-disabled {
+  opacity: unset;
+}
+
+//Progress bar styling
+
+.collected-evidences-percentage {
+  align-self: flex-end;
+  padding-right: 68px;
+  margin-bottom: -65px;
+}
+
+.percentage-info {
+  padding-bottom: 4px;
+
+  .collected-span {
+    @include MulishFontStyle(13px, 150%);
+  }
+
+  .percents {
+    @include MulishBold(16px, 150%);
+    align-items: center;
+    text-transform: capitalize;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    margin-right: 3px;
+
+    color: $mc-navy-90;
+  }
+
+  * {
+    align-self: flex-start;
+  }
+}
+
+.progress-bar-wrapper {
+  margin-top: 4px;
+  width: 200px;
+  height: 8px;
+}
+
+.collapsed {
+  #vetical-minus {
+    display: none;
+  }
+}
+
+:host.audit {
+  app-frameworks-icon {
+    position: relative;
+    right: 233px;
+  }
+}
+app-control-status {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.not-owner::ng-deep .owner-dropdown-button.disabled {
+  @apply invisible;
+}

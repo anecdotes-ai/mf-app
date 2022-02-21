@@ -1,0 +1,67 @@
+@import 'index';
+
+::ng-deep {
+  // Apply styles for modal outlet that wraps this modal
+  #requirement-note-modal {
+    #modal-window {
+      box-shadow: 0px 4px 10px rgba($color: $mc-navy-90, $alpha: 0.2);
+    }
+  }
+}
+
+:host {
+  width: 400px;
+  height: 250px;
+
+  border: 2px solid $mc-navy-90;
+  border-radius: 6px;
+
+  app-base-modal::ng-deep {
+    .base-modal-footer {
+      padding: 0 10px;
+      height: 60px;
+      background: unset;
+      justify-content: space-between;
+    }
+  }
+
+  #no-keep-it,
+  #close {
+    min-width: 100px;
+  }
+
+  .remove-btn-section {
+    display: flex;
+    width: 100%;
+    .remove-confirmation-message {
+      align-self: center;
+    }
+  }
+
+  .remove-btn-wrapper {
+    app-button {
+      padding: 7px 9px;
+    }
+
+    &:hover {
+      app-button {
+        &:not(.disabled)::ng-deep {
+          /* Colors / Navy 30 */
+          background: $mc-background;
+          /* Colors / Navy 90 */
+          box-sizing: border-box;
+          border-radius: 6px;
+          padding: 7px 9px;
+
+          svg-icon {
+            background: $mc-background;
+
+            rect {
+              @apply fill-navy-30;
+            }
+          }
+        }
+      }
+    }
+  }
+}

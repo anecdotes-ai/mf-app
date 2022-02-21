@@ -1,0 +1,30 @@
+<ng-container *ngTemplateOutlet="header; context: { txt: 'Size' }">
+</ng-container>
+<ng-container *ngTemplateOutlet="header; context: { txt: 'Basic' }">
+</ng-container>
+<ng-container *ngTemplateOutlet="header; context: { txt: 'Bold' }">
+</ng-container>
+<ng-container *ngTemplateOutlet="header; context: { txt: 'With underline' }">
+</ng-container>
+
+<ng-container *ngFor="let fontSize of fontSizeClasses">
+  <ng-container *ngTemplateOutlet="example; context: { classes: [fontFamilyClass, fontSize], txt: fontSize, wrapperClasses:'whitespace-nowrap' }">
+  </ng-container>
+  <ng-container *ngTemplateOutlet="example; context: { classes: [fontFamilyClass, fontSize], txt: text }">
+  </ng-container>
+  <ng-container *ngTemplateOutlet="example; context: { classes: [fontFamilyClass, fontSize, boldClass], txt: text }">
+  </ng-container>
+  <ng-container
+    *ngTemplateOutlet="example; context: { classes: [fontFamilyClass, fontSize, underlineClass], txt: actionText }">
+  </ng-container>
+</ng-container>
+
+<ng-template #header let-txt="txt">
+  <div class="font-main text-5xl bold whitespace-nowrap">{{ txt }}</div>
+</ng-template>
+
+<ng-template #example let-classes="classes" let-wrapperClasses="wrapperClasses" let-txt="txt">
+  <div class="cursor-pointer" [class]="wrapperClasses">
+    <div #x [title]="createClickToCopyClassText(x)" (click)="copyToClipboard(x)" [class]="classes">{{ txt }}</div>
+  </div>
+</ng-template>

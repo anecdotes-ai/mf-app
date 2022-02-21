@@ -1,0 +1,39 @@
+:host {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.copiable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    cursor: pointer;
+}
+
+.family {
+    font-size: 24px;
+    text-align: center;
+    grid-column: 1/6;
+    padding: 20px 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.background-color-picker {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    
+    button {
+        border: 1px black solid;
+    }
+}

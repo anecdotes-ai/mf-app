@@ -1,0 +1,62 @@
+@import 'index';
+
+.viewer {
+  height: 100%;
+}
+
+.viewer {
+  margin-bottom: 30px;
+  border-radius: 6px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+:host::ng-deep {
+  .page-item:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  .page-item:first-child,
+  .page-item:last-child {
+    .page-link {
+      background: none;
+    }
+  }
+
+  .page-item.disabled {
+    svg path {
+      fill: $mc-navy-50;
+    }
+  }
+
+  .page-item {
+    .page-link {
+      width: 40px;
+      height: 40px;
+      background: $mc-white;
+      border-radius: 6px;
+      @include MulishFontStyle(13px, 19px);
+      color: $mc-navy-70;
+      padding: 0;
+      margin: 0;
+      border: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: unset;
+    }
+
+    &.active .page-link {
+      background: $mc-navy-90;
+      color: $mc-white;
+    }
+  }
+}
+
+.prev-btn {
+  transform: scale(-1, 1);
+  transform-origin: center;
+}

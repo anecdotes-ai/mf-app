@@ -1,0 +1,33 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-frameworks"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-18 bold header">{{ buildTranslationKey('descriptions.header') | translate }}</span>
+            <app-tip [tipType]="tipTypes.TIP">
+                {{buildTranslationKey('descriptions.tip') | translate}}
+            </app-tip>
+
+            <app-multiselectable-list [type]='"big"' (select)="frameworkSelected($event)"
+                [itemsList]="multiselectItems">
+
+            </app-multiselectable-list>
+        </div>
+    </div>
+</div>
+<div class="footer">
+
+    <div class="onboarding-buttons">
+        <app-new-button *ngIf="!isAnyFrameworkSelected(); else selected" type="secondary" size="fixed160"
+            (click)="onSkipClick()">
+            {{buildTranslationKey('buttons.skip') | translate }}
+        </app-new-button>
+    </div>
+
+    <ng-template #selected>
+        <app-new-button type="primary" size="fixed160" (click)="onSkipClick()">
+            {{buildTranslationKey('buttons.next') | translate }}
+        </app-new-button>
+    </ng-template>
+</div>

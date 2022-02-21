@@ -1,0 +1,50 @@
+@import 'index';
+
+.dashed-border {
+  @include MulishFontStyle();
+  display: flex;
+  flex-direction: column;
+}
+
+.info-container {
+  margin-bottom: 8px;
+}
+.info-text {
+  vertical-align: top;
+}
+.add-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+:host::ng-deep {
+  .add-icon:disabled {
+    border: none;
+  }
+  .add-icon.disabled {
+    border: none;
+  }
+
+  .remove-btn:hover {
+    svg-icon * {
+      path {
+        stroke: $mc-white;
+      }
+    }
+  }
+  app-dynamic-form-outlet::ng-deep {
+    form {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

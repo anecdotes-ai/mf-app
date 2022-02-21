@@ -1,0 +1,28 @@
+@import 'index';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+svg-icon {
+  margin-right: 10px;
+}
+
+.framework-info {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+
+.framework-name {
+  @include MerriWeatherBold(14px, 15px);
+  color: $mc-navy-90;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.framework-controls-count {
+  @include MulishFontStyle(11px, 16px);
+  color: $mc-navy-70;
+}

@@ -1,0 +1,9 @@
+<perfect-scrollbar>
+  <app-welcome-header #header></app-welcome-header>
+  <div id="content">
+    <div class="onboarding-page">
+      <ng-container #switcherRef="switcher" [componentsToSwitch]="onboardingWindowsQueue"
+        [sharedContext]="onboardingWindowsSharedContext"></ng-container>
+    </div>
+  </div>
+</perfect-scrollbar>

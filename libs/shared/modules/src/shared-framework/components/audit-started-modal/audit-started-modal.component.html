@@ -1,0 +1,13 @@
+<app-base-modal
+  [iconPath]="'plugins/default'"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footer"
+  [leftCornerData]="{ icon: frameworkIcon }"
+>
+</app-base-modal>
+<ng-template #footer>
+  <app-new-button [clickOnEnter]="true" (click)="closeModal()">
+    <span>{{ buildTranslationKey('gotIt') | translate }}</span>
+  </app-new-button>
+</ng-template>

@@ -1,0 +1,23 @@
+:host {
+  .btn-item {
+    @apply flex p-0 m-0 z-10 border-none focus:shadow-none;
+  }
+
+  .carousel-wrap {
+    @apply flex w-full overflow-hidden;
+  }
+
+  .carousel-inner-container {
+    @apply flex;
+
+    &,
+    .slide-container {
+      @apply list-none p-0 m-0;
+    }
+
+    .slide-container {
+      @apply flex justify-center;
+    }
+  }
+}
+

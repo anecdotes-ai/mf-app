@@ -1,0 +1,74 @@
+@import 'index';
+
+:host {
+  app-coming-soon-button::ng-deep,
+  app-new-button::ng-deep {
+    margin: 0;
+    border: 0;
+    padding: 0 !important;
+    max-width: 200px;
+    max-height: 40px;
+    padding: 5px;
+
+    width: 200px;
+    height: 40px;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+
+    background: $mc-navy-90;
+    border-radius: 6px;
+
+    .content-container {
+      display: flex;
+    }
+
+    span.overlay {
+      border-radius: 6px;
+      border: 1px solid $mc-navy-90;
+      margin: 0 !important;
+      > span {
+        color: $mc-navy-90 !important;
+      }
+    }
+
+    span {
+      @include MulishFontStyle();
+      align-self: center;
+      color: $mc-white;
+      padding-left: 5px;
+
+      &:not(.overlay) {
+        display: flex;
+      }
+    }
+
+    .small-icon {
+      background-color: $mc-white;
+      border-radius: 6px;
+      max-width: 30px;
+      max-height: 30px;
+      width: 30px;
+      height: 30px;
+      align-self: center;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg-icon {
+        display: flex;
+        height: 25px;
+        width: 25px;
+        max-width: 25px;
+        max-height: 25px;
+
+        svg {
+          height: inherit;
+          width: inherit;
+        }
+      }
+    }
+  }
+}

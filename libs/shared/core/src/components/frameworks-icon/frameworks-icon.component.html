@@ -1,0 +1,24 @@
+<ng-container *ngFor="let framework of applicableRelatedFrameworks$ | async; trackBy: trackByFramework">
+  <ng-template #tooltipTemplate>
+    <div *ngIf="tooltipTemplateType === templateTypes.controls" class="controls-list">
+      <span *ngIf="!isFrameworkNameSoc(framework.framework_name)" class="framework">{{ framework.framework_name }}:</span>
+      <span [ngClass]="isFrameworkNameSoc(framework.framework_name) ? 'ml-0' : 'control-name'"
+            *ngFor="let control of framework.respective_controls">{{
+        control.toUpperCase()
+        }}</span>
+    </div>
+    <span *ngIf="tooltipTemplateType === templateTypes.default">
+      {{ framework.respective_controls?.length ? joinControlNames(framework.respective_controls) : null }}
+    </span>
+  </ng-template>
+
+  <span
+    *ngIf="framework"
+    [ngbTooltip]=" !shouldDisplayIfNoControls ? tooltipTemplate : null"
+    placement="top bottom"
+    tooltipClass="default-tooltip framework-icon-tooltip controls-framework-icon-tooltip"
+    class="framework-bubble"
+    [ngClass]="{ invisible: !framework?.respective_controls?.length && !shouldDisplayIfNoControls }"
+  >{{ resolveFrameworkName(framework.framework_name) }}</span
+  >
+</ng-container>

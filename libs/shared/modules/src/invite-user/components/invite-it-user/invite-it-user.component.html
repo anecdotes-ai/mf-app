@@ -1,0 +1,12 @@
+<span>{{ buildTranslationKey('needHelpFromItUser') | translate }}</span>
+&nbsp;
+<span (click)="inviteItUser()" class="invite-link">{{ buildTranslationKey('inviteItUser') | translate }}</span>
+&nbsp;
+<svg-icon
+  [ngbTooltip]="buildTranslationKey('itUserHelp') | translate"
+  placement="top"
+  tooltipClass="it-user-help-tooltip default-tooltip"
+  src="info-small"
+  preserveAspectRatio="none"
+  [stretch]="true"
+></svg-icon>

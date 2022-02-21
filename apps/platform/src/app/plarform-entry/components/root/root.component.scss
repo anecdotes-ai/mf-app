@@ -1,0 +1,23 @@
+@import 'index';
+@import 'global-loading-animation';
+
+:host {
+  min-height: 100%;
+  max-width: 100%;
+
+  .wrapper {
+    min-width: 991px;
+  
+    > * {
+      overflow: hidden;
+    }
+  
+    app-user-profile-menu::ng-deep .user-profile-menu-popover {
+      max-width: fit-content;
+    }
+  }
+}
+
+app-navigation-bar {
+  z-index: 999;
+}

@@ -1,0 +1,17 @@
+@import 'variables/palette';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+
+  &:hover {
+    background: $mc-navy-30;
+  }
+}

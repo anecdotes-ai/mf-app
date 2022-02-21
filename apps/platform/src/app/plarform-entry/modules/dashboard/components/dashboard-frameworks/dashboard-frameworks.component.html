@@ -1,0 +1,50 @@
+<section class="dashboard-frameworks-wrapper">
+  <div *ngIf="!frameworksData || !frameworksData.length; else showFrameworks" class="wrapper-coming-soon"
+    class="wrapper-coming-soon">
+    <div class="col-12 col-md-9 pl-0">
+      <app-coming-soon [iconSectionDisplay]="false">
+        <div class="empty-text center-description text-center">
+          <h2 class="main-title">{{ buildTranslationKey('noFrameworksMainTitle') | translate }}</h2>
+          <h3 class="main-title">{{ buildTranslationKey('noFrameworksSecondaryTitle') | translate }}</h3>
+        </div>
+      </app-coming-soon>
+    </div>
+
+    <div class="d-flex pt-4 tab-content row">
+      <div class="col-12 col-md-12 pl-0">
+        <app-dashboard-categories [data]="categoriesDefaultState" [emptyState]="true">
+        </app-dashboard-categories>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #showFrameworks>
+      <section class="dashboard-frameworks pt-1">
+        <div class="flex justify-between">
+          <h1 class="main-title mb-3">
+            {{ buildTranslationKey('mainTitle') | translate }}
+            <span class="title pl-2">
+              {{ buildTranslationKey('title') | translate }}
+              <span class="font-weight-normal">{{ lastUpdatedDate | date: 'H:mm | M/d/y' }}</span>
+            </span>
+          </h1>
+          <div class="col-12 col-md-3 pr-0">
+            <app-dashboard-plugin [data]="connectedServicesData">
+            </app-dashboard-plugin>
+          </div>
+        </div>
+          <app-tabs class="tabs" [renderAllTabs]="false" [tabs]="frameworksData" [tabProgressDisplay]="true" [useCarousel]="true" [carouselMaxWidthInPercents]="75"></app-tabs>
+      </section>
+  </ng-template>
+
+  <!--  Tabs content-->
+  <ng-template #tabContent let-frameworkData="framework" let-controlsData="actionRequiredControls"
+    let-categoriesData="categoriesControls">
+    <div class="d-flex pt-4 tab-content">
+      <div class="col-12 col-md-12 pl-0">
+        <app-dashboard-categories [data]="categoriesData" [framework]="frameworkData">
+        </app-dashboard-categories>
+      </div>
+    </div>
+  </ng-template>
+</section>

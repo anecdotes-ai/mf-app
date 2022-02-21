@@ -1,0 +1,4 @@
+<app-evidence-wrapper class="justify-between" [bordered]="true">
+  <app-evidence-label [evidence]="evidence" [evidenceComply]="true"></app-evidence-label>
+  <app-new-button class="mr-5" [type]="'secondary'" [size]="'medium'" [loading]="linkingInProcess$ | async" (click)="link()">{{ buildTranslationKey('linkEvidenceBtn') | translate }}</app-new-button>
+</app-evidence-wrapper>

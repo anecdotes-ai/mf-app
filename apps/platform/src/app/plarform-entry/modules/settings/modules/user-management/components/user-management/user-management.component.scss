@@ -1,0 +1,55 @@
+@import 'index';
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .invite-btn-wrapper {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+  }
+
+  #users-section {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+  perfect-scrollbar::ng-deep {
+    .ps-content {
+      padding: 20px 25px;
+      height: 100%;
+
+      .content-not-found {
+        height: 100%;
+      }
+    }
+  }
+}
+
+:host::ng-deep {
+  .invite-user-button {
+    margin-bottom: 20px;
+
+    .inner-background {
+      fill: transparent;
+    }
+
+    .wrapper,
+    .plus {
+      @apply fill-white;
+    }
+  }
+}
+
+.permissions-icon {
+  margin-bottom: 30px;
+}

@@ -1,0 +1,100 @@
+@import 'index';
+@import 'styles';
+
+:host {
+  @apply bg-white;
+  box-shadow: 0 2px 3px rgb(4 41 62 / 4%);
+  border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+
+  &:hover {
+    box-shadow: 0 2px 3px rgb(4 41 62 / 4%);
+    border: 1px solid rgba(4, 41, 62, 0.2);
+    cursor: pointer;
+
+    &::ng-deep {
+      app-evidence-copy-name .icon-wrapper {
+        @apply visible;
+      }
+    }
+  }
+
+  border-radius: 6px !important;
+  min-height: 70px;
+  display: flex;
+
+  .content-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    overflow: hidden;
+    padding-left: 15px;
+
+    .left-content {
+      display: flex;
+      flex-grow: 1;
+      margin-right: 16px;
+
+      * {
+        align-self: center;
+      }
+
+      .evidence-name {
+        @include MerriWeatherFontStyle();
+        line-height: 150%;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        color: $mc-navy-90;
+        margin-left: 15px;
+        max-width: 380px;
+      }
+
+      .icons {
+        display: flex;
+
+        .dash {
+          width: 15px;
+          border-bottom: 1px solid $mc-navy-40;
+          margin: 0 15px;
+        }
+      }
+
+      .service-icon-wrapper {
+        min-height: 30px;
+        min-width: 30px;
+
+        height: 30px;
+        width: 30px;
+
+        justify-content: center;
+        display: flex;
+
+        svg-icon {
+          width: 22px;
+          height: 22px;
+          display: flex;
+
+          svg {
+            width: inherit;
+            height: inherit;
+          }
+        }
+      }
+    }
+
+    .right-content {
+      display: flex;
+      flex-grow: 2;
+      justify-content: flex-end;
+      grid-gap: 10px;
+      margin-right: 13px;
+
+      * {
+        align-self: center;
+      }
+
+      .evidence-property-value-description {
+        margin: 0 30px;
+        min-width: 150px;
+      }
+    }
+  }
+}

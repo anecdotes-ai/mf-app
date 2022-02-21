@@ -1,0 +1,87 @@
+<app-secondary-loading-animation *ngIf="displayActionAnimation"></app-secondary-loading-animation>
+<ng-container *ngVar="(evidenceExists$ | async) as evidenceExist">
+  <div (click)="rowClick(evidenceExist)" class="requirement-row flex items-center flex-row justify-between" [class.row-rolled]="!expanded"
+    [class.hoverable]="controlRequirement?.requirement_applicability && evidenceExist">
+    <ng-container *ngIf="controlRequirement">
+      <div class="name-wrapper">
+        <app-searchable-text 
+          class="requirement-name whitespace-nowrap" 
+          [ngbTooltip]="controlRequirement.requirement_name" 
+          placement="top" 
+          [text]="controlRequirement.requirement_name"
+          [openTooltipWhenOverflowedAndHovered]="true"
+          [openOnWidthOverflow]="true"
+          >
+        </app-searchable-text>
+        <app-element-info #infoButtonRef [requirementLike]="requirementLike">
+        </app-element-info>
+        <app-note-element *ngIf="!viewOnly" [resourceType]="resourceTypeEnum.Requirement" [resourceId]="controlRequirement.requirement_id" [source]="sources.Controls"></app-note-element>
+        <ng-container  *ngTemplateOutlet="!viewOnly && controlRequirement.requirement_has_pending_slack_task && sentViaSlack">
+        </ng-container>
+      </div>
+
+      <svg-icon *ngIf="
+          controlRequirement.requirement_applicability && evidenceExist
+          && !(applicableEvidence.length == 0 && allRequirementsHidden)"
+          [class.rolled]="!expanded" class="arrow-single" src="arrow-down" preserveAspectRatio="none" [stretch]="true">
+      </svg-icon>
+
+      <div *ngIf="controlRequirement && !viewOnly" (click)="$event.stopPropagation()" class="actions flex flex-row justify-center items-center"
+      [ngbTooltip]="isReadonly ? (buildTranslationKey('controlFreeze') | translate) : null" [keepOnHover]="true" placement="top">
+        <ng-container *ngIf="controlRequirement.requirement_applicability">
+          <div *visibleForRole="pluginConnectionButtonsVisibleFor" class="automate-plugins-button-wrapper">
+            <app-automate-plugin-button [controlRequirement]="controlRequirement" [disabled]="isReadonly"></app-automate-plugin-button>
+          </div>
+
+          <app-action-menu-button *visibleForRole="notVisibleForAuditor" id="collectEvidenceBtn" icon="collect-evidence"
+            [buttonTextTranslationKey]="buildTranslationKey('collectEvidenceBtnText')"
+            [menuActions]="collectEvidenceMenuActions"
+            [type]='"primary"' [listWidth]='"asDropdownButton"' [disabled]="isReadonly">
+          </app-action-menu-button>
+        </ng-container>
+        <app-three-dots-menu #threeDotsMenuRef [menuActions]="threeDotsMenuActions" [context]="controlRequirement" [disabled]="isReadonly">
+        </app-three-dots-menu>
+      </div>
+    </ng-container>
+  </div>
+  <div @parent>
+    <div *ngIf="(!controlRequirement || controlRequirement.requirement_applicability) && expanded"
+      [@expandCollapseReq]="!controlRequirement || controlRequirement.requirement_applicability"
+      (@expandCollapseReq.done)="expandCollapseReqAnimationDone()">
+      <app-evidences-list (tryAgain)="tryAgainCollectEvidence($event)" [controlInstance]="controlInstance"
+        [noEvidencesTemplate]="noEvidences"
+        [controlRequirement]="controlRequirement" [requirementLike]="requirementLike"
+        [allRequirementsHidden] ="allRequirementsHidden"
+        [displayedEvidences]="displayedEvidences" [framework]="currentFramework"
+        ></app-evidences-list>
+      <ng-template #noEvidences>
+        <div class="no-evidences flex justify-center items-center text-main text-base">
+          <svg-icon src="evidence-empty"></svg-icon>
+          <span> {{ buildTranslationKey('noEvidence') | translate }} </span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ng-container>
+<ng-template #sentViaSlack>
+  <div class="slack-info flex items-center" (click)="dismissSlackTask()">
+    <svg-icon src="slack_logo" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span class="default-info"> {{ buildTranslationKey('slack.sentViaSlack') | translate }} </span>
+    <span class="dismiss"> {{ buildTranslationKey('slack.dismiss') | translate }} </span>
+  </div>
+</ng-template>
+
+<ng-template #slackModal>
+  <app-slack-modal [controlRequirement]="controlRequirement"
+    [controlInstance]="controlInstance"
+    [slackModalContentAllowed]="slackModalAllowed"
+    [currentFramework]="currentFramework">
+  </app-slack-modal>
+</ng-template>
+
+<ng-template #emptyTooltip>
+  <span>
+    {{ buildTranslationKey('noEvidence') | translate }}
+  </span>
+</ng-template>
+

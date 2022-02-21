@@ -1,0 +1,1 @@
+export { dynamicControlAttrName } from './const';

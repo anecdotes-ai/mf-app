@@ -1,0 +1,17 @@
+<ng-container *ngIf="risk$ | async as risk">
+  <app-risk-dates-item
+    [title]="buildTranslationKey('created') | translate"
+    [value]="createDate(risk.creation_time) | localDate: dateFormat"
+  ></app-risk-dates-item>
+
+  <app-risk-dates-item
+    [title]="buildTranslationKey('lastUpdate') | translate"
+    [value]="createDate(risk.last_updated) | localDate: dateFormat"
+  ></app-risk-dates-item>
+
+  <app-risk-dates-item
+    class='col-span-2'
+    [title]="buildTranslationKey('lastUpdatedBy') | translate"
+    [value]="risk.last_updated_by"
+  ></app-risk-dates-item>
+</ng-container>

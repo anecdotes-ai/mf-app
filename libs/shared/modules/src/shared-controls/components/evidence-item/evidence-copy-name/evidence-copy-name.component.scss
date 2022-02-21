@@ -1,0 +1,23 @@
+:host {
+  .icon-wrapper {
+    @apply invisible justify-center items-center cursor-pointer w-5 h-5;
+  }
+
+  &::ng-deep {
+    svg-icon {
+      svg {
+        rect {
+          @apply stroke-navy-70;
+        }
+      }
+
+      &:hover {
+        svg {
+          rect {
+            @apply stroke-navy-90;
+          }
+        }
+      }
+    }
+  }
+}

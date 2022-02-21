@@ -1,0 +1,10 @@
+<ng-container *ngIf="!empty">
+  <div class="badge" [ngClass]="badgeColorClass">{{ badgeTranslationKey | translate }}</div>
+  <div class="header">{{ headerTranslationKey | translate }}</div>
+  <div class="subheader">
+    <app-text [text]="subheaderTranslationKey"></app-text>
+  </div>
+</ng-container>
+<div class="content">
+  <ng-content></ng-content>
+</div>

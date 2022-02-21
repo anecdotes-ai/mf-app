@@ -1,0 +1,23 @@
+@import 'index';
+
+:host {
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 16px;
+  height: 16px;
+}
+
+#oval {
+  fill: $mc-navy-90;
+}
+
+svg {
+  vertical-align: text-bottom;
+  position: relative;
+  bottom: 1px;
+}
+
+#txt {
+  fill: $mc-white;
+  @include MulishFontStyle(9px);
+}

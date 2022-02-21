@@ -1,0 +1,15 @@
+<app-base-modal
+  [iconPath]="'plugins/default'"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footer"
+  [leftCornerData]="{ icon: 'frameworks/0' }"
+>
+  <svg-icon [src]="'frameworks/create_framework'" ></svg-icon>
+</app-base-modal>
+
+<ng-template #footer>
+  <app-new-button [clickOnEnter]="true" (click)="contactUs()">
+    <span>{{ buildTranslationKey('ctu') | translate }}</span>
+  </app-new-button>
+</ng-template>

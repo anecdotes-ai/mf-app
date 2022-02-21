@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.status-item {
+  height: 8px;
+}

@@ -1,0 +1,20 @@
+<div class="search-not-found">
+  <div class="not-found-content">
+    <span class="main-info">{{ mainInfoTranslationKey | translate }}</span>
+    <span *ngIf="!userAdviceDisabled" class="user-advice">{{
+      userAdviceTranslationKey || buildTranslationKey('userAdvice') | translate
+    }}</span>
+    <div class="buttons">
+      <app-button class="dark-blue mulish medium" (click)="backToAllDataBtnClick.emit()">
+        <span>{{ backToAllDataTranslationKey | translate }}</span>
+      </app-button>
+      <app-button
+        *ngIf="additionalActionEnabled"
+        class="secondary mulish medium"
+        (click)="additionalActionBtnClick.emit()"
+      >
+        <span>{{ additionalActionTranslationKey | translate }}</span>
+      </app-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<app-control-header
+  *ngIf="label"
+  [label]="label"
+  [labelParamsObj]="labelParamsObj"
+  [index]="index"
+  [required]="required"
+  [infoTooltip]="infoTooltip"
+></app-control-header>
+<div class="wrapper h-11">
+  <mat-datepicker
+    #picker
+    mat-button
+    [panelClass]="panelClass"
+    [calendarHeaderComponent]="datePickerHeader"
+  ></mat-datepicker>
+  <button class="datepicker-btn" (click)="picker.open()">
+    <input
+      class="main-font-13"
+      [matDatepicker]="picker"
+      [min]="minDate"
+      (dateChange)="dateChange($event)"
+      (click)="picker.open()"
+      [value]="value"
+      [placeholder]="placeholder | translate"
+    />
+    <svg-icon [src]="svgIconPath ? svgIconPath : 'calander'" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </button>
+</div>
+<app-control-errors *ngIf="dirty || !validateOnDirty" [errorTexts]="errorTexts"></app-control-errors>

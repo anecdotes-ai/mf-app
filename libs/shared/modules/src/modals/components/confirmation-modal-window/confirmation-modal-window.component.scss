@@ -1,0 +1,80 @@
+@import 'index';
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 600px;
+}
+
+:host::ng-deep {
+  .question app-text * {
+    color: $mc-navy-90;
+    font-weight: 700;
+    font-size: 21px;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .aftermath app-text *,
+  .aftermath span {
+    font-weight: 400;
+    color: $mc-navy-70;
+    text-align: center;
+  }
+
+  .icon {
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+* {
+  @include MulishFontStyle();
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  > * {
+    margin-bottom: 25px;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.footer {
+  .buttons {
+    &.primary-first {
+      @apply flex-row justify-end;
+
+      > * {
+        @apply mr-4;
+      }
+
+      > *:last-child {
+        @apply mr-0;
+      }
+    }
+
+    &:not(.primary-first) {
+      @apply flex-row-reverse justify-start;
+
+      > * {
+        @apply ml-4;
+      }
+
+      > *:last-child {
+        @apply ml-0;
+      }
+    }
+  }
+  
+}

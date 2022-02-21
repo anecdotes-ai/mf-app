@@ -1,0 +1,30 @@
+<app-user-logo
+  *ngIf="currentUser$ | async as currentUser"
+  [userId]="currentUser.user_id"
+  [fallbackUserName]="currentUser.name"
+></app-user-logo>
+<div class="flex-1">
+  <app-comment-input
+    #input
+    class="w-full"
+    [formControl]="textControl"
+    [placeholder]="'commenting.replyToThreadPlaceholder' | translate"
+    (gotFocus)="inputGotFocus()"
+    (lostFocus)="inputLostFocus()"
+  ></app-comment-input>
+  <div *ngIf="(isFocused$ | async) || textControl.value" class="flex flex-row gap-3 mt-3">
+    <app-new-button
+      class="w-20"
+      [type]="'primary'"
+      [verticalSize]="'small'"
+      [loading]="creation$ | async"
+      [disabled]="textControl.invalid"
+      [size]="'responsive'"
+      (click)="reply()"
+      >{{ buildTranslationKey('replyBtn') | translate }}</app-new-button
+    >
+    <app-new-button class="w-20" [type]="'basic'" [size]="'responsive'" [verticalSize]="'small'" (click)="cancel()">{{
+      buildTranslationKey('cancelBtn') | translate
+    }}</app-new-button>
+  </div>
+</div>

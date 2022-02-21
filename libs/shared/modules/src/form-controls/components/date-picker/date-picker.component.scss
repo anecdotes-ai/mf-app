@@ -1,0 +1,111 @@
+@import 'src/styles/index';
+
+$padding: 0 11px 0 14px;
+$min-height: 40px;
+$border: 1px solid rgba($color: $mc-navy-70, $alpha: 0.3);
+$border-radius: 6px;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  .wrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .datepicker-btn {
+    height: 100%;
+    width: 100%;
+    background-color: $mc-white;
+    border: 1px solid $mc-navy-40;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
+    input {
+      background-color: $mc-white;
+      border: none;
+      outline-color: transparent;
+
+      @apply text-navy-90 font-bold text-lg;
+      &::placeholder {
+        @apply text-navy-70 font-bold text-lg;
+    }
+    }
+    span {
+      display: inline-block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 100%;
+      text-align: start;
+    }
+  }
+}
+app-control-errors,
+app-control-header {
+  width: 100%;
+}
+
+:host.dirty.invalid {
+  .datepicker-btn {
+    border: 1px solid $mc-text-error;
+  }
+}
+::ng-deep {
+  .mat-datepicker-content .mat-datepicker-close-button {
+    display: none;
+  }
+  .mat-datepicker-content {
+    border: 1px solid $mc-navy-70;
+    box-shadow: 0px 2px 3px rgb(4 41 62 / 10%);
+    border-radius: 12px;
+  }
+  .mat-datepicker-content .mat-calendar {
+    height: auto !important;
+  }
+  .mat-calendar-content {
+    @include MulishFontStyle();
+    padding: 0 20px 20px 20px !important;
+  }
+  .mat-calendar-table-header {
+    @include MulishBold();
+    color: $mc-navy-90;
+  }
+  .mat-calendar-table-header-divider::after {
+    content: none !important;
+  }
+
+  .mat-calendar-body-label{
+     opacity: 0;
+  }
+  .mat-calendar-body-label[colspan="7"] {
+    display: none;
+  }
+
+  .orange {
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+      border-color: $mc-orange-50;
+    }
+    .mat-calendar-body-cell:hover::ng-deep {
+      .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+        background-color: $mc-orange-30 !important;
+      }
+    }
+
+    .cdk-program-focused .mat-calendar-body-active {
+      & > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+          @apply bg-white  #{!important};     
+      }
+    }
+  
+    .mat-calendar-body-selected {
+      background: $mc-orange-50;
+      color: $mc-white;
+      box-shadow: none;
+    }
+  }
+}

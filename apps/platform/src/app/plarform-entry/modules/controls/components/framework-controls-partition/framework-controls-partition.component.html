@@ -1,0 +1,17 @@
+<app-controls-secondary-header [framework]="framework" [filteredData]="displayedData"></app-controls-secondary-header>
+<app-selected-filters-list></app-selected-filters-list>
+<app-search-results-pagination></app-search-results-pagination>
+<perfect-scrollbar class="controls-list pb-5" #perfectScroll>
+  <app-loading-animation *ngIf="shouldDisplayAnimation" [width]="'270px'" height="270px"></app-loading-animation>
+  <div *ngIf="(isNotFoundState$ | async) && isOnSearchState" class="controls-not-found">
+    <app-not-found #searchNotFound mainInfoTranslationKey="controls.notFound.mainInfo"
+      userAdviceTranslationKey="controls.notFound.userAdvice"
+      backToAllDataTranslationKey="controls.notFound.backToAllControlsBtn"
+      (backToAllDataBtnClick)="resetControlsFilters()"></app-not-found>
+  </div>
+  <mat-accordion [class.hidden]="(isNotFoundState$ | async)" togglePosition="before" multi>
+    <app-controls-renderer [framework]="framework" [displayedData]="displayedData" [parentScroller]="perfectScroll"
+      [displayedRequirementsAndEvidences]="displayedRequirementsAndEvidences" (rendered)="controlsLoaded.emit();" [auditHistoryMode]="isFrameworkSnapshot">
+    </app-controls-renderer>
+  </mat-accordion>
+</perfect-scrollbar>

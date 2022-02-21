@@ -1,0 +1,9 @@
+<span class="selected-field bold text-navy-90 whitespace-nowrap p-1" *ngIf="value; else placeholderTemplate">
+  {{ value }}
+</span>
+<svg-icon class="chevrone" src="chevrone" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+<ng-template #placeholderTemplate>
+  <span class="text-navy-70 whitespace-nowrap p-1">
+    {{ placeholder }}
+  </span>
+</ng-template>

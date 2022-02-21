@@ -1,0 +1,49 @@
+<div class="content">
+    <div class="wizard-illustration">
+        <svg-icon src="onboarding/Onboarding-company"></svg-icon>
+    </div>
+    <div class="wizard-questions">
+        <div class="center-description">
+            <span class="main-font-18 bold header">{{ buildTranslationKey('descriptions.header') | translate }}</span>
+            <svg-icon class="block" src="onboarding/users-roles"></svg-icon>
+
+            <div class="user-invitation">
+                <app-new-button *ngIf="!userInvited; else tipInvitation" svgIconPath="adopt" type="primary"
+                    class="invite-user-btn" (click)="inviteUserClick()">
+                    {{ buildTranslationKey('buttons.addUser') | translate }}
+                </app-new-button>
+                <ng-template #tipInvitation>
+                    <app-new-button svgIconPath="adopt" type="secondary" class="invite-user-btn"
+                        (click)="inviteUserClick()">
+                        {{ buildTranslationKey('buttons.addUser') | translate }}
+                    </app-new-button>
+                    <app-tip [tipType]="tipTypes.TIP">
+                        {{buildTranslationKey('descriptions.tip') | translate}}
+                    </app-tip>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="footer">
+    <div class="onboarding-buttons">
+        <ng-container #firstPart *ngIf="!userInvited; else secondPart">
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="secondary" size="fixed160" [loading]="loading" (click)="onDoneClick()">
+                {{buildTranslationKey('buttons.skip') | translate }}
+            </app-new-button>
+        </ng-container>
+
+        <ng-template #secondPart>
+            <app-new-button type="secondary" size="fixed160" (click)="onBackClick()">
+                {{buildTranslationKey('buttons.back') | translate }}
+            </app-new-button>
+            <app-new-button type="primary" size="fixed160" [loading]="loading" (click)="onDoneClick()">
+                {{buildTranslationKey('buttons.done') | translate }}
+            </app-new-button>
+        </ng-template>
+    </div>
+</div>

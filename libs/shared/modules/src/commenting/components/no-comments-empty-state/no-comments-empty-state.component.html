@@ -1,0 +1,7 @@
+<ng-container *ngIf="emptyStateTranslationObj$ | async as emptyStateTranslation">
+  <div class="w-5 h-5">
+    <svg-icon class="w-5 h-5" [src]="emptyStateTranslation.icon"></svg-icon>
+  </div>
+  <div class="text-2xl">{{ buildTranslationKey(emptyStateTranslation.key, 'noCommentsText') | translate }}</div>
+  <div class="text-base">{{ buildTranslationKey(emptyStateTranslation.key, 'actionText') | translate }}</div>
+</ng-container>

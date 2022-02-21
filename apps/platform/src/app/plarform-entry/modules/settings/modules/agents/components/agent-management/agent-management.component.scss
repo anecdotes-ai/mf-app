@@ -1,0 +1,20 @@
+:host {
+  @apply flex flex-col border border-solid border-navy-40 rounded-md w-full h-full bg-white;
+  app-cross-button {
+    margin: 5px;
+  }
+  ::ng-deep {
+    .download-vm-button {
+      width: 231px;
+      min-width: 231px;
+    }
+    app-tabs {
+      .tabs {
+        height: 50px;
+      }
+      .border-bottom {
+        @apply m-0;
+      }
+    }
+  }
+}

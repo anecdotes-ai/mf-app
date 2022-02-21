@@ -1,0 +1,28 @@
+<app-control-header *ngIf="titleTranslationKey" [label]="titleTranslationKey" [index]="index" [required]="required">
+</app-control-header>
+
+<app-dropdown-button cdkOverlayOrigin #trigger="cdkOverlayOrigin" [isOpen]="isDropdownOpened" [placeholder]="placeholderTranslationKey | translate" [value]="selectedItemsString" (click)="toggleDropdown()" [disabled]="isDisabled$ | async" [class.border-error]="errorsDisplayed"></app-dropdown-button>
+
+<div *ngIf="displaySelectedItemsList" class="selected-items-list" [class.hidden]="!selectedItems.length">
+  <div class="selected-item font-main text-lg" *ngFor="let item of selectedItems">
+    <span>{{ getDisplayValue(item) }}</span>
+    <svg-icon src="chip-remove" preserveAspectRatio="none" [stretch]="true" (click)="uncheckItem(item)"> </svg-icon>
+  </div>
+</div>
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isDropdownOpened"
+  (backdropClick)="close()">
+  <app-dropdown-options-backdrop #openableElement [style.width.px]="listWidth">
+    <app-text-field *ngIf="searchEnabled" [formControl]="searchField" [clearButtonEnabled]="true" [placeholderIcon]="'search'" [placeholder]="searchFieldPlaceholder | translate"
+      (valueChanges)="search($event)" (click)="searchFieldClick($event)">
+    </app-text-field>
+    <perfect-scrollbar [style.max-height]="listMaxHeight + 'px'" [config]="{ suppressScrollX: true }">
+      <ng-container>
+        <app-dropdown-option *ngFor="let item of displayedData" [style.height]="checkboxHeight + 'px'">
+          <app-checkbox (changeValue)="updateData()" [(ngModel)]="dictionary[getDisplayValue(item)]" [valueLabel]="getDisplayValue(item)"></app-checkbox>
+        </app-dropdown-option>
+      </ng-container>
+    </perfect-scrollbar>
+  </app-dropdown-options-backdrop>
+</ng-template>
+<app-control-errors class="flex-1" *ngIf="errorsDisplayed" [errorTexts]="errorTexts"></app-control-errors>

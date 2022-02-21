@@ -1,0 +1,6 @@
+<section *ngIf="currentFramework" class="w-full h-full" [searchScope]>
+  <app-controls-header [selectedFramework]="currentFramework" class="bg-blue-90-15" [auditView]="true"></app-controls-header>
+  <app-loading-animation *ngIf="!snapshotFramework" [width]="'270px'" height="270px"></app-loading-animation>
+  <app-framework-controls-partition *ngIf="snapshotFramework" #controlList [framework]="snapshotFramework">
+  </app-framework-controls-partition>
+</section>

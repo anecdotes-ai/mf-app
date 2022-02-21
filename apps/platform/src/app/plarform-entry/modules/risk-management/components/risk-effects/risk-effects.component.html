@@ -1,0 +1,48 @@
+<div
+  class="flex flex-row gap-1 font-main text-lg text-navy-80 group"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+  (click)="toggleDropdown($event)"
+  [ngbTooltip]="hasAppliedEffects ? getEffects() : (buildTranslationKey('notSetTooltip') | translate)"
+  [placement]="'top'"
+>
+  <ng-container *ngIf="hasAppliedEffects; else notSetTemplate">
+    <ng-container *ngFor="let effect of appliedEffects">
+      <ng-container *ngTemplateOutlet="chip; context: { text: getFirstCharacter(effect) }"></ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #notSetTemplate>
+    <ng-container *ngTemplateOutlet="chip; context: { text: buildTranslationKey('notSet') | translate }"></ng-container>
+  </ng-template>
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isDropdownOpened"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+  (backdropClick)="close()"
+>
+  <app-dropdown-options-backdrop #openableElement>
+    <perfect-scrollbar [config]="{ suppressScrollX: true }">
+      <ng-container>
+        <app-dropdown-option *ngFor="let effect of allEffects">
+          <app-checkbox [(ngModel)]="selectedEffectsDictionary[effect]" [valueLabel]="effect"> </app-checkbox>
+        </app-dropdown-option>
+      </ng-container>
+    </perfect-scrollbar>
+  </app-dropdown-options-backdrop>
+</ng-template>
+
+<ng-template #chip let-text="text">
+  <app-colored-dropdown-menu-button
+    [buttonBackgroundClass]="'bg-navy-20 hover:bg-navy-40'"
+    [radius]="'large'"
+    [verticalSize]="'small'"
+    [horizontalSize]="'small'"
+    [arrowEnabled]="false"
+    [isOpen]="isDropdownOpened"
+    >{{ text }}</app-colored-dropdown-menu-button
+  >
+</ng-template>

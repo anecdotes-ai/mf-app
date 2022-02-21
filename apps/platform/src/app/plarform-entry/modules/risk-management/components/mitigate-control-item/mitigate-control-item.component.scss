@@ -1,0 +1,16 @@
+:host::ng-deep {
+  @apply flex items-center h-15 min-h-15 gap-6 px-5 py-4 bg-white font-main cursor-pointer overflow-hidden;
+  
+  app-circle-loader {
+    @apply h-6 w-6;
+  }
+
+  .right-side {
+    grid-template-columns: 2fr 1fr;
+    width: 40%;
+  }
+}
+
+:host:hover {
+  @apply shadow-sm border-navy-70;
+}

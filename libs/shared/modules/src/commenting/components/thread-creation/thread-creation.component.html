@@ -1,0 +1,35 @@
+<app-thread-header
+  [focused]="true"
+  [resourceTypeDisplayName]="resourceToCreateThreadFor.resourceTypeDisplayName"
+  [resourceDisplayName]="resourceToCreateThreadFor.resourceDisplayName"
+></app-thread-header>
+<div class="flex flex-row px-3 py-4 gap-3">
+  <app-user-logo
+    *ngIf="currentUser$ | async as currentUser"
+    [userId]="currentUser.user_id"
+    [fallbackUserName]="currentUser.name"
+  ></app-user-logo>
+  <div class="flex flex-col gap-3 flex-1">
+    <app-comment-input class="w-full" [formControl]="textControl" [placeholder]="'commenting.addCommentPlaceholder' | translate" [focusOnInit]="true"></app-comment-input>
+    <div class="flex gap-3">
+      <app-new-button
+        class="w-20"
+        [type]="'primary'"
+        [size]="'responsive'"
+        [verticalSize]="'small'"
+        [disabled]="textControl.invalid"
+        [loading]="creationInProgress$ | async"
+        (click)="commentClick()"
+        >{{ buildTranslationKey('createThreadBtn') | translate }}</app-new-button
+      >
+      <app-new-button
+        class="w-20"
+        [type]="'basic'"
+        [size]="'responsive'"
+        [verticalSize]="'small'"
+        (click)="cancelClick()"
+        >{{ buildTranslationKey('cancelBtn') | translate }}</app-new-button
+      >
+    </div>
+  </div>
+</div>

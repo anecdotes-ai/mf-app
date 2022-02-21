@@ -1,0 +1,23 @@
+<div class="search-results-pagination">
+  <span class="search-results-header">{{ 'core.searchResults' | translate: { value: totalSearchResults } }}</span>
+  <div class="prev-next-buttons">
+    <app-button class="prev-btn" [class.disabled]="currentHighlightedResult === 0" (click)="goToPrevSearchHighlight()">
+      <svg-icon src="open-arrow-icon" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+    </app-button>
+    <div class="pagination-progress">
+      <span class="current-page">{{ currentHighlightedResult + 1 }}</span>
+      <span>&nbsp;/&nbsp;</span>
+      <span class="total-pages">{{ totalSearchResults }}</span>
+    </div>
+    <app-button
+      class="next-btn"
+      [class.disabled]="currentHighlightedResult + 1 === totalSearchResults"
+      (click)="goToNextSearchHighlight()"
+    >
+      <svg-icon src="open-arrow-icon" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+    </app-button>
+  </div>
+  <app-button class="transparent medium mulish clear-search" (click)="clearSearch()">
+    {{ 'core.clearSearch' | translate }}
+  </app-button>
+</div>

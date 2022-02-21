@@ -1,0 +1,54 @@
+@import 'index';
+
+.plugins-container {
+  position: relative;
+  z-index: 99;
+  background: #ffffff;
+  border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+
+  h5 {
+    @include MulishBold(13px, 21px);
+    padding: 15px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 70px;
+    border-top: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+    border-bottom: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+    align-items: center;
+  }
+
+  .footer {
+    padding: 15px;
+
+    h6 {
+      @include basicLight;
+      padding: 0;
+      margin-bottom: 0;
+      text-align: left;
+
+      span {
+        @include MulishBold(21px, 15px);
+        padding-right: 5px;
+      }
+    }
+  }
+
+  app-dashboard-plugin-icon {
+    &:not(:first-child) {
+      border-right: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+    }
+    &:nth-child(2) {
+      border-left: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+    }
+    &:nth-child(4) {
+      border: 0;
+    }
+  }
+}

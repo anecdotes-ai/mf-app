@@ -1,0 +1,15 @@
+<div class="items-wrapper">
+  <div class="title-content">
+    <span>{{ buildTranslationKey('title') | translate }}</span>
+    <svg-icon src="logo_type" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+  <div class="customer-visit-info">
+    <div class="info">
+      <span class="date-time"> {{ lastUpdateDate | date: dateFormat }}</span>
+      <span class="time-description">{{ buildTranslationKey('lastUpdated') | translate }}</span>
+    </div>
+    <div class="icon-wrapper">
+      <svg-icon src="anecdotes_logo" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+  </div>
+</div>

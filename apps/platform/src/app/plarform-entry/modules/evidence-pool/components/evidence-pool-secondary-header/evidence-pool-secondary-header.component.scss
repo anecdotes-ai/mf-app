@@ -1,0 +1,14 @@
+@import 'index';
+
+:host {
+  height: 70px;
+  display: flex;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    @include basicBold(18px, 26px);
+  }
+}

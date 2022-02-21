@@ -1,0 +1,14 @@
+app-control-item {
+  height: inherit;
+  width: inherit;
+}
+
+:host::ng-deep {
+  .item-wrapper:not(:last-child) {
+    @apply pb-5;
+  }
+
+  .items-container {
+    @apply px-6;
+  }
+}

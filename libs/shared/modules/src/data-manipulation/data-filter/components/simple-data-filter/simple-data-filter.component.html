@@ -1,0 +1,57 @@
+<div>
+  <form *ngIf="formGroup" [formGroup]="formGroup">
+    <ng-container *ngFor="let def of builtFilteringDefinition">
+      <div class="filter-field" [id]="def.fieldId" *ngIf="def.displayed">
+        <ul class="d-flex justify-content-end">
+          <ng-container
+            *ngTemplateOutlet="multiSelection; context: { formGroup: formGroup, fieldDefinition: def }"
+          ></ng-container>
+        </ul>
+      </div>
+    </ng-container>
+  </form>
+</div>
+
+<ng-template #multiSelection let-formGroup="formGroup" let-fieldDefinition="fieldDefinition">
+  <li
+    class="{{ fieldDefinition.fieldId }}-option filter-option"
+    [class.with-icon]="option.icon || fieldDefinition.iconTemplate"
+    *ngFor="let option of fieldDefinition.options"
+  >
+    <span>
+      <app-checkbox
+        *ngVar="calculateCount(fieldDefinition, option) as count"
+        [class.disabled-checkbox]="count < 1"
+        [formControl]="formGroup.controls[fieldDefinition.fieldId].get(option.optionId)">
+        <ng-container
+          *ngTemplateOutlet="labelTemplate;
+           context: {
+           fieldDefinition: fieldDefinition,
+           option: option,
+           count: count }"
+        ></ng-container>
+      </app-checkbox>
+    </span>
+  </li>
+</ng-template>
+
+<ng-template #labelTemplate
+             let-fieldDefinition="fieldDefinition"
+             let-currentOption="option"
+             let-count="count">
+  <span class="checkbox-icon">
+    <ng-container
+      *ngTemplateOutlet="
+        fieldDefinition.iconTemplate ? fieldDefinition.iconTemplate : iconTemplate;
+        context: { src: currentOption.icon, value: currentOption.value }
+      "
+    ></ng-container>
+  </span>
+  <span class="filter-option-label"
+  >{{ currentOption.translationKey || currentOption.value | translate }} ({{count}})</span>
+</ng-template>
+
+<ng-template #iconTemplate let-src="src">
+  <svg-icon *ngIf="src" preserveAspectRatio="none" [stretch]="true" svgClass="icon" [src]="src"></svg-icon>
+</ng-template>
+

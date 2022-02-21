@@ -1,0 +1,79 @@
+$padding: 0 11px 0 14px;
+$min-height: 40px;
+
+:host {
+  @apply inline-block relative outline-none;
+
+  button{
+    @apply justify-center items-center cursor-pointer;
+    border-radius: 6px;
+    padding: 10px 0;
+  }
+
+  .remove-contol-button {
+    @apply bg-navy-10;
+    display: none;
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    .remove-contol-button {
+      @apply flex;
+    }
+  }
+
+  &.active textarea, .wrapper:hover textarea {
+    @apply border-navy-90;
+  }
+
+  .wrapper {
+    &:hover {
+      ::ng-deep.buttons app-button {
+        display: flex !important;
+      }
+    }
+
+    position: relative;
+
+    ::ng-deep.buttons {
+      @apply flex flex-row absolute;
+      right: 5px;
+      top: 11%;
+      height: 30px;
+
+      > :not(:first-child) {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+textarea {
+  @apply border-navy-50;
+  border-width: 1px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: $padding;
+  min-height: $min-height;
+
+  padding-top: 9px;
+
+  &.rows-specified {
+    @apply h-full;
+  }
+}
+
+:host.errors-displayed {
+  textarea {
+    @apply border-error;
+  }
+}
+
+app-characters-counter {
+  margin-top: -2px;
+}
+
+app-control-placeholder {
+  height: $min-height;
+}

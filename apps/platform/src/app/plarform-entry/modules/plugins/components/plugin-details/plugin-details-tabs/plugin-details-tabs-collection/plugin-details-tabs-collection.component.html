@@ -1,0 +1,15 @@
+<div class="tabs-wrapper">
+  <app-tabs #tabsComponent [tabSize]="'small'" (tabChange)="tabChange($event)" [tabs]="tabs"></app-tabs>
+</div>
+
+<ng-template #pluginInfo>
+  <app-plugin-info-tab [service]="service"></app-plugin-info-tab>
+</ng-template>
+
+<ng-template #permissions>
+  <app-plugin-permissions-tab [service]="service"></app-plugin-permissions-tab>
+</ng-template>
+
+<ng-template #logs>
+  <app-plugin-logs-tab [service]="service"></app-plugin-logs-tab>
+</ng-template>

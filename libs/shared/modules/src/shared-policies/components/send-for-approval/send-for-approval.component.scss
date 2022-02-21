@@ -1,0 +1,9 @@
+:host {
+  max-width: 600px;
+}
+
+:host::ng-deep {
+  app-text-area {
+    @apply w-full;
+  }
+}

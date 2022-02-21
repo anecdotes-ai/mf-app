@@ -1,0 +1,23 @@
+<div id="plugin-permissions-wrapper">
+    <perfect-scrollbar class="plugins-perfect-bar">
+        <div class="permissions-header">
+            <span> {{ 'openedPlugin.permissionsTab.whatAnecdotesCanView' | translate }}</span>
+        </div>
+        <mat-accordion *ngIf="permissions$ | async as permissions" displayMode="flat" multi>
+            <mat-expansion-panel class="control-expansion-element" *ngFor="let field of permissions.fields | keyvalue">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="panel-header">
+                        <div>
+                            <svg-icon src="expansion-title-dot" class="icon"> </svg-icon>
+                            <span>{{ field.key }}</span>
+                        </div>
+                    </mat-panel-title>
+                    <svg-icon src="arrow-single" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+                </mat-expansion-panel-header>
+                <div *ngFor="let fieldValue of field.value">
+                    <p>{{ fieldValue }}</p>
+                </div>         
+            </mat-expansion-panel>
+        </mat-accordion>
+    </perfect-scrollbar>
+</div>

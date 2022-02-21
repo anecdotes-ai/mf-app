@@ -1,0 +1,63 @@
+@import 'index';
+
+$interval-between-items: 20px;
+
+:host::ng-deep{
+  app-dropdown-option{
+    min-width: 180px;
+  }
+}
+
+:host{
+  width: 62px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+  padding-bottom: 16px;
+  border-radius: 0 12px 12px 0;
+  background: #ffff;
+  margin-right: 2px;
+  box-shadow: 0 2px 3px rgba($color: $mc-navy-90, $alpha: 0.1);
+}
+:host:hover {
+  width: 215px;
+  .logo-wrapper {
+    background: $mc-navy-10;
+  }
+}
+
+.logo-wrapper {
+  padding-top: $interval-between-items;
+  height: 82px;
+  width: 100%;
+  border-radius: 6px;
+
+  svg-icon {
+    cursor: pointer;
+  }
+
+  .logo-link {
+    width: 100%;
+    position: relative;
+  }
+
+  .logo-icon {
+    margin-left: 8px;
+  }
+}
+
+.routes {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 16px;
+}
+
+.community-wrapper, .notifications-wrapper {
+  margin-bottom: 20px;
+}
+
+.notifications-wrapper {
+  margin-top: auto;
+}

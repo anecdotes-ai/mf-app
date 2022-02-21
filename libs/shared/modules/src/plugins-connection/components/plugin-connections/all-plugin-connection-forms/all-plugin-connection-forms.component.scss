@@ -1,0 +1,48 @@
+:host {
+  &,
+  app-dynamic-form-outlet {
+    @apply w-full h-full;
+  }
+
+  app-dynamic-form-outlet::ng-deep {
+    form {
+      @apply grid gap-y-5 w-full;
+      grid-template-columns: 47% 47%;
+      column-gap: 30px;
+      grid-template-areas: 'boxgroup boxgroup';
+
+      app-checkbox-group {
+        grid-area: boxgroup;
+        grid-row: last-line;
+      }
+    }
+  }
+
+  app-loading-animation {
+    @apply w-40 h-40;
+  }
+
+  perfect-scrollbar.loading::ng-deep .ps-content {
+    @apply flex justify-center items-center;
+  }
+}
+
+:host {
+  perfect-scrollbar::ng-deep {
+    @apply h-full;
+
+    .ps-content {
+      @apply p-0;
+    }
+
+    .on-prem, .multiple-account {
+      form {
+        @apply mt-0 ml-0 mr-0 mb-11;
+
+        app-dropdown-control {
+          grid-column: 1 / -1;
+        }
+      }
+    }
+  }
+}

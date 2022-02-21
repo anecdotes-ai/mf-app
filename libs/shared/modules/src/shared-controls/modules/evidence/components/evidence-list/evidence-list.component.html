@@ -1,0 +1,36 @@
+<section [searchScope] class="flex flex-col h-full w-full">
+  <div
+    class="
+      font-main
+      font-bold
+      text-base
+      text-navy-90
+      pl-9
+      pt-6
+      pb-6
+      border-b
+      border-solid
+      border-navy-30
+      bg-white"
+  >
+    {{buildTranslationKey('evidenceConnectFromRequirement.title') | translate:{requirementName: requirementLike.name} }}</div>
+  <app-evidence-list-filter [requirementId]="requirementLike.resourceId" [frameworkId]="framework.framework_id" #filterComponent>
+  </app-evidence-list-filter>
+
+  <div class="flex flex-col flex-1">
+    <div class="font-main font-bold text-navy-90 py-5 px-8"
+         *ngIf="(filterComponent.filteredEvidences$ | async) as filteredEvidence">{{
+      buildTranslationKey('collectedEvidence') | translate }} ({{
+      filteredEvidence.length }})
+    </div>
+    <perfect-scrollbar class="flex-1 px-8">
+      <app-virtual-scroll-renderer [idSelector]="selecEvidenceId" [allItemsStream]="filterComponent.allEvidences$"
+                                   [filteredItemsStream]="filterComponent.filteredEvidences$"
+                                   [scrollToFocusedItem]="true">
+        <ng-template #itemTemplate let-item="item">
+          <app-linking-evidence [evidence]="item" [requirementLike]="requirementLike" [controlInstance]="controlInstance" [framework]="framework"></app-linking-evidence>
+        </ng-template>
+      </app-virtual-scroll-renderer>
+    </perfect-scrollbar>
+  </div>
+</section>

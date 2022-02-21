@@ -1,0 +1,54 @@
+<ng-container *ngIf="item?.route; else noRoute">
+    <a #navigationLink *visibleForRole="item?.visibleFor" [routerLink]="item?.route" routerLinkActive="active"
+        class="nav-link flex">
+        <div class="active-indicator bg-blue-50"></div>
+        <div class="navbar-item flex align-items-center overflow-hidden" [class]="item?.iconColorMode">
+            <svg-icon id="navBar-icon" preserveAspectRatio="none" [stretch]="true" [src]="item?.icon"
+            class="navBar-icon">
+        </svg-icon>
+           <app-notification-badge *ngIf="item.displayBadge" [xPosition]="item.notificationPositionX"></app-notification-badge>
+            <span *ngIf="insideIconText"
+                class="user-initials font-main text-base position-relative">{{insideIconText}}</span>
+            <span [class.leftOffsetted]="insideIconText"
+                class=" nav-item-descriprion font-main text-base overflow-hidden whitespace-nowrap">{{item.key ?
+                (buildTranslationKey(item?.key) | translate) : item?.text}}</span>
+            <svg-icon *ngIf="item?.inBeta" class="ml-auto mr-4 overflow-hidden" preserveAspectRatio="none"
+                [stretch]="true" [src]="'beta-tag'"></svg-icon>
+        </div>
+    </a>
+    <ng-container *ngTemplateOutlet="subMenu"></ng-container>
+</ng-container>
+
+<ng-template #noRoute>
+    <div #navigationLink *visibleForRole="item?.visibleFor" class="nav-link flex">
+        <div class="navbar-item flex align-items-center overflow-hidden" [class]="item?.iconColorMode">
+            <svg-icon preserveAspectRatio="none" [stretch]="true" [src]="item?.icon" class="navBar-icon">
+            </svg-icon>
+            <app-notification-badge *ngIf="item.displayBadge" [xPosition]="item.notificationPositionX"></app-notification-badge>
+            <span *ngIf="insideIconText"
+                class="user-initials font-main text-base position-relative">{{insideIconText}}</span>
+            <span [class.leftOffsetted]="insideIconText"
+                class=" nav-item-descriprion font-main text-base overflow-hidden whitespace-nowrap overflow-ellipsis">
+                {{item?.key ? (buildTranslationKey(item?.key) | translate) : item?.text}}
+            </span>
+            <svg-icon *ngIf="item?.inBeta" class="ml-auto mr-4 overflow-hidden" preserveAspectRatio="none"
+                [stretch]="true" [src]="'beta-tag'"></svg-icon>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="subMenu"></ng-container>
+</ng-template>
+
+<ng-template #subMenu>
+    <div *ngIf="item?.menuActions?.length || item?.menuTemplate"
+        [ngClass]="{ 'bottom-0': item.menuPositionY === subMenuPositionYEnum.ABOVE, 'top-0': item.menuPositionY === subMenuPositionYEnum.BELOW, '-bottom-5': item.menuPositionY === subMenuPositionYEnum.CENTER }"
+        class="sub-menu absolute left-full">
+        <app-dropdown-options-backdrop [class.p-0]="item.notPaddedMenu">
+            <ng-container *ngIf="item?.menuActions?.length; else item.menuTemplate">
+                <ng-container *ngFor="let menuAction of item?.menuActions">
+                    <app-dropdown-option *visibleForRole="menuAction.visibleFor" [menuAction]="menuAction" (click)="$event.stopPropagation(); onNavigationElementClick(menuAction)">
+                    </app-dropdown-option>
+                </ng-container>
+            </ng-container>
+        </app-dropdown-options-backdrop>
+    </div>
+</ng-template>

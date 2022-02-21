@@ -1,0 +1,78 @@
+@import 'index';
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  align-content: flex-start;
+
+  .item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    @include MulishBold(20px, 13px);
+    border: 1px solid $mc-navy-30;
+    border-radius: 6px;
+    height: max-content;
+    cursor: pointer;
+
+    .divided {
+      margin-right: 10px;
+      padding-right: 10px;
+      border-right: $mc-navy-30 solid 2px;
+    }
+
+    &.selected {
+      border: $mc-navy-90 solid 1px;
+    }
+  }
+
+  &.small {
+    .item {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      height: 30px;
+      svg-icon {
+        width: 30px;
+        height: 30px;
+        opacity: 50%;
+      }
+      span {
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      &:hover,
+      &.selected {
+        background: $mc-navy-10;
+        svg-icon {
+          opacity: 100%;
+        }
+      }
+    }
+  }
+
+  &.big {
+    .item {
+      min-width: 220px;
+      svg-icon {
+        width: 30px;
+        height: 30px;
+        opacity: 50%;
+      }
+
+      &:hover,
+      &.selected {
+        background: $mc-navy-10;
+        svg-icon {
+          opacity: 100%;
+        }
+      }
+      @include MulishBold(13px, 19.5px);
+    }
+  }
+}

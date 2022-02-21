@@ -1,0 +1,44 @@
+<app-plugin-custom-state
+  [contentTemplate]="content"
+  [footerTemplate]="footer"
+  [displayHeader]="true"
+  [displayHeaderThreeDotsMenu]="true"
+  [aboveFooterContentTemplate]="aboveFooterTemplate"
+></app-plugin-custom-state>
+
+<ng-template #content>
+  <perfect-scrollbar class="p-5 pt-0">
+    <app-plugin-account-item
+      *ngFor="let serviceInstance of notRemovedInstances; trackBy: trackAccountItem"
+      class="mx-5"
+      [serviceInstance]="serviceInstance"
+      (editOpening)="loading = $event"
+    ></app-plugin-account-item>
+  </perfect-scrollbar>
+  <app-loading-animation
+    *ngIf="loading"
+    class="absolute bg-white top-0"
+    width="270px"
+    height="270px"
+  ></app-loading-animation>
+</ng-template>
+<ng-template #footer>
+  <div class="button-group">
+    <div [ngbTooltip]="isAddingAccountsLimit ? addingAccountsLimitReached : null" placement="top" tooltipClass="default-tooltip">
+      <app-new-button
+        [type]="'secondary'"
+        [disabled]="loading || isAddingAccountsLimit"
+        (click)="addAnotherAccount()"
+        >{{ 'openedPlugin.addAnotherAccount' | translate }}</app-new-button
+      >
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #aboveFooterTemplate>
+  <app-invite-it-user></app-invite-it-user>
+</ng-template>
+
+<ng-template #addingAccountsLimitReached>
+  <span> {{ buildTranslationKey('accountsLimitReached') | translate}}</span>
+</ng-template>

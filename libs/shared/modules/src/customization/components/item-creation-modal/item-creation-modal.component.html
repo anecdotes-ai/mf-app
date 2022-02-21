@@ -1,0 +1,16 @@
+<app-base-modal iconPath="item-customization" [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')" [footerTemplate]="footerTemplate">
+  <div class="dashed-border">
+    <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+    <div class="or-text">{{ buildTranslationKey('orText') | translate }}</div>
+    <app-button (click)="switchToSelectExistingView()" class="toggle-view secondary mulish stretch">{{
+      buildTranslationKey('newItemForm.changeViewToSelectExisting') | translate
+      }}</app-button>
+  </div>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+  <app-button id="add-item-btn" [loading]="isLoading" [class.disabled]="this.formGroup?.invalid" (click)="addNewItem()"
+    class="next-btn mulish main medium">{{ buildTranslationKey('addItemBtn') | translate }}
+  </app-button>
+</ng-template>

@@ -1,0 +1,62 @@
+@import './index.scss';
+
+:host::ng-deep {
+  display: block;
+
+  &.use-scroll {
+    overflow: auto;
+
+    virtual-scroller {
+      overflow: auto !important;
+    }
+
+    .row-value {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .scrollable-content {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: auto;
+  
+    .row-index {
+      padding-left: 5px;
+      padding-right: 3px;
+      min-width: 27px;
+      text-align: right;
+      border-right: 1px solid $mc-navy-50;
+      background-color: $mc-navy-10;
+      color: $mc-navy-70;
+    }
+
+    .row-value {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      background-color: $mc-white;
+      padding-left: 6px;
+    }
+  }
+}
+
+virtual-scroller {
+  width: 100%;
+  height: 100%;
+}
+
+:host:not(.use-scroll)::ng-deep {
+  width: 100%;
+  height: 100%;
+
+  virtual-scroller {
+    overflow: hidden !important;
+  }
+
+  .scrollable-content {
+    display: grid;
+    grid-template-columns: min-content minmax(0, 1fr);
+  }
+}

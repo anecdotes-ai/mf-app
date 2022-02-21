@@ -1,0 +1,24 @@
+<app-onboarding-card
+  class="frameworks-select"
+  [colorType]="badgeColorTypes.ORANGE"
+  [badgeTranslationKey]="buildTranslationKey('frameworksBadge')"
+  [headerTranslationKey]="buildTranslationKey('frameworksHeader')"
+  [subheaderTranslationKey]="buildTranslationKey('frameworksSubheader')"
+>
+  <div class="frameworks-select-content-wraper">
+    <app-select-framework [selectable]="false" [frameworks]="frameworks"></app-select-framework>
+    <app-button class="main mulish start-with-framework-adoption disabled">
+      {{ buildTranslationKey('adoptSelectedFrameworksWithoutCount') | translate }}
+    </app-button>
+  </div>
+</app-onboarding-card>
+<app-onboarding-card [empty]="true" class="exclusive-feature-content">
+  <svg-icon src="exclusive-feature" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  <app-text
+    class="exclusive-feature-description"
+    [text]="buildTranslationKey('adoptSelectedFrameworksExclusiveFeature')"
+  ></app-text>
+  <app-button class="secondary mulish medium" (click)="contactUs()">
+    {{ buildTranslationKey('contactUs') | translate }}
+  </app-button>
+</app-onboarding-card>

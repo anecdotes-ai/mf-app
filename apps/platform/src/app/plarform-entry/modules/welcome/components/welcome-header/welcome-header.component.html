@@ -1,0 +1,7 @@
+<span class="header-info">
+  <span class="info">
+    <span id="filtered-items-count"> {{ buildTranslationKey('title') | translate: { userName: (currentUser$ |
+      async)?.name } }}</span>
+  </span>
+</span>
+<div class="items-wrapper"></div>

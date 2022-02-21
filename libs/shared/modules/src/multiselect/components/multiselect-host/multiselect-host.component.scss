@@ -1,0 +1,133 @@
+@import 'index';
+
+::ng-deep {
+  .multiselect-mat-menu {
+    button {
+      &:hover {
+        background-color: $mc-navy-90 !important;
+        color: $mc-white !important;
+      }
+    }
+  }
+}
+:host {
+  &.visible {
+    #multiselect-host {
+      display: block;
+    }
+  }
+  ::ng-deep {
+    app-circle-loader {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto;
+      align-self: center;
+    }
+    #multiselect-host {
+      app-three-dots-menu {
+        .three-dots-btn {
+          svg {
+            path {
+              fill: $mc-white;
+            }
+          }
+          &[aria-expanded='true'],
+          &:hover {
+            svg {
+              path {
+                fill: $mc-navy-90;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #select-all-checkmark {
+      * {
+        stroke: $mc-white;
+        color: $mc-white;
+      }
+
+      .check-box-icon {
+        svg-icon {
+          display: flex;
+          margin-right: 7px;
+        }
+      }
+
+      &:not(.checked) {
+        &.multiselect:hover {
+          svg {
+            path {
+              display: block;
+              stroke: $mc-white;
+            }
+
+            rect:not(.checkmark) {
+              fill: $mc-navy-80;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #multiselect-host {
+    position: absolute;
+    left: 50%;
+    display: none;
+
+    .content {
+      padding: 15px 20px;
+      position: relative;
+      left: -50%;
+      min-width: 470px;
+      height: 70px;
+
+      background: $mc-navy-90;
+      box-shadow: 0px 2px 13px rgba(4, 41, 62, 0.7);
+      border-radius: 6px;
+
+      display: flex;
+      justify-content: space-between;
+
+      .main-checkmarks {
+        > div {
+          align-items: center;
+          display: flex;
+          > * {
+            display: flex;
+            align-items: flex-end;
+          }
+
+          svg-icon {
+            margin-right: 7px;
+          }
+        }
+
+        > :not(:last-child) {
+          margin-right: 20px;
+        }
+
+        display: flex;
+        @include MulishFontStyle();
+
+        span {
+          color: $mc-white;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        :not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+    bottom: 30px;
+  }
+}

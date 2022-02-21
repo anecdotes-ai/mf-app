@@ -1,0 +1,45 @@
+@import 'index';
+
+:host {
+  @include MulishFontStyle();
+  display: flex;
+  flex-direction: column;
+
+  app-metadata-view::ng-deep {
+    * {
+      @apply text-white;
+    }
+  }
+
+  > .metadata-info {
+    margin-bottom: 20px;
+    @apply text-white;
+  }
+
+  > .content {
+    margin-bottom: 20px;
+
+    .text {
+      line-break: anywhere;
+    }
+  }
+
+  .footer {
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        @apply text-navy-50;
+      }
+    }
+    span {
+      margin: 0 5px;
+    }
+  }
+}
+
+app-circle-loader {
+  width: 20px;
+  height: 20px;
+}

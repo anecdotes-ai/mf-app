@@ -1,0 +1,9 @@
+<div class="flex flex-row items-center bg-navy-10 border-navy-40 border-solid border-b">
+    <div class="title flex justify-center items-center text-4xl text-navy-90 font-bold border-solid border-navy-50 px-6 border-r h-12">{{ buildTranslationKey("title") | translate }}</div>
+    <app-tabs class="flex-1" [tabs]="tabs" [allowTabTemplates]="false" [tabSize]="'large'" [borderBottom]="false"></app-tabs>
+</div>
+<div class="flex-1 overflow-hidden">
+    <perfect-scrollbar class="w-full h-full">
+        <router-outlet></router-outlet>
+    </perfect-scrollbar>
+</div>

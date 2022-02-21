@@ -1,0 +1,20 @@
+<perfect-scrollbar>
+  <div class="controls-list">
+    <ng-container *ngFor="let item of buildRenderingItems(); index as i">
+      <ng-container *ngTemplateOutlet="isCategory(item) ? categoryTmpl : controlTmpl; context: { item: item, i: i }">
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <app-anecdotes-footer class="mt-72"></app-anecdotes-footer>
+</perfect-scrollbar>
+
+<ng-template #categoryTmpl let-item="item" let-i="i">
+  <div class="category-name font-main font-bold text-3xl text-navy-90 {{ i === 0 ? 'mt-6' : 'mt-12' }} mb-5">
+    {{ item.category }} ({{ item.amount }})
+  </div>
+</ng-template>
+
+<ng-template #controlTmpl let-item="item">
+  <app-report-control class="block" [control]="item"></app-report-control>
+</ng-template>

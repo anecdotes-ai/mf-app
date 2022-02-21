@@ -1,0 +1,10 @@
+<app-loading-animation *ngIf="loaderDisplayed" width="270px" height="270px"></app-loading-animation>
+
+<ng-container *ngIf="fileStream$ | async as file">
+  <app-button (click)="downloadFile(file)" class="main medium mulish">{{
+    'viewEvidence.downloadButton' | translate
+  }}</app-button>
+  <perfect-scrollbar>
+    <ngx-json-viewer *ngIf="jsonStream$ | async as json" [json]="json"></ngx-json-viewer>
+  </perfect-scrollbar>
+</ng-container>

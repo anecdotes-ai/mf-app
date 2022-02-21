@@ -1,0 +1,6 @@
+<section class="w-full h-full" [searchScope]>
+  <app-controls-header [selectedFramework]="currentFramework" [class.audit-in-progress]="isAuditInProgress"></app-controls-header>
+  <app-framework-controls-partition #controlList (controlsLoaded)="handleControlsLoaded()" [framework]="framework"
+    *ngFor="let framework of displayedFrameworks">
+  </app-framework-controls-partition>
+</section>

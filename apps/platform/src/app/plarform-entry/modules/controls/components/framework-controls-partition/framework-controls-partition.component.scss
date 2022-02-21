@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  height: calc(100% - 82px);
+  flex-direction: column;
+  overflow: hidden;
+}
+
+app-not-found {
+  height: inherit;
+  width: inherit;
+}
+
+.controls-not-found {
+  height: inherit;
+}
+
+.controls-list {
+  height: 100% !important;
+  ::ng-deep {
+    .ps-content {
+      height: 100% !important;
+    }
+  }
+}

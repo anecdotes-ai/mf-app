@@ -1,0 +1,38 @@
+<ng-container *ngIf="(agentRelatedServices$ | async)?.length; else noServices">
+<perfect-scrollbar>
+  <div
+    class="item-wrapper flex flex-row w-full h-16 items-center justify-between"
+    *ngFor="let service of agentRelatedServices$ | async"
+  >
+    <div class="flex flex-row gap-3">
+      <svg-icon
+        class="w-9 h-9 cursor-pointer"
+        [src]="serviceIconsMap[service.service_id] | async"
+        (click)="navigateToPluginPage(service)"
+      ></svg-icon>
+      <span class="font-secondary font-bold text-navy-90 cursor-pointer" (click)="navigateToPluginPage(service)">
+        {{ service.service_display_name }}</span
+      >
+      <span class="text-navy-50">
+        {{ service.service_evidence_list.length }} {{ buildTranslationKey('evidence') | translate }}</span
+      >
+    </div>
+
+    <app-new-button
+      *ngIf="service.service_evidence_list?.length"
+      [type]="'secondary'"
+      [size]="'medium'"
+      (click)="redirectToEvidencePool(service)"
+      class="main medium mulish ml-2"
+    >
+      <span>{{ buildTranslationKey('viewEvidence') | translate }}</span>
+    </app-new-button>
+  </div>
+</perfect-scrollbar>
+</ng-container>
+
+<ng-template #noServices>
+  <app-connector-tabs-empty-state
+    [message]="buildTranslationKey('noConnectedPlugins') | translate"
+  ></app-connector-tabs-empty-state>
+</ng-template>

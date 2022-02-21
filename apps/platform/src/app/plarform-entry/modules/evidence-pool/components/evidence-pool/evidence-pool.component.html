@@ -1,0 +1,32 @@
+<app-evidence-pool-header [isEmptyStateWithNoEvidence]="isEmptyState && noEvidenceYet" #header></app-evidence-pool-header>
+<div *ngIf="!isEmptyState" class="tip-wrapper">
+  <app-tip tipId="evidence-pool-tip" [tipType]="tipTypes.TIP">
+    <app-text [text]="buildTranslationKey('evidencePoolTip')"></app-text>
+  </app-tip>
+</div>
+<app-selected-filters-list></app-selected-filters-list>
+<app-search-results-pagination></app-search-results-pagination>
+<app-evidence-pool-secondary-header #secondaryHeader [dataToDisplay]="evidence$ | async"
+  [class.hidden]="(isOnSearch$ | async) || isEmptyState" [filteredCount]="(filteringStream$ | async)?.length" (sort)="handleSort($event)"></app-evidence-pool-secondary-header>
+
+<perfect-scrollbar class="evidence-list" #perfectScroll>
+  <div *ngIf="isEmptyState; else evidenceRenderer" class="evidence-not-found">
+    <app-empty-state #searchNotFound [mainDescriptionText]="emptyStateRelativeKey + 'mainInfo' | translate"
+      [secondaryDescriptionText]="emptyStateRelativeKey + 'userAdvice'  | translate"
+      [mainButtonText]="emptyStateRelativeKey + 'backToAllEvidenceBtn'  | translate"
+      [includePlugins]="true"
+      (mainActionClick)="emptyStateBtnClick()"></app-empty-state>
+  </div>
+
+  <ng-template #evidenceRenderer>
+    <mat-accordion togglePosition="before" multi class="px-6">
+      <app-virtual-scroll-renderer class="w-full h-full" [allItemsStream]="sortedData$"
+        [filteredItemsStream]="filteringStream$" [idSelector]="selectEvidenceId" [scrollToFocusedItem]="true">
+        <ng-template #itemTemplate let-item="item">
+          <app-evidence-pool-item class="evidence-item-wrapper" [evidence]="item">
+          </app-evidence-pool-item>
+        </ng-template>
+      </app-virtual-scroll-renderer>
+    </mat-accordion>
+  </ng-template>
+</perfect-scrollbar>

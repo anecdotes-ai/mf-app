@@ -1,0 +1,55 @@
+<app-control-header
+  *ngIf="label"
+  [label]="label"
+  [labelParamsObj]="labelParamsObj"
+  [index]="index"
+  [required]="required"
+></app-control-header>
+<div class="wrapper w-full" [class.pointer-events-none]="isDisabled$ | async">
+  <app-control-placeholder *ngIf="!hasValue && !isActive" class="absolute" (click)="placeholderClick()" #placeholderElement
+    [placeholder]="placeholder" [placeholderParamsObj]="placeholderParamsObj" [placeholderIcon]="placeholderIcon">
+  </app-control-placeholder>
+  <textarea
+    #textfield
+    id="{{ fieldName }}-textfield"
+    class="font-main text-base text-navy-90 bg-white outline-none border-solid w-full py-2"
+    [class.resize-none]="!resizable"
+    [class.h-10]="!(rows >= 1) && !autogrow"
+    [class.resize-none]="autogrow"
+    [class.overflow-hidden]="autogrow"
+    [(ngModel)]="value"
+    [class.rows-specified]="rows > 1"
+    [disabled]="isDisabled$ | async"
+    [attr.maxLength]="maxLength ? maxLength : -1"
+    [attr.readOnly]="readonly"
+    [rows]="rows"
+    (blur)="inputBlur()"
+    (ngModelChange)="valueChangesEventEmitHandler($event)"
+    (input)="input.emit($event)"
+    (focusin)="inputFocusIn()"
+    (focusout)="inputFocusOut()"
+  >
+  </textarea>
+
+  <div class="buttons">
+    <ng-content select="app-button"></ng-content>
+    <ng-container *ngIf="removable">
+      <button (click)="removeControl.emit(fieldName)" class="remove-contol-button">
+        <svg-icon src='close'>
+        </svg-icon>
+      </button>
+    </ng-container>
+  </div>
+</div>
+<div class="flex justify-end items-center">
+  <app-control-errors class="flex-1" *ngIf="displayErrors && errorsDisplayed" [errorTexts]="errorTexts"></app-control-errors>
+  <app-characters-counter *ngIf="displayCharactersCounter" [value]="value" [maxLength]="maxLength"></app-characters-counter>
+</div>
+
+<ng-template #requiredPopover>
+  <div class="popover-container">
+    <span>
+     {{ 'core.formControls.requiredTooltip' | translate }} 
+    </span>
+  </div>
+</ng-template>

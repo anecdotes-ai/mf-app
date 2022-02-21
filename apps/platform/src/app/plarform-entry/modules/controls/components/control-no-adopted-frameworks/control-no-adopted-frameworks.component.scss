@@ -1,0 +1,25 @@
+@import 'index';
+
+:host {
+  .center-description.no-adopted-frameworks {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+    span {
+      @include MulishBold(21px, 30px);
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      color: $mc-navy-90;
+      padding-bottom: 30px;
+    }
+
+    app-button {
+      width: fit-content;
+      align-self: center;
+    }
+  }
+}

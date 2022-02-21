@@ -1,0 +1,42 @@
+@import 'index';
+
+:host {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+#coming-soon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: inherit;
+  position: relative;
+
+  .center-content {
+    flex-direction: column;
+
+    .coming-soon-title {
+      @include MerriWeatherFontStyle(38px, 20px);
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+      height: 60px;
+      color: $mc-navy-70;
+    }
+
+    svg-icon.small {
+      svg {
+        width: 150px !important;
+        height: 149px !important;
+      }
+    }
+  }
+
+  svg-icon,
+  span {
+    align-self: center;
+  }
+}

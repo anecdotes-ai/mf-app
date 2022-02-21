@@ -1,0 +1,4 @@
+<svg-icon *ngIf="isPluginFavorite; else noFavouriteStar" [src]="'star'"></svg-icon>
+<ng-template #noFavouriteStar>
+    <svg-icon [src]="'star-empty'"></svg-icon>
+</ng-template>

@@ -1,0 +1,13 @@
+<app-colored-dropdown-control
+  class="text-navy-90"
+  [buttonBackgroundClass]="'bg-navy-20 hover:bg-navy-40'"
+  [radius]="'large'"
+  [verticalSize]="'small'"
+  [formControl]="control"
+  [data]="options"
+  [displayValueSelector]="strategyDisplayValueSelector"
+  [clearEnabled]="true"
+  (clearSelection)="clearSelection()"
+  [tooltip]="!control.value ? (buildTranslationKey('notSetTooltip') | translate) : null"
+>
+</app-colored-dropdown-control>

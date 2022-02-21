@@ -1,0 +1,4 @@
+<div class="slidable" [@expandCollapse]="panelState">
+    <app-commenting-panel class="overflow-hidden" *ngIf="isCommentingPanelOpen$ | async"></app-commenting-panel>
+    <app-data-filter-outlet [class.hidden]="isCommentingPanelOpen$ | async"></app-data-filter-outlet>
+</div>

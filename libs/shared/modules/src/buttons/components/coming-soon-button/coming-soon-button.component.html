@@ -1,0 +1,8 @@
+<span class="overlay">
+  <svg-icon src="small_rocket" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  <span>{{ labelTranslationKey | translate }}</span>
+</span>
+<svg-icon *ngIf="svgIconPath" [src]="svgIconPath" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+<span>
+  <ng-content></ng-content>
+</span>

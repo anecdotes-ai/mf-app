@@ -1,0 +1,14 @@
+:host {
+  @apply flex flex-col pb-5;
+  @apply bg-navy-30;
+  width: 80vw;
+  height: 90vh;
+}
+
+:host {
+  &::ng-deep {
+    .items-container {
+      @apply flex flex-col gap-4;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<app-base-modal [noHeader]="true" [noPadding]="true" class="block">
+  <section class="flex items-center h-14 pl-6 pr-14 border-b border-navy-30 bg-navy-10">
+    <section class="flex-1 flex items-center">
+      <div class="main-font-13 font-bold max-w-md ellipsis mr-2">{{ riskName }}</div>
+      <app-chip
+        *ngIf="!!riskLevel"
+        class="{{ riskLevelBackgroundClass }} h-6 ellipsis w-min font-main font-bold text-sm text-white capitalize"
+      >
+        {{ riskLevel }}
+      </app-chip>
+    </section>
+
+    <app-new-button class="header-btn" [svgIconPath]="'export'" (click)="downloadRegistry()">
+      {{ buildTranslationKey('download') | translate }}
+    </app-new-button>
+  </section>
+  <app-risk-registry></app-risk-registry>
+</app-base-modal>

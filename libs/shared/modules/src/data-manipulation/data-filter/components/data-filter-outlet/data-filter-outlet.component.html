@@ -1,0 +1,11 @@
+<app-data-filter
+  #filterComponent
+  *ngIf="filterContext && filterContext.data && filterContext.data.length && filterContext.filterDefinition"
+  [filteringDefinition]="filterContext.filterDefinition"
+  [data]="filterContext.data"
+  (filter)="filterData($event)"
+  (expand)="filterExpanded()"
+  (collapse)="filterCollapsed()"
+  (filtering)="filtering($event)"
+  (filteringOptions)="filteringOptions($event)"
+></app-data-filter>

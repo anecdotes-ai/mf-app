@@ -1,0 +1,28 @@
+<div
+  class="icon-wrapper"
+  [ngbTooltip]="templateTooltip"
+  [keepOnHover]="true"
+  (hidden)="setInitialText()"
+  placement="top bottom"
+  tooltipClass="default-tooltip"
+>
+  <svg-icon
+    class="copy-icon"
+    *ngIf="!animationActive; else successAnimation"
+    [src]="'copy'"
+    (click)="$event.stopPropagation(); copyEntityName()"
+  ></svg-icon>
+</div>
+
+<ng-template #successAnimation>
+  <app-success-animation
+    class="animation"
+    [activateAnimation]="animationActive"
+    [height]="'20px'"
+    [width]="'20px'"
+  ></app-success-animation
+></ng-template>
+
+<ng-template #templateTooltip>
+  <span class="text-base text-white cursor-pointer">{{ currentTooltipText | translate }}</span>
+</ng-template>

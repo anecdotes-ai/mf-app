@@ -1,0 +1,17 @@
+<ng-container *ngIf="isErrorScreenDisplayed">
+  <app-tenant-logo></app-tenant-logo>
+  <section class="with-side-lines">
+    <div></div>
+  </section>
+  <section class="center-text">
+    <svg-icon class="status-icon" [src]="'status_error'"></svg-icon>
+    <h1><b>{{ buildTranslationKey('linkExpiredText') | translate }}</b></h1>
+    <h1 class="sign-in-again-text">
+      <span>{{ buildTranslationKey('signInAgainText') | translate }}</span>
+      <span>
+        <span>{{ buildTranslationKey('signInAgainSecondPartText') | translate }}&nbsp;</span>
+        <a [routerLink]="'/auth/sign-in'">{{ buildTranslationKey('signInLink') | translate }}</a>
+      </span>
+    </h1>
+  </section>
+</ng-container>

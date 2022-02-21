@@ -1,0 +1,12 @@
+<app-base-modal class="approve-on-behalf-modal" iconPath="success" [titleTranslationKey]="buildTranslationKey('title')"
+  [footerTemplate]="footerTemplate" [descriptionTranslationKey]="buildTranslationKey('description')"
+                [descriptionParams]="{policy_name: policy?.policy_name, name: approverInstance?.name}">
+  <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+</app-base-modal>
+<ng-template #footerTemplate>
+  <div class="buttons">
+    <app-button (click)="approve()" [loading]="isLoading" size="fixed160"
+      class="mulish main medium"> {{ buildTranslationKey('approve') | translate }}
+    </app-button>
+  </div>
+</ng-template>

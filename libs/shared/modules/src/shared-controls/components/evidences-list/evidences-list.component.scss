@@ -1,0 +1,36 @@
+@import 'index';
+@import './media';
+
+.no-evidences {
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $mc-navy-70;
+  @include MulishFontStyle(13px, 150%);
+  border-top: #edf0f1 1px solid;
+
+  svg-icon {
+    margin-right: 10px;
+  }
+}
+
+.evidence-wrapper {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid $mc-background;
+  position: relative;
+  min-height: 56px;
+  background: $mc-white;
+
+  *:first-child {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: $mc-navy-90;
+  }
+
+  *:last-child {
+    width: 100%;
+  }
+}

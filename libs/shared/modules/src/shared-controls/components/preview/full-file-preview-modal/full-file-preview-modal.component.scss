@@ -1,0 +1,190 @@
+@import './index.scss';
+
+$offset: 30px;
+$actions-height: 70px;
+$evidence-height: 64px;
+$evidence-report-height: 34px;
+$tip-height: 60px;
+
+:host::ng-deep {
+  perfect-scrollbar {
+    overflow: visible;
+
+    .ps {
+      border-radius: 6px;
+    }
+
+    .ps-overlay {
+      display: none;
+    }
+
+    .ps-content {
+      height: 100%;
+      padding-right: 0;
+    }
+
+    & > .ps.ps--active-y > .ps__rail-y {
+      right: -18px !important;
+      background: none;
+    }
+
+    .ps__rail-x,
+    .ps__rail-y {
+      opacity: 0.9;
+      transition: none;
+    }
+
+    & > .ps.ps--active-x > .ps__rail-x {
+      background: none;
+      bottom: -20px !important;
+    }
+
+    .ps__thumb-x {
+      height: 6px !important;
+      transition: none;
+    }
+
+    .ps__thumb-y {
+      width: 6px !important;
+      transition: none;
+    }
+  }
+
+  app-image-preview .image-preview-wrapper {
+    border-radius: 6px;
+  }
+}
+
+.full-data-modal {
+  width: 87vw;
+  max-height: 93vh;
+  height: 93vh;
+  background: $mc-background;
+}
+
+::ng-deep {
+  #full-file-preview-modal {
+    #close-modal-btn {
+      right: 12px;
+      top: 12px;
+    }
+  }
+}
+
+.evidence-element {
+  position: relative;
+  padding-left: 42px;
+  justify-content: space-between;
+  padding-top: 6.5px;
+  padding-bottom: 6.5px;
+  background: $mc-white;
+  height: $evidence-height;
+}
+
+.evidence-element,
+.evidence-description-section,
+.evidence-attractive-elements-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.evidence-description-section {
+  max-width: 50%;
+}
+
+.evidence-property-value-description {
+  @include MulishFontStyle();
+  color: $mc-navy-50;
+}
+
+.evidence-name {
+  padding-left: 14px;
+  margin-right: 30px;
+}
+
+.right-evidence-section {
+  display: flex;
+  flex-direction: row;
+  margin-right: 95px;
+  > * {
+    min-width: 158px;
+
+    &:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
+}
+
+.evidence-service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 3px;
+
+  svg-icon {
+    svg {
+      max-height: 22px;
+      max-width: 22px;
+    }
+  }
+}
+
+.arrow-single {
+  transform: rotate(90deg);
+  margin: 0 12px 0 15px;
+
+  svg {
+    width: 10px;
+    height: 5px;
+  }
+
+  * {
+    fill: $mc-navy-50;
+  }
+}
+
+.evidence-type {
+  min-height: 43px;
+  min-width: 34px;
+}
+
+.evidence-name {
+  @include MerriWeatherFontStyle(14px, 20px);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: $mc-navy-90;
+}
+
+.actions-group {
+  width: 100%;
+  height: $actions-height;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  display: flex;
+
+  padding-right: $offset;
+  padding-left: $offset;
+}
+
+.file-wrapper {
+  padding-bottom: 15px;
+  padding-right: $offset;
+  padding-left: $offset;
+  height: calc(100% - #{$actions-height} - #{$evidence-height} - #{$evidence-report-height});
+
+  &.with-tip {
+    height: calc(100% - #{$actions-height} - #{$evidence-height} - #{$evidence-report-height} - #{$tip-height});
+  }
+}
+
+.evidence-tip-wrapper{
+  padding: 10px 30px;
+}
+
+.report-wrapper{
+  padding: 0 0 15px 30px;
+  background-color: $mc-navy-30;
+}

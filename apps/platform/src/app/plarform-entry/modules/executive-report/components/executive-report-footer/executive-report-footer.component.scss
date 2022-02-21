@@ -1,0 +1,95 @@
+@import 'index';
+@import 'component-header-shared';
+
+:host {
+  display: flex;
+  height: 81px;
+  background: $mc-navy-90;
+  background: $mc-navy-90;
+  padding: 0 20px;
+
+  .items-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    .info-items {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .content-element:not(:last-of-type) {
+        margin-right: 50px;
+      }
+    }
+  }
+
+  app-specific-information-item::ng-deep {
+    align-items: center;
+    .icon-border-wrapper {
+      background: $mc-navy-80;
+      border: unset;
+
+      svg-icon {
+        svg * {
+          fill: $mc-white;
+        }
+
+        &.automated_evidence {
+          svg {
+            :not(:first-child) {
+              fill: $mc-navy-90 !important;
+            }
+          }
+        }
+
+        &.applicable {
+          rect {
+            stroke: $mc-white;
+            fill: none !important;
+          }
+        }
+
+        &.dashboard\/ROI {
+          svg * {
+            fill: none;
+          }
+          svg {
+            path:first-child {
+              fill: white !important;
+            }
+          }
+        }
+
+        &.plugins {
+          svg * {
+            fill: none !important;
+            stroke: $mc-white;
+
+            rect {
+              stroke: none;
+            }
+          }
+        }
+      }
+    }
+
+    .element-value {
+      @include MerriWeatherBold(24px, 30px);
+    }
+
+    .element-info {
+      position: relative;
+
+      .element-description {
+        * {
+          color: $mc-white;
+        }
+      }
+    }
+  }
+}

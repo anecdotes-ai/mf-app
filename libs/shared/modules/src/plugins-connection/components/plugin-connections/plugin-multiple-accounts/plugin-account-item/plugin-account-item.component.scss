@@ -1,0 +1,6 @@
+:host {
+  @apply font-main flex justify-between items-center h-20;
+  .wrapper-right-content {
+    min-width: 200px;
+  }
+}

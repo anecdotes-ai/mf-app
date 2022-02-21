@@ -1,0 +1,23 @@
+<div class="flex-1 text-navy-90 font-bold align-self-center ellipsis">{{ control?.control_name }}</div>
+<div class="right-side grid gap-6 items-center justify-self-start">
+  <app-control-status [controlId]="controlId" class="justify-self-start align-self-center pointer-events-none w-min max-w-32">
+  </app-control-status>
+  <app-frameworks-icon
+    [relatedFrameworks]="frameworkNames"
+    [shouldDisplayIfNoControls]="true"
+    class="justify-self-start align-self-center ellipsis pointer-events-none"
+  >
+  </app-frameworks-icon>
+</div>
+<app-three-dots-menu
+  *ngIf="!isLoading; else loadingTemplate"
+  class="ml-4 flex justify-end align-self-center"
+  [menuActions]="threeDotsMenu"
+  (click)="$event.stopPropagation()"
+>
+</app-three-dots-menu>
+<ng-template #loadingTemplate>
+  <div class="flex ml-4 w-10 h-10 justify-center align-items-center">
+    <app-circle-loader [appearance]="'dark'"></app-circle-loader>
+  </div>
+</ng-template>

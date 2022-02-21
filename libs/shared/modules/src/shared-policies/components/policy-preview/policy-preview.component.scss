@@ -1,0 +1,34 @@
+@import 'index.scss';
+@import 'styles';
+
+:host {
+  @apply flex flex-col items-center px-25;
+
+  ::ng-deep {
+    #policy-settings-btn {
+      &[type='secondary']:hover {
+        path {
+          stroke: $mc-white;
+        }
+      }
+      &[type='secondary'] {
+        path {
+          stroke: $mc-navy-90;
+        }
+      }
+    }
+  }
+
+  .preview-top {
+    @apply flex w-full justify-between pt-7 mb-5;
+
+    &.no-preview {
+      @apply justify-end;
+    }
+    .title {
+      .next-cycle-date {
+        @include basicLight();
+      }
+    }
+  }
+}

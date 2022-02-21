@@ -1,0 +1,164 @@
+@import './index.scss';
+
+:host {
+  display: block;
+  position: relative;
+
+  > div {
+    display: inline-flex;
+    min-height: 70px;
+    height: inherit;
+    white-space: nowrap;
+    border-radius: 6px;
+    background: $mc-navy-90;
+    padding: 15px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    box-shadow: 0px 2px 13px rgba($color: $mc-navy-90, $alpha: 0.7);
+  }
+
+  &:not(.loading) {
+    > div {
+      min-width: 330px;
+    }
+  }
+
+  .main-content {
+    @include MulishFontStyle(13px, 21px);
+    display: flex;
+    margin: 0 16px;
+    align-items: center;
+
+    color: $mc-white;
+  }
+}
+
+:host {
+  &.loading,
+  &.secondary-content {
+    height: 70px;
+  }
+}
+
+:host.loading {
+  > div {
+    min-width: 120px;
+    height: inherit;
+  }
+
+  .content-wrapper {
+    width: initial;
+  }
+
+  .main-content {
+    display: flex;
+    overflow: hidden;
+    transition: all 0.5s;
+    width: 0;
+  }
+
+  &:hover {
+    > div {
+      width: initial;
+      .main-content {
+        max-width: none;
+        width: 200px;
+      }
+    }
+  }
+}
+
+.content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-wrapper {
+  display: flex;
+}
+
+.secondary-content {
+  padding-top: 15px;
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: $mc-white;
+  border: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+  border-radius: 6px;
+
+  .icon {
+    height: inherit;
+    justify-content: center;
+    width: inherit;
+    display: flex;
+    align-self: center;
+    padding: 3px;
+    max-width: 32px;
+    max-height: 32px;
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .status-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -10px;
+    margin-right: -13px;
+  }
+}
+
+.loader-wrapper {
+  display: flex;
+  width: 24px;
+  height: 24px;
+}
+
+.close-btn {
+  background: $mc-navy-90;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.column-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.secondary-content {
+  app-button {
+    padding: 0 20px;
+    height: 40px;
+  }
+}
+
+.loading-evidences-text {
+  max-width: 200px;
+  min-width: 200px;
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  span {
+    &:first-child {
+      margin-right: 2px;
+    }
+
+    &:last-child {
+      font-weight: bold;
+    }
+  }
+}

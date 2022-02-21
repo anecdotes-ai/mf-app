@@ -1,0 +1,45 @@
+<ng-container *ngIf="controlRequirements$ | async as requirements">
+  <div class="header">
+    <span class="req-count" translate [translateParams]="{ req_count: showedRequirementsCount$ | async }">
+      {{ buildTraslationKey('count') }}
+      <span></span>
+    </span>
+    <ng-container *ngIf="!isInAudit && !viewOnly">
+      <span [ngbTooltip]="isReadonly ? (buildTraslationKey('controlFreeze') | translate) : null" [keepOnHover]="true" placement="top">
+        <app-new-button (click)="openAddRequirementModal()" class="add-req-btn mulish transparent" [svgIconPath]="'magic'" [disabled]="isReadonly" [type]="'basic'">
+          {{ buildTraslationKey('addRequirement') | translate }}
+        </app-new-button>
+        <app-new-button *ngIf="(ignoredRequirementsExist$ | async)" class="mulish transparent" (click)="toggleIgnoredReq()"
+          [svgIconPath]="ignoredRequirementsShowed ? 'hide_n-a' : 'show_n-a'" [disabled]="isReadonly" [type]="'basic'">
+          {{
+          buildTraslationKey(ignoredRequirementsShowed ? 'hideIgnoredBtn' : 'showIgnoredBtn')
+          | translate: { req_count: ignoredRequirementsCount$ | async }
+          }}
+        </app-new-button>
+      </span>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="requirements?.length; else noRequirementsTemplate">
+    <ng-container *ngFor="let req of requirements; let i = index; trackBy: reqTrackBy">
+      <div *ngIf="!req || !isInAudit || req?.requirement_applicability"
+        [class.hidden]="(req && !ignoredRequirementsShowed && !req.requirement_applicability) || isRequirementHidden(req)"
+        class="requirement-wrapper">
+        <app-control-requirement [displayPlaceholders]="i === 0" [viewOnly]="viewOnly"
+          [displayedRequirementsAndEvidences]="displayedRequirementsAndEvidences" [controlInstance]="controlInstance"
+          [controlRequirement]="req" [currentFramework]="framework" [allRequirementsHidden]="!ignoredRequirementsShowed" [forceExpanded]="areRequirementsExpanded">
+        </app-control-requirement>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #noRequirementsTemplate>
+  <div class="no-requirements">
+    <span>{{ buildTraslationKey('noRequirementsInfo') | translate }}</span>
+    <app-button class="main mulish medium" (click)="openAddRequirementModal()">
+      <svg-icon src="magic" class="magic-icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      <span>{{ buildTraslationKey('addRequirement') | translate }}</span>
+    </app-button>
+  </div>
+</ng-template>

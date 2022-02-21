@@ -1,0 +1,29 @@
+<app-plugin-static-state-header
+  id="header"
+  *ngIf="headerDisplayed"
+  [service]="service"
+  [displayThreeDotsMenu]="displayHeaderThreeDotsMenu"
+  [displayCloseButton]="displayCloseButton"
+  [headerTitleTranslationKey]="customDescriptionTranslationKey"
+  (closeBtnClick)="closeBtnClick.emit({})"
+>
+  <div *ngIf="leftSideHeaderContent" id="left-content">
+    <ng-container *ngTemplateOutlet="leftSideHeaderContent"></ng-container>
+  </div>
+</app-plugin-static-state-header>
+
+<section id="content-section" class="overflow-scroll overflow-x-hidden">
+  <app-success-animation *ngIf="playSuccessAnimation" [width]="'70px'" [height]="'70px'" [activateAnimation]="true" class="absolute z-10 w-full h-full bg-white"></app-success-animation>
+  <div class="flex-wrapper overflow-scroll">
+    <app-plugin-static-state-tip *ngIf="displayServiceTipIfExists" [service]="service"></app-plugin-static-state-tip>
+    <div id="state-content">
+      <ng-template *ngTemplateOutlet="contentTemplate"></ng-template>
+    </div>
+  </div>
+  <div id="above-footer-content">
+    <ng-template *ngTemplateOutlet="aboveFooterContentTemplate"></ng-template>
+  </div>
+</section>
+<section *ngIf="footerDisplayed" id="footer-section">
+  <ng-template *ngTemplateOutlet="footerTemplate"></ng-template>
+</section>

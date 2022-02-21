@@ -1,0 +1,114 @@
+@import 'index';
+
+@import 'component-header-shared';
+
+:host {
+  @apply h-20 min-h-20 px-6;
+}
+
+:host ::ng-deep {
+  .items-info {
+    margin: 0;
+    margin-left: 25px;
+
+    svg-icon {
+      top: 0;
+    }
+
+    .workspace-for,
+    .workspace-for app-data-select .title {
+      margin: 0;
+      @include MulishBold(21px, 26px);
+
+      svg-icon.custom-icon {
+        margin: 15px;
+      }
+    }
+
+    .arrow-icon svg path{
+      @apply fill-navy-80;
+    }
+  }
+
+  app-controls-secondary-header {
+    display: flex;
+    height: 60px;
+    background: $mc-navy-10;
+    border-bottom: 1px solid $mc-navy-40;
+  }
+
+  #add-controls:hover {
+    .add-controls-icon path {
+      fill: $mc-white;
+    }
+  }
+
+  .add-controls-icon path {
+    fill: $mc-navy-90;
+  }
+}
+
+.expand-evidences {
+  display: inline-block;
+  fill: currentColor;
+  height: 28px;
+  width: 24px;
+}
+
+.icon-margin {
+  margin-right: 10.5px;
+}
+
+.collapse-all {
+  &:hover {
+    cursor: pointer;
+  }
+
+  #vetical-minus {
+    display: none;
+  }
+}
+
+:host .disabled .collapse-all {
+  opacity: 0.1;
+}
+
+.adopt-audit-btn {
+  width: 177px;
+
+  &:hover {
+    path {
+      fill: $mc-white;
+    }
+  }
+}
+
+.audit-in-progress-btn {
+  background: $mc-blue-70 !important;
+
+  svg-icon {
+    margin-right: 10px;
+  }
+}
+
+.audit-not-in-progress-btn {
+  svg-icon {
+    margin-right: 10px;
+  }
+
+  path {
+    fill: $mc-navy-90;
+  }
+
+  mask#path-1-inside-1 {
+    path {
+      fill: white;
+    }
+  }
+
+  &:hover {
+    path {
+      fill: $mc-white;
+    }
+  }
+}

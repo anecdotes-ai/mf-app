@@ -1,0 +1,5 @@
+<ng-container *ngFor="let section of statusBarSections">
+  <div class="status-item" *ngIf="section.width" [class]="section.cssClass" [style.width.%]="section.width"
+    [style.max-width.%]="section.width">
+  </div>
+</ng-container>

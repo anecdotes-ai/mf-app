@@ -1,0 +1,25 @@
+@import 'index';
+@import './mat-menu-custom-styles.scss';
+
+.autocomplete-list {
+  z-index: 10;
+  .autocomplete-item {
+    display: flex;
+
+    > * {
+      align-self: center;
+    }
+  }
+
+  perfect-scrollbar::ng-deep {
+    max-height: inherit;
+
+    .ps {
+      max-height: inherit;
+
+      .ps-content {
+        max-height: inherit;
+      }
+    }
+  }
+}

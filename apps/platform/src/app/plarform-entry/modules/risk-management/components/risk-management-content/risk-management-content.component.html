@@ -1,0 +1,27 @@
+<app-selected-filters-list></app-selected-filters-list>
+<app-search-results-pagination></app-search-results-pagination>
+<app-risk-grid-header></app-risk-grid-header>
+<mat-accordion class="h-full" [class.hidden]="isNotFoundState$ | async" togglePosition="before" multi>
+  <perfect-scrollbar class="pt-0 px-6" #parentScroll>
+    <app-virtual-scroll-renderer
+      [filteredItemsStream]="risks$"
+      [allItemsStream]="risks$"
+      [parentScroller]="parentScroll"
+      [idSelector]="riskIdSelector"
+    >
+      <ng-template #itemTemplate let-item="item">
+        <app-risk-item [riskId]="item.id" [isExpanded]="item.id === expandedRisk" (riskExpanded)="riskExpanded($event)" [searchableRow]="item" [scrollToElementOnFocus]="true" [isFilterPanelOpen]="isFilterPanelOpen"></app-risk-item>
+      </ng-template>
+    </app-virtual-scroll-renderer>
+  </perfect-scrollbar>
+</mat-accordion>
+
+<div *ngIf="isNotFoundState$ | async" class="risks-not-found flex center-content h-full">
+  <app-not-found
+    #searchNotFound
+    [mainInfoTranslationKey]="buildTranslationKey('notFound.info')"
+    [userAdviceTranslationKey]="buildTranslationKey('notFound.userAdvice')"
+    [backToAllDataTranslationKey]="buildTranslationKey('notFound.backToAllRisksBtn')"
+    (backToAllDataBtnClick)="clearSearch()"
+  ></app-not-found>
+</div>

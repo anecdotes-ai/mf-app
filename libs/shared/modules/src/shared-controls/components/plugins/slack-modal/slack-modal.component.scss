@@ -1,0 +1,155 @@
+@import 'index';
+
+$margin-padding: 0 30px;
+
+:host {
+  width: 600px;
+  height: 555px;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  transition: all 10s;
+
+  &.loading > *:not(.loader-wrapper) {
+    opacity: 0;
+  }
+
+  .loader-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    & > * {
+      opacity: 0;
+    }
+
+    app-secondary-loading-animation {
+      height: 50%;
+      width: 50%;
+    }
+  }
+
+  &::ng-deep {
+    form {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        margin-bottom: 30px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      #message {
+        textarea {
+          height: 70px;
+          resize: none;
+        }
+      }
+    }
+  }
+}
+
+header {
+  margin: 20px 0 33px 0;
+
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.content {
+  height: 100%;
+}
+
+.content,
+footer {
+  padding: 0 30px;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 80px;
+  background: $mc-background;
+
+  > * {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.evidence-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba($mc-background, 0.21);
+  border: 1px dashed rgba($color: $mc-navy-90, $alpha: 0.3);
+  border-radius: 3px;
+  height: 67.26px;
+  padding: 10px;
+  margin-bottom: 31px;
+
+  .evidence-name {
+    @include MerriWeatherFontStyle(14px, 20px);
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: $mc-navy-90;
+    margin-left: 10px;
+  }
+}
+
+.title {
+  margin-top: 15px;
+  @include MulishBold(21px, 26px);
+  font-weight: 700;
+}
+
+app-text {
+  align-items: center;
+}
+
+.select-workspace-row {
+  margin-top: 24px;
+}
+
+.success-modal,
+.failed-modal {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 211px;
+
+  header {
+    height: 100%;
+    margin-bottom: 0;
+  }
+}
+
+.failed-modal {
+  min-height: 241px;
+  .description {
+    @include MulishFontStyle(13px, 21px);
+    padding: 20px;
+    color: $mc-navy-70;
+  }
+  svg-icon {
+    svg {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}

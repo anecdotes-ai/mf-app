@@ -1,0 +1,15 @@
+<app-dropdown-control
+  #dropdown
+  [data]="dataToDisplay$ | async"
+  [disableValueSelector]="disableValueSelector"
+  [selectFirstValue]="false"
+  [selectedValue]="selectedItem"
+  [displayValueSelector]="displayValueSelector"
+  [placeholderTranslationKey]="buildTranslationKey('placeholder')"
+  [itemHoverTooltip]="onItemHoverTooltipObj"
+  (select)="select($event)"
+></app-dropdown-control>
+
+<ng-template #itemTooltip>
+  <span>{{ buildTranslationKey('itemTooltip') | translate }}</span>
+</ng-template>

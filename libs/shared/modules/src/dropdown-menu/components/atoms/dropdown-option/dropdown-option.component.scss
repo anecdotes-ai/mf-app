@@ -1,0 +1,50 @@
+@import 'variables/palette';
+
+:host::ng-deep {
+  height: 40px;
+  border-radius: 3px;
+  padding: 10px;
+  column-gap: 10px;
+  @apply bg-white;
+
+  svg-icon {
+    width: 20px;
+    height: 20px;
+
+    &.fill {
+      path {
+        @apply fill-navy-70;
+      }
+    }
+
+    &.stroke {
+      path {
+        @apply stroke-navy-70;
+      }
+    }
+
+    &.transparent {
+      @apply opacity-0;
+    }
+  }
+
+  &.selected {
+    background: $mc-navy-30;
+  }
+}
+
+:host:hover::ng-deep {
+  svg-icon {
+    &.fill {
+      path {
+        @apply fill-navy-90;
+      }
+    }
+
+    &.stroke {
+      path {
+        @apply stroke-navy-90;
+      }
+    }
+  }
+}

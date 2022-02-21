@@ -1,0 +1,47 @@
+<app-control-header *ngIf="titleTranslationKey" [label]="titleTranslationKey" [index]="index" [required]="required" [infoTooltip]="infoTooltip">
+</app-control-header>
+<div class="flex flex-row" cdkOverlayOrigin #trigger="cdkOverlayOrigin" >
+  <span #contentContainer (click)="toggleDropdown($event)" [class.pointer-events-none]="isDisabled$ | async">
+    <ng-content select="[slot='dropdown-button']"></ng-content>
+  </span>
+  <app-dropdown-button *ngIf="!contentExists"
+                       [isOpen]="isDropdownOpened"
+                       [value]="getDisplayValue(value)"
+                       [placeholder]="placeholderTranslationKey | translate"
+                       (click)="toggleDropdown($event)"
+                       [disabled]="isDisabled$ | async"
+  ></app-dropdown-button>
+  <svg-icon *ngIf="comingSoon" class="coming-soon-icon" src="coming_soon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+</div>
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isDropdownOpened"
+  [cdkConnectedOverlayPanelClass]="overlayPanelClass" (backdropClick)="close()">
+  <app-dropdown-options-backdrop [style.width.px]="listWidth" #openableElement>
+    <app-text-field *ngIf="searchEnabled" [formControl]="searchField" [clearButtonEnabled]="true" [placeholderIcon]="'search'" [placeholder]="searchFieldPlaceholder | translate"
+      (valueChanges)="search($event)" (click)="searchFieldClick($event)">
+    </app-text-field>
+    <perfect-scrollbar [style.max-height]="listMaxHeight + 'px'" [config]="{ suppressScrollX: true }">
+      <div *ngFor="let item of displayedData" [ngbTooltip]="itemHoverTooltip?.displayCondition(item) ? itemHoverTooltip.templateTooltip : undefined"> 
+        <app-dropdown-option  
+        [style.height]="buttonHeight + 'px'" 
+        [disabled]="getIsValueDisabled(item)"
+        [selected]="item === value" 
+        (click)="selectItem(item)" 
+        >
+        <ng-container *ngTemplateOutlet="customOption; context: {thisItem: item}"></ng-container>
+      </app-dropdown-option>
+  </div>
+      <span *ngIf="!displayedData?.length" class="empty-list-placeholder">{{emptyListPlaceholder | translate}}</span>
+      <app-dropdown-option *ngIf="bottomDropdownAction && bottomDropdownDisplayed" [context]="searchValue" [style.height]="buttonHeight + 'px'" [menuAction]="bottomDropdownAction">
+            </app-dropdown-option>
+    </perfect-scrollbar>
+    <span class="dropdown-footer">
+      <ng-content select="[slot='dropdown-footer']"></ng-content>
+    </span>
+  </app-dropdown-options-backdrop>
+</ng-template>
+
+<ng-template #customOption let-item="thisItem">
+  <svg-icon *ngIf="item.icon" [src]="item.icon"></svg-icon>
+  <span>{{getDisplayValue(item)}}</span>
+</ng-template>

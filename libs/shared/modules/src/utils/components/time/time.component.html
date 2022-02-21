@@ -1,0 +1,8 @@
+<span class="time-ago">
+  <ng-container *ngIf="timeAgo$ | async as timeAgo">
+    {{ buildTranslationKey(timeAgo.timeKind) | translate: { num: timeAgo.num } }}
+  </ng-container>
+</span>
+<span class="date">
+  {{date | date: dateFormat}}
+</span>

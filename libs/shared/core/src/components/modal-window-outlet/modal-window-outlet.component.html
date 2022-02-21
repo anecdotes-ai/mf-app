@@ -1,0 +1,45 @@
+<ng-container *ngIf="modalSwitcherMode && modalWindowsQueue?.length; else singleModal">
+  <div id="modal-window">
+    <ng-container #switcherRef="switcher" [componentsToSwitch]="modalWindowsQueue" [sharedContext]="currentModalWindow.window.context"></ng-container>
+    <button *ngIf="isCloseBtnDisplay" id="close-modal-btn" (click)="closeModal()">
+      <svg-icon preserveAspectRatio="none" [stretch]="true" src="close"></svg-icon>
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #singleModal>
+  <ng-container [ngSwitch]="currentModalWindow.type" *ngIf="currentModalWindow">
+    <ng-container *ngSwitchCase="'alert'">
+      <ng-container *ngTemplateOutlet="alert; context: currentModalWindow.window.context"> </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <div id="modal-window">
+        <ng-container
+          *ngTemplateOutlet="currentModalWindow.templateWindow.template; context: currentModalWindow.window.context"
+        ></ng-container>
+        <button *ngIf="isCloseBtnDisplay" id="close-modal-btn" (click)="closeModal()">
+          <svg-icon preserveAspectRatio="none" [stretch]="true" src="close"></svg-icon>
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #alert let-messageTranslationKey="messageTranslationKey" let-type="type">
+  <div id="alert">
+    <div class="content">
+      <ng-container [ngSwitch]="type">
+        <ng-container *ngSwitchCase="'success'">
+          <app-success-animation width="50px" height="50px" [activateAnimation]="true"></app-success-animation>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <svg-icon [src]="getAlertIconByAlertType(type)" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+        </ng-container>
+      </ng-container>
+      <span class="message" translate>{{ messageTranslationKey }}</span>
+    </div>
+    <div class="footer">
+      <app-button [clickOnEnter]="true" (click)="closeModal()">{{ 'core.alerts.okBtn' | translate }}</app-button>
+    </div>
+  </div>
+</ng-template>

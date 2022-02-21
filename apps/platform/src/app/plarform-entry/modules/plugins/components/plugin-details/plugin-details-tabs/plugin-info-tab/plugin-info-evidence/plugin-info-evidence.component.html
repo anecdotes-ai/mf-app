@@ -1,0 +1,13 @@
+<div class="plugin-info-evidence-item" *ngIf="evidenceInstance">
+    <div class="plugin-container">
+      <app-evidence-label [evidence]="evidenceInstance" [inEvidencePool]="false" [evidenceComply]="true"
+                          [inPluginPage]='true'></app-evidence-label>
+    </div>
+    <div class="info-wrapper"
+      *ngIf="evidenceInstance.evidence_help"
+      [ngbTooltip]="evidenceInstance.evidence_help"
+      placement="top"
+      tooltipClass="default-tooltip">
+        <svg-icon src="info" class="info-icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+</div>

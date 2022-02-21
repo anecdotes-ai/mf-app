@@ -1,0 +1,19 @@
+<ng-container *ngIf="logs$ | async as agentLogs">
+  <div *ngIf="agentLogs?.length; else noServiceLogs" class="service-logs">
+    <perfect-scrollbar class="w-full h-full">
+      <ul class="service-logs-list">
+        <ng-container *ngFor="let agentLog of agentLogs">
+          <li class="item-log">
+            <app-log-item [log]="agentLog" [logSeverities]="agentLogServerity"></app-log-item>
+          </li>
+        </ng-container>
+      </ul>
+    </perfect-scrollbar>
+  </div>
+</ng-container>
+
+<ng-template #noServiceLogs>
+  <app-connector-tabs-empty-state
+    [message]="buildTranslationKey('emptyAgentLogs') | translate"
+  ></app-connector-tabs-empty-state>
+</ng-template>

@@ -1,0 +1,199 @@
+@import 'index';
+
+:host {
+  display: block;
+  height: 100%;
+  background: $mc-white;
+}
+
+.container-big {
+  max-width: 1000px;
+  min-width: 1000px;
+  margin: auto;
+  height: 100%;
+
+  @media (max-width: $Small) {
+    max-width: 600px;
+    min-width: 600px;
+  }
+}
+
+.container-small {
+  max-width: 600px;
+  min-width: 600px;
+  height: 100%;
+  margin: auto;
+}
+
+.header {
+  height: 80px;
+  background: $mc-navy-90;
+  color: $mc-white;
+
+  .container-big {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-text {
+    @include MulishFontStyle(21px, 31px);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .last-updated {
+    @include MulishFontStyle(13px, 19px);
+    font-weight: 400;
+
+    .last-updated-label {
+      font-weight: 700;
+    }
+  }
+
+  @media (max-width: $Small) {
+    height: 120px;
+
+    .container-big {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-text {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.main {
+  padding-top: 60px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $mc-navy-30;
+
+  .greeting {
+    @include MerriWeatherBold(34px, 51px);
+    color: $mc-navy-90;
+    margin-bottom: 10px;
+  }
+
+  .information {
+    @include MulishFontStyle(21px, 31px);
+    color: $mc-navy-70;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: $Small) {
+    margin-top: 46px;
+
+    .information {
+      margin-bottom: 18px;
+    }
+  }
+
+  .dashed-line {
+    margin-bottom: 30px;
+  }
+}
+
+.file {
+  .file-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px;
+    @include MulishFontStyle(13px, 19px);
+    margin-bottom: 30px;
+
+    .file-name-label {
+      font-weight: 700;
+    }
+  }
+
+  .file-prewiew {
+    margin-bottom: 70px;
+    padding: 0 30px;
+    overflow: auto;
+  }
+}
+
+.submit {
+  background: $mc-white;
+  padding-top: 50px;
+  padding-bottom: 90px;
+
+  .submit-title {
+    @include MulishBold(16px, 24px);
+    color: $mc-navy-90;
+    margin-bottom: 10px;
+  }
+
+  .submit-info {
+    @include MulishFontStyle(13px, 19px);
+    color: $mc-navy-90;
+    margin-bottom: 10px;
+  }
+
+  app-checkbox {
+    margin-bottom: 25px;
+    display: block;
+  }
+
+  app-text-area {
+    margin-bottom: 20px;
+  }
+
+  app-tip {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .submit-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: $Small) {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+}
+
+.invalid-link-wrapper,
+.submitted-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .invalid-link-header,
+  .submitted-page-header {
+    @include MerriWeatherFontStyle(44px, 20px);
+    font-style: italic;
+    color: $mc-navy-70;
+    margin-bottom: 30px;
+  }
+
+  .invalid-link-description,
+  .submitted-page-description {
+    @include MulishFontStyle(16px, 24px);
+    color: $mc-navy-90;
+    width: 510px;
+    text-align: center;
+  }
+}
+
+.invalid-link-wrapper {
+  svg-icon {
+    margin-bottom: 30px;
+  }
+}
+
+.submitted-page-wrapper {
+  svg-icon {
+    margin-bottom: 65px;
+  }
+}

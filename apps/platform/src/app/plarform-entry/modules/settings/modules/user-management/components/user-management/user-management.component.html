@@ -1,0 +1,37 @@
+<ng-container *ngIf="isLoading$ | async">
+  <div class="absolute w-full h-full bg-navy-30 z-10">
+    <app-loading-animation [width]="'270px'" height="270px"></app-loading-animation>
+  </div>
+</ng-container>
+<section id="users-section">
+  <app-user-management-header
+    *ngIf="usersStream$ | async as users"
+    [users]="users"
+    (modifiedDataList)="modifyDataList($event)"
+    (inviteUser)="inviteUser()"
+    #header
+  ></app-user-management-header>
+
+  <app-search-results-pagination></app-search-results-pagination>
+
+  <perfect-scrollbar class="users-perfect-bar">
+    <div *ngIf="isNotFoundState$ | async" class="content-not-found">
+      <app-not-found
+        mainInfoTranslationKey="userManagement.emptyState.mainInfo"
+        backToAllDataTranslationKey="userManagement.emptyState.backToAllUsersBtn"
+        [userAdviceDisabled]="true"
+        (backToAllDataBtnClick)="resetUsersFiltration()"
+      ></app-not-found>
+    </div>
+
+    <app-users-list (inviteUser)="inviteUser()" [class.hidden]="isNotFoundState$ | async" [users]="filteredUsers">
+    </app-users-list>
+
+    <div class="empty-state">
+        <app-new-button *ngIf="isEmptyState$ | async" class='invite-user-button' [svgIconPath]="'add_button'" (click)="inviteUser()">
+          {{ 'userManagement.inviteNewUserBtn' | translate }}
+        </app-new-button>
+        <svg-icon class="permissions-icon" src="users-management/permissions"></svg-icon>
+    </div>
+  </perfect-scrollbar>
+</section>

@@ -1,0 +1,8 @@
+.service-name {
+  @apply h-6 font-secondary pt-0.5 font-bold inline-block align-middle;
+  font-size: 14px;
+}
+.evidence-quantity {
+  @apply h-6 font-light text-navy-70 pt-0.5 ml-2 pl-2 border-l border-navy-70 inline-block align-top;
+  font-size: 13px;
+}

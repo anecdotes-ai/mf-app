@@ -1,0 +1,9 @@
+<div *ngIf="statusMapping[status] as resolvedStatus" class="status-badge" [class]="resolveClass(resolvedStatus)">
+  <span *ngIf="!loading; else loadingTemplate" class="text-white bold font-main text-sm">{{
+    buildTranslationKey(statusMapping[status].translationKey) | translate
+    }}</span>
+  
+    <ng-template #loadingTemplate>
+    <app-circle-loader></app-circle-loader>
+  </ng-template>
+</div>

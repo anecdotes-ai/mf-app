@@ -1,0 +1,3 @@
+<app-report-primary-header [customer]="customer$ | async"></app-report-primary-header>
+<app-report-secondary-header *ngIf="(framework$ | async) as framework" [framework]="framework" [applicableControlsCount]="(controls$ | async).length"></app-report-secondary-header>
+<app-report-controls-renderer *ngIf="(controls$ | async) as controls" [controls]="controls" [framework_id]="framework_id"></app-report-controls-renderer>

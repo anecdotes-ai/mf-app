@@ -1,0 +1,19 @@
+<div class="header whitespace-nowrap">SASS variable <span class="text-pink-70">(DEPRECATED!!!)</span></div>
+<div class="header">Background color</div>
+<div class="header">Background color class</div>
+<div class="header">Font color</div>
+<div class="header">Font color class</div>
+<div class="header">Color code</div>
+<ng-container *ngFor="let color of colors">
+  <div class="copiable" [title]="createClickToCopyVariableText(color.variable)"
+    (click)="copyToClipboard(color.variable)">{{color.variable}}</div>
+  <div #elementWithBackground class="copiable" [title]="createClickToCopyClassText(color.backgroundClass)"
+    (click)="copyToClipboard(color.backgroundClass)" [class]="color.backgroundClass"></div>
+  <div class="copiable" [title]="createClickToCopyClassText(color.backgroundClass)"
+    (click)="copyToClipboard(color.backgroundClass)">{{color.backgroundClass}}</div>
+  <div class="copiable" [title]="createClickToCopyClassText(color.fontColorClass)"
+    (click)="copyToClipboard(color.fontColorClass)" [class]="color.fontColorClass">Lorem ipsum</div>
+  <div class="copiable" [title]="createClickToCopyClassText(color.fontColorClass)"
+    (click)="copyToClipboard(color.fontColorClass)">{{color.fontColorClass}}</div>
+  <div>{{getHexBackgroundColor(elementWithBackground)}}</div>
+</ng-container>

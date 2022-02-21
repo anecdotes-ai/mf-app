@@ -1,0 +1,29 @@
+<app-base-modal
+  iconPath="automate"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [leftCornerData]="{ icon: 'info', titleText: controlRequirement.requirement_name }"
+>
+  <div class="empty-state" *ngIf="automationState === automationStates.NOT_CONNECTED; else pluginItems">
+    <svg-icon src="automation-no-ticketing-installed" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+  <ng-template #pluginItems>
+    <perfect-scrollbar>
+      <app-automation-small-plugin-item
+        *ngFor="let plugin of installedPlugins"
+        [pluginData]="plugin"
+        (click)="pluginClickHandler(plugin)"
+      >
+      </app-automation-small-plugin-item>
+    </perfect-scrollbar>
+  </ng-template>
+
+  <app-button
+    [class.secondary]="automationState !== automationStates.NOT_CONNECTED"
+    (click)="openAllTicketingPlugins()"
+    class="main mulish"
+    [clickOnEnter]="true" 
+  >
+    {{ buildTranslationKey('buttonText') | translate }}
+  </app-button>
+</app-base-modal>

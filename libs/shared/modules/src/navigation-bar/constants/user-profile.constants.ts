@@ -1,0 +1,1 @@
+export const firstLettersRegExp = /\b(\w)/g;

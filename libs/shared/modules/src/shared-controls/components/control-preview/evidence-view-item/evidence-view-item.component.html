@@ -1,0 +1,7 @@
+<app-evidence-label
+  *ngIf="evidence$ | async as evidenceLike"
+  [evidence]="evidenceLike.evidence"
+  [evidenceComply]="true"
+  [resourceType]="evidenceLike.resourceType"
+  [policyId]="evidenceLike.id"
+></app-evidence-label>

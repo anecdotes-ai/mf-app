@@ -1,0 +1,1 @@
+export const MultiselectRootTranslationKey = 'multiselect';

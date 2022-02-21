@@ -1,0 +1,42 @@
+<app-grid
+  [sortEnabled]="true"
+  [headerTemplate]="headerCellTemplate"
+  [cellTemplate]="cellTemplate"
+  [gridView]="displayedGridView"
+  [scrollDisabled]="true"
+  [useVirtualScroll]="true"
+  data-private
+>
+</app-grid>
+
+<ng-template
+  #cellTemplate
+  let-cellValue="cellValue"
+  let-isFirst="isFirst"
+  let-stringCellValue="stringCellValue"
+  let-rowIndex="rowIndex"
+  let-cellHeader="cellHeader"
+  let-rowId="rowId"
+>
+  <app-preview-cell
+    [viewType]="viewType"
+    [viewFullData]="true"
+    [cellValue]="cellValue"
+    [tooltipText]="evidence.evidence_gap_message"
+    [cellGapped]="rowIsGapped(rowId) | async"
+    [isFirst]="isFirst"
+  >
+  </app-preview-cell>
+</ng-template>
+
+<ng-template
+  #headerCellTemplate
+  let-isLast="isLast"
+  let-cellValue="cellValue"
+  let-sorted="sorted"
+  let-sortDirection="sortDirection"
+>
+  <span [title]="cellValue">{{ cellValue }}</span>
+  <svg-icon *ngIf="isGridNotEmpty && sorted" class="sort-indicator" src="arrow-single" preserveaspectratio="none">
+  </svg-icon>
+</ng-template>

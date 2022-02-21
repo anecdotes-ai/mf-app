@@ -1,0 +1,21 @@
+@import 'index.scss';
+
+:host {
+  @include MulishFontStyle();
+  width: 16px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: $mc-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background-color: #ffa84f;
+
+  .new-entity-label {
+    transform: rotate(-90deg);
+  }
+}

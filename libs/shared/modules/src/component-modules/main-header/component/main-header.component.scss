@@ -1,0 +1,41 @@
+@import 'index';
+
+:host {
+  @apply grid-flow-col;
+  display: grid;
+  grid-template-columns: 1fr min-content min-content min-content;
+  column-gap: 25px;
+
+  padding: 0 25px;
+  min-height: 82px;
+  height: 82px;
+
+  border-bottom: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+
+  > section {
+    display: flex;
+    align-items: center;
+  }
+
+  app-filter-button {
+    margin-right: -25px;
+  }
+}
+
+.title {
+  @include MulishBold(21px);
+  color: $mc-navy-90;
+}
+
+:host::ng-deep {
+  #action-btn:hover {
+    path {
+      fill: $mc-white;
+    }
+  }
+  #action-btn {
+    path {
+      fill: $mc-navy-90;
+    }
+  }
+}

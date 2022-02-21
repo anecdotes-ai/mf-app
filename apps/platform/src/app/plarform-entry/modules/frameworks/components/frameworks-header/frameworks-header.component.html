@@ -1,0 +1,25 @@
+<ng-container *ngIf="frameworksStream$ | async as allFrameworks">
+  <span class="header-info">
+    <span class="info">
+      <span id="filtered-items-count">{{ buildTranslationKey('frameworks') | translate }}</span>
+      <ng-container *ngIf="filteredCount !== allFrameworks.length">
+        <span class="slash"> / </span>
+        <span (click)="resetAllFilters()" id="all-items-count"
+          >{{ buildTranslationKey('all') | translate }} {{ allFrameworks.length }}</span
+        >
+      </ng-container>
+    </span>
+  </span>
+  <div class="items-wrapper">
+    <app-data-search
+      #search
+      [searchDefinitions]="searchDefinitions"
+      [data]="allFrameworks"
+      [placeholderTranslationKey]="buildTranslationKey('searchFrameworks')"
+      (search)="setFoundFrameworks($event)"
+    ></app-data-search>
+    <app-new-button *ngIf="!isAuditor" [type]="'secondary'" (click)="openFrozenConfig()" [svgIconPath]="'freeze'" [size]="'responsive'">
+      {{ buildTranslationKey('freezeButton') | translate }}
+    </app-new-button>
+  </div
+></ng-container>

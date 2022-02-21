@@ -1,0 +1,69 @@
+<div class="loading-animation-wrapper" *ngIf="!isLoaded; else fileLoadedTemplate">
+  <app-loading-animation class="loading-animation"></app-loading-animation>
+</div>
+
+<ng-template #fileLoadedTemplate>
+  <div *ngIf="evidence.evidence_tip" class="evidence-tip-wrapper bg-navy-30">
+    <app-tip [tipId]="evidence.evidence_id" [tipType]="tipTypes.TIP">
+      <app-text [text]="evidence.evidence_tip"></app-text>
+    </app-tip>
+  </div>
+  <ng-container *ngTemplateOutlet="notSupportedPreview ? fallback : filePreview"></ng-container>
+</ng-template>
+
+<ng-template #filePreview>
+  <app-evidence-preview-header
+    *ngIf="hostHaveControlHeader"
+    [controlName]="controlInstance?.control_name"
+    [requirementName]="requirement?.requirement_name"
+  ></app-evidence-preview-header>
+
+  <app-evidence-preview-item
+    [controlRequirement]="requirement"
+    [controlInstance]="controlInstance"
+    [framework]="framework"
+    [evidence]="evidence"
+    [class.pr-16]="eventSource === evidenceSources.EvidencePool"
+  ></app-evidence-preview-item>
+
+  <div class="preview-wrapper">
+    <div class="actions-group">
+      <app-button [clickOnEnter]="true" class="main medium mulish ml-auto" (click)="downloadEvidence()">
+        {{ buildTranslationKey('downloadEvidenceBtn') | translate }}
+      </app-button>
+    </div>
+    <div class="preview-content">
+      <perfect-scrollbar>
+        <app-file-viewer [file]="file" [useScroll]="true"></app-file-viewer>
+      </perfect-scrollbar>
+    </div>
+
+    <div class="report-wrapper bg-navy-30">
+      <app-evidence-report></app-evidence-report>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fallback>
+  <app-evidence-preview-header
+    *ngIf="eventSource === evidenceSources.Controls"
+    [controlName]="controlInstance?.control_name"
+    [requirementName]="requirement?.requirement_name"
+  ></app-evidence-preview-header>
+  <app-evidence-preview-item
+    [controlRequirement]="requirement"
+    [controlInstance]="controlInstance"
+    [framework]="framework"
+    [evidence]="evidence"
+    [class.pr-16]="eventSource === evidenceSources.EvidencePool"
+  ></app-evidence-preview-item>
+  <div class="not-available-preview-fallback">
+    <svg-icon src="status_complete" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span class="header"> {{ buildTranslationKey('header') | translate }} </span>
+    <div class="description">
+      <app-button class="download-evidence-btn main medium mulish" (click)="downloadEvidence()">
+        {{ buildTranslationKey('downloadEvidenceBtn') | translate }}</app-button
+      >
+    </div>
+  </div>
+</ng-template>

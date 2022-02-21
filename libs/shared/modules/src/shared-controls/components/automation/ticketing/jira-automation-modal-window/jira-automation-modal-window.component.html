@@ -1,0 +1,40 @@
+<app-base-modal
+  iconPath="automate"
+  [titleTranslationKey]="baseModalConfigData.titleKey"
+  [descriptionTranslationKey]="baseModalConfigData.descriptionKey"
+  [leftCornerData]="{ icon: 'info', titleText: controlRequirement.requirement_name }"
+  [footerTemplate]="footer"
+>
+  <div class="wrapper">
+    <app-tabs #tabsRef [tabs]="tabModel$ | async"></app-tabs>
+  </div>
+</app-base-modal>
+
+<ng-template #footer>
+  <div class="button-group">
+    <app-button class="secondary mulish medium" (click)="backButtonHandler()">
+      <span>{{ buildTranslationKeyByTicketingRoot('backButtonText') | translate }}</span>
+    </app-button>
+    <app-button
+      [class.disabled]="!isValid"
+      [loading]="isLoading$ | async"
+      class="main mulish medium"
+      (click)="createEvidence()"
+      [clickOnEnter]="true"
+    >
+      <span>{{ buildTranslationKeyByTicketingRoot('createEvidenceButtonText') | translate }}</span>
+    </app-button>
+  </div>
+</ng-template>
+
+<ng-template #tabContentTemplate>
+  <div class="content-block">
+    <div class="description" [innerHTML]="buildTranslationKey('createEvidenceDescription') | translate"></div>
+    <div>
+      <span>{{ buildTranslationKey('createEvidenceArticleDescription') | translate }}</span>
+      <span>&nbsp;</span>
+      <span class="article-link" (click)="openArticle()">{{ buildTranslationKey('article') | translate }}</span>
+    </div>
+    <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+  </div>
+</ng-template>

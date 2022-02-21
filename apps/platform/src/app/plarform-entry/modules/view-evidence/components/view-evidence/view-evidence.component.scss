@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  overflow-y: auto;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  padding-right: 5px;
+}
+
+app-button {
+  position: absolute;
+  z-index: 9999;
+  right: 20px;
+  top: 20px;
+}

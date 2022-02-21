@@ -1,0 +1,51 @@
+<div>
+  <div class="content-wrapper">
+    <div class="main-content-wrapper">
+      <div class="icon-wrapper">
+        <svg-icon class="icon" [src]="serviceIcon$ | async"> </svg-icon>
+        <svg-icon class="status-icon" [src]="resolveStatusIcon()"></svg-icon>
+      </div>
+      <div class="main-content">
+        <span class="loading-evidences-text" *ngIf="isLoading; else content">
+          <span>{{ buildTranslationKey('loading') | translate }}</span>
+          <span>{{ notificationData.service_display_name }}</span>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="notificationData.displaySecondaryContent" class="secondary-content-wrapper">
+      <ng-container [ngSwitch]="getConnectivityStatus()" *ngIf="notificationData">
+        <div class="secondary-content" *ngSwitchCase="connectivityStatuses.FAILED">
+          <app-button
+            (click)="navigateToPluginLogs()"
+            routerLinkActive="active"
+            class="main mulish medium center-content secondary-white"
+          >
+            <span>{{ buildTranslationKey('failure.buttons.goToPluginLogsPage') | translate }}</span>
+          </app-button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!-- Right side of notification content -->
+  <ng-container *ngIf="isLoading; else closeButton">
+    <div class="loader-wrapper">
+      <app-circle-loader></app-circle-loader>
+    </div>
+  </ng-container>
+  <ng-template #closeButton>
+    <button class="close-btn" (click)="preClosing()">
+      <svg-icon preserveAspectRatio="none" [stretch]="true" src="close"></svg-icon>
+    </button>
+  </ng-template>
+</div>
+
+<!-- Templates definition -->
+
+<ng-template #content>
+  <ng-container [ngSwitch]="getConnectivityStatus()">
+    <!-- Connectivity failed content -->
+    <div class="column-content" *ngSwitchCase="connectivityStatuses.FAILED">
+      <span class="bold">{{ buildTranslationKey('failure.title') | translate }}</span>
+    </div>
+  </ng-container>
+</ng-template>

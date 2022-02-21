@@ -1,0 +1,62 @@
+<app-evidence-wrapper>
+  <div
+    [ngbTooltip]="isManualOrUrlUpload ? null : collectingEvidence.serviceDisplayName"
+    placement="top"
+    class="evidence-service"
+  >
+    <svg-icon [src]="evidenceIcon$ | async" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+  </div>
+  <svg-icon class="arrow-single" src="arrow-single" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+  <div class="evidence-type">
+    <svg-icon *ngIf="fileTypeMapping" [src]="fileTypeMapping.icon" preserveAspectRatio="none" [stretch]="true">
+    </svg-icon>
+  </div>
+
+  <div class="evidence-name">
+    <app-searchable-text [text]="evidenceName"></app-searchable-text>
+  </div>
+
+  <div class="flex flex-1 justify-end mr-10">
+    <div *ngIf="!isCollectionError; else collectionError" class="progress-bar-wrapper">
+      <mat-progress-bar mode="determinate" [value]="collectionPercentage"></mat-progress-bar>
+    </div>
+  </div>
+</app-evidence-wrapper>
+
+<ng-template #collectionError>
+  <div class="error-message">
+    <svg-icon src="status_not_started" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <ng-container *ngIf="collectionErrorDescription; else collectionTimeoutError">
+      <span>{{ collectionErrorDescription }}&nbsp;</span>
+    </ng-container>
+    <ng-template #collectionTimeoutError>
+      <ng-container [ngSwitch]="collectingEvidence.evidenceType">
+        <ng-container *ngSwitchCase="evidenceTypes.MANUAL">
+          <span>{{ messageError | translate }}&nbsp;</span>
+          <span class="error-action" (click)="tryAgainClick()">{{ buildTranslationKey('tryAgain') | translate }}</span>
+        </ng-container>
+        <ng-container *ngSwitchCase="evidenceTypes.URL">
+          <span>{{ buildTranslationKey('collectionFailed') | translate }}&nbsp;</span>
+          <span class="error-action" (click)="tryAgainClick()">{{ buildTranslationKey('tryAgain') | translate }}</span>
+        </ng-container>
+        <ng-container *ngSwitchCase="evidenceTypes.LINK">
+          <ng-container *ngTemplateOutlet="linkTicketingError"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="evidenceTypes.TICKET">
+          <ng-container *ngTemplateOutlet="linkTicketingError"></ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #linkTicketingError>
+  <div class="error-text-wrapper">
+    <div>{{ buildTranslationKey('collectionFailed') | translate }}</div>
+    <div>
+      <span>{{ buildTranslationKey('goTo') | translate }}&nbsp;</span>
+      <span class="error-action" (click)="goToPluginPage()">{{ buildTranslationKey('pluginPage') | translate }}</span>
+      <span>&nbsp;{{ buildTranslationKey('forMoreInfo') | translate }}</span>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,12 @@
+<div class="wrapper h-full flex flex-row overflow-hidden relative">
+  <div class="w-16 min-h-full">
+    <app-navigation-bar class="h-full" [routes]="routes"></app-navigation-bar>
+    <app-user-profile-menu></app-user-profile-menu>
+  </div>
+
+  <div class="flex-1 w-full min-h-full bg-navy-30">
+    <app-notification-outlet></app-notification-outlet>
+    <router-outlet></router-outlet>
+  </div>
+  <app-sliding-panel-outlet></app-sliding-panel-outlet>
+</div>

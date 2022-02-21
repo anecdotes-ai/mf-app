@@ -1,0 +1,19 @@
+<section class="grid-container grid gap-1">
+  <section class="col-start-1 row-start-3 row-span-5 bg-navy-90 flex main-font-16 font-bold text-white rounded-2xl flex flex-col items-center justify-center">
+    <span class="transform -rotate-90"> {{ buildTranslationKey('likelihood') | translate }}</span>
+  </section>
+  <section class="row-start-1 col-start-3 col-span-5 bg-navy-90 flex main-font-16 font-bold text-white rounded-2xl flex flex-col items-center justify-center">
+    <span>{{ buildTranslationKey('impact') | translate }}</span>
+  </section>
+  <ng-container *ngFor="let row of registryData; let rowIndex = index">
+    <ng-container *ngFor="let item of row; let colIndex = index">
+      <app-risk-registry-item
+        *ngIf="item.text"
+        class="col-start-{{ colIndex + 2 }} row-start-{{ rowIndex + 2 }} {{ item.backgroundColor }}"
+        [text]="item.text"
+        [value]="item.value"
+        [isHeader]="item.isHeader"
+      ></app-risk-registry-item>
+    </ng-container>
+  </ng-container>
+</section>

@@ -1,0 +1,45 @@
+@import '../../../shared-styles.scss';
+
+:host {
+  display: block;
+}
+
+:host::ng-deep {
+  app-dropdown-control {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  app-base-modal .base-modal-content {
+    overflow: hidden;
+
+    & > .wrapper {
+      overflow: auto;
+      height: 100%;
+    }
+  }
+}
+
+app-base-modal {
+  max-height: 90vh;
+}
+
+.description {
+  @include MulishFontStyle(13px, 150%);
+  color: $mc-navy-90;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

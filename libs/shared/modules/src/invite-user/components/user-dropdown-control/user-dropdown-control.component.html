@@ -1,0 +1,103 @@
+<app-control-header
+  *ngIf="titleTranslationKey"
+  [label]="titleTranslationKey"
+  [index]="index"
+  [required]="required"
+  [infoTooltip]="infoTooltip"
+>
+</app-control-header>
+<div class="flex flex-row cursor-pointer" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <button
+    #contentContainer
+    [ngClass]="{ 'pointer-events-none': readonly, 'rounded hover:bg-navy-30 hover:opacity-100 opacity-100': !isDisabled, 'opacity-50': !selectedUser, 'bg-navy-30 opacity-100': isDropdownOpened, 'opacity-50 disabled': isDisabled }"
+    (click)="dropdownClick($event)"
+    class="opacity-100 flex justify-center items-center owner-dropdown-button w-10 h-10"
+    [class.dropdown-open]="this.isDropdownOpened"
+    [class.owner-loading]="loading"
+  >
+    <ng-container *ngIf="!loading; else loadingTemplate">
+      <app-user-avatar
+        *ngIf="selectedUser; else noSelectedUser"
+        [firstName]="selectedUser.first_name"
+        [lastName]="selectedUser.last_name"
+        [avatarUrl]="selectedUser.photo"
+        [ngbTooltip]="tooltipDisabled ? (buildTranslationKey(tooltipDisabled) | translate) : tooltipTemplate"
+        placement="top bottom"
+        class="min-w-7 min-h-7 w-7 h-7"
+      ></app-user-avatar>
+      <ng-template #noSelectedUser>
+        <app-user-avatar [ngbTooltip]="!isDisabled ? tooltipTemplate : null" placement="top bottom" class="min-w-7 min-h-7 w-7 h-7"> </app-user-avatar>
+      </ng-template>
+    </ng-container>
+  </button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isDropdownOpened"
+  [cdkConnectedOverlayPanelClass]="overlayPanelClass"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+  (backdropClick)="close()"
+>
+  <app-dropdown-options-backdrop [style.width.px]="listWidth" #openableElement>
+    <app-text-field
+      *ngIf="searchEnabled"
+      [formControl]="searchField"
+      [clearButtonEnabled]="true"
+      [placeholderIcon]="'search'"
+      [placeholder]="searchFieldPlaceholder ? (searchFieldPlaceholder | translate) : ( buildTranslationKey('searchPlaceholder') | translate )"
+      (valueChanges)="search($event)"
+      (click)="searchFieldClick($event)"
+    >
+    </app-text-field>
+    <perfect-scrollbar [style.max-height]="listMaxHeight + 'px'" [config]="{ suppressScrollX: true }">
+      <ng-container *ngIf="!isInSearch">
+        <app-dropdown-option [style.height]="buttonHeight + 'px'" (click)="selectUser(null)">
+          <span>{{ buildTranslationKey('noOwnerText') | translate }}</span>
+        </app-dropdown-option>
+      </ng-container>
+
+      <app-dropdown-option
+        *ngFor="let user of displayedUsers"
+        [style.height]="buttonHeight + 'px'"
+        [disabled]="getIsValueDisabled(user)"
+        [selected]="isSelected(user)"
+        (click)="selectUser(user)"
+      >
+        <span>
+          <ng-container *ngTemplateOutlet="userDisplayValueTemplate; context: { user: user }"></ng-container>
+        </span>
+      </app-dropdown-option>
+      <span *ngIf="!users?.length" class="empty-list-placeholder">{{ emptyListPlaceholder | translate }}</span>
+    </perfect-scrollbar>
+    <app-dropdown-option
+      *visibleForRole="[role.Admin]"
+      class="border-t border-navy-30"
+      [menuAction]="inviteAction"
+      [style.height]="buttonHeight + 'px'"
+    >
+      {{ buildTranslationKey('inviteUser') | translate }}
+    </app-dropdown-option>
+  </app-dropdown-options-backdrop>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <app-circle-loader [appearance]="'dark'"></app-circle-loader>
+</ng-template>
+
+<ng-template #tooltipTemplate>
+  <ng-container *ngIf="value; else noUser">
+    <ng-container *ngTemplateOutlet="userDisplayValueTemplate; context: { user: selectedUser }"></ng-container>
+  </ng-container>
+  <ng-template #noUser>
+    {{ buildTranslationKey('selectOwner') | translate }}
+  </ng-template>
+</ng-template>
+
+<ng-template #userDisplayValueTemplate let-user="user">
+  <span
+    >{{ getDisplayValue(user) }}
+    <ng-container *ngIf="isCurrentUser(user)"> &nbsp;({{ buildTranslationKey('meText') | translate }})</ng-container>
+  </span>
+</ng-template>

@@ -1,0 +1,2708 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "controls": "Controls",
+    "evidencePool": "Evidence Pool",
+    "plugins": "Plugins",
+    "api": "API",
+    "frameworks": "Frameworks",
+    "policyManager": "Policy Manager",
+    "complianceOverflow": "Compliance overflow",
+    "joinOurCommunity": "Join Our Community",
+    "betatip": "Beta",
+    "riskManagement": "Risk Manager (Beta)",
+    "notifications": "Notifications"
+  },
+  "complianceOverflow": "Compliance overflow",
+  "joinOurCommunity": "Join our community",
+  "userSettings": "Settings",
+  "allFrameworks": "All Frameworks",
+  "riskManagement": {
+    "header": {
+      "title": "Risk Manager - Beta ({{count}})",
+      "btn": "Add a Risk",
+      "searchPlaceholder": "Search"
+    },
+    "notFound": {
+      "info": "Sorry, no risks were found matching your search",
+      "userAdvice": "Try using our filter panel for quick navigation",
+      "backToAllRisksBtn": "Back to all risks"
+    },
+    "sort": {
+      "riskLevel": "Risk Level",
+      "name": "Name",
+      "category": "Category",
+      "linkedControls": "Linked Controls"
+    },
+    "filters": {
+      "riskLevel": {
+        "title": "Risk Level",
+        "notSet": "Not Set",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "strategy": {
+        "title": "Strategy",
+        "mitigate": "Mitigate",
+        "accept": "Accept",
+        "transfer": "Transfer",
+        "avoid": "Avoid"
+      },
+      "owner": "Owner",
+      "category": "Category",
+      "effect": {
+        "title": "Effect",
+        "confidentiality": "Confidentiality",
+        "integrity": "Integrity",
+        "availability": "Availability"
+      },
+      "source": "Source"
+    },
+    "mitigateControls": {
+      "infoTooltip": "Mitigation controls are the control(s) implemented to reduce the level of the risk to an acceptable level. The risk level after implementing control(s) known as the residual risk.",
+      "header": "Mitigation Controls ({{count}})",
+      "linkControlBtn": "Link Control",
+      "disconnect": "Disconnect",
+      "mitigateModal": {
+        "title": "Link a Mitigation Control",
+        "description": "Select the mitigation control you would like to attach to this risk",
+        "framework": "Framework",
+        "control": "Control",
+        "select": "Select",
+        "search": "Search",
+        "link": "Link",
+        "success": {
+          "title": "The control was linked successfully",
+          "gotItBtn": "Got it",
+          "addMoreBtn": "Link another control"
+        },
+        "error": {
+          "title": "Failed to link the control",
+          "btn": "Try again"
+        }
+      }
+    },
+    "riskAanlysis": {
+      "inherentRisk": "Inherent Risk",
+      "residualRisk": "Residual Risk",
+      "riskLevelTarget": "Risk Level Target",
+      "impact": "Impact",
+      "likelihood": "Likelihood",
+      "riskLevel": "Risk Level",
+      "financialImpact": "Financial Impact",
+      "notSet": "Not Set",
+      "riskCalc": "How is the Risk Level calculated?",
+      "download": "Download"
+    },
+    "addRiskModal": {
+      "title": "Add new risk",
+      "description": "Insert initial details to start configurating your risk",
+      "saveButtonText": "Save & Continue",
+      "riskName": "Risk name",
+      "category": "Category",
+      "source": "Source",
+      "effect": "Effect",
+      "strategy": "Strategy",
+      "newCategory": "{{searchValue}} (new category)",
+      "newSource": "{{searchValue}} (new source)",
+      "dropdownPlaceholder": "Select or create",
+      "select": "Select",
+      "searchCategoryPl": "Search or create a new category",
+      "searchSourcePl": "Search or create a new source",
+      "success": {
+        "title": "The risk was created successfully",
+        "gotItBtn": "Got it",
+        "addMoreBtn": "Add another risk"
+      },
+      "error": {
+        "title": "Failed to create risk",
+        "btn": "Try again"
+      }
+    },
+    "select": "Select",
+    "NOT_SET": "Not Set",
+    "clear": "Clear",
+    "riskTagTooltip": "Risk level is calculated",
+    "noRisks": "No risks yet",
+    "noRisksDesc": "Create a risk to manage it here",
+    "impactRating": {
+      "Insignificant": "Insignificant",
+      "Minor": "Minor",
+      "Moderate": "Moderate",
+      "Major": "Major",
+      "Catastrophic": "Catastrophic",
+      "notSetTooltip":"Select Impact"
+    },
+    "liklihoodRating": {
+      "Rare": "Rare",
+      "Unlikely": "Unlikely",
+      "Possible": "Possible",
+      "Likely": "Likely",
+      "Almost Certain": "Almost Certain",
+      "notSetTooltip":"Select Likelihood"
+    },
+    "riskLevelRating": {
+      "Low": "Low",
+      "Medium": "Medium",
+      "High": "High",
+      "Critical": "Critical",
+      "notSetTooltip":"Select Risk Level Target"
+    },
+    "riskGridHeader": {
+      "category": "Category",
+      "name": "Name",
+      "riskLevel": "Risk Level",
+      "riskEffect": "Risk Effect",
+      "strategy": "Strategy",
+      "controls": "Controls",
+      "owner": "Owner"
+    },
+    "riskCategory": {
+      "entityName": "category",
+      "searchFieldPlaceholder": "Search or create a category",
+      "notSetTooltip": "Select Category"
+    },
+    "riskStrategy": {
+      "avoid": "Avoid",
+      "accept": "Accept",
+      "transfer": "Transfer",
+      "mitigate": "Mitigate",
+      "notSetTooltip":"Select Strategy"
+    },
+    "riskEffects": {
+      "notSet": "Not Set",
+      "notSetTooltip": "Select Effects"
+    },
+    "riskItemMenu": {
+      "deleteRisk": "Delete risk",
+      "deleteRiskConfirmationModal": {
+        "confirmTranslationKey": "Yes, delete",
+        "dismissTranslationKey": "Cancel",
+        "questionTranslationKey": "Are you sure you want to delete this risk?",
+        "aftermathTranslationKey": "You won’t be able to restore it."
+      }
+    },
+    "riskSourceLabel": {
+      "searchFieldPlaceholder":"Search or create a source",
+      "entityName": "source",
+      "notSetTooltip": "Select Source"
+    },
+    "riskInfo": {
+      "sourceFieldName": "Risk Source",
+      "descriptionFieldName": "Risk Description",
+      "descriptionPlaceholder": "Describe your risk",
+      "threatFieldName": "Threat",
+      "threatPlaceholder": "What is the threat that creates the risk? Describe it shortly",
+      "vulnerabilityFieldName": "Vulnerability",
+      "vulnerabilityPlaceholder": "What is your vulnerability? Describe it shortly"
+    },
+    "riskDates": {
+      "created": "Risk created",
+      "lastUpdate": "Last update",
+      "lastUpdatedBy": "Last updated by"
+    },
+    "supportingDocuments": {
+      "collectEvidenceMenu": {
+        "shareLink": "Shared link",
+        "uploadFile":"Upload file",
+        "addItem": "Add item"
+      },
+      "removeEvidenceConfirmationModal": {
+        "yesBtn": "Yes, delete",
+        "cancelBtn": "Cancel",
+        "question": "Are you sure you want to delete this evidence?",
+        "aftermath": "This action won’t delete the Evidence from the Evidence Pool, \nso you could restore it later.",
+        "dontShowAgain": "Don’t show again"
+      },
+      "removeEvidenceOption": "Remove",
+      "supportingDocumentsText": "Supporting Documents",
+      "automaticallyCollectedText": "Automatically collected",
+      "infoTooltip": "Supporting documents are evidence of controls implemented or planned to be implemented to reduce the level of the risk to an acceptable level. The risk level after implementing control(s) known as the residual risk."
+    }
+  },
+  "policyManager": {
+    "header": {
+      "title": "Policy Manager",
+      "btn": "Add a policy",
+      "searchPlaceholder": "Search policies"
+    },
+    "searchNotFound": {
+      "mainInfo": "Sorry, no policies were found matching your search",
+      "clearSearchButton": "Clear search"
+    },
+    "myPolicies": "My policies ({{ amount }})",
+    "addItemModal": {
+      "title": "Add a policy",
+      "description": "Create a new policy or select one from existing policies",
+      "orText": "OR",
+      "addItemBtn": "Add policy",
+      "success": {
+        "title": "Policy added successfully",
+        "description": "",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Failed to create policy",
+        "description": "Please try again. If the issue persists, contact support. ",
+        "btn": "Try again"
+      },
+      "newItemForm": {
+        "nameLabel": "Policy name",
+        "descriptionLabel": "Description",
+        "changeViewToSelectExisting": "Select from existing policies",
+        "changeViewToCreateNew": "Create new policy",
+        "selectItemLabel": "Select from existing policies",
+        "search": "Search",
+        "selectItem": "Select policy",
+        "typeLabel": "Select type",
+        "typeDropdownPlaceholder": "Select policy type"
+      }
+    },
+    "policy": {
+      "noRelevantPluginsTooltip": "No Relevant Plugins",
+      "linkElementBtn": "Connect Link",
+      "linkTooltip": "Link policy as evidence",
+      "downloadTemplate": "Download template",
+      "uploadManual": "Manually upload file",
+      "uploadFile": "Upload file",
+      "connectDocument": "Connect document",
+      "linked": "Linked ({{overallEntitiesCount}})",
+      "linkedTo": "Linked to {{overallEntitiesCount}} controls:",
+      "emptyPreview": {
+        "header": "Owner, reviewers and approvers are not defined",
+        "openSettingsLink": "Open policy settings",
+        "description": "to set roles."
+      },
+      "threeDotsMenu": {
+        "edit": "Edit policy",
+        "remove": "Remove policy"
+      },
+      "editPolicyModal": {
+        "title": "Edit Policy",
+        "description": "Edit policy name and description",
+        "nameLabel": "Name",
+        "descriptionLabel": "Description",
+        "footer": {
+          "closeBtn": "Close",
+          "updateItemBtn": "Update"
+        },
+        "success": {
+          "title": "Policy updated successfully ",
+          "description": "",
+          "btn": "Got it"
+        },
+        "error": {
+          "title": "Failed to update policy",
+          "description": "Please try again. If the issue persists, contact support.",
+          "btn": "Try again"
+        }
+      },
+      "removeModal": {
+        "question": "Are you sure you want to remove this policy?",
+        "aftermath": "Once removed,  file and settings will be deleted ",
+        "yesRemove": "Yes, remove",
+        "cancel": "Cancel",
+        "success": {
+          "title": "Policy removed successfully",
+          "description": "",
+          "btn": "Got it"
+        },
+        "error": {
+          "title": "Failed to remove policy",
+          "description": "Please try again. If the issue persists, contact support. ",
+          "btn": "Try again"
+        }
+      },
+      "statusTooltips": {
+        "pending": "",
+        "onHold": "Policy approval cycle is waiting for your action.\nYou may approve on behalf your colleagues.",
+        "approved": "Last approved by @{{ name }} on {{ date }}",
+        "notStarted": "Set reviewers and approvers",
+        "outdatedPolicy": "Outdated policy"
+      }
+    },
+    "settings": {
+      "title": "Policy Settings",
+      "next": "Next",
+      "back": "Back",
+      "save": "Save",
+      "skip": "Skip",
+      "owner": {
+        "description": "Set policy owner",
+        "name": "Owner"
+      },
+      "reviewers": {
+        "description": "Set persons that need to review this policy",
+        "name": "Reviewers"
+      },
+      "approvers": {
+        "description": "Set persons that need to approve this policy",
+        "name": "Approvers"
+      },
+      "scheduling": {
+        "name": "Scheduling",
+        "frequency": {
+          "label": "Approval frequency",
+          "info": "Select the approval cycle frequency , it can be monthly, quarterly and yearly",
+          "yearly": "Yearly",
+          "quarterly": "Quarterly",
+          "monthly": "Monthly"
+        },
+        "startFrom": {
+          "label": "Start form",
+          "invalidDate": "Make sure the date is valid"
+        },
+        "notifyMe": {
+          "label": "Notify Me",
+          "info": "You’ll get a reminder based on your selection"
+        },
+        "notifyRoles": {
+          "label": "Notify & send a link for approval to all assigned colleagues",
+          "info": "This will start an automated approval cycle based on your selection, the policy will be sent for approval to the relevant stockholders by the following order: owner, reviewers and approvers"
+        },
+        "notify": {
+          "never": "Never",
+          "day": "1 day before",
+          "week": "1 week before",
+          "month": "1 month before"
+        }
+      },
+      "addPeople": "Add more people",
+      "fields": {
+        "name": "Name",
+        "role": "Role",
+        "email": "Email",
+        "fieldIsRequires": "This field is required",
+        "emailIsInvalid": "Make sure it's a real email",
+        "sameEmailIsInvalid": "Make sure you didn't use this email in other step"
+      },
+      "success": {
+        "title": "Policy's settings was successfully updated",
+        "description": "",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "description": "Please try again. If the issue persists, contact support. ",
+        "btn": "Back"
+      }
+    },
+    "policyPreview": {
+      "policySettingsBtn": "Policy settings",
+      "viewDocument": "View document",
+      "owner": "Owner",
+      "reviewer": "Reviewer",
+      "approver": "Approver",
+      "type": "# Type",
+      "name": "Name",
+      "role": "Role",
+      "email": "Email",
+      "status": "Status",
+      "comments": "Comments",
+      "info": "Info",
+      "approvedOn": "Approved on",
+      "approveOnBehalf": "Approve",
+      "resend": "Resend",
+      "sentAt": "Sent for approval at {{lastNotified}}",
+      "sendForApproval": "Send for approval",
+      "declineApprove": "Cancel approval",
+      "notDefined": "Owner, reviewers and approvers are not defined",
+      "openPolicySetting": "Open policy settings",
+      "setRoles": " to set roles.",
+      "nextCycle": "Next approval cycle starts on:",
+      "lastYear": "Last year"
+    },
+    "approveOnBehalf": {
+      "title": "Approve policy",
+      "description": "You are about to approve {{policy_name}}",
+      "approve": "Approve",
+      "addComment": "Add a comment",
+      "success": {
+        "title": "Approve on behalf sent successfully",
+        "description": "",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "description": "Please try again. If the issue persists, contact support. ",
+        "btn": "Back"
+      }
+    },
+    "sendForApproval": {
+      "title": "Send policy for approval",
+      "description": "You may send the policy to review by email or by pasting the custom link to any other communication channel.\nThe link will be valid for 7 days",
+      "sendVia": "Send link via",
+      "email": "Email",
+      "link": "Use custom link",
+      "addComment": "Add a comment",
+      "tip": "Make sure you share it with the correct person ",
+      "send": "Send",
+      "copy": "Copy custom link",
+      "copied": "Copied!",
+      "close": "Close",
+      "success": {
+        "title": "Policy was successfully sent for approval.",
+        "description": "",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "description": "Please try again. If the issue persists, contact support. ",
+        "btn": "Back"
+      }
+    },
+    "policyRenderer": {
+      "approved": "Approved ({{count}})",
+      "inProgress": "In Progress ({{count}})",
+      "empty": "Empty ({{count}})"
+    }
+  },
+  "userMenu": {
+    "currentUser": "Hey {{ currentUser }}",
+    "logOut": "Log out",
+    "help": "Help",
+    "settings": "Settings",
+    "auditors-portal": "My Auditor Portal"
+  },
+  "onboardingWizard": {
+    "done": {
+      "buttons": {
+        "plugins": "Plugins market",
+        "policy": "Policy Manager"
+      },
+      "descriptions": {
+        "header": "Hurray!",
+        "first": "You are ready to enjoy anecdotes on your own.",
+        "second": "We are here for you: our ",
+        "third": " & ",
+        "fourth": "are available for you at any time.",
+        "whatsNext": "What’s next?",
+        "startWith": "Start with connecting your plugins to stream evidence collection, or set your policies to define automated review cycle."
+      },
+      "links": {
+        "help": "Help center",
+        "intercom": "Customer support chat",
+        "linkHref": "https://intercom.help/anecdotes/en/"
+      }
+    },
+    "welcome": {
+      "buttons": {
+        "getStarted": "Get started"
+      },
+      "descriptions": {
+        "welcomeHeader": "Welcome to anecdotes :)",
+        "welcomDescriptionMain": "Our goal is to eliminate compliance legwork and let you enjoy a SaaS platform that automates evidence collection and scales with you.",
+        "welcomeDescriptionSecondary": "Let's start by getting anecdotes ready for your needs. "
+      }
+    },
+    "frameworks": {
+      "buttons": {
+        "skip": "Skip",
+        "next": "Next"
+      },
+      "descriptions": {
+        "header": "Which frameworks are relevant for your organization?",
+        "tip": "Any decision you make now can be changed easily at any time."
+      }
+    },
+    "plugins": {
+      "buttons": {
+        "next": "Next",
+        "skip": "Skip",
+        "back": "Back"
+      },
+      "descriptions": {
+        "header": "Which tools are part of your organization's technology stack?",
+        "desctiptionUnderheader": "We offer dozens of plugins! Let’s start with the basics:"
+      }
+    },
+    "policy": {
+      "buttons": {
+        "next": "Next",
+        "back": "Back",
+        "skip": "Skip"
+      },
+      "descriptions": {
+        "header": "Do you already have any organizational policies?",
+        "headerManage": "Where do your manage your files/policies?",
+        "tipYes": "Great! It’s easy to manage your policies with anecdotes.",
+        "tipNo": "We got you covered! Our experts have created templates for the most common policies."
+      },
+      "radioButtons": {
+        "yes": "Yes",
+        "no": "No"
+      }
+    },
+    "company": {
+      "buttons": {
+        "skip": "Skip",
+        "back": "Back",
+        "addUser": "Invite first user",
+        "done": "Done"
+      },
+      "descriptions": {
+        "header": "Start building your team!",
+        "tip": "You can manage and invite more types of users later"
+      }
+    }
+  },
+  "welcomePage": {
+    "title": "Hi, {{userName}}!",
+    "hint": "Get started easily with the following steps:",
+    "controls": {
+      "title": {
+        "commonText": "Define the scope of",
+        "link": "your controls"
+      },
+      "description": "Start with anecdotes basics.\nLater you can adopt the frameworks you want to comply with (SOC2, ISO 27 etc.)"
+    },
+    "plugins": {
+      "title": {
+        "link": "Connect plugins",
+        "commonText": "to your SaaS & cloud products"
+      },
+      "description": {
+        "commonTextFirst": "Need some help with that?",
+        "commonTextSecond": "You can invite an IT user to help you with this - check out our",
+        "link": "users page."
+      }
+    },
+    "evidences": {
+      "title": {
+        "commonTextFirst": "Review your",
+        "link": "automated evidence",
+        "commonTextSecond": "and approve satisfied requirements"
+      },
+      "description": {
+        "commonTextFirst": "Review the evidence data and approve the requirement.",
+        "link": "Check out this article",
+        "commonTextSecond": "to see how you've progressed in your compliance program using anecdotes."
+      }
+    },
+    "reports": {
+      "title": "Generate a control report to show your performance",
+      "description": "Simply select the control you want to present and generate a report."
+    },
+    "policy": {
+      "title": "Create a policy and automate approval cycles",
+      "description": "Download policy templates, connect links to your policies, and set up an approval cycle."
+    },
+    "question": {
+      "title": "Got a question?",
+      "description": {
+        "commonText": "Our team is a click away,",
+        "link": "open chat."
+      }
+    }
+  },
+  "auditorsPortal": {
+    "hello": "Hello",
+    "auditorPortal": "Auditor Portal",
+    "enterPlatform": "Enter Platform"
+  },
+  "api": {
+    "comingSoon": {
+      "description": {
+        "header": "Need to stream your own evidence? Great!",
+        "content": "Use our API to stream any proprietary evidence you have and leverage anecdotes Evidence Library™ for guidance and mapping."
+      }
+    },
+    "header": {
+      "api": "Anecdotes Evidence Library"
+    },
+    "button": "Interested? Let us know"
+  },
+  "settings": {
+    "title": "Settings",
+    "manageUsers": {
+      "tab": "Manage users"
+    },
+    "agents": {
+      "inviteItUser": {
+        "needHelpFromItUser": "Need help from your colleague to configure a connector?",
+        "inviteItUser": "Invite IT user",
+        "itUserHelp": "IT user will have access only to the plugins pages (View, connect and disable plugins)"
+      },
+      "agentItem": {
+        "createNewAgentPlaceholder": "Name your connector",
+        "saveAgentButton": "Save",
+        "liveStatus": "Live",
+        "pendingStatus": "Pending",
+        "errorStatus": "Error"
+      },
+      "agentManagement": {
+        "agentFailedToCreate": {
+          "aftermath": "Unexpected issue during the connector creation, if the issue persists contact our support team.",
+          "confirmation": "Try again",
+          "dismiss": "Contact us",
+          "question": "Connector Creation Failed",
+          "connectorWithSuchNameExists": "A connector with this name already exists"
+        },
+        "errorAgentRemoval": {
+          "title": "Connector removal operation failed",
+          "description": "Try again or contact us",
+          "btn": "Got It"
+        },
+        "removeAgent": {
+          "aftermath": "All the connector's connected plugins will be disconnected and no longer automated. All existing evidence will remain on the platform.",
+          "confirmation": "Yes, remove",
+          "dismiss": "Cancel",
+          "question": "Are you sure you want to remove the connector?"
+        },
+        "tabs": {
+          "logs": "Logs",
+          "info": "Info",
+          "connectedPlugins": "Connected Plugins"
+        },
+        "connectedPluginsTab": {
+          "viewEvidence": "View evidence",
+          "evidence": "evidence",
+          "noConnectedPlugins": "No plugins connected yet"
+        },
+        "logs": {
+          "emptyAgentLogs": "No logs yet"
+        },
+        "infoTab": {
+          "regenerateApiKey": "Regenerate",
+          "lastHeartbeat": "Last heartbeat",
+          "connectedPlugins": "Connected plugins",
+          "apiKeyFieldLabel": "Connector API Key",
+          "descriptionFirstPart": "First, download virtual machine or docker container. Then, the API key will be used to run commands for creating a connection between anecdotes' platform and the Private Cloud environment. Follow this ",
+          "linkText": "guide",
+          "descriptionSecondPart": " for more information.",
+          "regenerateKey": {
+            "aftermath": "You will have to re-configure the Virtual Machine",
+            "confirmation": "Yes, re-generate",
+            "dismiss": "Cancel",
+            "question": "Are you sure you want to re-generate key?"
+          },
+          "successApiRegenerate": {
+            "title": "Success!",
+            "description": "Api key was regenerated",
+            "btn": "Got it"
+          },
+          "errorApiRegenerate": {
+            "title": "Somethign went wrong",
+            "description": "Api key was not regenerated",
+            "btn": "Got it"
+          }
+        },
+        "downloadVirtualMachine": "Download Virtual Machine",
+        "virtualMachineDownloading": "Downloading",
+        "runDockerContainer": "Run Docker container",
+        "removeTheAgent": "Remove the connector"
+      },
+      "addAgentButton": "Add Connector",
+      "tab": "Connectors",
+      "title": "Configure a Connector",
+      "descriptionFirstPart": "In order to connect Private Cloud plugins, a connector must be configured. You can configure a connector to run via Virtual Machine. See ",
+      "linkText": "How to configure an anecdotes' Connector",
+      "descriptionSecondPart": " article for more information."
+    },
+    "dataDelegation": {
+      "tab": "Data Delegation",
+      "title": "Data Delegation",
+      "description1": "Data delegation enables you to store all your data and secrets inside your organization's perimeter. By installing the relevant apps below, you can store data in your own cloud environments. For more information, ",
+      "description2": "read this article",
+      "intercomLink": "https://intercom.help/anecdotes/en/articles/5892960-data-delegation-overview",
+      "sections": {
+        "Raw data": "Raw data is a set of unprocessed data coming from plugins.",
+        "Metadata": "Metadata is data created by anecdotes as part of the usage (gaps, owners, etc.).",
+        "Secrets": "Secrets are tokens provided in order to pull data from your plugins."
+      },
+      "buttonText": "Contact us to enable"
+    },
+    "setSso": {
+      "tab": "Set SSO",
+      "title": "SAML 2.0 configuration",
+      "description": "Installing one of the apps below enable you to configure Single Sign-On between your identity provider and anecdotes using SAML 2.0",
+      "configuredText": "Configured",
+      "idpLinkFieldTitle": "Identity Provider metadata url",
+      "connectionErrorText": "An error occured",
+      "editBtn": "Edit",
+      "setBtn": "Set",
+      "connectBtn": "Connect",
+      "updateBtn": "Update",
+      "disconnectBtn": "Disconnect",
+      "gotItBtn": "Got it",
+      "confirmDisconnectBtn": "Yes, disable",
+      "backBtn": "Back",
+      "disconnectConfirmationText": "Are you sure you want to remove {{ssoItemDisplayName}} saml?",
+      "descriptionMiddlePart": "For more information, read the",
+      "descriptionSecondPart": "following article",
+      "idpTexts": {
+        "okta": {
+          "title": "Okta SAML 2.0",
+          "descriptionFirstPart": "Please sign-in to your Okta Admin app and fill in Identity Provider metadata url.",
+          "linkInputLabel": "Identity Provider metadata url"
+        },
+        "onelogin": {
+          "title": "OneLogin SAML 2.0 ",
+          "descriptionFirstPart": "Please sign-in to your OneLogin Admin app and fill in Issuer url.",
+          "linkInputLabel": "Issuer URL"
+        }
+      },
+      "connectionSuccessState": {
+        "primaryText": "SAML 2.0 configured successfully",
+        "secondaryText": "Nice! you are now able to manage users in your own IDP"
+      },
+      "disconnectionSuccess": {
+        "primaryText": "SAML 2.0 link was successfully removed"
+      }
+    }
+  },
+  "evidencePool": {
+    "header": {
+      "title": "My Evidence Pool",
+      "all": "All",
+      "filtersBtn": "Filters",
+      "searchEvidence": "Search Evidence"
+    },
+    "secondaryHeader": {
+      "title": "Collected evidence ({{count}})"
+    },
+    "root": {
+      "evidencePoolTip": "Find here all the evidence collected for you via all anecdotes collection methods, both automatically and manually.\n Use this view to easily find pieces of evidence you want regardless to a specific audit, review the data and share with business partners when required."
+    },
+    "filterDefinition": {
+      "collectedFrom": "Evidence collected from",
+      "frameworks": "Frameworks"
+    },
+    "notFound": {
+      "mainInfo": "Sorry, no evidence was found matching your search",
+      "userAdvice": "Try using our filter panel for quick navigation",
+      "backToAllEvidenceBtn": "Clear search"
+    },
+    "noEvidence": {
+      "mainInfo": "No evidence yet",
+      "userAdvice": "Connect plugins to start evidence collection",
+      "backToAllEvidenceBtn": "Connect Plugins"
+    },
+    "evidencePoolItem": {
+      "manualUploadedEvidence": "Manually uploaded",
+      "automaticallyCollected": "Automatically collected",
+      "linkEvidenceBtn": "Link evidence",
+      "linked": "Linked ({{overallEntitiesCount}})",
+      "linkedTo": "Linked to {{overallEntitiesCount}} controls:"
+    }
+  },
+  "controls": {
+    "tscPillTitleForSoc": "TSC",
+    "collected": "Approved Requirements",
+    "controlButton": {
+      "tooltip": {
+        "onDateText": "on",
+        "notStarted": "No evidence collected yet",
+        "readyForAudit": "Marked Ready for audit by",
+        "issueByAuditor": "Marked as issue by",
+        "inProgress": "Evidence collection in progress",
+        "gap": "Marked as Gap by",
+        "approvedByAuditor": "Approved by"
+      }
+    },
+    "header": {
+      "all": "All",
+      "NaDisplayedBtn": "Hide N/A",
+      "NaHiddenBtn": "Show N/A",
+      "filtersBtn": "Filters",
+      "searchControl": "Search",
+      "addControlsBtnText": "Add Control",
+      "auditZoneBtnText": "Audit Zone",
+      "auditInProgress": "Audit in progress",
+      "adoptFramework": "Adopt a framework",
+      "overview": "Framework Overview",
+      "audit": "Audit History",
+      "readOnly": "[Read Only]"
+    },
+    "secondaryHeader": {
+      "controlsText": "Controls",
+      "searchPlaceholder": "Search",
+      "tabs": {
+        "allControlsTabName": "All Controls",
+        "inProgressTabName": "In progress",
+        "completedTabName": "Collected",
+        "compliantTabName": "Compliant",
+        "notStartedTabName": "Not started"
+      },
+      "exportMenuButton": "Export",
+      "exportMenu": {
+        "filteredControls": "Filtered Controls",
+        "allControls": "All Controls",
+        "allEvidence": "All Evidence",
+        "allLogs": "All Logs"
+      }
+    },
+    "noAdoptedFrameworks": {
+      "title": "Adopt a Framework to view all available controls",
+      "buttonText": "View Frameworks"
+    },
+    "applicability": {
+      "tab": "Applicability",
+      "notApplicable": "Not applicable"
+    },
+    "status": {
+      "tab": "Control status",
+      "notStarted": "Not started",
+      "inProgress": "In progress",
+      "readyForAudit": "Ready for audit",
+      "gap": "Gap",
+      "issue": "Issue by Auditor",
+      "approved": "Approved by auditor",
+      "monitoring": "Monitoring"
+    },
+    "evidence": {
+      "tab": "Evidence Status",
+      "new": "New",
+      "marked": "Marked for review"
+    },
+    "controlCreatedBy": "Created by @{{username}} on {{time}}",
+    "applicabilityTooltip": {
+      "makeApplicable": "Mark as applicable",
+      "makeNotApplicable": "Mark as not applicable"
+    },
+    "automation": {
+      "tab": "Automation",
+      "available": "Automated",
+      "notAvailable": "Not automated"
+    },
+    "frameworks": {
+      "tab": "Frameworks"
+    },
+    "categories": {
+      "tab": "Categories"
+    },
+    "notFound": {
+      "mainInfo": "Sorry, no controls were found matching your search",
+      "userAdvice": "Try using our filter panel for quick navigation",
+      "backToAllControlsBtn": "Back to all controls"
+    },
+    "statuses": {
+      "gap": "Gap",
+      "issue": "Issue",
+      "comply": "Comply ",
+      "comments": "Comments"
+    },
+    "plugins": {
+      "tab": "Evidence collected from",
+      "allPlugins": "All plugins"
+    },
+    "owner": {
+      "tab": "Control Owner",
+      "noOwner": "No Owner",
+      "me": "(me)"
+    },
+    "emptyState": {
+      "header": "My Controls Workspace",
+      "secondaryHeader": "Start defining your compliance program by adding controls to your anecdotes workspace",
+      "anecdotesBadge": "Not sure what you need?",
+      "anecdotesHeader": "Start With anecdotes Basic Controls",
+      "anecdotesSubheader": "It’s an easy way to start your compliance journey with\n5 common controls.",
+      "anecdotesInfo": "anecdotes basic controls contain best practices for access control, secure development and critical security requirements that are applicable for most organizations.",
+      "startWithBasics": "Start with basics",
+      "frameworksBadge": "Already have a compliance program?",
+      "frameworksHeader": "Adopt Frameworks",
+      "frameworksSubheader": "Select from a variety of leading industry standards.\nThe frameworks you adopt define the controls added to your workspace.",
+      "adoptSelectedFrameworks": "Adopt selected frameworks ({{count}})",
+      "adoptSelectedFrameworksWithoutCount": "Adopt selected frameworks",
+      "adoptSelectedFrameworksExclusiveFeature": "Adopting a framework is not avalible during free trial.\nContact us to upgrade you account.",
+      "contactUs": "Chat with us",
+      "bottomHelpText": "<span>Not sure what’s right for you?</span>&nbsp;Don’t worry, any decision you make now can be easily changed later.",
+      "frameworkInfo": {
+        "controlsCount": "{{count}} Controls"
+      }
+    },
+    "startedWithFrameworksAdoptionModal": {
+      "information": "Your controls are waiting for you",
+      "aftermath": "‘My controls’ page contains controls based on your framework selection.\nYou can easily switch between different views for your convenience.",
+      "gotIt": "Got it"
+    },
+    "startedWithAnecdotesEssentialsModal": {
+      "information": "Your controls are waiting for you",
+      "aftermath": "‘My Controls’ contains 5 basic controls as defined by anecdotes.\nAdopting one or more frameworks will add additional controls to this space.",
+      "gotIt": "Got it"
+    },
+    "addControlModal": {
+      "addControlTitle": "Add control",
+      "editControlTitle": "Edit control",
+      "description": "Please provide control category, name and description.",
+      "footer": {
+        "createControlBtn": "Create control",
+        "updateControlBtn": "Update"
+      },
+      "addResultModals": {
+        "success": {
+          "title": "Control added successfully",
+          "description": "Now you can start adding requirements.",
+          "buttons": {
+            "notNow": "Not now",
+            "addRequirement": "Add Requirement"
+          }
+        },
+        "error": {
+          "title": "Failed to create custom control",
+          "description": "Please try again",
+          "btn": "Try again"
+        }
+      },
+      "editResultModals": {
+        "success": {
+          "title": "Control updated successfully",
+          "description": "The control will be added to the framework.",
+          "btn": "Got it"
+        },
+        "error": {
+          "title": "Failed to update custom control",
+          "description": "Please try again",
+          "btn": "Try again"
+        }
+      },
+      "form": {
+        "categoryLabel": "Select control category",
+        "categoryPlaceholder": "Category",
+        "categorySearchPlaceholder": "Search",
+        "subCategoryLabel": "Select control sub-category (Category as appears on ‘my controls’)",
+        "subCategoryPlaceholder": "Other",
+        "controlNameLabel": "Name new control",
+        "addDescriptionLabel": "Add description",
+        "tscPlaceholder": "Add...",
+        "tscSearchPlaceholder": "Search"
+      }
+    },
+    "viewControlModal": {
+      "viewFullControl": "View Full Control"
+    },
+    "threeDotsMenu": {
+      "remove": "Remove",
+      "edit": "Edit",
+      "markAsNotApplicable": "Mark as N/A",
+      "markAsRelevant": "Mark as applicable",
+      "generateReport": "Generate Report"
+    },
+    "report": {
+      "header": {
+        "reportForCompany": "Control Status Report for {{company_name}}",
+        "lastUpdated": "Last Updated"
+      },
+      "description": {
+        "title": "Control Report",
+        "description": "This report includes information regarding the control and the requirements needed to satisfy it. \nThe control is continuously monitored with anecdotes compliance platform, based on evidence data from cloud infrastructure and services."
+      },
+      "requirementItem": {
+        "connectedPlugins": "Connected Plugins:",
+        "trustedCriterias": "Trusted services criteria: {{criterias}}"
+      }
+    },
+    "controlRemoval": {
+      "confirmationModal": {
+        "question": "Are you sure you want to remove this control?",
+        "aftermath": "Control will be removed permanently.",
+        "yesRemove": "Yes, remove",
+        "cancel": "Cancel"
+      },
+      "success": {
+        "title": "Success!",
+        "description": "Control removed successfully",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Error!",
+        "description": "Control removal failed",
+        "btn": "Try again!"
+      }
+    },
+    "guideline": {
+      "customersGuide": "Customers",
+      "providersGuide": "Providers",
+      "title": "Implementation Guidance {{controlName}}"
+    },
+    "emptyTooltip": "No info was found",
+    "implementationGuildlines": "Implementation Guidlines",
+    "inviteUsers": "Invite a new user",
+    "selectUser": "Select Owner",
+    "searchPlaceholder": "Search",
+    "noOwnerValue": "No owner",
+    "controlFreeze": "Switch the control’s status to make changes",
+    "me": "(me)",
+    "freeze": {
+      "title": "You’re about to freeze this control",
+      "description": "Once a control is marked \"{{status}}\", no further changes can be made to it.\nNewly collected evidence will not be added to this control.\nTo make future changes or updates to the evidence please change the status\nof the control.",
+      "yesContinue": "Yes, Continue",
+      "cancel": "Cancel",
+      "dontShow": "Never show again"
+    },
+    "unfreeze": {
+      "title": "You are about to update the control status",
+      "description": "The evidence will be updated and you will be able to edit the control.",
+      "yesContinue": "Yes, Continue",
+      "cancel": "Cancel",
+      "dontShow": "Never show again"
+    },
+    "error-freeze": {
+      "title": "Failed to update control status",
+      "description": "Please try again. If the issue persists, ",
+      "contact": "contact support.",
+      "tryAgain": "Try again",
+      "cancel": "Cancel"
+    }
+  },
+  "noteElement": {
+    "tooltip": {
+      "lastModifiedBy": "Last modified by",
+      "onDateText": "on",
+      "note": "Note",
+      "removeNoteLink": "Remove",
+      "editNoteLink": "Edit Note",
+      "addNoteText": "Add note"
+    }
+  },
+  "requirements": {
+    "count": "Requirements ({{req_count}})",
+    "noEvidence": "No evidence collected yet",
+    "addRequirement": "Add Requirement",
+    "hideIgnoredBtn": "Hide ignored ({{req_count}})",
+    "showIgnoredBtn": "Show ignored ({{req_count}})",
+    "approved": "Approved",
+    "lastApprovedBy": "Last approved by",
+    "lastApprovedOn": "@{{username}} on {{timestamp}}",
+    "unapprove": "Cancel approval",
+    "approve": "Approve requirement",
+    "pending": "Pending",
+    "empty": "Empty",
+    "collectEvidenceBtnText": "Collect evidence",
+    "noRelevantPluginsTooltip": "No Relevant Plugins",
+    "automate": "Automate",
+    "automateTooltip": "Add linked files & custom pieces of evidence",
+    "linkTooltip": "Add linked files & custom pieces of evidence",
+    "connectRelevantPluginsTooltip": "Connect relevant plugins",
+    "relevantPluginsAreConnectedTooltip": "Nice job! All plugins are connected.",
+    "addedBy": "Added by @{{name}} on",
+    "noRequirementsInfo": "No requirements yet",
+    "controlFreeze": "Switch the control’s status to make changes",
+    "threeDotsMenu": {
+      "upload": "Upload evidence manually",
+      "markAsRelevant": "Mark as applicable",
+      "ignore": "Ignore requirement",
+      "sendSlackTask": "Send task via Slack",
+      "remove": "Remove requirement",
+      "edit": "Edit requirement"
+    },
+    "collectEvidenceMenu": {
+      "linkedDocuments": "Shared link",
+      "workflow": "Ticketing",
+      "policy": "Policy",
+      "url": "URL",
+      "file": "From device",
+      "evidencePool": "Evidence Pool"
+    },
+    "slack": {
+      "sentViaSlack": "Sent via Slack",
+      "pending": "Pending...",
+      "dismiss": "Dismiss"
+    },
+    "addRequirementModal": {
+      "nextBtn": "Next",
+      "title": "Add requirement to selected controls",
+      "description": "Create a new requirement or select one from existing requirements",
+      "linkReqTitle": "Link the requirement to additional frameworks",
+      "linkReqDescription": "Now you can link additional controls from any framework that will\ninclude the new requirement.",
+      "orText": "OR",
+      "addRequirementBtn": "Add requirement",
+      "success": {
+        "title": "New Requirement Added",
+        "description": "The requirement will be added to the selected controls.",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Failed to create requirement",
+        "description": "Please try again. If the issue persists, contact support. ",
+        "btn": "Try again"
+      },
+      "newRequirementForm": {
+        "newRequirementNameLabel": "Name new requirement",
+        "descriptionLabel": "Description",
+        "changeViewToSelectExisting": "Select from existing requirements",
+        "changeViewToCreateNew": "Create new requirement",
+        "selectRequirementLabel": "Select from existing requirements",
+        "search": "Search",
+        "selectRequirement": "Select requirement"
+      }
+    },
+    "editRequirementModal": {
+      "title": "Edit Requirement",
+      "description": "Edit requirement name and description",
+      "requirementNameLabel": "Name",
+      "descriptionLabel": "Description",
+      "footer": {
+        "closeBtn": "Close",
+        "updateRequirementBtn": "Update"
+      },
+      "statusModal": {
+        "success": {
+          "title": "Requirement updated",
+          "description": "The requirement was edited for the selected control.",
+          "btn": "Got it"
+        },
+        "error": {
+          "title": "Failed to update requirement",
+          "description": "Please try again. If the issue persists, contact support.",
+          "btn": "Try again"
+        }
+      }
+    },
+    "requirmentRemoval": {
+      "confirmationModal": {
+        "question": "Are you sure you want to remove this requirement?",
+        "aftermath": "Once removed, you will not be able to see it",
+        "yesRemove": "Yes, remove",
+        "cancel": "Cancel"
+      },
+      "success": {
+        "title": "Requirement removed",
+        "description": "The requirement was removed for the selected control.",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Failed to remove requirement",
+        "description": "Please try again. If the issue persists, contact support.",
+        "btn": "Try again"
+      }
+    },
+    "confirmationModal": {
+      "question": "Are you sure you want to remove this requirement?",
+      "aftermath": "Once removed, you will not be able to see it",
+      "yesRemove": "Yes, remove",
+      "cancel": "Cancel"
+    },
+    "linkEntityModal": {
+      "title": "Link Policy",
+      "description": "Select the relevant policy",
+      "help": "Can’t find a policy? Go to",
+      "helpLink": "policy manager",
+      "linkEntityBtn": "Link policy",
+      "form": {
+        "selectItemLabel": "Select policy",
+        "search": "Search",
+        "selectItem": "Select policy"
+      },
+      "success": {
+        "title": "Policy was linked successfully to requirement",
+        "description": "",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Failed to link policy to requirement.",
+        "description": "Please try again. If the issue persists, contact support.",
+        "btn": "Try again"
+      }
+    }
+  },
+  "slackIntegrationModal": {
+    "title": "Send task via Slack",
+    "defaultMessage": "Hey, there’s a request for you from {{user_name}} to provide an evidence for {{evidence_name}}",
+    "sendBtn": "Send",
+    "form": {
+      "searchTextField": {
+        "label": "Search channels and people"
+      },
+      "messageTextArea": {
+        "label": "Add a message (optional)"
+      }
+    },
+    "successModal": {
+      "title": "Your message was sent via Slack",
+      "btn": "Got it"
+    },
+    "failedModal": {
+      "title": "Failed to connect",
+      "description": "Something went wrong and the message could not be sent.",
+      "btn": "Try again"
+    }
+  },
+  "evidences": {
+    "beta": "Beta",
+    "new": "New",
+    "ignore": "Ignore evidence",
+    "unIgnore": "Mark as applicable",
+    "ignoredEvidence": "Ignored Evidence",
+    "gotItTooltip": "Got it",
+    "markTooltip": "Mark for review",
+    "automate": "Automate",
+    "uploadEvidence": "Upload Evidence",
+    "openTask": "Open task (coming soon..)",
+    "download": "Download",
+    "viewRawData": "Download raw data",
+    "remove": "Remove {{ resource }}",
+    "openLink": "Open link",
+    "editLink": "Edit link",
+    "lastModified": "Last modified",
+    "uploadedBy": "Uploaded by",
+    "lastModifiedBy": "Last modified by",
+    "manualUploadedEvidence": "Manually uploaded",
+    "automaticallyCollected": "Automatically collected",
+    "evidenceItemsCount": {
+      "configuration": {
+        "singular": "Item",
+        "plural": "Items"
+      },
+      "list": {
+        "singular": "Item",
+        "plural": "Items"
+      },
+      "log": {
+        "singular": "Log",
+        "plural": "Logs"
+      },
+      "ticket": {
+        "singular": "Item",
+        "plural": "Items"
+      },
+      "url": {
+        "singular": "Item",
+        "plural": "Items"
+      }
+    },
+    "timeframe": {
+      "from": "From",
+      "to": "To"
+    },
+    "evidenceCollectionDate": {
+      "today": "Today",
+      "day": "{{amount}} day(s) ago",
+      "month": "{{amount}} month(s) ago"
+    },
+    "confirmationModal": {
+      "question": "Are you sure you want to remove this evidence?",
+      "questionIgnore": "Are you sure you want to ignore this evidence?",
+      "questionRestore": "Are you sure you want to mark this evidence as relevant?",
+      "aftermath": "You will not be able to restore it after deleting",
+      "aftermathApproved": "This evidence belongs to an approved requirement",
+      "deleteForeverBtn": "Yes, remove forever.",
+      "yesIgnore": "Yes, ignore.",
+      "yesRestore": "Yes, mark as applicable.",
+      "noKeepItBtn": "No, keep it."
+    },
+    "policyConfirmationModal": {
+      "question": "Are you sure you want to remove this document?",
+      "aftermath": "The current policy settings will appear again once a new file is uploaded",
+      "deleteForeverBtn": "Yes, remove forever.",
+      "noKeepItBtn": "No, keep it."
+    },
+    "errors": {
+      "manualUploadFailed": "File upload has failed. Please try again."
+    },
+    "filePreview": {
+      "uploadedBy": "Uploaded by",
+      "manualUploadedEvidence": "Manually uploaded",
+      "downloadEvidence": "Download Evidence"
+    },
+    "manualUpload": {
+      "success": {
+        "information": "File was successfully uploaded",
+        "aftermath": "If this requirement is satisfied, you may approve it",
+        "gotIt": "Got it"
+      },
+      "failure": {
+        "information": "Failed to upload file",
+        "aftermath": "If the issue persists, please",
+        "contactSupport": "contact support",
+        "tryAgain": "Try again"
+      }
+    },
+    "skeleton": {
+      "uploadingFailed": "Uploading failed!",
+      "tryAgain": "Try again",
+      "collectionFailed": "Collection failed!",
+      "goTo": "Go to",
+      "pluginPage": "plugin page",
+      "forMoreInfo": "for more info"
+    },
+    "evidenceReport": {
+      "reportText": "Having issues with this evidence?",
+      "reportLinkText": "Let us know"
+    },
+    "evidenceLabel": {
+      "copyNameInitialText": "Copy evidence name",
+      "copyNameCopiedText": "Copied"
+    }
+  },
+  "evidencePreview": {
+    "selectInstanceDropdown": {
+      "tooltip": "Select an account to display its related evidence data",
+      "placeholder": "Select account to display",
+      "itemTooltip": "Evidence was not collected for this selected evidence history"
+    },
+    "evidenceHistory": "Evidence history:",
+    "selectAccount": "Select account:",
+    "usedAPICall": "Used API call ({{apiCallsCount}}):",
+    "allApiCallsAvailable": "> All API calls are available in the raw data",
+    "temporaryNA": "Temporary N/A",
+    "viewRawData": "Download Raw Data",
+    "viewFullDataBtn": "View full data",
+    "fullDataAndHistory": "Full data & history",
+    "editLink": "Edit link",
+    "exportToCsv": "Export CSV",
+    "copyLink": "Copy link",
+    "copyLinkSuccess": "Copied",
+    "openInNewTab": "open in a new tab",
+    "search": "Search",
+    "cantPresentPreview": "Can't present preview",
+    "downloadFullDataBtn": "Download full data",
+    "file": {
+      "viewFullEvidenceBtn": "View full evidence",
+      "header": "Evidence was successfully uploaded",
+      "downloadEvidenceBtn": "Download evidence"
+    },
+    "filterEvidence": {
+      "title": "Filter evidence",
+      "tooltip": "Filter evidence data by selecting\nvalue from the dropdown",
+      "viewAllDropdownDefault": "View all"
+    },
+    "notFound": {
+      "info": "Sorry, no results were found matching your search",
+      "button": "Clear search"
+    },
+    "noDataToPreview": {
+      "header": "Data preview is not available yet.",
+      "descriptionFirstPart": "But don't worry, the evidence was collected and the",
+      "descriptionInnerButtonText": "raw data",
+      "descriptionLastPart": "view is available."
+    },
+    "defaultEmptyResult": {
+      "title": "Evidence collected successfully",
+      "description": "No results returned for {{evidence_name}}"
+    },
+    "policyType": {
+      "viewFile": "View File",
+      "viewApprovalLog": "View Approval Log",
+      "nextCycle": "Next approval cycle starts on:",
+      "downloadEvidenceBtn": "Download Evidence",
+      "header": "Evidence was successfully uploaded"
+    }
+  },
+  "requirementNoteModal": {
+    "closeBtnText": "Close",
+    "saveAndCloseBtnText": "Save & Close",
+    "removeNoteTooltipText": "Remove note",
+    "noteTextAreaPlaceholder": "Add note",
+    "areYouSure": "Are you sure?",
+    "noKeepItBtnText": "No, keep it",
+    "yesRemoveNoteBtnText": "Yes, remove note"
+  },
+  "automationModals": {
+    "fileMonitoring": {
+      "title": "Linked files",
+      "description": "Automatically collect and monitor policies and documents.",
+      "buttonText": "File collection plugins",
+      "plugins": {
+        "title": "Linked files",
+        "description": "Use one of the following plugins to automate this requirement. Once the plugin is connected, you will be able to monitor policies and documents."
+      }
+    },
+    "ticketing": {
+      "title": "Custom tickets",
+      "description": "Automatically collect and monitor procedures and workflows. ",
+      "buttonText": "Customized evidence plugins",
+      "plugins": {
+        "title": "Customize Evidence",
+        "description": "Use one of the following plugins to automate this requirement. Once the plugin is connected, you will be able to monitor policies and documents."
+      }
+    }
+  },
+  "automatePluginsModal": {
+    "title": "Connect Plugins",
+    "description": "Use one of the following plugins to automate this requirement. Once the plugin is connected, automated evidence collection will start."
+  },
+  "ticketingModals": {
+    "title": "Customize Evidence",
+    "description": "Use one of the following plugins to automate this requirement. Once the plugin is connected, automated evidence collection will start.",
+    "search": "Search",
+    "backButtonText": "Back",
+    "createEvidenceButtonText": "Create evidence",
+    "jiraAutomationModal": {
+      "createEvidenceDescription": "Select project and issue type and get the <b>log history</b> of the last 10 issues. In addition, if\nyou use <b>workflows</b> that run on the issue type, we will collect them as well as an\nadditional evidence to the process.",
+      "createEvidenceArticleDescription": "For more information, read the following",
+      "article": "article.",
+      "selectProject": "Select a project",
+      "issueType": "Issue Type",
+      "evidenceAutomatedMessage": "Evidence was successfully automated"
+    },
+    "zendeskAutomationModal": {
+      "createEvidenceDescription": "Select a group, the ticket field that represents the ticket type, and a ticket type, and you'll get a ticket event history of your last 10 ‘Solved’ tickets. In addition, you'll get event history for actions performed by automation or triggers as evidence, as well as the SLA definitions for the group and ticket type you chose. Go to <a target=\"_blank\" href=\"{{linkHtml}}\">this article</a> for additional information.",
+      "selectGroup": "Select Group",
+      "selectTicketTypeField": "Select ticket type field",
+      "selectTicketType": "Select ticket type"
+    },
+    "success": {
+      "description": "Evidence automation failed, please try again",
+      "btn": "Ok"
+    },
+    "error": {
+      "description": "Evidence was successfully automated",
+      "btn": "Try again"
+    }
+  },
+  "uploadUrlModal": {
+    "title": "Upload URL",
+    "description": "Automatically collect and monitor procedures and workflows. ",
+    "addUrlButtonText": "Add URL",
+    "updateUrlButtonText": "Update URL",
+    "form": {
+      "url": {
+        "label": "URL"
+      },
+      "evidenceName": {
+        "label": "Evidence name"
+      }
+    }
+  },
+  "automateGeneralModal": {
+    "title": "Link options",
+    "description": "Use one of the following link evidence to this requirement. \nOnce the plugin is connected, you will be able to monitor policies and documents.",
+    "ticketing": {
+      "mainText": "Customize Evidence",
+      "secondaryText": "Automatically collect and monitor procedures and workflows.",
+      "buttonText": "Customized evidence plugins"
+    }
+  },
+  "attachLinkAutomationModal": {
+    "title": "Linked files",
+    "description": "Automatically collect and monitor policies and documents.",
+    "backButtonText": "Back",
+    "connectLinkButtonText": "Connect link",
+    "attachLinkInputTitle": "Paste a link from {{ service_display_name }}",
+    "docConnectedMessage": "Your doc was successfully connected",
+    "folderLinkAttachTip": "Attaching a link to {{ service_display_name }} folder will collect all documents within the folder.\nFiles added to the drive later will not be collected.",
+    "connectionFailed": {
+      "failedToConnect": "Failed to connect {{ service_display_name }}. Please check",
+      "connectionDetails": "connection details",
+      "areValid": "are valid"
+    },
+    "errors": {
+      "failedToAddLink": "Failed to add link, please check that link is valid",
+      "linkAlreadyExists": "Link already exists, no need to add it again"
+    },
+    "evidenceCollectionFailed": {
+      "failedToCollect": "Failed to collect evidence. Please go to",
+      "pluginsLogs": "plugin’s logs",
+      "contactSupport": "or contact support."
+    }
+  },
+  "hintsModal": {
+    "fileMonitor": {
+      "docNotFoundError": "We couldn’t find the document, please make sure the link is correct",
+      "errorAttachLink": "Failed to attach link"
+    }
+  },
+  "pluginConnection": {
+    "oauthConnection": {
+      "mainButtonText": "Connect Plugin",
+      "mainDescription": "Connect Me"
+    },
+    "oauthSuccessfullyCollected": {
+      "secondaryButtonText": "Update Permissions",
+      "mainDescription": "Evidence successfully collected",
+      "secondaryDescription": "Evidence was collected and added to the anecdotes platform"
+    },
+    "evidenceCollectionHasStarted": {
+      "mainDescription": "{{service.service_display_name}} plugin was successfully connected",
+      "secondaryDescription": "Evidence collection has started"
+    },
+    "evidenceCollectionFinished": {
+      "mainDescription": "{{serviceConnectionEntity.evidence_successfully_collected}} Evidence successfully collected",
+      "secondaryDescription": "Evidence was collected and added to the anecdotes platform",
+      "secondaryButtonText": "Got it",
+      "mainButtonText": "View Evidence"
+    },
+    "evidenceCollectionFailed": {
+      "mainDescription": "Failed to collect evidence",
+      "secondaryButtonText": "Contact support",
+      "mainButtonText": "Back"
+    },
+    "confirmServiceAccountRemove": {
+      "mainDescription": "Are you sure you want to remove {{selectedServiceInstanceViewData.instance_display_name}} account?",
+      "secondaryDescription": "This will remove the account's credentials, but keep the evidence collected so far",
+      "secondaryButtonText": "No, keep it",
+      "mainButtonText": "Yes, remove"
+    },
+    "confirmServiceAccountDisconnect": {
+      "mainDescription": "Are you sure you want to disconnect {{selectedServiceInstanceViewData.instance_display_name}} account?",
+      "secondaryDescription": "{{selectedServiceInstanceViewData.collected_evidence_count}} evidence will be disconnected from automation",
+      "secondaryButtonText": "No, keep it connected",
+      "mainButtonText": "Yes, disconnect"
+    },
+    "confirmPluginDisconnect": {
+      "mainDescription": "Are you sure you want to disconnect {{selectedServiceInstanceViewData.instance_display_name}} plugin?",
+      "secondaryDescription": "{{selectedServiceInstanceViewData.collected_evidence_count}} evidence will be disconnected from automation",
+      "secondaryButtonText": "No, keep it connected",
+      "mainButtonText": "Yes, disconnect plugin"
+    },
+    "clearFormConfirmation": {
+      "mainDescription": "Are you sure you want to clear the form?",
+      "secondaryDescription": "Your details will be deleted ",
+      "secondaryButtonText": "Back",
+      "mainButtonText": "Yes, clear form"
+    },
+    "filemonitorConnectionFinished": {
+      "mainDescription": "{{service.service_display_name}} plugin was successfully connected",
+      "secondaryDescription": "You’re now able to connect links to requirements.",
+      "mainButtonText": "Got it"
+    },
+    "waitingForTunnel": {
+      "mainDescription": "Private Cloud Plugin - Waiting for tunnel creation"
+    },
+    "waitingForTunnelFailed": {
+      "mainDescription": "Failed to connect Private Cloud connector",
+      "secondaryDescription": "The tunnel is down, please check the Connector status, for further troubleshooting, see Connector configuration guide.",
+      "mainButtonText": "Try again",
+      "secondaryButtonText": "Back"
+    },
+    "testConnectionAfterTunnelIsUp": {
+      "mainDescription": "Tunnel Created. We need a few more seconds to test the connection"
+    },
+    "testConnection": {
+      "mainDescription": "We need a few seconds to test the connection"
+    },
+    "externalApproval": {
+      "mainDescription": "No worries, you can try later.",
+      "secondaryDescription": "To enjoy {{service.service_display_name}} capabilities, we need external approval. You can try again any time.",
+      "secondaryButtonText": "Cancel",
+      "mainButtonText": "Try again"
+    },
+    "onPremNoticeText": "Private Cloud plugins require a Connector configuration. See",
+    "onPremNoticeLink": "anecdotes' connectors page.",
+    "multipleAccountsNoticeLink": "anecdotes' multiple accounts page.",
+    "multipleAccountsNoticeText": "Use the Account Alias field as an identifier to distinguish between your accounts. See"
+  },
+  "controlsExportModal": {
+    "title": "Export Controls",
+    "exportButtonText": "Export",
+    "radioGroupLabel": "Select export by"
+  },
+  "openedPlugin": {
+    "pendingAccount": "{{count}} Pending account",
+    "pendingAccounts": "{{count}} Pending accounts",
+    "addAnotherAccount": "Add another account",
+    "accountsLimitReached": "You have reached the maximum number of accounts",
+    "saveAndAddAnotherAccount": "Save & add another account",
+    "back": "Back",
+    "onPremMark": "Private Cloud",
+    "multiAccountsMark": "Multiple Accounts",
+    "multipleAccounts": {
+      "modals": {
+        "suggestAddAccount": {
+          "confirmation": "Add another account",
+          "dismiss": "No, connect one",
+          "question": "Do you wish to connect multiple accounts?",
+          "aftermath": "Not sure? Don`t worry. You can always add more accounts later."
+        },
+        "confirmConnectingMultipleAccounts": {
+          "confirmation": "Connect Accounts",
+          "dismiss": "Back",
+          "question": "You are about to connect {{accountsAmount}} accounts",
+          "aftermath": "This might take a while. You can continue your work while the plugin runs in the background"
+        },
+        "closeAccount": {
+          "confirmation": "Yes",
+          "dismiss": "Back",
+          "question": "Are you sure you want to close account with unsaved changes?"
+        }
+      },
+      "accountItem": {
+        "statuses": {
+          "success": "Connected",
+          "error": "Error"
+        },
+        "threeDotsMenu": {
+          "edit": "Edit",
+          "viewLogs": "View Logs",
+          "remove": "Remove",
+          "disconnect": "Disconnect"
+        }
+      }
+    },
+    "dynamicForm": {
+      "accountAliasDuplicateValidatiomMessage": "Account alias can't be used twice.",
+      "accountAliasRequired": "This field is required to distinguish evidence from different accounts",
+      "selectFile": "Select File",
+      "checkBoxGroupLabel": "Select products",
+      "agentLabel": "Connector",
+      "accountName": "Account Alias",
+      "hostnameLabel": "Hostname",
+      "portsLabel": "Port",
+      "noAgentsPlaceholder": "No connectors configured yet",
+      "agentDropdownPlaceholder": "Select a connector",
+      "bottomDropdownActionName": "Configure New Connector",
+      "portValidationMessage": "Port should be form 0 to 65535"
+    },
+    "tabNames": {
+      "pluginInfo": "Plugin info",
+      "permissions": "Permissions",
+      "logs": "Logs"
+    },
+    "pluginInfoTab": {
+      "whyConnecting": "Why to connect with {{service_display_name}}?",
+      "anecdotesCanAutomate": "anecdotes can automate",
+      "automaticallyMonitor": "Automatically monitor",
+      "allowsYouTo": "Allows you to",
+      "anyFileYouLinkToEvidence": "any file you link to evidence",
+      "evidence": "{{service_evidence_list.length}} Evidence",
+      "collaborateWithYourCollegues": "Collaborate with your colleagues"
+    },
+    "permissionsTab": {
+      "whatAnecdotesCanView": "What data will be provided to anecdotes?"
+    },
+    "logs": {
+      "dropdownPlaceholder": "Select service to view related logs",
+      "emptyServiceLogs": "No logs to present from the last 30 days"
+    },
+    "connectionStates": {
+      "testConnection": {
+        "mainDescription": "We need a few seconds to test the connection"
+      },
+      "successfullyConnected": {
+        "mainDescription": "{{service_display_name}} plugin was successfully connected",
+        "mainDescriptionSuccessCollectedEvidence": "Evidence successfully collected",
+        "secondaryDescription": "We're now collecting the evidence. This might take a few minutes.",
+        "secondaryDescriptionFileMonitor": "You’re now able to connect links to requirements.",
+        "secondaryDescriptionCollaboration": "Share requirement requests with your colleagues",
+        "successfullyCollectedEvidenceWithCount": "{{collected_evidence}} evidence were collected",
+        "successfullyCollectedEvidence": "Evidence was collected and added to the anecdotes platform",
+        "mainButtonText": "Connect more plugins",
+        "mainButtonGotItText": "Got it",
+        "secondaryButtonText": "Update permissions",
+        "mainButtonViewEvidenceText": "View evidence"
+      },
+      "InstallationFailed": {
+        "mainDescription": "Failed to connect {{service_display_name}} plugin.",
+        "secondaryDescription": "Please disconnect it first, and then try connecting it again.",
+        "mainButtonText": "Disconnect plugin"
+      },
+      "externalApprovalError": {
+        "mainDescription": "No worries, you can try later.",
+        "secondaryDescription": "To enjoy {{service_display_name}} capabilities, we need external approval. You can try again any time.",
+        "mainButtonText": "Try again",
+        "secondaryButtonText": "Cancel"
+      },
+      "errorConnection": {
+        "mainDescription": "Failed to connect plugin",
+        "secondaryDescription": "If the problem persists please contact your service provider",
+        "mainButtonText": "Try Again",
+        "secondaryButtonText": "Cancel"
+      },
+      "evidenceCollectionFailed": {
+        "mainDescription": "Failed to collect evidences",
+        "secondaryDescription": "Failed to collect evidence. If the issue persists, please contact support",
+        "mainButtonText": "Contact Support",
+        "secondaryButtonText": "Disconnect plugin"
+      },
+      "disablePlugin": {
+        "mainDescription": "Are you sure you want to disconnect {{service_display_name}} plugin?",
+        "secondaryDescription": "{{service_evidence_list.length}} pieces of evidence will be disconnected and no longer automated. All existing evidence will remain on the platform.",
+        "mainButtonText": "Yes, disconnect plugin",
+        "secondaryButtonText": "No, keep it connected"
+      },
+      "clearForm": {
+        "mainDescription": "Are you sure you want to clear the form?",
+        "secondaryDescription": "Your details will be deleted ",
+        "mainButtonText": "Yes, clear form",
+        "secondaryButtonText": "Back"
+      }
+    },
+    "header": {
+      "backToPlugins": "Back to plugins",
+      "lastSuccessfulRun": "Last successful run",
+      "nextRun": "Next run",
+      "runOnDemandBtn": "Run on-demand"
+    },
+    "connectPluginInfo": "Connect Plugin to anecdotes",
+    "addAdditionalAccount": "Add Additional Account",
+    "connectMe": "Connect me",
+    "connectPluginButtonText": "Connect Plugin",
+    "connectAccountsButtonTextWithCount": "Connect ({{count}} Accounts)",
+    "connectAccountsButtonText": "Connect",
+    "editPluginButtonText": "Edit",
+    "cancelEditPluginButtonText": "Cancel edit",
+    "reconnectPluginButtonText": "Reconnect plugin",
+    "disconnectPluginMenuOption": "Disconnect plugin",
+    "clearFormButtonText": "Clear form",
+    "howToConnect": "How to connect",
+    "viewEvidenceTooltip": "Start collecting evidence by attaching links to requirements.",
+    "viewEvidence": "View evidence",
+    "inviteItUser": {
+      "needHelpFromItUser": "Need help from your colleague to connect plugin?",
+      "inviteItUser": "Invite IT user",
+      "itUserHelp": "IT user will have access only to the plugins pages (View, connect and disable plugins)"
+    }
+  },
+  "plugins": {
+    "favoritePluginsEmptyState": {
+      "mainDescriptionText": "No favorites were selected yet",
+      "secondaryDescriptionText": "Mark your favorite",
+      "mainButtonText": "View all plugins"
+    },
+    "pluginItem": {
+      "anecdotesCanAutomate": "anecdotes can automate",
+      "evidence": "{{service_evidence_list.length}} Evidence",
+      "connectedStatus": "Connected",
+      "errorStatus": "Error",
+      "comingSoon": "Coming soon",
+      "newMark": "New",
+      "onPremMark": "Private Cloud",
+      "multiAccountsMark": "Multiple Accounts",
+      "pluginConnected": {
+        "automaticallyCollected": "Automatically collected"
+      },
+      "pluginIsNotConnected": {
+        "anecdotesCanAutomate": "Can automate up to",
+        "exploreBtn": "Explore",
+        "fileMonitorInfo": "Link files,\n monitor metadata",
+        "collaborationInfo": "Collaborate with colleagues",
+        "ticketingInfo": "Create custom \n evidence & tickets"
+      }
+    },
+    "allTab": "All",
+    "favTab": "My Favorites",
+    "contactSupportEmail": {
+      "subject": "{{customer_name}} failed to collect evidence from {{service_display_name}}"
+    },
+    "suggestNewPluginEmail": {
+      "subject": "{{customer_name}} wants to suggest a new plugin"
+    },
+    "header": {
+      "title": "Plugin Market",
+      "searchPlugins": "Search plugins",
+      "suggestPluginBtn": "Suggest new plugin",
+      "tooltip": "Your wish is our command :) \n Let us know which plugin you \n need and we will do our best to \n develop it."
+    },
+    "sectionNames": {
+      "recommended": "Recommended for you",
+      "new": "New from anecdotes",
+      "allPlugins": "All plugins",
+      "type": {
+        "tab": "Plugin Family",
+        "fileMonitor": "File monitor",
+        "generic": "Generic"
+      },
+      "availabilityStatus": {
+        "tab": "Status",
+        "available": "Connected",
+        "notAvailable": "Not Connected",
+        "comingSoon": "Coming soon"
+      }
+    },
+    "filtersNotFound": {
+      "mainInfo": "Sorry, no plugins were found matching your search",
+      "userAdvice": "Try using our filter panel for quick navigation",
+      "backToAllPluginsBtn": "Back to all plugins"
+    },
+    "searchNotFound": {
+      "mainInfo": "Sorry, no plugins were found matching your search",
+      "userAdvice": "You can also suggest new plugins for us to develop",
+      "clearSearchButton": "Clear search",
+      "additionalActionButton": "Suggest new plugin"
+    },
+    "anecdotesCanAutomate": "anecdotes can automate",
+    "evidences": "Evidences",
+    "newLabel": "New"
+  },
+  "userManagement": {
+    "inviteNewUserBtn": "Invite New User",
+    "itUsersInfo": "IT users will have access only to the plugins pages (View, connect and disable plugins)",
+    "header": {
+      "userManagement": "User Management",
+      "searchUsers": "Search Users"
+    },
+    "item": {
+      "changePassword": "Change password",
+      "me": "(me)",
+      "lastLogin": "Last login",
+      "sentInvitation": "Sent invitation",
+      "pendingUserState": "Pending...",
+      "button": {
+        "remove": "Remove",
+        "resend": "Resend"
+      },
+      "confirmationModal": {
+        "question": "Are you sure you want to remove {{user_name}}?",
+        "yesRemoveBtn": "Yes, remove",
+        "cancelBtn": "Cancel"
+      }
+    },
+    "list": {
+      "userHeader": "Users",
+      "auditorHeader": "Auditors"
+    },
+    "emptyState": {
+      "mainInfo": "Sorry, no users were found matching your search",
+      "backToAllUsersBtn": "Back to all users"
+    },
+    "inviteUser": {
+      "title": "Invite users",
+      "titleAuditor": "Invite Auditor",
+      "firstName": "Name",
+      "lastName": "Last name",
+      "email": "Email",
+      "selectUserType": "Select user type",
+      "selectFrameworks": "Select Frameworks",
+      "sendBtn": "Send",
+      "fieldIsRequired": "This field is required",
+      "emailIsInvalid": "Make sure it's a real email",
+      "itUsersNote": "* IT users will have access only to the plugins pages (View, connect and disable plugins)",
+      "adminUsersNote": "* Admin user will have full access to the platform",
+      "collaboratorUsersNote": "* Collaborator user will have access to Dashboard, Controls, and Frameworks pages",
+      "adminOption": "Admin",
+      "itOption": "IT",
+      "collaboratorOption": "Collaborator",
+      "auditorOption": "Auditor",
+      "adminRoleDescription": "Admin user will have full access to the platform",
+      "collaboratorRoleDescription": "Collaborator user will have access to Dashboard, Controls, and Frameworks pages",
+      "auditorRoleDescription": "Manage auditors is available from user management page",
+      "itRoleDescription": "IT users will have access only to the plugins pages (View, connect and disable plugins)"
+    }
+  },
+  "frameworks": {
+    "frameworkManager": {
+      "exploreControls": "Explore Controls",
+      "endAudit": "End Audit",
+      "auditStartedModal": {
+        "title": "Your Audit has Started",
+        "description": "Make sure you give your auditors access to anecdotes. \nDid you know that auditors have unique statuses to help you keep track of your audit progress?",
+        "gotIt": "Got it"
+      },
+      "endAuditModal": {
+        "title": "End Audit",
+        "description": "Make sure you are ready to end the audit",
+        "okBtn": "End Audit",
+        "contentTitle": "When ending an audit:",
+        "auditSnapshot": "A snapshot of the audit will be saved and can be found in a read-only mode in the ‘Audit History’ tab",
+        "controlStatus": "Control statuses for ‘Approved by auditor’ and ‘Ready for audit’ will automatically be changed to ‘Monitoring’",
+        "nextAudit": "The next audit date will be scheduled for one year for now (and can be manually updated later)",
+        "manageAuditors": "You can manage auditors access to the platfrom through: Settings --> Manage users",
+        "typeEndAudit": "Type <span>END AUDIT</span> to confirm (This action is not reversable)",
+        "success": {
+          "title": "Framework audit was ended successfully",
+          "btn": "Got it"
+        },
+        "error": {
+          "title": "Failed to end framework audit",
+          "btn": "Try again"
+        }
+      },
+      "overview": {
+        "tab": "Overview",
+        "controls": "Controls ({{controls_num}})",
+        "generateReport": "Generate Report",
+        "categories": "Categories ({{categories_num}})",
+        "progress": "Progress",
+        "name": "Name",
+        "readyControls": "Ready Controls",
+        "approvedControls": "Approved Controls",
+        "auditInfo": "Audit Info",
+        "inviteAuditor": "Invite auditor",
+        "setupAudit": "Setup audit",
+        "manageAuditor": "Manage auditors",
+        "editAudit": "Edit audit info",
+        "resetAudit": "Reset audit info",
+        "auditors.singular": "Assigned Auditor",
+        "auditors.plural": "Assigned Auditors",
+        "notInvited": "Not Invited",
+        "auditDate": "Audit Date",
+        "auditRange": "Audit Range",
+        "control": "control",
+        "many_controls": "controls",
+        "statuses": {
+          "controls": "Controls",
+          "notStarted": "Not started",
+          "inProgress": "In Progress",
+          "readyForAudit": "Ready for Audit",
+          "gap": "Gap",
+          "issue": "Issue by Auditor",
+          "approvedByAuditor": "Approved by Auditor",
+          "monitoring": "Monitoring"
+        },
+        "configureAuditModal": {
+          "title": "Configure Audit",
+          "description": "Let's start with some basic details to define your certification scope",
+          "saveButtonText": "Save",
+          "productName": "What is your product name, to which you want a {{framework_name}} certification?",
+          "auditDate": "Do you already have a date set for your audit? (You can always fill in later)",
+          "selectDate": "Select a date",
+          "socType": "Which type of SOC 2 certification would you like to perform?",
+          "socInfo": "Type I report is an attestation of controls at a service organization at a specific point in time, whereas a Type II report is an attestation of controls at a service organization over a minimum six-month period",
+          "auditRange": "What is your audit range?",
+          "rangeError": "Audit range is invalid",
+          "from": "From",
+          "until": "Until",
+          "type1": "Type 1",
+          "type2": "Type 2",
+          "success": {
+            "title": "Framework audit info was updated successfully",
+            "btn": "Got it"
+          },
+          "error": {
+            "title": "Failed to update framework audit info",
+            "btn": "Try again"
+          }
+        }
+      },
+      "history": {
+        "tab": "History",
+        "auditDate": "Audit Date",
+        "auditPeriod": "Audit Period",
+        "InvitedAuditor.singular": "Invited Auditor",
+        "InvitedAuditor.plural": "Invited Auditors",
+        "noAuditor": "No auditor",
+        "numControls": "{{count}} Controls",
+        "inScope": "In scope",
+        "auditCompleted": "Audit Completed",
+        "viewControls": "View Controls",
+        "download": "Download",
+        "type1": "Type 1",
+        "type2": "Type 2",
+        "soon": "Soon..."
+      }
+    },
+    "menu": {
+      "plugins": "Manage plugins",
+      "initiateAudit": "Initiate audit",
+      "auditZone": "Audit zone",
+      "auditHistory": "Audit history",
+      "abandon": "Remove framework"
+    },
+    "progress": {
+      "auditProgressPercent": "Audit Progress",
+      "readyForAuditPercent": "Ready for audit"
+    },
+    "header": {
+      "frameworks": "Frameworks",
+      "all": "All",
+      "searchFrameworks": "Search frameworks",
+      "freezeButton": "Data freeze"
+    },
+    "buttons": {
+      "adopt": "Add Framework",
+      "create": "Create Framework",
+      "exploreFramework": "Explore Framework",
+      "viewAudit": "View Audit Progress",
+      "report": "Framework Report",
+      "comingSoon": "Coming soon...",
+      "auditInProgress": "Audit in progress"
+    },
+    "contentRows": {
+      "applicableControls": "Applicable Controls",
+      "evidenceAutomation": "Automated Evidence",
+      "controls": "Controls",
+      "includedControls": "of them already included in your active frameworks"
+    },
+    "createFrameworkModal": {
+      "title": "Create a customized framework",
+      "description": "If you would like to create a customized framework, please let us know by clicking below so we can walk you through the process",
+      "ctu": "Contact us to enable"
+    },
+    "notFound": {
+      "mainInfo": "Sorry, no frameworks were found matching your search",
+      "userAdvice": "Try using our filter panel for quick navigation",
+      "button": "Clear search"
+    },
+    "tooltip": {
+      "exploreControls": "Explore controls"
+    },
+    "freeze-modal": {
+      "title": "Select which Framework(s) can be frozen",
+      "description": "Once Data Freeze is enabled, any control in the framework that is marked as \n\"Ready for audit\", \"Approved by auditor\", or \"Issue\" will be locked.\nNo new evidence will be collected. You will not be able to edit the control’s\ndescription. You will not be able to update the control owner.",
+      "footerSaveButtonText": "Save",
+      "footerCancelButtonText": "Cancel",
+      "loading-description": "Proccessing data, it should take no longer than a minute",
+      "success": {
+        "title": "Changes were saved",
+        "btn": "Got it"
+      },
+      "error": {
+        "title": "Failed to save frozen framework(s)",
+        "btn": "Try again"
+      }
+    },
+    "myFrameworks": "My Frameworks ({{value}})",
+    "moreFrameworks": "More Frameworks ({{value}})",
+    "addNewFramework": "Would you like to import your framework or customize a new one?",
+    "frameworkControls": "{{value}} Controls"
+  },
+  "notifications": {
+    "panel": {
+      "title": "Notifications ({{ amount }})",
+      "clearAll": "Clear All",
+      "emptyList": "ׁYay, you’re up to date!"
+    },
+    "connectivity": {
+      "loading": "Connecting to",
+      "failure": {
+        "title": "Connection failed",
+        "buttons": {
+          "goToPluginLogsPage": "Go to plugin’s logs for more info"
+        }
+      }
+    },
+    "collection": {
+      "loading": "Collecting evidence from",
+      "success": {
+        "title": "Success!",
+        "collectedEvidences": "{{collected_evidence}} evidence",
+        "collectedEvidencesFurtherText": "has been collected.",
+        "buttons": {
+          "refreshPage": "Navigate to evidence pool page to see the updates",
+          "gotIt": "Got it"
+        }
+      },
+      "failure": {
+        "title": "Collection failed!",
+        "buttons": {
+          "refreshPage": "Navigate to evidence pool page to see the updates",
+          "goToPluginLogsPage": "Go to plugin’s logs for more info"
+        }
+      }
+    }
+  },
+  "comingSoon": {
+    "title": "Coming Soon"
+  },
+  "dashboard": {
+    "underConstruction": {
+      "header": "Under Construction",
+      "description": "We are working on making the dashboard better for you. It will be back in a few days. 🙏"
+    },
+    "action": {
+      "header": "Action Required",
+      "exploreTooltip": "Explore control",
+      "noActions": {
+        "title": "No Actions Yet",
+        "description": "After adopting a framework you will see actions required"
+      }
+    },
+    "header": {
+      "executiveReport": "Executive Report",
+      "items": {
+        "connectedPlugins": "Connected Plugins",
+        "applicableControls": "Applicable Controls",
+        "approvedRequirements": "Approved requirements",
+        "savedThisYear": "Saved this year",
+        "automatedEvidences": "Automated evidences",
+        "howROICalculated": "How is ROI calculated? Automated evidence X Frameworks X $300 (single evidence collection cost)"
+      }
+    },
+    "frameworks": {
+      "noFrameworksMainTitle": "Adopt a Framework to view your Information",
+      "noFrameworksSecondaryTitle": "Security Dashboard",
+      "mainTitle": "Dashboard",
+      "title": "Last updated"
+    },
+    "categories": {
+      "tooltipTitle": "Explore controls"
+    },
+    "plugins": {
+      "mainTitle": "Recently connected plugins",
+      "title": "New automated evidence"
+    }
+  },
+  "executiveReport": {
+    "header": {
+      "title": "Executive Report by",
+      "lastUpdated": "Last Updated"
+    },
+    "slide": {
+      "downloadSlideButtonText": "Download Slide",
+      "footerLogoDescription": "Created by",
+      "frameworksStatus": {
+        "title": "Frameworks Status",
+        "notStartedControls": "Not started controls",
+        "controlsInProgress": "Controls in progress",
+        "completedControls": "Compliant Controls",
+        "status": "Status",
+        "automatedEvidence": "Automated evidence"
+      },
+      "informationSecurityByCategories": {
+        "title": "Information Security Performance by Category"
+      }
+    },
+    "footer": {
+      "items": {
+        "connectedPlugins": "Connected Plugins",
+        "applicableControls": "Applicable Controls",
+        "approvedRequirements": "Approved requirements",
+        "savedThisYear": "Saved this year",
+        "automatedEvidences": "Automated evidences",
+        "howROICalculated": "How ROI is calculated? \n#Automated evidence * \n#Frameworks *\n$300 (single evidence collection cost)"
+      }
+    }
+  },
+  "audit": {
+    "footer": {
+      "anecdotes": "anecdotes",
+      "terms": "Terms",
+      "privacy": "Privacy"
+    },
+    "content": {
+      "controlsHeader": {
+        "threeDotsMenu": {
+          "exportToCsv": "Export to CSV"
+        },
+        "tabs": {
+          "complyTabName": "Comply",
+          "issueTabName": "Issue",
+          "gapTabName": "Gap",
+          "commentedTabName": "With comments",
+          "allControlsTabName": "All Controls"
+        },
+        "controlsText": "Controls"
+      },
+      "requirements": {
+        "commentTooltip": "Add comment",
+        "comments": {
+          "count": "Comments ({{comments_count}})",
+          "close": "Close",
+          "closeTooltip": "Close Comments",
+          "reply": "Reply",
+          "gotIt": "Got it",
+          "newCommentPlaceholder": "Add a comment"
+        }
+      },
+      "updates": {
+        "gotIt": "Got it",
+        "updatesHeader": "Updates ({{updates_count}})",
+        "updatesHeaderComingSoon": "Updates",
+        "comingSoon": "Coming soon"
+      }
+    },
+    "inviteAuditorsModal": {
+      "title": "Invite Auditors - Read only view",
+      "description": "Auditor has access only to this page and have permission to: comment on controls, mark comply or gap and download as pdf",
+      "sendBtn": "Send",
+      "form": {
+        "emailTextField": {
+          "label": "Add Email"
+        }
+      },
+      "name": "Name: ",
+      "lastName": "Last name: ",
+      "email": "Email: ",
+      "wrongEmail": "Make sure it’s a real email",
+      "requiredField": "Field is required",
+      "successModal": {
+        "title": "Invitation sent",
+        "btn": "Got it",
+        "description": "Congratulation on adding another team member"
+      },
+      "failedModal": {
+        "title": "Unable to send invitation",
+        "btn": "Try again",
+        "description": "Oops.. something went wrong. Please try again",
+        "alreadyInvitedError": "Email address already exists. Please insert different email address."
+      },
+      "failedAlreadyInvitedModal": {
+        "title": "Unable to send invitation",
+        "btn": "Try again",
+        "description": "Email address already exists. Please insert different email address."
+      }
+    },
+    "endAudit": {
+      "title": "End Audit",
+      "description": "Make sure you are ready to end the audit",
+      "endAuditBtn": "End Audit",
+      "confirmMessage": "Type <span>END AUDIT</span> to confirm",
+      "titleContent": "When ending an audit:",
+      "firstRulePoint": "1. Audit zone will no longer be available for the auditors. ",
+      "firstRuleTip": "Tip: make sure they’ve download all relevant assets",
+      "secondRulePoint": "2. Audit history will be available from framework page",
+      "thirdRulePoint": "3. Once audit is done, there is no option to re-open it",
+      "tipContent": "You can download report and evidence before end it the audit",
+      "downloadReportBtn": "Download Report",
+      "downloadEvidenceBtn": "Download Evidence",
+      "requiredField": "Field is required"
+    },
+    "header": {
+      "title": "Audit zone for {{value}}",
+      "noAuditors": "Audit will start after you’ll invite auditors to collaborate.",
+      "inviteAuditors": "Invite Auditors",
+      "endAudit": "End Audit",
+      "logoutTooltip": "Logout",
+      "manageAuditors": "Manage Auditors",
+      "lastUpdated": "Last updated:"
+    },
+    "manageAuditors": {
+      "title": "Manage Auditors",
+      "description": "Auditor has access only to this page and have permission to:\ncomment on controls, mark comply or gap and download as pdf",
+      "lastLogin": "Last login",
+      "pending": "Pending... ",
+      "resend": "Resend",
+      "remove": "Remove",
+      "sendBtn": "Send",
+      "inviteMore": "Invite more auditors",
+      "successResend": "Invitation was resent",
+      "removeQuestion": "Are you sure?",
+      "yesBtn": "Yes, remove"
+    },
+    "framework": {
+      "header": {
+        "controls": "Controls",
+        "generateReport": "Generate Report",
+        "downloadEvidence": "Download Evidence",
+        "searchInputPlaceholder": "Search Controls",
+        "downloadLogs": "Download Logs"
+      }
+    },
+    "controls": {
+      "auditorActions": {
+        "forAuditorsOnlyLabel": "For auditors usage only"
+      },
+      "notFound": {
+        "mainInfo": "Sorry, no controls were found matching your search",
+        "userAdvice": "",
+        "backToAllControlsBtn": "Back to controls"
+      }
+    },
+    "report": {
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "auditors": "Auditors",
+      "comply": "Comply",
+      "issues": "Issues",
+      "gaps": "Gaps",
+      "controls": "Controls",
+      "chapter": {
+        "comply": "Comply",
+        "issue": "Issue",
+        "gap": "Gap"
+      }
+    }
+  },
+  "componentSwitcher": {
+    "footer": {
+      "buttons": {
+        "backToAllOptions": "Back to all options"
+      }
+    }
+  },
+  "core": {
+    "dropdown": {
+      "emptyListPlaceholder": "No options found"
+    },
+    "multiSelect": {
+      "selectPlaceholder": "Select options"
+    },
+    "tip": {
+      "closeAndDontShow": "Close and don't show again"
+    },
+    "exclusiveFeatureModal": {
+      "title": "Upgrade your plan to use exclusive features",
+      "description": "Upgrade your plan to use premium features. Our onboarding team is a click away.",
+      "exclusiveAdoptframework": "Adding unlimited frameworks is a premium feature",
+      "exclusivePolicyTemplates": "Download policy template is a premium feature",
+      "exclusiveExportcontrols": "Exporting is a premium feature",
+      "contactUs": "Chat with us"
+    },
+    "exclusiveFeatureButtons": {
+      "adoptFramework": {
+        "buttonText": "Adopt Framework"
+      }
+    },
+    "globalLoader": {
+      "header": "Dang. Something went wrong.",
+      "info": "That's all we know so far. But don't worry — our team is working hard to get it fixed as soon as possible. Meanwhile, you can try refreshing the page or check back in a few minutes. 🙏",
+      "refresh": "Refresh page",
+      "longLoadingText": "Sorry, loading is taking longer than usual. Please give it a few moments"
+    },
+    "notFoundPage": {
+      "defaultUserAdvice": "Try using our filter panel for quick navigation"
+    },
+    "dataFilter": {
+      "filters": "Filters {{filters_count}}",
+      "clearFilters": "Clear all",
+      "showMoreOptionsButtonText": "Show More",
+      "showLessOptionsButtonText": "Show Less"
+    },
+    "dataSort": {
+      "sortBy": "Sort by"
+    },
+    "alerts": {
+      "okBtn": "OK"
+    },
+    "formControls": {
+      "requiredTooltip": "Required field",
+      "copyTextField": {
+        "copyTooltipText": "Copy"
+      }
+    },
+    "comingSoon": "Coming soon...",
+    "exclusiveFeature": "Exclusive feature",
+    "buttons": {
+      "Basic": "Basic",
+      "Advanced": "Advanced",
+      "Superstar": "Superstar",
+      "tooltipButton": "{{value}} automated controls",
+      "BasicWithTooltipParam": "Basic - {{value}} automated controls",
+      "AdvancedWithTooltipParam": "Advanced - {{value}} automated controls",
+      "SuperstarWithTooltipParam": "Superstar - {{value}} automated controls"
+    },
+    "clearSearch": "Clear search",
+    "searchResults": "{{value}} search results",
+    "filters": {
+      "button": "Filters"
+    }
+  },
+  "viewEvidence": {
+    "downloadButton": "Download"
+  },
+  "mobile": {
+    "comingSoon": {
+      "notSupportYet": "Sorry, anecdotes doesn't support mobile yet.",
+      "useLatestVersion": "Please use the latest version of Google Chrome on desktop."
+    }
+  },
+  "auth": {
+    "signInText": "Sign in",
+    "orText": "OR",
+    "loginWith": "Sign in with",
+    "login": {
+      "loginText": "Log in to your account",
+      "getAccountUrl": "Get your account URL",
+      "forgotPasswordText": "Forgot your account’s web address?",
+      "enterYourEmail": "Enter your email and we’ll send you your account URL",
+      "nextBtn": "Next",
+      "sendBtn": "Send",
+      "form": {
+        "accountWebAddress": {
+          "label": "Enter your account’s web address",
+          "placeholder": "e.g company-name",
+          "workspaceDoesNotExistErrorText": "Workspace does not exist"
+        },
+        "email": {
+          "label": "Email address",
+          "placeholder": "name@company.com"
+        }
+      }
+    },
+    "changePassword": {
+      "submitBtn": "Submit",
+      "welcomeText": "Welcome to anecdotes platform",
+      "welcomeBackText": "Welcome back to anecdotes platform ",
+      "choosePasswordText": "Please choose your password",
+      "changePasswordText": "Please reset your password ",
+      "newPassword": {
+        "label": "New password",
+        "placeholder": "**********",
+        "weakErrorText": "Password should be at least 6 charecters, contain lowercase letters, uppercase letters, special symbols and numbers"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "**********",
+        "passwordsDontMatchError": "Passwords should match"
+      }
+    },
+    "emailPart": {
+      "email": {
+        "label": "Email",
+        "placeholder": "name@company.com"
+      },
+      "promptMessage": "Please provide your email for confirmation",
+      "signInBtn": "Sign in"
+    },
+    "confirmationPage": {
+      "emailSentText": "Email sent to {{enteredEmail}}!",
+      "checkInboxText": "Please check your inbox"
+    },
+    "emailCallback": {
+      "linkExpiredText": "The link has expired!",
+      "signInAgainText": "But don't worry,",
+      "signInAgainSecondPartText": "you can",
+      "signInLink": "sign in again"
+    },
+    "userNotFoundErrorPage": {
+      "primaryText": "This user doesn’t exist",
+      "secondaryText": "If you already have a registerd user, \n please contact support@anecdotes.ai"
+    },
+    "tenantDisabledErrorPage": {
+      "primaryText": "This tenant is disabled",
+      "secondaryText": "To enable it, contact support@anecdotes.ai"
+    },
+    "accountLinkingPage": {
+      "primaryText": "Account is activated",
+      "secondaryText": "Are you sure you \n want to continue with {{idp_name}}?"
+    }
+  },
+  "multiselect": {
+    "selectAll": "Select All",
+    "buttons": {
+      "setAsNA": "Set as N/A",
+      "generateReport": "Generate Report",
+      "markAsRelevant": "Mark as applicable"
+    },
+    "controls": {
+      "successNAModal": {
+        "title": "Selected controls marked as N/A",
+        "btn": "Got it"
+      },
+      "successRelevantModal": {
+        "title": "Selected controls marked as relevant",
+        "btn": "Got it"
+      }
+    }
+  },
+  "components": {
+    "statusBadge": {
+      "notSet": "Not set",
+      "inProgress": "In progress",
+      "compliant": "Compliant",
+      "pending": "Pending",
+      "onHold": "On hold",
+      "approved": "Approved"
+    },
+    "elementInfo": {
+      "relatedFrameworksText": "Related frameworks",
+      "addedBy": "Edited by @{{name}} on"
+    },
+    "dropdowns": {
+      "coloredDropdownControl": {
+        "notSet": "Not set",
+        "clear": "Clear"
+      },
+      "addOption": {
+        "new": "new"
+      }
+    },
+    "sharedControls": {
+      "owner": {
+        "noOwnerText": "No owner",
+        "selectOwner": "Select owner",
+        "meText": "me",
+        "inviteUser": "Invite a new user",
+        "searchPlaceholder": "Search",
+        "controlFreeze": "Switch the control’s status to make changes"
+      }
+    }
+  },
+  "gapAnalysis": {
+    "gapDetected": "Gap detected",
+    "evidenceDontComply": "Evidence does not comply",
+    "cellComply": "Not comply"
+  },
+  "newlyAddedLabel": "New",
+  "externalApproval": {
+    "header": "You were asked to approve {{policy_name}}",
+    "lastUpdated": "Last updated:",
+    "greeting": "Hey {{approver_name}},",
+    "infoFirstPart": "{{anecdotes_user}} has sent you the {{policy_name}} to review.",
+    "infoMiddlePart": "Please review it, and check the box at the bottom of the page to indicate your approval.",
+    "infoLastPart": "This link is valid until",
+    "fileName": "File name:",
+    "viewLinkedFile": "View linked file",
+    "submitApproval": "Submit approval:",
+    "submitInfo": "By submitting this form, approval of this policy will be recorded in {{approver_name}}’s name and {{anecdotes_user}} will be notified",
+    "iAmApprover": "I am {{approver_name}}",
+    "addNote": "Add a note",
+    "tipText": "Warning: To prevent others from accessing your document, please do no forward this link",
+    "submit": "Submit",
+    "invalidLinkHeader": "This link is no longer valid",
+    "invalidLinkDescription": "To review the shared document, you’ll need to ask the person who originally shared this with you for a new link. 🙏",
+    "submittedPageHeader": "Thank you!",
+    "submittedPageDescription": "Your request for approval was successfully sent."
+  },
+  "anecdotes-footer": {
+    "text": "Everything compliance, all in one workspace. anecdotes is the first operating system (OS) for every stage of a business’s Compliance journey. It reshapes the way the cloud-powered world thinks about security Compliance, transforming it from a box-ticking exercise into a powerful driver of growth for scale-ups, publicly traded companies, and everything in between. With a variety of applications powered by verified data, Compliance leaders can turn manual, time-consuming and siloed tasks into an automated, continuous and strategic compliance journey. That’s why some of the world’s fastest growing brands use anecdotes. For more information, visit anecdotes.ai."
+  },
+  "time": {
+    "year": "{{num}} years ago",
+    "month": "{{num}} months ago",
+    "day": "{{num}} days ago",
+    "hour": "{{num}} hours ago",
+    "minute": "{{num}} minutes ago",
+    "second": "{{num}} seconds ago"
+  },
+  "statusMenu": {
+    "gap": "Gap",
+    "readyForAudit": "Ready for audit",
+    "issue": "Issue",
+    "approvedByAuditor": "Approve",
+    "inProgress": "In progress",
+    "notStarted": "Not started",
+    "monitoring": "Monitoring"
+  },
+  "statusMenuTooltip": {
+    "gap": "Marked as Gap by @{{updated_by}}",
+    "readyForAudit": "Marked Ready for audit by @{{updated_by}}",
+    "monitoring": "Moved to ‘Monitoring’",
+    "issue": "Marked as Issue by @{{updated_by}}",
+    "approvedByAuditor": "Approved by @{{updated_by}}",
+    "inProgress": "Evidence collection in progess",
+    "notStarted": "No evidence collected yet",
+    "on": "on"
+  },
+  "formControlErrors": {
+    "required": "This field is required",
+    "duplication": "The field value is duplicated",
+    "wrongEmailFormat": "Email provided in a wrong format",
+    "emailNotFound": "Please enter a valid email address",
+    "url": "This must be an URL",
+    "email": "This must be an email",
+    "json": "Invalid service account format. File must be JSON."
+  },
+  "connectEvidenceModal": {
+    "title": "Link Evidence to Requirement",
+    "titleEvidenceLinked": "Evidence was linked successfully to requirement",
+    "description": "Name of the evidence",
+    "footerSaveButtonText": "Save",
+    "footerGotItButtonText": "Got it",
+    "footerViewRequirementButtonText": "View Requirement",
+    "linkEvidenceBtn": "Link evidence",
+    "collectedEvidence": "Collected evidence",
+    "success": {
+      "title": "Evidence was linked successfully to requirement",
+      "addMoreEvidenceBtn": "Link more evidence",
+      "gotItBtn": "Got it"
+    },
+    "error": {
+      "title": "Failed to link evidence",
+      "description": "Please try again. If the issue persists, contact support.",
+      "btn": "Try again"
+    },
+    "form": {
+      "framework": {
+        "searchField": "Select",
+        "placeholder": "Framework"
+      },
+      "control": {
+        "searchField": "Select",
+        "placeholder": "Control"
+      },
+      "requirement": {
+        "searchField": "Select",
+        "placeholder": "Requirement"
+      }
+    },
+    "evidenceConnectFromRequirement": {
+      "title": "Connect {{requirementName}} to an evidence from the Evidence Pool",
+      "selectPlugin": "Filter by Plugin",
+      "selectPluginSearch": "Search",
+      "searchByPluginName": "Search"
+    }
+  },
+  "frameworksPlugins": {
+    "frameworksPluginsList": {
+      "pluginsListItem": {
+        "evidence": "Evidence"
+      },
+      "saveButton": "Save",
+      "title": "Manage Plugins for {{frameworkName}}",
+      "automaticSaving": "All changes are saved automatically",
+      "noPluginsFound": "No plugins were found matching your search",
+      "search": {
+        "activateAllPlugins": "Activate All Plugins",
+        "searchPlaceholder": "Search"
+      }
+    },
+    "success": {
+      "title": "Plugins for framework were updated successfully",
+      "btn": "Ok"
+    },
+    "error": {
+      "title": "Plugins for framework wasn't updated due to errors",
+      "btn": "Ok"
+    }
+  },
+  "policy": {
+    "status": {
+      "tab": "Status",
+      "empty": "Empty",
+      "notSet": "Not set",
+      "pending": "Pending",
+      "onHold": "On Hold",
+      "approved": "Approved"
+    },
+    "frameworks": {
+      "tab": "Linked to Frameworks"
+    }
+  },
+  "commenting": {
+    "resolveBtnTooltip": "Resolve and hide",
+    "resolveAllBtn": "Resolve All",
+    "deleteAllBtn": "Delete All",
+    "createThreadBtn": "Comment",
+    "replyBtn": "Reply",
+    "cancelBtn": "Cancel",
+    "editBtn": "Edit",
+    "addCommentPlaceholder": "Add a comment",
+    "replyToThreadPlaceholder": "Reply",
+    "commentsText": "Comments",
+    "commentsBtn": "Comments",
+    "resourceNames": {
+      "control": "Control",
+      "requirement": "Requirement"
+    },
+    "options": {
+      "active": "Active",
+      "resolved": "Resolved",
+      "delete": "Delete",
+      "edit": "Edit",
+      "setActive": "Set as active"
+    },
+    "noCommentsEmptyState": {
+      "activeEmptyState": {
+        "noCommentsText": "No comments yet",
+        "actionText": "Start collaborating by adding a comment on any control"
+      },
+      "resolvedEmptyState": {
+        "noCommentsText": "No resolved comments yet",
+        "actionText": "Mark a comment as ‘resolved’ to move it here"
+      }
+    },
+    "deleteThreadConfirmation": {
+      "yesBtn": "Yes, delete",
+      "cancelBtn": "Cancel",
+      "question": "Are you sure you want to delete this thread?",
+      "aftermath": "You will not be able to restore it."
+    },
+    "deleteCommentConfirmation": {
+      "yesBtn": "Yes, delete",
+      "cancelBtn": "Cancel",
+      "question": "Are you sure you want to delete this comment?",
+      "aftermath": "You will not be able to restore it."
+    },
+    "resolveAllConfirmation": {
+      "yesBtn": "Yes, resolve all",
+      "cancelBtn": "Cancel",
+      "question": "Are you sure you want to resolve all commets?",
+      "aftermath": "You will be able to view them under “Resolved’"
+    },
+    "deleteAllConfirmation": {
+      "yesBtn": "Yes, delete all",
+      "cancelBtn": "Cancel",
+      "question": "Are you sure you want to delete all commets?",
+      "aftermath": "You will not be able to restore them."
+    }
+  },
+  "frameworkReport": {
+    "primaryHeader": {
+      "company": "Framework Report for {{company_name}}",
+      "lastUpdated": "Last updated",
+      "controlsAmount": "Controls"
+    },
+    "secondaryHeader": {
+      "controlsAmount": "Controls"
+    },
+    "reportControl": {
+      "req": "Requirements ({{reqsAmount}})"
+    },
+    "reportRequirement": {
+      "evidenceSource": "Evidence source:"
+    }
+  },
+
+  "controlPreview": {
+    "controlViewItem": {
+      "req": "Requirements ({{reqsAmount}})"
+    },
+    "reqViewItem": {
+      "noEvidenceYet": "No evidence collected yet"
+    }
+  }
+}

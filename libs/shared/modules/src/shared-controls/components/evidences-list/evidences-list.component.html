@@ -1,0 +1,12 @@
+<ng-container #collectingEvidence="collectingEvidenceHost" collectingEvidenceHost [resourceId]="requirementLike.resourceId" (collectionStarted)="collectionStarted.emit()"></ng-container>
+<ng-container *ngIf="(evidenceExists$ | async) || collectingEvidence.isCollectionInProgress; else noEvidencesTemplate">
+  <div [@evidenceAddRemoveAnimation] (@evidenceAddRemoveAnimation.done)="evidenceAnimationDone()"
+       *ngFor="let item of evidenceList$ | async; trackBy: trackEvidenceByIds" class="evidence-wrapper"
+       [class.hidden]="isEvidenceHidden(item)"
+  >
+    <div></div>
+    <app-evidence-item *ngIf="item" [evidenceLike]="item" [controlInstance]="controlInstance" [forceExpand]="forceExpand" [viewPreviewMode]="viewPreviewMode"
+      [requirementLike]="requirementLike" [framework]="framework" [evidenceSource]="source">
+    </app-evidence-item>
+  </div>
+</ng-container>

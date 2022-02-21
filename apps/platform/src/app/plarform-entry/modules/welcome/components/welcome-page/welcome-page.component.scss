@@ -1,0 +1,20 @@
+:host::ng-deep{
+  .ps-content{
+    height: 100%;
+  }
+
+  #content {
+    display: flex;
+    flex-flow: column;
+    height: calc(100% - 82px);
+    min-width: 1150px;
+    min-height: 650px;
+    padding: 30px 30px 26px 30px;
+
+    .onboarding-page {
+      height: 100%;
+      background: white;
+      border-radius: 12px;
+    }
+  }
+}

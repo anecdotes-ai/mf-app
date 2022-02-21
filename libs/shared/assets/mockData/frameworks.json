@@ -1,0 +1,54 @@
+[
+    {
+      "controls_partition": {
+        "in_progress": 12,
+        "completed": 0,
+        "not_started": 0
+      },
+      "number_of_related_controls": 0,
+      "number_of_related_controls_that_already_applicable": 6,
+      "framework_id": "100",
+      "number_of_applicable_controls": 12,
+      "evidence_automation_number": 5,
+      "is_applicable": true
+    },
+    {
+        "controls_partition": {
+          "in_progress": 2,
+          "completed": 1,
+          "not_started": 2
+        },
+        "number_of_related_controls": 1,
+        "number_of_related_controls_that_already_applicable": 4,
+        "framework_id": "101",
+        "number_of_applicable_controls": 4,
+        "evidence_automation_number": 2,
+        "is_applicable": false
+    },
+    {
+        "controls_partition": {
+          "in_progress": 4,
+          "completed": 3,
+          "not_started": 1
+        },
+        "number_of_related_controls": 4,
+        "number_of_related_controls_that_already_applicable": 2,
+        "framework_id": "102",
+        "number_of_applicable_controls": 3,
+        "evidence_automation_number": 2,
+        "is_applicable": true
+    },
+    {
+        "controls_partition": {
+          "in_progress": 2,
+          "completed": 2,
+          "not_started": 2
+        },
+        "number_of_related_controls": 0,
+        "number_of_related_controls_that_already_applicable": 4,
+        "framework_id": "103",
+        "number_of_applicable_controls": 5,
+        "evidence_automation_number": 3,
+        "is_applicable": true
+    }
+]

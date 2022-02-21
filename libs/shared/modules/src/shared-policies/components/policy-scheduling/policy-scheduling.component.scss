@@ -1,0 +1,18 @@
+
+:host::ng-deep {
+  app-dynamic-form-outlet > form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 20px;
+    column-gap: 20px;
+    #notifyMe,
+    #notifyRoles {
+      grid-column: 1 / 3;
+    }
+  }
+  .disabled {
+    pointer-events: none;
+    opacity: .7;
+  }
+}

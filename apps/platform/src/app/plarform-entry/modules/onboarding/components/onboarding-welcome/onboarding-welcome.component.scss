@@ -1,0 +1,50 @@
+@import './index.scss';
+
+:host {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  .content {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    .wizard-illustration {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      height: 100%;
+      width: 50%;
+      margin-left: 70px;
+    }
+    .wizard-questions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      height: 100%;
+      color: $mc-navy-90;
+      .center-description {
+        padding-right: 61px;
+        padding-left: 61px;
+      }
+      span {
+        display: block;
+      }
+      .header {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    height: 70px;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    .onboarding-buttons {
+      margin-right: 120px;
+    }
+  }
+}

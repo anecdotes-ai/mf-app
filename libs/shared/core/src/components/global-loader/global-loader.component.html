@@ -1,0 +1,6 @@
+<div class="wrapper flex flex-column justify-center items-center h-full w-full absolute" *ngIf="isLoaderDisplayed$ | async">
+  <app-loading-animation class="h-auto" width="270px" height="270px"></app-loading-animation>
+  <div class="long-loading-text font-main text-2xl text-navy-90" *ngIf="isLongLoading$ | async">
+    {{ buildTranslationKey('longLoadingText') | translate }}
+  </div>
+</div>

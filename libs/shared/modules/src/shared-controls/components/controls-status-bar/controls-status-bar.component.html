@@ -1,0 +1,6 @@
+<ng-container *ngIf="controls">
+  <app-controls-progress-bar [controls]="controls"></app-controls-progress-bar>
+  <span class="font-main text-2xl bold">{{ controls.length }}</span>
+  &nbsp;
+  <span class="font-main text-base"> {{ 'controls.secondaryHeader.controlsText' | translate }}</span>
+</ng-container>

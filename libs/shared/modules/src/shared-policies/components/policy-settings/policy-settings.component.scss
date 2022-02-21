@@ -1,0 +1,54 @@
+@import 'index';
+
+.policy-setting-modal::ng-deep {
+  width: 800px;
+}
+.dashed-border {
+  @include MulishFontStyle();
+  display: flex;
+  flex-direction: column;
+}
+
+:host::ng-deep {
+  .left-corner {
+    padding-left: 20px;
+  }
+  .stepper-header {
+    margin-bottom: 25px;
+  }
+  app-dynamic-form-outlet {
+    width: 100%;
+
+    app-text-field {
+      min-width: 235px;
+    }
+  }
+
+  .has-delete {
+    .base-modal-content {
+      padding-right: 15px;
+
+      app-dynamic-form-outlet {
+        width: calc(100% - 55px) !important;
+
+        app-text-field {
+          min-width: 225px !important;
+        }
+      }
+    }
+  }
+}
+
+:host {
+  .buttons {
+    display: flex;
+    app-button {
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+
+

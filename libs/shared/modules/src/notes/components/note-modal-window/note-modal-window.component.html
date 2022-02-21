@@ -1,0 +1,37 @@
+<app-base-modal [inverse]="true" [noPadding]="true" [noHeader]="true" [leftCornerData]="{ titleText: resourceTitle }"
+  [footerTemplate]="footer">
+  <textarea class="w-full h-full resize-none border-0 p-3 outline-none" #noteTextFieldRef [formControl]="formControl"
+    [placeholder]="buildTranslationKey('noteTextAreaPlaceholder') | translate"></textarea>
+</app-base-modal>
+
+<ng-template #footer>
+  <section class="remove-btn-section">
+    <div class="remove-btn-wrapper" [ngbTooltip]="buildTranslationKey('removeNoteTooltipText') | translate"
+      placement="top-left" tooltipClass="default-tooltip">
+      <app-button *ngIf="isEditMode" [class.disabled]="formControl?.invalid || isRemoveState" (click)="deleteBtnClick()"
+        icon="trash-bucket" class="remove-note border border-transparent hover:border-navy-90"></app-button>
+    </div>
+    <span *ngIf="isRemoveState" class="remove-confirmation-message">{{
+      buildTranslationKey('areYouSure') | translate
+      }}</span>
+  </section>
+  <div class="flex flex-row gap-2">
+    <ng-container *ngIf="!isRemoveState; else inRemoveStateTemplate">
+      <app-new-button #closeBtn id="close" [type]="'secondary'" [size]="'small'" (click)="closeBtnClick()">{{
+        buildTranslationKey('closeBtnText') | translate
+        }}</app-new-button>
+      <app-new-button #saveAndClose id="save-and-close" [type]="'primary'" [size]="'medium'"
+        [disabled]="formControl?.invalid" [loading]="saveBtnLoader$ | async" (click)="closeAndSaveBtnClick()">{{
+        buildTranslationKey('saveAndCloseBtnText') | translate }}</app-new-button>
+    </ng-container>
+    <ng-template #inRemoveStateTemplate>
+      <app-new-button #noKeepIt id="no-keep-it" [type]="'secondary'" [size]="'responsive'"
+        (click)="cancelDeleteBtnClick()" class="whitespace-nowrap">{{
+        buildTranslationKey('noKeepItBtnText') | translate
+        }}</app-new-button>
+      <app-new-button #yesRemoveNote id="yes-remove-note" [type]="'primary'" [size]="'responsive'"
+        [loading]="saveBtnLoader$ | async" (click)="confirmDeleteBtnClick()" class="px-2 whitespace-nowrap">{{
+        buildTranslationKey('yesRemoveNoteBtnText') | translate }}</app-new-button>
+    </ng-template>
+  </div>
+</ng-template>

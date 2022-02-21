@@ -1,0 +1,18 @@
+<app-new-button
+  [type]="type"
+  [svgIconPath]="icon"
+  [size]="buttonSize"
+  [focused]="isOpen"
+  [loading]="loading"
+  [disabled]="disabled"
+  [matMenuTriggerFor]="menu"
+  #menuTrigger="matMenuTrigger"
+  >{{ buttonTextTranslationKey | translate }}</app-new-button
+>
+
+<mat-menu #menu="matMenu" class="action-menu" [xPosition]="menuPositionX" [yPosition]="menuPositionY">
+  <app-dropdown-options-backdrop [class]="listWidth" [style.min-width.px]="listWidth === 'asDropdownButton' ? dropdownButtonWidth : null">
+    <app-dropdown-option *ngFor="let menuAction of menuActions" [menuAction]="menuAction" [context]="context">
+    </app-dropdown-option>
+  </app-dropdown-options-backdrop>
+</mat-menu>

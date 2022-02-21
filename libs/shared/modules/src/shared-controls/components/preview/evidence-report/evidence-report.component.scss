@@ -1,0 +1,42 @@
+@import "palette";
+
+:host{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Mulish', serif;
+  color: $mc-navy-90;
+  font-size: 13px;
+  margin: 0;
+
+  .report-link-wrapper{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+  }
+
+  .report-link{
+    cursor: pointer;
+    color: $mc-navy-90;
+    text-decoration: underline;
+
+    &:hover + .report-icon {
+      .info-icon-fill {
+        fill: $mc-navy-90;
+      }
+      .info-icon-stroke {
+        stroke: $mc-navy-90;
+      }
+    }
+  }
+
+  .report-icon{
+    margin-left: 5px;
+    svg{
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+

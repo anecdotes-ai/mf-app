@@ -1,0 +1,13 @@
+<!-- <svg-icon *ngIf="policy?.is_outdated" src="outdated" preserveAspectRatio="none" [stretch]="true" [placement]="'top'"
+    [ngbTooltip]="buildTranslationKey('outdatedPolicy') | translate"></svg-icon> -->
+<app-status-badge *ngIf="policy" class="pointer-events-none cursor-pointer" [status]="policy.status"
+  [ngbTooltip]="statusTooltip" [hoverable]="!!statusTooltip" placement="top top-right"
+  (click)="onBadgeClick();$event.stopPropagation()"></app-status-badge>
+
+<ng-template #notStartedTooltip>
+  <span>{{ buildTranslationKey('notStarted') | translate }}</span>
+</ng-template>
+
+<ng-template #onHoldTooltip>
+  <span>{{ buildTranslationKey('onHold') | translate }}</span>
+</ng-template>

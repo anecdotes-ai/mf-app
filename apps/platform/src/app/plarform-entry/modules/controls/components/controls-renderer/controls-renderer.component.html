@@ -1,0 +1,30 @@
+<app-multiselect-host #multiselect [selectDefinition]="multiselectPropertySelector"
+  [threeDotsMenu]="multiselectData.threeDotsMenu" [actionButtons]="multiselectData.actionButtons"
+  [items]="multiselectData.items">
+  <app-virtual-scroll-renderer
+    #virtualScrollRenderer
+    [parentScroller]="parentScroller"
+    [allItemsStream]="allControlsStream$"
+    [filteredItemsStream]="filteredControlsStream$"
+    [itemAddingStream]="controlAddingStream$"
+    [idSelector]="controlOrCategoryIdSelector"
+    [buildRenderingItemsCallback]="buildRenderingItemsCallback"
+    [scrollToNewlyAddedItem]="true"
+  >
+    <ng-template #itemTemplate let-item="item">
+      <ng-container *ngTemplateOutlet="isCategory(item) ? categoryTmpl : controlTmpl; context: { item: item }">
+      </ng-container>
+    </ng-template>
+  </app-virtual-scroll-renderer>
+
+  <ng-template #categoryTmpl let-item="item">
+    <div class="category-name font-main font-bold text-4xl text-navy-90 my-6">{{ item }}</div>
+  </ng-template>
+
+  <ng-template #controlTmpl let-item="item">
+    <app-control-item #controlWrapper [controlInstance]="item" [framework]="framework" [auditHistoryMode]="auditHistoryMode"
+      [displayedRequirementsAndEvidences]="displayedRequirementsAndEvidences[item.control_id]"
+      [isNewlyAdded]="newlyAddedControls[item.control_id]" (click)="handleClickedControl(item)"></app-control-item>
+  </ng-template>
+</app-multiselect-host>
+

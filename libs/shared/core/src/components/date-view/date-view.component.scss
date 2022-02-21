@@ -1,0 +1,17 @@
+@import 'index';
+
+.timestamp {
+  @include MulishFontStyle();
+  font-style: normal;
+  font-weight: normal;
+  color: $mc-navy-90;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.description {
+  @include MulishFontStyle();
+  color: $mc-navy-50;
+}

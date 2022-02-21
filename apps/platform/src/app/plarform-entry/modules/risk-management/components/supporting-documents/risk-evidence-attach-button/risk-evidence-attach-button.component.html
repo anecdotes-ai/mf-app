@@ -1,0 +1,7 @@
+<app-action-menu-button
+  [menuActions]="menuActions"
+  [buttonTextTranslationKey]="buildTranslationKey('addItem') | translate"
+  [type]="!!risk.evidence_ids?.length ? 'basic' : 'primary'"
+  [icon]="'Add'"
+  [buttonSize]="'responsive'"
+></app-action-menu-button>

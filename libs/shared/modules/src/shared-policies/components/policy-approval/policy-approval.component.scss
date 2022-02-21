@@ -1,0 +1,103 @@
+@import 'index.scss';
+@import 'styles';
+
+$row-spacing: 10px;
+$top-bottom-padding: 30px;
+$space-between: 20px;
+
+:host {
+  @apply mb-10;
+}
+
+.middle-content {
+  @apply h-full overflow-hidden bg-white;
+}
+
+#history-dropdown {
+  min-width: 190px;
+}
+
+.not-policy-context {
+  @apply mt-7;
+}
+
+.empty-state {
+  @apply flex flex-col items-center p-5 w-full h-full text-navy-90;
+}
+
+.link {
+  @apply underline cursor-pointer;
+}
+
+:host::ng-deep {
+  app-grid {
+    @apply bg-white;
+  }
+
+  .row-value {
+    @apply flex-col items-center text-navy-80;
+    min-height: 50px;
+  }
+
+  .header-value,
+  .row-value {
+    padding: 0 7px;
+  }
+
+  .header-value {
+    @apply min-h-10 max-h-10;
+  }
+
+  .header-value.first-column {
+    border-radius: 5px 0 0;
+    padding-left: $space-between;
+  }
+
+  .header-value.last-column {
+    border-radius: 0 5px 0 0;
+  }
+
+  .row-value {
+    flex-flow: row;
+    word-break: break-all;
+  }
+
+  .row-value.first-column {
+    @apply flex flex-row pl-5;
+
+    .first-col-value {
+      padding: $row-spacing;
+    }
+  }
+  .comment-value {
+    @apply flex justify-center w-full;
+  }
+
+  .empty-data {
+    @apply rounded-md border border-solid border-navy-50;
+  }
+
+  #headercell-4,
+  #headercell-5 {
+    width: 10%;
+  }
+
+  #headercell-0 {
+    width: 14%;
+  }
+
+  #headercell-1,
+  #headercell-2 {
+    width: 13%;
+  }
+
+  #headercell-3,
+  #headercell-6 {
+    width: 15%;
+  }
+
+  .header-value {
+    color: $mc-white;
+    min-width: 130px;
+  }
+}

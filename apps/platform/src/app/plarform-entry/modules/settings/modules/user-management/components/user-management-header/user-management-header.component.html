@@ -1,0 +1,22 @@
+<span class="header-info">
+  <span class="info">
+    <span class="font-main font-bold text-4xl text-navy-90"> {{ 'userManagement.list.userHeader' | translate }} ({{ foundUsersCount }}) </span>
+  </span>
+</span>
+<div class="items-wrapper">
+  <app-data-search
+    #search
+    (search)="searchData($event)"
+    [searchDefinitions]="searchDefinitions"
+    [data]="users"
+    [placeholderTranslationKey]="buildTranslationKey('searchUsers')"
+  ></app-data-search>
+
+  <!-- *ngIf="true" is made due to the Angular that throws exception "Cannot read property 'call' of undefined" at callHook for an unknown reason -->
+  <ng-container *ngIf="true">
+    <app-button *visibleForRole="[role.Admin]" class="invite-user-btn main mulish medium" (click)="inviteUser.emit()">
+      <svg-icon src="add_button" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      <span>{{ buildUserManagementTranslationKey('inviteNewUserBtn') | translate }}</span>
+    </app-button>
+  </ng-container>
+</div>

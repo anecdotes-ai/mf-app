@@ -1,0 +1,42 @@
+<div class="content-wrapper flex">
+  <ng-container *ngIf="framework.is_applicable; else otherButtons">
+    <app-new-button *ngIf="!isAuditInProgress; else inAudit" id="explore-frameworks-btn" [type]="'primary'" [size]="'stretch'"
+      (click)="exploreFramework($event)">
+      {{ buildTranslationKey('buttons.exploreFramework') | translate }}
+    </app-new-button>
+
+    <ng-template #inAudit>
+      <app-new-button id="audit-btn" class="bg-blue-90" [type]="'primary'" [size]="'stretch'" (click)="exploreFramework($event)">
+        {{ buildTranslationKey('buttons.viewAudit') | translate }}
+      </app-new-button>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #otherButtons>
+    <ng-container *ngIf="isNew; else existingFramework">
+      <app-new-button id="create-framework-btn" [svgIconPath]="'adopt'" [size]="'stretch'" (click)="createFramework()" class="adopt-button">
+        {{ buildTranslationKey('buttons.create') | translate }}
+      </app-new-button>
+    </ng-container>
+  </ng-template>
+  <ng-content>
+  </ng-content>
+</div>
+
+<ng-template #existingFramework>
+  <ng-container *isAccountFeatureEnabled="featuresEnum.AdoptFramework; else frameworksAdoptionDisabled">
+    <ng-container *visibleForRole="visibleForRoles">
+      <app-new-button id="adopt-btn" [svgIconPath]="'adopt'" [size]="'stretch'" [loading]="isApplicabilityChangeInProgress"
+        (click)="adoptFrameworkAsync()" class="userflow-cta-adopt adopt-button">
+        {{ buildTranslationKey('buttons.adopt') | translate }}
+      </app-new-button>
+    </ng-container>
+    <!-- please don't remove the userflow classes they are used by the design team and managed in figma -->
+  </ng-container>
+</ng-template>
+
+<ng-template #frameworksAdoptionDisabled>
+  <app-exclusive-feature-button id="exclusive-adopt-btn" [size]="'stretch'" [svgIconPath]="'adopt'" class="userflow-cta-adopt adopt-button">
+    {{ buildTranslationKey('buttons.adopt') | translate }}
+  </app-exclusive-feature-button>
+</ng-template>

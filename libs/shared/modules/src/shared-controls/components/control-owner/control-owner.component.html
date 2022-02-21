@@ -1,0 +1,13 @@
+<app-user-dropdown-control
+  *ngIf="usersStream$ | async as users"
+  #ownerDropdown
+  [formControl]="formControl"
+  [users]="users"
+  [currentUserEmail]="currentUserEmail$ | async"
+  [loading]="loading$ | async"
+  [source]="source"
+  [readonly]="readonly"
+  [isDisabled]="isDisabled"
+  [tooltipDisabled]="'controlFreeze'"
+>
+</app-user-dropdown-control>

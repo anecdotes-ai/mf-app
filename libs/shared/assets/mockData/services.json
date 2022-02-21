@@ -1,0 +1,172 @@
+[
+  {
+    "service_id": "AWS",
+    "service_last_update": "2020-09-01T09:46:15.724Z",
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Management", "Cloud", "Infrastructure"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-09-01T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 22,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Cloud", "Infrastructure"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-09-01T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Management"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-09-01T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Management"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-08-27T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Code management", "Developer tools"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-08-24T18:07:28.610Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Code management", "Developer tools"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-08-23T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Code management", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "AzureAD",
+    "service_last_update": "2020-09-01T09:46:15.724Z",
+    "service_status": "SERVICE_REMOVED",
+    "service_number_of_evidence": 24,
+    "service_is_recommended": false,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Cloud", "Infrastructure"]
+  },
+  {
+    "service_id": "Bitbucket",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Management"]
+  },
+  {
+    "service_id": "CheckMarx",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Code management", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "Datadog",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "Gdrive",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "GitLab",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "GENERIC",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "box",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "FILEMONITOR",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "One Drive",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "FILEMONITOR",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "Gsuite",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "AVAILABLE",
+    "service_type": "FILEMONITOR",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  },
+  {
+    "service_id": "DropBox",
+    "service_last_update": {},
+    "service_status": "SERVICE_INSTALLED",
+    "service_number_of_evidence": 42,
+    "service_is_recommended": true,
+    "service_availability_status": "COMINGSOON",
+    "service_type": "FILEMONITOR",
+    "service_families": ["Identity", "Developer tools", "Collaboration"]
+  }
+]

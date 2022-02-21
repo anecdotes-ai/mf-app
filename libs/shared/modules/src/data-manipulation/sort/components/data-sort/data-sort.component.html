@@ -1,0 +1,4 @@
+<app-icon-button [type]="'basic'" [svgIconPath]="icon" (click)="changeDirection()"></app-icon-button>
+<app-dropdown-control *ngIf="displayFieldSelector" [data]="sortDefinitions"
+                      [displayValueSelector]="displayValueSelector" [overlayPanelClass]="'sort-dropdown-overlay'"
+                      (select)="selectSort($event)"></app-dropdown-control>

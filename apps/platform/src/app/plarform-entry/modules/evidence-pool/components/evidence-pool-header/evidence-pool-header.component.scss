@@ -1,0 +1,36 @@
+@import 'index';
+
+@import 'component-header-shared';
+
+:host ::ng-deep {
+  app-evidence-pool-secondary-header {
+    display: flex;
+    height: 60px;
+    background: $mc-navy-30;
+    border-bottom: 1px solid $mc-navy-40;
+  }
+
+  .title-wrapper {
+    .info {
+      margin-left: 25px;
+    }
+  }
+}
+
+.icon-margin {
+  margin-right: 10.5px;
+}
+
+.collapse-all {
+  &:hover {
+    cursor: pointer;
+  }
+
+  #vetical-minus {
+    display: none;
+  }
+}
+
+:host .disabled .collapse-all {
+  opacity: 0.1;
+}

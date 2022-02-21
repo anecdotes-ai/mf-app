@@ -1,0 +1,8 @@
+<virtual-scroller #scroller [parentScroll]="parentScrollElement" [items]="renderedItems"
+  [enableUnequalChildrenSizes]="true" [bufferAmount]="virtualScrollBuffer">
+  <div #container class="items-container">
+    <div [id]="selectId(item)" class="item-wrapper" *ngFor="let item of scroller.viewPortItems; let i = index; trackBy: trackBy">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: createItemTemplateContext(item, i)"></ng-container>
+    </div>
+  </div>
+</virtual-scroller>

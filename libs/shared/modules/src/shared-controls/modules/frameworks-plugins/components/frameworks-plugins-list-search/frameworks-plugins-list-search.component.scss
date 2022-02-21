@@ -1,0 +1,11 @@
+:host {
+  &::ng-deep {
+    app-text-field {
+      width: 380px;
+      height: 40px;
+    }
+    .wrapper {
+      height: 40px;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import 'index.scss';
+
+:host {
+  width: 600px;
+}
+
+:host::ng-deep {
+
+  form {
+    display: grid;
+    row-gap: 19px;
+  }
+
+  .footer {
+    margin-top: 20px;
+  }
+
+  app-base-modal {
+    .header {
+      padding: 20px 0;
+    }
+  }
+}
+
+.dashed-border {
+  border: 1px dashed $mc-navy-70;
+  border-radius: 6px;
+  background-color: $mc-navy-10;
+  padding: 20px;
+}

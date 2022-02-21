@@ -1,0 +1,7 @@
+:host {
+    @apply grid grid-rows-2;
+    grid-template-rows: 56px calc(100% - 56px);
+
+    height: 475px;
+    width: 511px;
+}

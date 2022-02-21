@@ -1,0 +1,6 @@
+<ng-container *ngIf="renderedItems">
+  <div #itemWrapper [id]="selectId(item)" [class.hidden]="isHidden(item)" class="item-wrapper"
+    *ngFor="let item of renderedItems; let i = index; trackBy: trackBy">
+    <ng-container *ngTemplateOutlet="itemTemplate; context: createItemTemplateContext(item, i)"></ng-container>
+  </div>
+</ng-container>

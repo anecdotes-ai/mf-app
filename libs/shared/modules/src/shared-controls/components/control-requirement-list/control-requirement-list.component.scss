@@ -1,0 +1,102 @@
+@import 'index';
+:host {
+  display: block;
+  position: relative;
+  &.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .requirement-wrapper {
+    min-height: 56px;
+    border-bottom: 1px solid rgba($color: $mc-navy-90, $alpha: 0.1);
+
+    &:last-of-type{
+      border-bottom: none !important;
+    }
+  }
+}
+
+:host.in-audit {
+  .requirement-wrapper {
+    border-bottom: 1px solid rgba($color: $mc-navy-90, $alpha: 0.2);
+  }
+}
+
+.loader-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $mc-white;
+  z-index: 995;
+}
+
+.req-count {
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 30px;
+  @include MulishBold(16px, 150%);
+
+  span {
+    margin-top: 12px;
+    background: $mc-navy-90;
+    height: 2px;
+    border-radius: 6px;
+  }
+}
+
+.header {
+  padding-left: 26px;
+}
+
+app-loading-animation {
+  width: 100px;
+  height: 100px;
+}
+
+.add-req-btn::ng-deep {
+  svg-icon * {
+    stroke: unset !important;
+  }
+}
+
+.add-req-btn {
+  margin-right: 30px;
+
+  &:hover {
+    color: $mc-navy-90;
+
+    &::ng-deep svg-icon path {
+      fill: $mc-navy-90 !important;
+    }
+  }
+}
+
+.no-requirements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  background: $mc-navy-10;
+  @include MulishFontStyle(13px);
+
+  .magic-icon {
+    margin-right: 10px;
+    path {
+      fill: white;
+    }
+  }
+
+  > * {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

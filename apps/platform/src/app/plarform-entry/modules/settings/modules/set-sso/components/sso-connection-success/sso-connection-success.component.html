@@ -1,0 +1,11 @@
+<div
+  class="flex flex-column justify-center items-center flex-1 border-t border-b border-solid border-navy-40 p-5 gap-3">
+  <app-success-animation></app-success-animation>
+  <div *ngIf="primaryTextTranslationKey" class="text-4xl text-navy-90 font-bold">
+    {{ primaryTextTranslationKey | translate }}</div>
+  <div *ngIf="secondaryTextTranslationKey" class="text-base text-navy-70">{{secondaryTextTranslationKey| translate}}
+  </div>
+</div>
+<div class="flex p-5 gap-5">
+  <app-new-button [type]="'primary'" (click)="gotIt()">Got it</app-new-button>
+</div>

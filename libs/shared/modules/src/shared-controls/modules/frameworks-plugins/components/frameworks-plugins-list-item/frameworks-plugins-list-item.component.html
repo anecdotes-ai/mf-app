@@ -1,0 +1,17 @@
+<div class="my-3 px-5  border h-12 rounded-lg flex items-center justify-between"
+  [ngClass]="{ 'shadow border-navy-50 hover:border-navy-90': toggleControl.value, 'border-navy-40 hover:border-navy-50': !toggleControl.value}">
+  <div class="h-5 flex items-center">
+    <div class="flex items-center" [ngClass]="{ 'filter grayscale opacity-50': !toggleControl.value }">
+      <app-evidence-icon class="h-5 w-5 mr-2.5" [evidenceServiceId]="plugin.service_id"></app-evidence-icon>
+      <span class="service-name">
+        {{plugin.service_display_name}}
+      </span>
+    </div>
+    <span *ngIf="toggleControl.value" class="evidence-quantity">
+      {{plugin.service_evidence_list.length}} {{buildTranslationKey('evidence') | translate}}
+    </span>
+  </div>
+  <div class="py-1.5 h-6 flex items-center">
+    <app-toggle [formControl]="toggleControl"></app-toggle>
+  </div>
+</div>

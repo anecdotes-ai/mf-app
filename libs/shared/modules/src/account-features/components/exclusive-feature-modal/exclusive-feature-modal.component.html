@@ -1,0 +1,14 @@
+<app-base-modal [footerTemplate]="footerTemplate">
+  <div class="flex flex-col justify-center">
+    <svg-icon src="exclusive-feature" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <div class="title">{{ buildTranslationKey(relativeTitleKey) | translate }}</div>
+    <div class="description">{{ buildTranslationKey('description') | translate }}</div>
+    <svg-icon class="m-0" [src]="icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+  <app-button [clickOnEnter]="true" class="main mulish medium contact-us" (click)="contactUs()">
+    {{ buildTranslationKey('contactUs') | translate }}
+  </app-button>
+</ng-template>

@@ -1,0 +1,11 @@
+<ng-container *ngFor="let notification of $enititesObs | async | keyvalue: comparisonFn; trackBy: trackByFn">
+  <ng-container *ngIf="notification.value.displayed">
+    <ng-container
+      *ngComponentOutlet="
+        notification.value.componentType;
+        ndcDynamicInputs: notification.value.inputs;
+        ndcDynamicOutputs: outputs
+      "
+    ></ng-container>
+  </ng-container>
+</ng-container>

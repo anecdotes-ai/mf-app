@@ -1,0 +1,8 @@
+:host::ng-deep {
+  @apply flex flex-col h-full;
+  min-width: 800px;
+
+  .item-wrapper {
+    @apply mb-5;
+  }
+}

@@ -1,0 +1,19 @@
+<ng-container *ngIf="loading$ | async; else loaded">
+    <div class="absolute w-full h-full bg-navy-30">
+      <app-loading-animation [width]="'270px'" height="270px"></app-loading-animation>
+    </div>
+</ng-container>
+  <ng-template #loaded>
+    <div class="text-4xl font-bold border-solid border-navy-40 border-b p-6">{{ buildTranslationKey('title') | translate }}</div>
+    <div class="grid grid-cols-2 gap-24">
+        <div class="px-6 py-5">
+            <div class="text-base pb-6">
+                {{ buildTranslationKey('description1') | translate }}
+                <a class="underline" target="_blank" [href]="buildTranslationKey('intercomLink') | translate">{{ buildTranslationKey('description2') | translate }}</a>.
+            </div>
+            <app-delegation-section *ngFor="let section of getSections()" [sectionName]="section" [items]="getSectionItems(section)" (contact)="showIntercomMessage()"></app-delegation-section>
+        </div>
+        <svg-icon class="w-5/6" [src]="'data_delegation_illustration'"></svg-icon>
+    </div>
+  </ng-template>
+  

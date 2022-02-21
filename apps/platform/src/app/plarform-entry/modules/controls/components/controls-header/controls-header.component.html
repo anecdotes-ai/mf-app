@@ -1,0 +1,59 @@
+<div class="items-info">
+  <div class="info workspace-for">
+    <svg-icon class="custom-icon" [src]="getCurrentFrameworkIcon()" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <div class="flex flex-col items-center">
+      <ng-container *ngIf="!auditView; else auditViewTitle">
+        <span (click)="navigateToOverviewClick()" class="back-to-overview flex items-center cursor-pointer underline main-font-13 text-navy-80 pb-1 w-full">
+          <svg-icon class="arrow-icon transform -rotate-90 h-1.5 pb-1.5 top-0" src="arrow-single" [stretch]="true"></svg-icon>  
+          {{ buildTranslationKey('overview') | translate }}
+        </span>
+        <span>
+          <span class="title">{{ selectedFramework.framework_name }}</span>
+        </span>
+      </ng-container>
+  </div>
+  </div>
+</div>
+<div class="items-wrapper">
+  <app-data-search
+    #search
+    [searchDefinitions]="searchDefinitions"
+    (search)="searchData($event)"
+    [placeholderTranslationKey]="buildTranslationKey('searchControl')"
+  ></app-data-search>
+
+  <app-button *ngIf="!auditView" class="secondary mulish medium" id="add-controls" (click)="openAddCustomControlModal()">
+    <svg-icon src="magic" class="add-controls-icon icon-margin" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    <span>{{ buildTranslationKey('addControlsBtnText') | translate}}</span>
+  </app-button>
+
+  <div class="flex gap-3">
+    <app-commenting-pannel-button *ngIf="!auditView"></app-commenting-pannel-button>
+    <app-data-filter-button></app-data-filter-button>
+  </div>
+  
+  <ng-container *visibleForRole="notVisibleForAuditor">
+    <ng-container *ngIf="isAnecdotesFramework">
+      <ng-container *isAccountFeatureEnabled="features.AdoptFramework; else frameworksAdoptionDisabled">
+        <app-new-button id="adopt-framework" [type]="'secondary'" [size]="'responsive'" [svgIconPath]="'framework'" [routerLink]="'/frameworks'">{{ buildTranslationKey('adoptFramework') | translate}}</app-new-button>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #frameworksAdoptionDisabled>
+  <app-exclusive-feature-button [type]="'secondary'" [svgIconPath]="'framework'">{{ buildTranslationKey('adoptFramework') | translate}}</app-exclusive-feature-button>
+</ng-template>
+
+<ng-template #auditViewTitle>
+  <span (click)="navigateToHistoryClick()" class="back-to-overview flex items-center cursor-pointer underline main-font-13 text-navy-80 pb-1 w-full">
+    <svg-icon class="arrow-icon transform -rotate-90 h-1.5 pb-1.5 top-0" src="arrow-single" [stretch]="true"></svg-icon>  
+    {{ buildTranslationKey('audit') | translate }}
+  </span>
+  <span>
+    <span class="title">{{ selectedFramework.framework_name }} 
+      <span *ngIf="selectedFramework.framework_current_audit"> - {{ selectedFramework.framework_current_audit.audit_date  | date: 'MMM d, y '}}</span>
+    </span>
+    <span class="text-navy-70"> {{ buildTranslationKey('readOnly') | translate }}</span>
+  </span>
+</ng-template>

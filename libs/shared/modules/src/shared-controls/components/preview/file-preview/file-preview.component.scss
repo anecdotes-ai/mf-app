@@ -1,0 +1,78 @@
+@import '../preview-shared-styles.scss';
+
+$tipHeight: 60px;
+
+:host {
+  @apply block bg-navy-30 p-0;
+  min-height: 392px; // IMPORTANT. TO LET ANIMATION WORK AS EXPECTED HEIGHT FOR THE COMPONENT MUST BE PREDEFINED BY STATIC VALUE
+  width: 87vw;
+  max-height: 93vh;
+  height: 93vh;
+
+  .not-available-preview-fallback {
+    @apply mt-40;
+  }
+
+  app-evidence-preview-item {
+    @apply w-full;
+  }
+
+  &.have-control-header {
+    .preview-wrapper {
+      height: calc(100% - 2 * #{$tipHeight});
+    }
+  }
+
+  .not-available-preview-fallback {
+    @apply flex flex-col items-center;
+
+    svg-icon {
+      @apply mb-2.5;
+
+      svg {
+        path {
+          @apply fill-navy-90;
+        }
+      }
+    }
+
+    .header {
+      @apply font-main font-bold text-base text-navy-90 mb-5;
+    }
+  }
+
+  .preview-content {
+    @apply overflow-auto;
+  }
+
+  .preview-wrapper {
+    @apply w-full pt-5 px-8 pb-0;
+    height: calc(100% - #{$tipHeight});
+
+    .actions-group {
+      @apply flex justify-end;
+
+      app-button {
+        @apply mb-5;
+      }
+    }
+
+    .preview-content {
+      height: calc(100% - 106px);
+    }
+  }
+
+  .evidence-tip-wrapper {
+    @apply px-8 py-2.5 self-start;
+  }
+
+  .report-wrapper {
+    @apply pt-4 px-0 pb-0;
+  }
+
+  ::ng-deep {
+    .ps-content {
+      @apply h-full;
+    }
+  }
+}

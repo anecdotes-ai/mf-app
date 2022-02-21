@@ -1,0 +1,30 @@
+@import 'index';
+
+header {
+  margin-bottom: 15px !important;
+}
+
+:host > div {
+  > * {
+    margin-left: 30px;
+  }
+
+  > *:first-child {
+    margin-left: 0;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .note {
+    height: 30px;
+    padding-top: 10px;
+  }
+}
+
+.note {
+  @include MulishFontStyle(11px);
+  color: $mc-navy-70;
+}

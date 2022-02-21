@@ -1,0 +1,35 @@
+<div
+  class="header flex flex-row items-center border-navy-40 border-solid border-b px-6 font-main"
+  [class.audit-in-progress]="isAuditInProgress"
+>
+  <div class="info workspace-for flex items-center">
+    <svg-icon
+      class="custom-icon"
+      [src]="getCurrentFrameworkIcon()"
+      preserveAspectRatio="none"
+      [stretch]="true"
+    ></svg-icon>
+    <span
+      class="title flex justify-center items-center text-4xl text-navy-90 font-bold border-solid border-navy-50 px-6 border-r h-12"
+      >{{ framework?.framework_name }}</span
+    >
+  </div>
+  <app-tabs class="flex-1" [tabs]="tabs" [selectTabById]="selectedTabId" [allowTabTemplates]="false" [tabSize]="'large'" [borderBottom]="false">
+  </app-tabs>
+  <app-new-button *ngIf="isAuditInProgress && !isAuditor" class="end-audit-btn mr-4" [type]="'secondary'" (click)="endAudit($event)">
+    {{ buildTranslationKey('endAudit') | translate }}
+  </app-new-button>
+  <app-new-button class="controls-button" (click)="exploreControls($event)">
+    {{ buildTranslationKey('exploreControls') | translate }}
+  </app-new-button>
+</div>
+<div class="flex-1 overflow-hidden">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #auditStartedModal>
+  <app-audit-started-modal
+    [frameworkIcon]="getCurrentFrameworkIcon()"
+    [closeModal]="closeAuditStartedModal"
+  ></app-audit-started-modal>
+</ng-template>

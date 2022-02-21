@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="plugin-group1">
+        <svg-icon [src]="includePlugins ? 'plugins/plugin-cloud-group1' : 'cloud-group1'" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+    <div class="middle-content">
+        <div class="central-content">
+            <div class="main-description">
+                <span>{{mainDescriptionText}}</span>
+            </div>
+            <div class="secondary-description">
+            <span>{{secondaryDescriptionText}}</span>
+            </div>
+            <app-new-button        
+            (click)="mainActionClick.emit($event)"
+            class="main mulish medium"
+            id="main-button"
+            [svgIconPath]="mainButtonIcon"
+            >
+            <span>{{mainButtonText}}</span>
+            </app-new-button>
+        </div>
+    </div>
+    
+    <div class="plugin-group2">
+        <svg-icon [src]="includePlugins ? 'plugins/plugin-cloud-group2' : 'cloud-group2'" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+</div>
+

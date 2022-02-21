@@ -1,0 +1,23 @@
+<section class="customer-logo">
+  <svg-icon [src]="'mobile/logotype_onwhite'"></svg-icon>
+</section>
+<section class="with-side-lines">
+  <div></div>
+</section>
+<section class="text center-text font-main">
+  <span class="text-5xl">
+    <b>{{ buildTranslationKey('loginText') | translate }}</b>
+  </span>
+</section>
+<section class="form">
+  <app-dynamic-form-outlet [dynamicFormGroup]="dynamicFormGroup"></app-dynamic-form-outlet>
+  <h5 class="forgot-password-text" (click)="navigateToForgot()">{{ buildTranslationKey('forgotPasswordText') | translate }}</h5>
+  <app-button
+    (click)="next()"
+    [class.disabled]="dynamicFormGroup.invalid"
+    [loading]="isProcessing$ | async"
+    id="next-btn"
+    class="main mulish stretch action-btn"
+    >{{ buildTranslationKey('nextBtn') | translate }}</app-button
+  >
+</section>

@@ -1,0 +1,33 @@
+<ng-container *ngIf="control$ | async as control">
+  <div class="control-data pl-6 pt-6 pr-16 mb-7">
+    <div class="flex items-center justify-between mb-6">
+      <span class="font-main font-bold text-2xl text-navy-90">{{ control.control_name }}</span>
+      <div class="flex items-center">
+        <app-control-status class="pointer-events-none" [controlId]="control.control_id"  [readonly]="true"></app-control-status>
+        <app-control-owner class="ml-16" [controlId]="controlId" [readonly]="true"></app-control-owner>
+        <app-frameworks-icon
+          class="ml-8 pointer-events-none"
+          [relatedFrameworks]="control.control_related_frameworks_names"
+          [shouldDisplayIfNoControls]="true"
+        ></app-frameworks-icon>
+      </div>
+    </div>
+
+    <div class="py-1 px-4 font-main text-lg text-navy-80 rounded-full mb-5 bg-navy-30 w-max">
+      {{ control.control_category }}
+    </div>
+
+    <p class="m-0 font-main text-base text-navy-70">{{ control.control_description }}</p>
+  </div>
+
+  <div class="font-main font-bold text-2xl text-navy-90 mb-2 pl-6">
+    {{ buildTranslationKey('req') | translate: { reqsAmount: control.control_number_of_requirements } }}
+  </div>
+
+  <perfect-scrollbar class="pb-7">
+    <app-requirement-view-item
+      *ngFor="let req of control.control_calculated_requirements"
+      [requirement]="req"
+    ></app-requirement-view-item>
+  </perfect-scrollbar>
+</ng-container>

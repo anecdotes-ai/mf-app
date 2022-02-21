@@ -1,0 +1,28 @@
+<ng-template #templateRef let-subCategoriesInfo="currentPage">
+  <div id="information-security-slide-content" class="slide-content-table">
+    <div class="header row">
+      <div class="cell"></div>
+      <div class="cell framework" *ngFor="let frameworkCategory of data.frameworksCategories">
+        <svg-icon [src]="frameworkCategory.framework_icon" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      </div>
+    </div>
+    <ng-container *ngIf="data.allCategories">
+      <div class="row category" *ngFor="let categoryInfo of subCategoriesInfo">
+        <div class="cell">
+          <svg-icon class="category-icon" [src]="categoryInfo.icon"></svg-icon>
+          <span class="name">{{ categoryInfo.category_name }}</span>
+        </div>
+        <div class="cell framework" *ngFor="let frameworkCategory of data.frameworksCategories">
+          <ng-container
+            *ngIf="getFrameworkCategoryControlsCollectedProgress(frameworkCategory, categoryInfo); let progressResult"
+            ><span class="percents" [ngClass]="progressResult.colorClass"
+              >{{ progressResult.value }} %</span
+            ></ng-container
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<app-pager id="pager" #pager [data]="subCategoriesInfo" [itemsPerPage]="5" [template]="templateRef"></app-pager>

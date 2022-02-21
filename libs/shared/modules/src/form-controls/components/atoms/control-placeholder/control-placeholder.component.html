@@ -1,0 +1,10 @@
+<ng-container *ngIf="placeholderObj">
+  <ng-container *ngIf="isTextPlaceholderType(); else placeholderTemplate">
+    <span class="text relative overflow-hidden overflow-ellipsis" translate
+    [translateParams]="placeholderParamsObj">{{ placeholderObj.value }}</span>
+    <svg-icon *ngIf="placeholderIcon" preserveAspectRatio="none" [stretch]="true" [src]="placeholderIcon"></svg-icon>
+  </ng-container>
+</ng-container>
+<ng-template #placeholderTemplate>
+  <ng-container *ngTemplateOutlet="placeholderObj.value"></ng-container>
+</ng-template>

@@ -1,0 +1,10 @@
+<app-new-button
+  *ngIf="!(isOpen$ | async)"
+  [type]="'secondary'"
+  [svgIconPath]="'commenting/comment'"
+  [disabled]="isLoading$ | async"
+  (click)="open()"
+>
+  {{ 'commenting.commentsBtn' | translate }}
+  <ng-container *ngIf="!(isLoading$ | async)"> ({{ overallCommentsCount$ | async }}) </ng-container>
+</app-new-button>

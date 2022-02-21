@@ -1,0 +1,17 @@
+:host{
+  width: 600px;
+
+  .export-radiogroup-label{
+    @apply flex items-center;
+    margin: 0 0 10px;
+
+    svg-icon{
+      @apply flex items-center;
+      margin-right: 10px;
+    }
+
+    span{
+      @apply font-main text-base text-navy-90;
+    }
+  }
+}

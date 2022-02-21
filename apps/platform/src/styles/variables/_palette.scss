@@ -1,0 +1,41 @@
+// TODO: All palette variables here are deprecated. We mustn't use them
+// We must usages of these variables with @apply syntax from tailwind (using classes related to colors)
+// more about @apply syntax is here: https://tailwindcss.com/docs/functions-and-directives#apply
+$mc-blue-0: #ebfdfe;
+$mc-blue-10: #dafdff;
+$mc-blue-30: #99f8fd;
+$mc-blue-50: #00DCE8;
+$mc-blue-60: #30cad9;
+$mc-blue-70: #009fb5;
+$mc-blue-90: #008193;
+
+$mc-orange-0: #fef8f1;
+$mc-orange-10: #fff2e4;
+$mc-orange-30: #ffd8af;
+$mc-orange-50: #ffa84f;
+$mc-orange-70: #e67400;
+$mc-orange-90: #b55b00;
+
+$mc-pink-0: #fceff7;
+$mc-pink-10: #ffdfef;
+$mc-pink-50: #ff3499;
+$mc-pink-70: #e00070;
+$mc-pink-90: #ae0057;
+
+$mc-navy-10: #f8f9f9;
+$mc-navy-30: #edf0f1;
+$mc-navy-40: #d6dcdf;
+$mc-navy-50: #bfc8ce;
+$mc-navy-60: #a4b5bf;
+$mc-navy-70: #81939e;
+$mc-navy-80: #2a495b;
+$mc-navy-90: rgb(4, 41, 62);
+
+$mc-white: #ffffff;
+
+$mc-background: $mc-navy-30;
+$mc-dark-gray: #858585;
+$mc-text-error: $mc-pink-70;
+$mc-disabled: #b4bfc5;
+
+$mc-border-default: #bfc8ce7d;

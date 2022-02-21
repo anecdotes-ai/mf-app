@@ -1,0 +1,48 @@
+:host {
+  @apply block h-full overflow-hidden pb-5;
+
+  .description-wrapper {
+    max-width: 500px;
+
+    span {
+      @apply block w-full;
+    }
+  }
+
+  .sections-container {
+    height: calc(100% - 160px);
+  }
+
+  ::ng-deep {
+    app-tabs {
+      .content {
+        max-height: 500px;
+      }
+    }
+
+    .scroller {
+      @apply w-full h-auto;
+    }
+
+    app-virtual-scroll-renderer {
+      .scrollable-content {
+        @apply relative;
+      }
+
+      .item-wrapper {
+        padding: 10px 0;
+        &:first-child {
+          @apply pt-0;
+        }
+
+        &:last-child {
+          @apply pb-0;
+        }
+      }
+    }
+
+    a {
+      @apply underline text-navy-90 cursor-pointer;
+    }
+  }
+}

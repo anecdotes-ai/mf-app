@@ -1,0 +1,26 @@
+<app-base-modal class="policy-setting-modal" iconPath="settings" [titleTranslationKey]="buildTranslationKey('title')"
+  [footerTemplate]="footerTemplate" [leftCornerData]="{titleText: policy?.policy_name}"
+  [ngClass]="{'has-delete': isAddMoreVisible}">
+  <div class="dashed-border">
+    <app-stepper-header class="stepper-header" [steps]="stepText" [currentStep]="currentStep"></app-stepper-header>
+    <ng-container *ngIf="isScheduling; else policyRole">
+      <app-policy-scheduling #policyStageForm [translationKey]="buildTranslationKey('scheduling')"
+        [policyScheduling]="policy?.policy_settings?.scheduling"></app-policy-scheduling>
+    </ng-container>
+  </div>
+</app-base-modal>
+<ng-template #footerTemplate>
+  <div class="buttons">
+    <app-button *ngIf="isBack" (click)="switchPrevStep()" class="secondary medium mulish">{{ buildTranslationKey('back')
+      | translate }}
+    </app-button>
+    <app-button [class.disabled]="isNextValid" (click)="switchNextStep()" [loading]="isLoading"
+      class="mulish main medium"> {{nextText | translate}}
+    </app-button>
+  </div>
+</ng-template>
+
+<ng-template #policyRole>
+  <app-policy-role #policyStageForm [isAddMoreVisible]="isAddMoreVisible" [translationKey]="translationKey"
+    [stage]="stage" [policySettings]="policySettings"></app-policy-role>
+</ng-template>

@@ -1,0 +1,83 @@
+@import './index.scss';
+
+:host {
+  @apply block;
+}
+
+:host::ng-deep {
+  .evidence-service {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+
+    svg-icon {
+      svg {
+        max-height: 22px;
+        max-width: 22px;
+      }
+    }
+  }
+}
+
+.arrow-single {
+  transform: rotate(90deg);
+  margin: 0 12px 0 15px;
+
+  svg {
+    width: 10px;
+    height: 5px;
+  }
+
+  * {
+    fill: $mc-navy-50;
+  }
+}
+
+.evidence-type {
+  min-height: 43px;
+  min-width: 34px;
+}
+
+.progress-bar-wrapper {
+  width: 160px;
+  height: 8px;
+  margin-left: auto;
+}
+
+.mat-progress-bar {
+  height: inherit;
+  border-radius: 20px;
+}
+
+:host::ng-deep {
+  .mat-progress-bar-element {
+    background-color: $mc-background;
+    fill: $mc-background;
+  }
+}
+
+.error-message {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  svg-icon {
+    margin-right: 10px;
+  }
+
+  .error-action {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.evidence-name {
+  @include MerriWeatherFontStyle(14px, 20px);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: $mc-navy-90;
+  padding-left: 14px;
+  margin-right: 30px;
+}

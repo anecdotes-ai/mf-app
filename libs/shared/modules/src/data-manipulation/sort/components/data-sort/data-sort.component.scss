@@ -1,0 +1,12 @@
+@import 'index';
+
+:host::ng-deep {
+  display: flex;
+  gap: 10px;
+  app-dropdown-control {
+    min-width: 172px;
+  }
+  app-icon-button.btn svg-icon {
+    @apply min-w-10 max-w-10 min-h-10;
+  }
+}

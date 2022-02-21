@@ -1,0 +1,16 @@
+<span class="status-tooltip-message">
+  {{
+    buildTranslationKey(statusesKeysConst[controlStatus.status])
+      | translate: controlStatus
+  }}
+  <ng-container
+    *ngIf="
+      controlStatus.status !== controlStatusesEnum.NOTSTARTED &&
+      controlStatus.status !== controlStatusesEnum.INPROGRESS
+    "
+  >
+    <br />
+    {{ buildTranslationKey('on') | translate }}
+    {{ date | date: tooltipDateFormat }}
+  </ng-container>
+</span>

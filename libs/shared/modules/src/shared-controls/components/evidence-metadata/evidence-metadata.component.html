@@ -1,0 +1,35 @@
+<ng-container *ngIf="evidence.evidence_is_applicable || shouldDisplay">
+    <app-date-view *ngIf="evidence.evidence_last_modified_time" class="last_modified_time"
+        [date]="evidence.evidence_last_modified_time" [dateFormat]="dateFormat"
+        [descriptionTranslationKey]="buildTranslationKey('lastModified')"></app-date-view>
+
+    <app-metadata-view *ngIf="evidence.evidence_last_modified_by"
+        metadataValue="@{{ removeWhitespacesFunc(evidence.evidence_last_modified_by) }}"
+        [metadataDescriptionTranslationKey]="buildTranslationKey('lastModifiedBy')"></app-metadata-view>
+
+    <app-timeframe-view *ngIf="evidence.evidence_time_frame" [timeFrameString]="evidence.evidence_time_frame"
+        [fromTranslationKey]="buildTranslationKey('timeframe.from')"
+        [toTranslationKey]="buildTranslationKey('timeframe.to')"></app-timeframe-view>
+
+    <app-metadata-view *ngIf="(evidence.evidence_items_count || itemsCount) && evidence.evidence_type !== evidenceTypes.DOCUMENT"
+        [metadataValue]="displaySearchItemsAmount ? itemsCount : evidence.evidence_items_count"
+        [metadataDescriptionTranslationKey]="getTranslationKeyForEvidenceItemCount()"></app-metadata-view>
+
+    <app-metadata-view *ngIf="evidence.evidence_uploaded_by" [metadataValue]="evidence.evidence_uploaded_by"
+        [metadataDescriptionTranslationKey]="buildTranslationKey('uploadedBy')"></app-metadata-view>
+
+    <app-date-view *ngIf="dateViewType === dateViewTypes.Regular" class="flex evidence-property-value-description" [dateFormat]="dateFormat"
+        [date]="evidence.evidence_collection_timestamp" [icon]="icon" [descriptionTranslationKey]="
+        buildTranslationKey(
+            evidence.evidence_service_id === 'manual' ? 'manualUploadedEvidence' : 'automaticallyCollected'
+        )
+    ">
+    </app-date-view>
+
+    <app-time-ago-date-view *ngIf="dateViewType === dateViewTypes.TimeAgo" class="flex" [date]="evidence.evidence_collection_timestamp" [descriptionTranslationKey]="
+        buildTranslationKey(
+            evidence.evidence_service_id === 'manual' ? 'manualUploadedEvidence' : 'automaticallyCollected'
+        )
+    "></app-time-ago-date-view>
+
+</ng-container>

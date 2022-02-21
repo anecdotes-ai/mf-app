@@ -1,0 +1,18 @@
+<div class="overlapped-background-block" *ngIf="headerDisplayItems.length && data"></div>
+<div class="items-wrapper">
+  <section class="info-items">
+    <div class="content-element" *ngFor="let contentRow of headerDisplayItems" placement="bottom"
+      tooltipClass="header-item-info"
+      [ngbTooltip]="contentRow.informationText && (buildTranslationKey(contentRow.informationText) | translate)">
+      <app-specific-information-item [content]="contentRow">
+        <svg-icon *ngIf="contentRow.informationText" src="plugin-tab-info" class="info-icon"> </svg-icon>
+        <span class="field-description">
+          {{ buildTranslationKey(contentRow.descriptionTranslateKey) | translate }}</span>
+      </app-specific-information-item>
+    </div>
+  </section>
+  <div class="executive-report">
+    <app-coming-soon-button [svgIconPath]="'report'" (click)="navigateToExecutiveReport()" [type]="'primary'"
+      [size]="'fixed160'">{{ buildTranslationKey('executiveReport') | translate }}</app-coming-soon-button>
+  </div>
+</div>

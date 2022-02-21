@@ -1,0 +1,41 @@
+<div class="flex flex-col">
+  <div class="description">
+    <span>
+      {{ buildTranslationKey('descriptionFirstPart') | translate }}
+      <a class="font-bold underline" (click)="openGuideLink()">{{ buildTranslationKey('linkText') | translate }}</a>
+      {{ buildTranslationKey('descriptionSecondPart') | translate }}
+    </span>
+  </div>
+  <div class="flex flex-row gap-8">
+    <app-copy-text-field
+      class="flex-grow"
+      [valueToPass]="agent.api_key"
+      [formControl]="apiKeyFieldControl"
+      [label]="buildTranslationKey('apiKeyFieldLabel') | translate"
+      [readonly]="true"
+      [showHideText]="true"
+      [inputType]="'password'"
+    ></app-copy-text-field>
+    <app-new-button
+      class="self-end"
+      [loading]="regenerateButtonLoader$ | async"
+      [type]="'secondary'"
+      [size]="'medium'"
+      (click)="regenerateApiClick()"
+    >
+      {{ buildTranslationKey('regenerateApiKey') | translate }}
+    </app-new-button>
+  </div>
+
+  <div *ngIf="agent.tunnels?.length" class="metadata flex gap-7 flex-row items-baseline">
+    <app-date-view
+      *ngIf="agent.status?.last_heartbeat"
+      [date]="agent.status.last_heartbeat"
+      [descriptionTranslationKey]="buildTranslationKey('lastHeartbeat')"
+    ></app-date-view>
+    <app-metadata-view
+      [metadataValue]="agent.tunnels?.length"
+      [metadataDescriptionTranslationKey]="buildTranslationKey('connectedPlugins')"
+    ></app-metadata-view>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<ng-container *ngIf="thread$ | async as thread">
+  <app-thread-header
+    [resourceTypeDisplayName]="resource.resourceTypeDisplayName"
+    [resourceDisplayName]="resource.resourceDisplayName"
+  >
+    <app-three-dots-menu *ngIf="shouldMenuBeDisplayed(thread.initiatorId)" class="relative left-3" [menuActions]="menuActions"></app-three-dots-menu>
+  </app-thread-header>
+  <div class="divide-y divide-navy-30">
+    <app-comment-view
+      [date]="thread.createdAt"
+      [userId]="thread.initiatorId"
+      [fallbackUserName]="thread.initiatorName"
+      [body]="thread.body"
+      [commentType]="'thread'"
+      [commentId]="thread.id"
+      [displayMenu]="false"
+    ></app-comment-view>
+    <app-comment-view
+      *ngFor="let comment of comments$ | async"
+      [date]="comment.createdAt"
+      [userId]="comment.commenterId"
+      [fallbackUserName]="comment.commenterName"
+      [body]="comment.body"
+      [commentType]="'comment'"
+      [commentId]="comment.id"
+      [displayMenu]="false"
+    ></app-comment-view>
+  </div>
+</ng-container>

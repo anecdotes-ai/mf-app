@@ -1,0 +1,31 @@
+:host {
+    @apply inline-flex cursor-pointer;
+
+    circle {
+        transition: transform .3s;
+    }
+
+    .off:hover {
+        circle {
+            @apply stroke-navy-50;
+        }
+        rect {
+            @apply fill-navy-50;
+        }
+    }
+    .off:not(:hover) {
+        rect {
+            @apply fill-navy-40;
+        }
+    }
+    .on:hover {
+        rect {
+            @apply fill-navy-80;
+        }
+    }
+    .on:not(:hover) {
+        rect {
+            @apply fill-navy-90;
+        }
+    }
+}

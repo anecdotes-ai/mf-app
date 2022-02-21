@@ -1,0 +1,56 @@
+@import './index.scss';
+
+#api-section {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+
+  .comment {
+    @include MulishFontStyle(13px, 21px);
+    margin: 25px;
+    color: $mc-navy-90;
+  }
+
+  .center-description {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+
+    text-align: center;
+    max-width: 540px;
+
+    @include MulishFontStyle(16px, 24px);
+    color: $mc-navy-90;
+  }
+}
+
+:host {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  flex-direction: column;
+  position: relative;
+}
+
+:host::ng-deep perfect-scrollbar {
+  .ps-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;    
+  }
+}
+
+.central-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+
+.cta-btn{
+  width: 172px;
+  margin-top: 20px;
+}

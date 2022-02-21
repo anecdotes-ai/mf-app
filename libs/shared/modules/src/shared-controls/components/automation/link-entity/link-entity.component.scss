@@ -1,0 +1,32 @@
+@import '../shared-general-modals-styles.scss';
+@import 'index.scss';
+
+:host {
+  app-base-modal::ng-deep {
+    height: 391px !important;
+  
+    .help-text {
+      align-self: flex-start;
+  
+      font-size: 13px;
+      color: $mc-navy-90;
+  
+      margin-top: 20px;
+      margin-bottom: 0;
+  
+      a {
+        text-decoration: underline;
+        color: $mc-navy-90;
+        cursor: pointer;
+      }
+    }
+  
+    #link-btn {
+      margin-top: 0;
+    }
+  }
+
+  .form {
+    width: 100%;
+  }
+}

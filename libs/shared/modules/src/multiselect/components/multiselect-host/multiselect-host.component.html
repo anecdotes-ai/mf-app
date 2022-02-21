@@ -1,0 +1,39 @@
+<ng-content> </ng-content>
+
+<section id="multiselect-host">
+  <div class="content">
+    <app-circle-loader *ngIf="isLoadingState$ | async; else content"></app-circle-loader>
+    <ng-template #content>
+      <div class="main-checkmarks">
+        <div class="multiple-selector">
+          <app-checkbox
+            id="select-all-checkmark"
+            [ngModel]="selectAllCheckmark"
+            [valueLabel]="buildTranslationKey('selectAll') | translate"
+            [checkBoxVariant]="'multiselect'"
+            (changeValue)="selectAll($event.checked)"
+          ></app-checkbox>
+        </div>
+        <div class="multiple-selector-count">
+          <svg-icon src="multiselect-checkbox"></svg-icon> <span> {{ selectedItemsMap.size }}</span>
+        </div>
+      </div>
+      <div class="buttons">
+        <app-button
+          *ngFor="let button of actionButtons"
+          [ngClass]="button.cssClass + ' ' + 'mulish responsive'"
+          (click)="button.action(selectedItemsMap)"
+        >
+          <span translate>{{ buildTranslationKey('buttons.' + button.translationKey) }}</span>
+        </app-button>
+        <app-three-dots-menu
+          *ngIf="threeDotsMenu"
+          [dotsType]="'light'"
+          [context]="selectedItemsMap"
+          [menuActions]="threeDotsMenu"
+          [menuOverlayClass]="'multiselect-mat-menu'"
+        ></app-three-dots-menu>
+      </div>
+    </ng-template>
+  </div>
+</section>

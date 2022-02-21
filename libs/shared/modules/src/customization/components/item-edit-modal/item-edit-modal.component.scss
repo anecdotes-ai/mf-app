@@ -1,0 +1,13 @@
+@import '../../shared-styles.scss';
+
+:host {
+  .buttons {
+    display: flex;
+    app-button {
+      min-width: 120px;
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+}

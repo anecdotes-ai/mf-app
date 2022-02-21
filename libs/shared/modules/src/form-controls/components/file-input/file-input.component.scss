@@ -1,0 +1,36 @@
+@import 'index';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  span {
+    @include MulishFontStyle(13px, 21px);
+    color: $mc-navy-70;
+  }
+
+  align-items: center;
+  text-align: center;
+
+  outline: none;
+  border: 1px solid rgba($color: $mc-navy-70, $alpha: 0.3);
+  background: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  border-radius: 6px;
+  min-height: 40px;
+  width: 100%;
+  @include basicDark();
+
+  &.file-changed {
+    border: 1px solid $mc-navy-90;
+  }
+
+  .file-name {
+    @include MulishFontStyle(13px, 21px);
+    color: $mc-navy-90;
+  }
+}
+.wrapper,
+.wrapper * {
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+<app-base-modal
+  iconPath="item-customization"
+  [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')"
+  [footerTemplate]="footerTemplate"
+>
+  <div class="dashed-border">
+    <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+  </div>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+  <div class="buttons">
+    <app-button id="close-form-btn" (click)="close()" class="mulish medium secondary">{{
+      buildTranslationKey('footer.closeBtn') | translate
+    }}</app-button>
+    <app-button
+      id="submit-form-btn"
+      [class.disabled]="formGroup?.invalid"
+      [loading]="sendingRequestBtnLoader$ | async"
+      (click)="updateFormBtnClick()"
+      class="mulish medium main"
+      >{{ buildTranslationKey('footer.updateItemBtn') | translate }}</app-button
+    >
+  </div>
+</ng-template>

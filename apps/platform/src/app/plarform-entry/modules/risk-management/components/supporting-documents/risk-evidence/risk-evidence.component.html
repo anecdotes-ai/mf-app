@@ -1,0 +1,11 @@
+<app-evidence-wrapper *ngIf="evidence$ | async as evidence">
+  <app-evidence-label class="max-w-full" [evidence]="evidence" [evidenceComply]="true"> </app-evidence-label>
+  <div class="flex flex-1 justify-end items-center">
+    <app-date-view
+      class="mr-7"
+      [date]="evidence.evidence_collection_timestamp"
+      [descriptionTranslationKey]="buildTranslationKey('automaticallyCollectedText') | translate"
+    ></app-date-view>
+    <app-risk-evidence-menu [riskId]="riskId" [evidenceId]="evidenceId"></app-risk-evidence-menu>
+  </div>
+</app-evidence-wrapper>

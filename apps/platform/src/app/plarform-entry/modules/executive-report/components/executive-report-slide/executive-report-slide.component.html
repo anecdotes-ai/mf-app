@@ -1,0 +1,22 @@
+<div id="generic-slide-wrapper" class="slide-wrapper" *ngIf="slideContent">
+  <section class="header">
+    <span class="title">{{ buildTranslationKey(slideContent.slideTitleTranslationKey) | translate }}</span>
+    <app-button [icon]="'image'" (click)="downloadSlide()" class="secondary mulish medium download-button">
+      <span>{{ buildTranslationKey('downloadSlideButtonText') | translate }}</span>
+    </app-button>
+  </section>
+  <section class="content">
+    <div id="slide-content-wrapper" class="slide-wrapper">
+      <ng-template #slideContentTemplateRef></ng-template>
+    </div>
+  </section>
+  <section class="footer">
+    <div class="logo-block">
+      <span>{{ buildTranslationKey('footerLogoDescription') | translate }}</span>
+      <svg-icon src="logo_type" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+    </div>
+    <div class="info">
+      <span class="date-time"> {{ currentTime | date: dateFormat }}</span>
+    </div>
+  </section>
+</div>

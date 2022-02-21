@@ -1,0 +1,12 @@
+:host {
+  @apply pl-12 py-2 block border-t border-solid border-navy-30 relative;
+
+  &:last-child {
+    @apply border-b;
+  }
+
+  &:before {
+    @apply block left-0 absolute w-1 bg-navy-90 top-0 h-full;
+    content: '';
+  }
+}

@@ -1,0 +1,13 @@
+export { ControlsFacadeService } from './controls-facade/controls-facade.service';
+export { CategoriesFacadeService } from './categories-facade/categories-facade.service';
+export { DashboardFacadeService } from './dashboard-facade/dashboard-facade.service';
+export { FrameworksFacadeService } from './frameworks-facade/frameworks-facade.service';
+export { PluginNotificationFacadeService } from './plugin-notification-facade/plugin-notification-facade.service';
+export { PluginFacadeService } from './plugin-facade/plugin-facade.service';
+export { RequirementsFacadeService } from './requirements-facade/requirements-facade.service';
+export { PluginsMetaFacadeService } from './plugins-meta-facade/plugins-meta-facade.service';
+export { CustomerFacadeService } from './customer-facade/customer-facade.service';
+export { PoliciesFacadeService } from './policies-facade/policies-facade.service';
+export { EvidenceFacadeService } from './evidences-facade/evidences-facade.service';
+export { SnapshotsFacadeService } from './snapshots-facade/snapshots-facade.service';
+export { DataAggregationFacadeService } from './data-aggregation-facade/data-aggregation-facade.service';

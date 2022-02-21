@@ -1,0 +1,23 @@
+:host {
+  @apply block bg-white;
+  height: calc(100% - 170px);
+
+  .controls-list {
+    @apply my-0 mx-auto;
+    max-width: 1000px;
+  }
+
+  perfect-scrollbar::ng-deep {
+    .ps-content {
+      @apply pb-6 h-full;
+    }
+  }
+
+  app-report-control {
+    @apply mb-5;
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+}

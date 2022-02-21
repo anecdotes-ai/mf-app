@@ -1,0 +1,17 @@
+<div class="flex justify-content-between">
+  <app-data-search
+    class="flex-grow"
+    [placeholderTranslationKey]="this.buildTranslationKey('searchPlaceholder')"
+    [data]=foundPlugins
+    [searchDefinitions]="searchDefinitions"
+    [routeParamsDisabled]="true"
+    (search)="handleSearch($event)">
+  </app-data-search>
+  <app-new-button
+    [type]="'secondary'"
+    (click)="activateAllPlugins()"
+    [disabled]="activateAllPluginsDisabled"
+  >
+    {{buildTranslationKey('activateAllPlugins') | translate}}
+  </app-new-button>
+</div>

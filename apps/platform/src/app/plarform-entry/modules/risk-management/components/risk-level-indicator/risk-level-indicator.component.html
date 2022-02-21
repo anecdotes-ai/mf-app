@@ -1,0 +1,23 @@
+<app-chip
+  *ngIf="!editable && riskLevel"
+  class="{{ riskLevelBGClasses[riskLevel] }} h-6 font-main font-bold text-sm text-white capitalize"
+>
+  {{ riskLevel }}
+</app-chip>
+
+<app-colored-dropdown-control
+  *ngIf="editable"
+  class="text-white cursor-pointer"
+  [buttonBackgroundClass]="buttonBackgroundClass"
+  [radius]="'large'"
+  [verticalSize]="'small'"
+  [formControl]="control"
+  [data]="options"
+  [arrowEnabled]="true"
+  [noValueTextTranslationKey]="'riskManagement.select'"
+  [displayValueSelector]="displayValueSelector"
+  [clearEnabled]="editable"
+  (clearSelection)="clearSelection()"
+  [tooltip]="!control.value ? (buildTranslationKey('notSetTooltip') | translate) : null"
+>
+</app-colored-dropdown-control>

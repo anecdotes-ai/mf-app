@@ -1,0 +1,48 @@
+@import 'index';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  ::ng-deep {
+    div {
+      svg {
+        width: 48px;
+      }
+    }
+  }
+
+  ::ng-deep:nth-child(3n + 2) {
+    justify-content: center;
+    padding-right: 0;
+    div {
+      width: 100%;
+      padding-left: 40px;
+    }
+  }
+
+  ::ng-deep:nth-child(3n + 3) {
+    justify-content: flex-end;
+    padding-right: 0;
+
+    div {
+      width: 100%;
+      padding-left: 30%;
+    }
+  }
+}
+
+.label {
+  margin-bottom: 20px;
+}
+
+app-checkbox {
+  display: flex;
+  color: $mc-navy-70;
+  /* justify-content: space-between; */
+  /* width: 50%; */
+  width: 33%;
+  padding: 0 20px 20px 0;
+}

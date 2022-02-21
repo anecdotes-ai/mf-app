@@ -1,0 +1,14 @@
+<perfect-scrollbar [ngClass]="{ loading: Service.service_is_onprem && !OnPremForm && !ServiceDynamicForm }">
+  <app-loading-animation *ngIf="shouldDisplayAnimation()"></app-loading-animation>
+  <app-dynamic-form-outlet
+    *ngIf="Service.service_multi_account"
+    class="multiple-account"
+    [dynamicFormGroup]="MultipleAccountsForm"
+  ></app-dynamic-form-outlet>
+  <app-dynamic-form-outlet
+    *ngIf="Service.service_is_onprem"
+    class="on-prem"
+    [dynamicFormGroup]="OnPremForm"
+  ></app-dynamic-form-outlet>
+  <app-dynamic-form-outlet [dynamicFormGroup]="ServiceDynamicForm"></app-dynamic-form-outlet>
+</perfect-scrollbar>

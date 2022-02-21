@@ -1,0 +1,17 @@
+@import 'index';
+
+.entity-wrapper:not(:last-child) {
+  padding-bottom: 20px;
+}
+
+.header-name {
+  margin-bottom: 11px;
+}
+
+.secondary-header-wreapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}

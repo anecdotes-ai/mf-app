@@ -1,0 +1,39 @@
+<div *ngIf="service && service.service_fields" class="grid-container">
+  <div class="header">
+    <div>
+      <span (click)="navigateToPluginsButtonClick()" class="back-to-plugins">
+        &lt; {{ buildTranslationKey('header.backToPlugins') | translate }}
+      </span>
+    </div>
+    <div *ngIf="doesServiceHaveSomeInstalledInstances()" class="right-section">
+      <app-date-view
+        *ngIf="service.service_last_run"
+        [date]="service.service_last_run"
+        [descriptionTranslationKey]="buildTranslationKey('header.lastSuccessfulRun')"
+      ></app-date-view>
+      <app-date-view
+        *ngIf="service.service_next_run"
+        [date]="service.service_next_run"
+        [descriptionTranslationKey]="buildTranslationKey('header.nextRun')"
+      ></app-date-view>
+      <app-new-button
+        [class.disabled]="runningOnDemandDisableState$ | async"
+        (click)="runOnDemand()"
+        class="main medium mulish"
+        >{{ buildTranslationKey('header.runOnDemandBtn') | translate }}</app-new-button
+      >
+    </div>
+  </div>
+  <div class="content-area">
+    <div class="details-area">
+      <div class="details-container">
+        <app-plugin-details-header
+          [service]="service"
+        ></app-plugin-details-header>
+        <app-plugin-details-tabs-collection [service]="service"></app-plugin-details-tabs-collection>
+      </div>
+    </div>
+
+    <app-plugin-connection-area [plugin]="service"></app-plugin-connection-area>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+:host {
+  @apply grid bg-white grid-rows-3 grid-flow-col gap-x-4 border-b border-navy-30 items-center font-main text-navy-90 hover:bg-navy-30 cursor-pointer;
+  grid-template-columns: 1px 32px auto 48px;
+  height: 90px;
+}
+
+:host.unread:before {
+  content: '';
+  @apply block bg-pink-50 h-full w-1 row-span-3;
+}
+
+:host:not(.unread) {
+  @apply opacity-50 hover:opacity-100 transition-opacity;
+}

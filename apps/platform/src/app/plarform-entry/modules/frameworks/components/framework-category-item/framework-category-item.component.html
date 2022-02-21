@@ -1,0 +1,7 @@
+<div class="flex-1">
+  <span class="main-font-16 text-navy-90 bold group-hover:underline">{{ category?.control_category }}</span>
+  <span class="text-navy-70 main-font-13 font-normal whitespace-nowrap">
+    | {{ category?.controls.length }} {{ controlsCount | translate }}
+  </span>
+</div>
+<app-controls-progress-bar [controls]="category.controls"></app-controls-progress-bar>

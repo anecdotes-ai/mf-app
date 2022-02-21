@@ -1,0 +1,12 @@
+<ng-container *ngIf="auditors$ | async as auditors">
+  <app-framework-controls-status [framework]="framework"></app-framework-controls-status>
+  <div class="flex flex-col flex-1 my-6 mr-6 min-w-3/4">
+    <app-framework-audit-info
+      *ngIf="framework?.framework_auditable"
+      [framework]="framework"
+      [auditors]="auditors"
+      [class.has-info]="hasAuditInfo() || !!auditors?.length"
+    ></app-framework-audit-info>
+    <app-framework-categories [framework]="framework"></app-framework-categories>
+  </div>
+</ng-container>

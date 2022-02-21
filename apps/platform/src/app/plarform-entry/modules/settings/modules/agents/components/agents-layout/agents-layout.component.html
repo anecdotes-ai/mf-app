@@ -1,0 +1,79 @@
+<ng-container *ngIf="loading$ | async; else loaded">
+  <div class="absolute w-full h-full bg-navy-30">
+    <app-loading-animation [width]="'270px'" height="270px"></app-loading-animation>
+  </div>
+</ng-container>
+<ng-template #loaded>
+  <div class="text-4xl font-bold border-solid border-navy-40 border-b p-6">
+    {{ buildTranslationKey('title') | translate }}
+  </div>
+  <div class="description-wrapper text-base pl-6 mt-5">
+    <span class="description"
+      >{{ buildTranslationKey('descriptionFirstPart') | translate }}
+      <a class="font-bold underline" (click)="openGuideInNewTab()">{{ buildTranslationKey('linkText') | translate }}</a>
+      {{ buildTranslationKey('descriptionSecondPart') | translate }}
+    </span>
+  </div>
+  <div class="sections-container grid grid-cols-2 pt-5 px-6 gap-24 grid-rows-1">
+    <div id="left-section" class="h-full">
+      <ng-container *ngTemplateOutlet="leftSectionContent"></ng-container>
+    </div>
+    <div id="right-section">
+      <ng-container
+        *ngTemplateOutlet="(isAnyAgentsExist$ | async) ? rightSectionContent : rightSectionEmpty"
+      ></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #rightSectionEmpty>
+  <svg-icon [src]="'agents/agent_illustration'"></svg-icon>
+</ng-template>
+<ng-template #rightSectionContent>
+  <app-agent-management
+    *ngIf="
+      selectedAgentViewItem && selectedAgentViewItem.itemState === agentItemStates.EXISTING;
+      else rightSectionEmpty
+    "
+    [selectedAgentViewItem]="selectedAgentViewItem"
+    (close)="selectedAgentViewItem = null"
+    (agentRemoved)="selectFirstItem()"
+  ></app-agent-management>
+</ng-template>
+
+<ng-template #leftSectionContent>
+  <div class="left-side-content-wrapper flex flex-column gap-5 w-full h-full">
+    <perfect-scrollbar class="scroller" #parentScroll>
+      <app-virtual-scroll-renderer
+        *ngIf="parentScroll"
+        class="w-full"
+        [parentScroller]="parentScroll"
+        [allItemsStream]="agentItems$"
+        [filteredItemsStream]="agentItems$"
+        [itemAddingStream]="agentItemAdded$"
+        [idSelector]="selectAgentId"
+        [scrollToFocusedItem]="true"
+        [scrollToNewlyAddedItem]="true"
+      >
+        <ng-template #itemTemplate let-item="item">
+          <app-agent-item
+            [selected]="selectedAgentViewItem?.agentObject?.id === item?.agentObject?.id"
+            [saveBtnLoader]="saveButtonLoading$ | async"
+            class="mr-3"
+            [agentItem]="item"
+            (click)="selectItem(item)"
+            (saveAgent)="saveAgent($event)"
+            (selectedAgentChanged)="selectItem(item)"
+          >
+          </app-agent-item>
+        </ng-template>
+      </app-virtual-scroll-renderer>
+    </perfect-scrollbar>
+    <div class="w-52">
+      <app-new-button [type]="'primary'" [size]="'responsive'" [svgIconPath]="'add_line'" (click)="addNewAgentItem()">{{
+        buildTranslationKey('addAgentButton') | translate
+      }}</app-new-button>
+    </div>
+    <app-invite-it-user class="m-0" [translationRootKey]="rootTranskationKey"></app-invite-it-user>
+  </div>
+</ng-template>

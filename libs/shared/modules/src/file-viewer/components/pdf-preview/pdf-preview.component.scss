@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
+:host:not(.use-scroll)::ng-deep {
+  .ng2-pdf-viewer-container {
+    overflow: hidden;
+  }
+}

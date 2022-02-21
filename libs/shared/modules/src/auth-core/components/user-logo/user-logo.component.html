@@ -1,0 +1,7 @@
+<ng-container *ngIf="(user$ | async) as user">
+  <app-user-avatar [firstName]="user.first_name" [lastName]="user.last_name" [avatarUrl]="user.photo"></app-user-avatar>
+</ng-container>
+
+<ng-template #fallback>
+  <app-user-avatar [fullName]="fallbackUserName"></app-user-avatar>
+</ng-template>

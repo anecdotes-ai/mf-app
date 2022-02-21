@@ -1,0 +1,16 @@
+<ng-container *ngIf="({ value: isControlsDisplayed$ | async }) as isControlsDisplayed">
+
+  <!-- Don't use ngIf;else here, this causes a glitch -->
+
+  <!-- Controls -->
+  <app-controls *ngIf="isControlsDisplayed.value" (controlsLoaded)="controlsLoaded()"></app-controls>
+
+</ng-container>
+
+<ng-template #startedWithFrameworksAdoption>
+  <app-confirmation-modal-window icon="status_complete"
+    [aftermathTranslationKey]="buildTranslationKey('startedWithFrameworksAdoptionModal.aftermath')"
+    [questionTranslationKey]="buildTranslationKey('startedWithFrameworksAdoptionModal.information')"
+    [dismissTranslationKey]="buildTranslationKey('startedWithFrameworksAdoptionModal.gotIt')">
+  </app-confirmation-modal-window>
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="content">
+  <div class="page" [class.hidden-page]="i !== currentPageIndex" *ngFor="let page of pages; let i = index">
+    <ng-container
+      *ngTemplateOutlet="template; context: { currentPageIndex: currentPageIndex, currentPage: page }"
+    ></ng-container>
+  </div>
+</div>
+
+<div id="pager-buttons" *ngIf="pages.length > 1" class="pager">
+  <button [class.active-page]="currentPageIndex === i" (click)="goToPage(i)" *ngFor="let page of pages; let i = index">
+    {{ i + 1 }}
+  </button>
+</div>

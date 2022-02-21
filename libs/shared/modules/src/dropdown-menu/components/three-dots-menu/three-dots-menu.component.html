@@ -1,0 +1,24 @@
+<button cdkOverlayOrigin #trigger="cdkOverlayOrigin" [class.open]="isOpen" (click)="toggle(); $event.stopPropagation()"
+  class="flex justify-center items-center p-0">
+  <svg class="icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M19.4999 13.9999C18.1189 13.9999 16.9999 12.8809 16.9999 11.4999C16.9999 10.1189 18.1189 8.99988 19.4999 8.99988C20.881 8.99988 22 10.1189 22 11.4999C22 12.8809 20.881 13.9999 19.4999 13.9999Z"
+      fill="#04293E" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M19.4999 22.9999C18.1189 22.9999 16.9999 21.881 16.9999 20.5C16.9999 19.119 18.1189 18 19.4999 18C20.881 18 22 19.119 22 20.5C22 21.881 20.881 22.9999 19.4999 22.9999Z"
+      fill="#04293E" />
+    <path fill-rule="evenodd" clip-rule="evenodd"
+      d="M19.4999 31.9999C18.1189 31.9999 16.9999 30.8809 16.9999 29.4999C16.9999 28.1189 18.1189 26.9999 19.4999 26.9999C20.881 26.9999 22 28.1189 22 29.4999C22 30.8809 20.881 31.9999 19.4999 31.9999Z"
+      fill="#04293E" />
+  </svg>
+</button>
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+  [cdkConnectedOverlayPanelClass]="'dropdown-control-overlay'" [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'" (backdropClick)="close()">
+  <app-dropdown-options-backdrop class="min-w-44">
+    <app-dropdown-option *ngFor="let menuAction of menuActions" [menuAction]="menuAction" (click)="close()"
+      [context]="context">
+    </app-dropdown-option>
+  </app-dropdown-options-backdrop>
+</ng-template>

@@ -1,0 +1,23 @@
+<app-requirement-like [requirementLike]="requirementLike" [actionBtnTemplate]="actions" [isNewlyAdded]="isNewlyAdded"
+    [viewPreviewMode]="true" (expandChanged)="expandedChanged.emit($event)" [expanded]="expanded">
+</app-requirement-like>
+
+<ng-template #actions>
+    <ng-container *ngIf="!policy.evidence; else policyStatus">
+        <app-icon-button *ngIf="policy.policy_has_template" [type]="'secondary'"
+            class="secondary responsive template-download-btn" svgIconPath="template"
+            [ngbTooltip]="buildTranslationKey('downloadTemplate') | translate" placement="top"
+            (click)="downloadTemplate()"></app-icon-button>
+
+        <app-action-menu-button icon="collect-evidence"
+            [buttonTextTranslationKey]="buildTranslationKey('connectDocument')"
+            [menuActions]="collectEvidenceMenuActions" [type]='"primary"' [listWidth]='"asDropdownButton"'
+            [menuPositionY]="'below'" [buttonSize]="'responsive'">
+        </app-action-menu-button>
+    </ng-container>
+
+</ng-template>
+
+<ng-template #policyStatus>
+    <app-policy-status [policy]="policy" (clicked)="statusClicked()"></app-policy-status>
+</ng-template>

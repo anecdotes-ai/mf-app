@@ -1,0 +1,64 @@
+<div *ngIf="displayLoader" class="loader-wrapper">
+  <app-secondary-loading-animation></app-secondary-loading-animation>
+</div>
+
+<header>
+  <div>
+    <svg-icon src="slack_in_shape" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+  </div>
+  <div class="title">
+    <app-text [text]="buildTranslationKey('title') | translate"></app-text>
+  </div>
+</header>
+
+<section class="content">
+  <div class="evidence-info">
+    <svg-icon src="UNKNOWN" preserveAspectRatio="none" [stretch]="true"> </svg-icon>
+    <div class="evidence-name">{{ controlRequirement.requirement_name }}</div>
+  </div>
+  <app-dynamic-form-outlet [dynamicFormGroup]="form"></app-dynamic-form-outlet>
+</section>
+<footer>
+  <app-button  [clickOnEnter]="true"  (click)="send()" [loading]='sendMessage' [class.disabled]="form.invalid" class="mulish medium main">
+    {{ buildTranslationKey('sendBtn') | translate }}</app-button
+  >
+</footer>
+
+<ng-template #successModal let-gotItFunc="gotItFunc">
+  <div class="success-modal">
+    <header>
+      <div>
+        <svg-icon src="slack_in_shape" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      </div>
+      <div class="title">
+        <app-text [text]="buildTranslationKey('successModal.title') | translate"></app-text>
+      </div>
+    </header>
+    <footer>
+      <app-button [clickOnEnter]="true"  (click)="gotItFunc()" [class.disabled]="form.invalid" class="mulish medium main">
+        {{ buildTranslationKey('successModal.btn') | translate }}</app-button
+      >
+    </footer>
+  </div>
+</ng-template>
+
+<ng-template #failedModal let-tryAgainFn="tryAgainFn">
+  <div class="failed-modal">
+    <header>
+      <div>
+        <svg-icon src="status_not_started" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      </div>
+      <div class="title">
+        <app-text [text]="buildTranslationKey('failedModal.title') | translate"></app-text>
+      </div>
+      <div class="description">
+        <app-text [text]="buildTranslationKey('failedModal.description') | translate"></app-text>
+      </div>
+    </header>
+    <footer>
+      <app-button [clickOnEnter]="true"  (click)="tryAgainFn()" [class.disabled]="form.invalid" class="mulish medium main">
+        {{ buildTranslationKey('failedModal.btn') | translate }}</app-button
+      >
+    </footer>
+  </div>
+</ng-template>

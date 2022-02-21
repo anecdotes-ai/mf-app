@@ -1,0 +1,25 @@
+<app-section-header
+  [ngClass]="{ 'border-b border-navy-30': risk.mitigation_control_ids?.length }"
+  [headerText]="buildTranslationKey('header') | translate: { count: risk.mitigation_control_ids?.length }"
+  [tooltipText]="tooltip"
+  [buttonText]="buildTranslationKey('linkControlBtn') | translate"
+  [buttonIcon]="'Add'"
+  [buttonType]="!!risk.mitigation_control_ids?.length ? 'basic' : 'primary'"
+  (buttonClicked)="linkControlClicked()"
+></app-section-header>
+
+<div
+  *ngIf="!!risk.mitigation_control_ids?.length"
+  [perfectScrollbar]="scrollbarConfig"
+  class="relative flex flex-col my-1 px-1 gap-1">
+  <app-mitigate-control-item
+    *ngFor="let id of risk.mitigation_control_ids"
+    [controlId]="id"
+    [riskId]="risk.id">
+  </app-mitigate-control-item>
+</div>
+
+
+<ng-template #tooltip>
+  <span class="w-56">{{buildTranslationKey('infoTooltip') | translate}}</span>
+</ng-template>

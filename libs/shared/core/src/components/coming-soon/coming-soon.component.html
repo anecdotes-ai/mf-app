@@ -1,0 +1,11 @@
+<div id="coming-soon">
+  <section class="center-content">
+    <ng-container *ngIf="iconSectionDisplay">
+      <svg-icon class="small" src="coming_soon_rocket" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      <span class="coming-soon-title">{{ buildTranslationKey('title') | translate }}</span>
+    </ng-container>
+    <ng-content select=".center-description"></ng-content>
+  </section>
+
+  <app-shaped-footer></app-shaped-footer>
+</div>

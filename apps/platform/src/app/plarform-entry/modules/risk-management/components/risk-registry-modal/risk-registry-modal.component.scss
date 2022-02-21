@@ -1,0 +1,15 @@
+:host::ng-deep {
+  @apply bg-white;
+  width: 752px;
+
+  app-base-modal {
+    .base-modal-content {
+      @apply h-full;
+    }
+  }
+}
+
+// TODO: This must be removed when we apply common styles for close-modal-btn.
+:host::ng-deep + #close-modal-btn {
+  @apply top-2 right-1;
+}

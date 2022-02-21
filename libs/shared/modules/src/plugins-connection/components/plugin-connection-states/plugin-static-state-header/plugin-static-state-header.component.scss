@@ -1,0 +1,12 @@
+:host {
+  @apply px-3 flex flex-row items-center justify-between font-bold text-4xl;
+  @apply border-solid border-navy-30 border-b;
+  min-height: 70px;
+  max-height: 70px;
+
+  .logo-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

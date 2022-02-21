@@ -1,0 +1,72 @@
+@import 'src/styles';
+
+#content-section {
+  padding: 20px 20px;
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+
+  .main-description,
+  .secondary-description {
+    padding-top: 10px;
+  }
+
+  .main-description {
+    font-size: 21px;
+  }
+}
+
+#state-content {
+  display: flex;
+  width: 100%;
+}
+
+#header {
+  height: auto;
+  position: relative;
+  overflow: initial;
+  @apply font-main;
+}
+
+#above-footer-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#footer-section {
+  @apply border-solid border-navy-30 border-t;
+  min-height: 70px;
+  max-height: 70px;
+
+  .button-group {
+    border: none;
+    margin: 15px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    app-button,
+    .button-wrapper,
+    app-new-button {
+      @apply mr-5;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &.reverse {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+
+      > :last-child {
+        margin-right: 20px !important;
+      }
+
+      > :first-child {
+        margin-right: unset;
+      }
+    }
+  }
+}

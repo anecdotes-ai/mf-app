@@ -1,0 +1,96 @@
+@import 'index';
+
+$padding-by-sides: 70px;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Colors / White */
+  background: $mc-white;
+  /* Colors / Navy 40 */
+  border: 1px solid $mc-navy-40;
+  border-radius: 6px;
+
+  section.header {
+    padding: 40px $padding-by-sides;
+    background: $mc-navy-10;
+    border-radius: 6px 6px 0px 0px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      @include MerriWeatherBold(24px, 36px);
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      /* Colors / Navy 90 */
+      color: $mc-navy-90;
+      margin-bottom: 5px;
+    }
+
+    .description, .trusted-criterias {
+      @include MulishFontStyle(18px, 27px);
+      color: $mc-navy-70;
+    }
+  }
+
+  section.content {
+    padding: 0 $padding-by-sides;
+    display: flex;
+    flex-direction: column;
+    .requirement-item {
+      padding-top: 30px;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        @include MulishBold(18px, 27px);
+        /* Colors / Navy 90 */
+        color: $mc-navy-90;
+      }
+
+      .description {
+        @include MulishFontStyle(13px, 20px);
+        /* Colors / Navy 70 */
+        color: $mc-navy-70;
+      }
+
+      .connected-plugins {
+        display: flex;
+        flex-direction: column;
+        .description {
+          display: flex;
+          align-items: center;
+          height: 40px;
+          @include MulishFontStyle(11px, 17px);
+          /* Colors / Navy 70 */
+          color: $mc-navy-70;
+        }
+        .plugin-icons {
+          display: flex;
+          flex-direction: row;
+        }
+        .plugin-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 30px;
+          min-width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          border: 1px solid $mc-navy-50;
+          border-radius: 3px;
+
+          svg-icon {
+            svg {
+              max-height: 22px;
+              max-width: 22px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

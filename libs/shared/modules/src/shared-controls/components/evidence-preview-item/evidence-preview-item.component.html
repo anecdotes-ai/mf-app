@@ -1,0 +1,38 @@
+<app-evidence-label
+  [evidenceComply]="evidenceComply"
+  [evidence]="evidence"
+  [framework]="framework"
+  [eventSource]="evidenceSources.FullData"
+  [controlInstance]="controlInstance"
+  [controlRequirement]="controlRequirement"
+>
+</app-evidence-label>
+
+<div class="right-section">
+  <app-evidence-metadata
+    [evidence]="evidence"
+    [dateViewType]="dateViewTypes.TimeAgo"
+    [itemsCount]="searchItemAmount"
+    [contextSource]="sourceOfPreviewOpen"
+    [shouldDisplay]="true"
+    [displaySearchItemsAmount]="true"
+    class="mr-12"
+  >
+  </app-evidence-metadata>
+
+  <app-export-to-csv-button
+    *ngIf="shouldDisplayExportButton"
+    [iconPath]="'export'"
+    [type]="'primary'"
+    [isDataToPreviewExists]="isDataToPreviewExists"
+    [eventSource]="evidenceSources.FullData"
+    [viewFullData]="true"
+    [framework]="framework"
+    [evidence]="evidence"
+    [controlInstance]="controlInstance"
+    [controlRequirement]="controlRequirement"
+    [evidenceDistinct]="evidenceDistinct"
+    [evidenceFullData]="evidenceFullData"
+  >
+  </app-export-to-csv-button>
+</div>

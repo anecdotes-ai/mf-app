@@ -1,0 +1,16 @@
+<div class="note-wrapper"
+  [ngbTooltip]="noteTooltipTemplate"
+  [keepOnHover]="true" placement="top-left" tooltipClass="default-tooltip note-tooltip">
+  <ng-container *ngIf="resourceData?.noteExists; else noteDoesNotExist">
+    <svg-icon class="existed-note-icon" src="comment_dark" (click)="editRequirementNote()" preserveAspectRatio="none"
+      [stretch]="true"></svg-icon>
+  </ng-container>
+  <ng-template #noteDoesNotExist>
+    <svg-icon src="empty-comment" class="empty-note" (click)="addRequirementNote()" preserveAspectRatio="none"
+      [stretch]="true"></svg-icon>
+  </ng-template>
+</div>
+
+<ng-template #noteTooltipTemplate>
+  <app-note-tooltip [resourceType]="resourceType" [resourceId]="resourceId" [source]="source"></app-note-tooltip>
+</ng-template>

@@ -1,0 +1,56 @@
+<app-base-modal
+  *ngIf="!isRequirementUpdated"
+  [descriptionTranslationKey]="buildTranslationKey('title')"
+  [footerTemplate]="connectEvidenceFooter"
+  [iconPath]="'evidence-connect-modal'"
+  [leftCornerData]="connectEvidenceHeader"
+  class="evidence-connect-modal"
+>
+  <app-dynamic-form-outlet
+    [dynamicFormGroup]="form"
+  >
+  </app-dynamic-form-outlet>
+</app-base-modal>
+
+<app-base-modal
+  *ngIf="isRequirementUpdated"
+  [descriptionTranslationKey]="buildTranslationKey('titleEvidenceLinked')"
+  [footerTemplate]="footerEvidenceJustConnected"
+  [iconPath]="'status_complete'"
+  class="evidence-connected-modal"
+>
+</app-base-modal>
+
+<ng-template
+  #connectEvidenceFooter
+  class="evidence-connect-modal modal-footer bg-navy-70"
+>
+  <app-new-button
+    (click)="updateRequirement()"
+    [disabled]="isFormInvalid"
+    [loading]="isRequirementUpdating"
+    class="update-requirement"
+  >
+    {{ buildTranslationKey('footerSaveButtonText') | translate }}
+  </app-new-button>
+</ng-template>
+
+<ng-template
+  #footerEvidenceJustConnected
+  class="evidence-connect-modal modal-footer bg-navy-70"
+>
+  <app-new-button
+    (click)="viewRequirement()"
+    [type]="'secondary'"
+    class="ml-3 view-requirement"
+  >
+    {{ buildTranslationKey('footerViewRequirementButtonText') | translate }}
+  </app-new-button>
+  <app-new-button
+    (click)="gotIt()"
+    class="ml-3 got-it"
+  >
+    {{ buildTranslationKey('footerGotItButtonText') | translate }}
+  </app-new-button>
+
+</ng-template>

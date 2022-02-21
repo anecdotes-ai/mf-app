@@ -1,0 +1,32 @@
+<div class="logo-wrapper overflow-hidden mb-4">
+  <a [routerLink]='welcomePageRoute' routerLinkActive="active"
+    class="logo-link text-navy-80 hover:text-navy-80 hover:no-underline font-main font-bold text-2xl">
+    <div class="navbar-item flex align-items-center ">
+      <svg-icon preserveAspectRatio="none" src="anecdotes_logo" preserveAspectRatio="none" [stretch]="true"
+        class="logo-icon"></svg-icon>
+      <div class="mr-5 ml-3 whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <span>{{(currentCustomer$ | async)?.customer_name}}</span>
+      </div>
+    </div>
+  </a>
+</div>
+
+<div class="routes" [class.userflow-it-user]="isItUser | async">
+  <ng-container *ngFor="let r of routes">
+    <app-navigation-bar-item [isDisabled]="!(currentCustomer$ | async)?.is_onboarded" [item]="r" (click)="onNavigationElementClick(r)"></app-navigation-bar-item>
+  </ng-container>
+</div>
+
+<app-navigation-bar-item class="notifications-wrapper" [isDisabled]="!(currentUser$ | async)"
+  [item]="notificationsNavModel"></app-navigation-bar-item>
+
+<app-navigation-bar-item class="community-wrapper" [isDisabled]="!(currentCustomer$ | async)?.is_onboarded"
+  [item]="complienceOverflowNavModel"></app-navigation-bar-item>
+
+<app-navigation-bar-item *ngIf="(currentUser$ | async)" class="user-profile-wrapper" [item]="userProfileMenuNavModel"
+  [insideIconText]="(userInitials$ | async)">
+</app-navigation-bar-item>
+
+<ng-template #notificationsPanel>
+  <app-notifications-panel></app-notifications-panel>
+</ng-template>

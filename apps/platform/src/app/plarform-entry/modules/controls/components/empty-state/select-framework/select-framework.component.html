@@ -1,0 +1,17 @@
+<perfect-scrollbar>
+  <div class="wrapper">
+    <div
+      *ngFor="let framework of frameworks"
+      class="framework"
+      [class.selectable]="selectable"
+      [class.selected]="selectable && selectedFrameworks?.has(framework)"
+      (click)="selectFramework(framework)"
+    >
+      <app-framework-info
+        [frameworkId]="framework.framework_id"
+        [frameworkName]="framework.framework_name"
+        [frameworkControlsCount]="framework.number_of_related_controls"
+      ></app-framework-info>
+    </div>
+  </div>
+</perfect-scrollbar>

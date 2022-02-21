@@ -1,0 +1,57 @@
+@import './mat-menu-custom-styles.scss';
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 50%;
+  @apply overflow-hidden;
+}
+
+.evidence-service {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-width: 1px;
+  @apply border-navy-50 border-solid;
+  border-radius: 3px;
+}
+
+.dash {
+  width: 15px;
+  border-width: 1px;
+  @apply border-navy-40 border-solid;
+  margin: 0 15px;
+}
+
+.arrow-single {
+  transform: rotate(90deg);
+  margin: 0 12px 0 15px;
+
+  svg {
+    width: 10px;
+    height: 5px;
+  }
+
+  * {
+    fill: $mc-navy-50;
+  }
+}
+
+.evidence-name {
+  padding-left: 14px;
+  margin-right: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.evidence-name {
+  @apply font-secondary text-xl text-navy-90;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.evidence-coming-soon {
+  span {
+    @apply font-main text-base text-navy-70;
+  }
+}

@@ -1,0 +1,11 @@
+:host::ng-deep {
+  width: 600px;
+
+  app-dynamic-form-outlet > form {
+    @apply grid gap-y-5;
+  }
+
+  section.left-corner {
+    @apply w-full overflow-ellipsis overflow-hidden;
+  }
+}

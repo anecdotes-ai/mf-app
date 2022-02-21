@@ -1,0 +1,65 @@
+@import 'index';
+
+:host {
+  @apply flex flex-col w-full h-full;
+}
+
+.invisible-dropdown {
+  @apply invisible h-0;
+}
+
+:host::ng-deep {
+  app-dropdown-button {
+    @apply m-0;
+    svg {
+      :first-child {
+        fill: none !important;
+      }
+    }
+  }
+
+  .item-log {
+    @include MulishFontStyle();
+    color: $mc-navy-90;
+    position: relative;
+    border-bottom: 1px solid $mc-navy-40;
+    padding: 15px 35px 15px 0;
+    width: calc(100% - 15px);
+
+    * {
+      white-space: normal;
+    }
+
+    app-date-view {
+      @apply mr-5;
+
+      * {
+        color: $mc-navy-70;
+      }
+    }
+
+    .arrow {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      transition: transform 0.1s;
+
+      svg {
+        @apply rotate-180;
+      }
+
+      .rotate svg {
+        @apply rotate-0;
+      }
+    }
+  }
+
+  .emptyState {
+    width: 100%;
+    padding-bottom: 15px;
+
+    .item-log {
+      width: 100%;
+    }
+  }
+}

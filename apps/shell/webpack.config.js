@@ -2,9 +2,8 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const mf = require('@angular-architects/module-federation/webpack');
 const path = require('path');
 const workspaceJson = require('../../workspace.json');
-workspaceJson.projects.auth.targets.serve.options.port
 
-const remoteApps = ['platform', 'auth'];
+const remoteApps = ['platform'];
 
 function buildRemotes() {
   const isCiProcess = process.env.CI;
@@ -19,7 +18,8 @@ function buildRemotes() {
 
 const sharedMappings = new mf.SharedMappings();
 sharedMappings.register(path.join(__dirname, '../../tsconfig.base.json'), [
-  '@mf-app/shared/data-store',
+  'core/*',
+  'modules/*'
 ]);
 
 module.exports = {

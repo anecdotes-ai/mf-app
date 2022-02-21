@@ -1,0 +1,5 @@
+:host::ng-deep {
+    @apply grid grid-rows-1 grid-flow-col gap-7 py-5 pl-8 pr-5 bg-white border-b border-navy-40 rounded-md mb-6 shadow-sm;
+    grid-template-columns: repeat(auto-fit, minmax(0, 15%));
+    height: 70px;
+}

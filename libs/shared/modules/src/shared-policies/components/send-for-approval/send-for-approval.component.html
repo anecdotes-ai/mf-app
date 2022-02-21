@@ -1,0 +1,25 @@
+<app-base-modal [iconPath]="'send'" [titleTranslationKey]="buildTranslationKey('title')"
+    [leftCornerData]="{ titleText: leftCornerText, icon: 'info' }" [footerTemplate]="footerTemplate"
+    [descriptionTranslationKey]="buildTranslationKey('description')">
+    <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+    <app-new-button *ngIf="isReshare" [size]="'responsive'" [type]="'secondary'" (click)="close()" class="mulish mr-4"> {{
+        buildTranslationKey('close') | translate }}</app-new-button>
+
+    <app-new-button [size]="'fixed160'" [type]="'primary'" [clickOnEnter]="true" [loading]="isLoading"
+        [class.disabled]="formGroup?.invalid" (click)="send()" class="mulish"> {{
+        buildActionButton() | translate }}</app-new-button>
+</ng-template>
+
+<ng-template #approver>
+    <span class="font-main text-base text-navy-80 bg-navy-10 w-full rounded p-2.5 mt-2.5 mb-6"> {{ approverEmail }}
+    </span>
+</ng-template>
+
+<ng-template #link>
+    <app-tip class="mt-5 w-full" [tipType]="tipTypes.NOTICE">
+        <app-text [text]="buildTranslationKey('tip') | translate"></app-text>
+    </app-tip>
+</ng-template>

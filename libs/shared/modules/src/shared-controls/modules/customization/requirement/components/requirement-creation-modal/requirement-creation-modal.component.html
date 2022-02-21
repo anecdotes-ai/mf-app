@@ -1,0 +1,20 @@
+<app-base-modal iconPath="item-customization" [titleTranslationKey]="buildTranslationKey('title')"
+  [descriptionTranslationKey]="buildTranslationKey('description')" [footerTemplate]="footerTemplate">
+  <div class="dashed-border">
+    <div class="framework-name">
+      <svg-icon src="link" preserveAspectRatio="none" [stretch]="true"></svg-icon>
+      <span>{{ (framework | async)?.framework_name }} / {{ (control | async)?.control_name }}</span>
+    </div>
+    <app-dynamic-form-outlet [dynamicFormGroup]="formGroup"></app-dynamic-form-outlet>
+    <div class="or-text">{{ buildTranslationKey('orText') | translate }}</div>
+    <app-button (click)="switchToSelectExistingView()" class="toggle-view secondary mulish stretch">{{
+      buildTranslationKey('newRequirementForm.changeViewToSelectExisting') | translate
+      }}</app-button>
+  </div>
+</app-base-modal>
+
+<ng-template #footerTemplate>
+  <app-button [clickOnEnter]="true" id="add-requirement-btn" [loading]="isLoading" [class.disabled]="this.formGroup?.invalid" (click)="addNewRequirement()"
+    class="next-btn mulish main medium">{{ buildTranslationKey('addRequirementBtn') | translate }}
+  </app-button>
+</ng-template>

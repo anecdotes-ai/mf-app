@@ -1,0 +1,54 @@
+$parent: '.panel-trigger-parent';
+$componentSelector: 'app-comment-bubble';
+
+:host {
+  @apply inline-block invisible;
+  @apply text-navy-90;
+
+  .icon-background {
+    @apply fill-white;
+    @apply stroke-navy-90;
+  }
+
+  .plus * {
+    @apply stroke-navy-90;
+  }
+
+  &:hover,
+  &.threads-exist:hover {
+    .icon-background {
+      @apply fill-blue-70;
+      @apply stroke-blue-70;
+    }
+
+    .plus * {
+      @apply stroke-white;
+    }
+  }
+
+  &.focused,
+  &.threads-exist {
+    @apply visible;
+    @apply text-white;
+
+    .icon-background {
+      @apply fill-blue-90;
+      @apply stroke-blue-90;
+    }
+
+    .plus * {
+      @apply stroke-white;
+    }
+  }
+}
+
+// ng-deep is used without host on purpose: with this hack we can specify behavior
+// of that component for all its consumers:
+// thread exists => display, focused => display, no-threads => display only when parent hovered
+::ng-deep {
+  #{$parent} {
+    &:hover #{$componentSelector} {
+      @apply visible;
+    }
+  }
+}

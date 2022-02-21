@@ -1,0 +1,22 @@
+:host {
+  @apply w-full bg-navy-90 block py-6;
+
+  .max-width-container {
+    @apply flex items-center justify-start bg-transparent my-0 mx-auto gap-3;
+    max-width: 1000px;
+  }
+
+  .last_modified_time::ng-deep {
+    app-metadata-view {
+      @apply flex flex-row-reverse items-center;
+
+      .metadata-description {
+        @apply font-bold;
+      }
+
+      .metadata-value {
+        @apply text-navy-50;
+      }
+    }
+  }
+}

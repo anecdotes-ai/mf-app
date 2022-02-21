@@ -1,0 +1,13 @@
+@import 'index';
+
+:host {
+  @apply relative overflow-hidden flex flex-row h-full;
+}
+
+:host::ng-deep {
+  .report-btn {
+    svg path {
+      @apply stroke-navy-90;
+    }
+  }
+}

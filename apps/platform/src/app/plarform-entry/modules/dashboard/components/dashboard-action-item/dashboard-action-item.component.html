@@ -1,0 +1,22 @@
+<div class="action-item-content" (click)="exploreControl()">
+  <span
+    class="control-name"
+    placement="top-left"
+    tooltipClass="default-tooltip"
+    [ngbTooltip]="buildTranslationKey('exploreTooltip') | translate"
+  >
+    {{ control.control_name }}</span
+  >
+  <div class="description">
+    <div class="control-related-frameworks">
+      <app-frameworks-icon [relatedFrameworks]="control.control_related_frameworks_names"></app-frameworks-icon>
+    </div>
+    <div class="control control-status">
+      <svg-icon
+        [src]="statusMappingConst[control.control_status.status].icon"
+        preserveAspectRatio="none"
+        [stretch]="true"
+      ></svg-icon>
+    </div>
+  </div>
+</div>

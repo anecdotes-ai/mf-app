@@ -1,0 +1,32 @@
+<div class="secondary-header-wreapper">    
+</div>
+
+<app-virtual-scroll-renderer 
+    #entitiesScroller
+    [allItemsStream]="displayedData$"
+    [idSelector]="policyOrCategoryIdSelector"
+    [buildRenderingItemsCallback]="buildRenderingItems.bind(this)"
+    [filteredItemsStream]="displayedData$"
+    >
+    <ng-template #itemTemplate let-item="item">
+        <div #entityWrapper class=" pb-5">            
+            <ng-container *ngTemplateOutlet="item.isEntity ? entityTmpl : headerTmpl; context: { item: item }">
+            </ng-container>
+        </div>
+
+        <ng-template #headerTmpl>
+            <div class="header-name font-main text-3xl text-navy-90 bold">{{ item.entityOrHeader.translationKey | translate: item.headerContext }} </div>
+        </ng-template>
+
+        <ng-template #entityTmpl>
+            <app-policy [policy]="item.entityOrHeader" [searchableRow]="item.entityOrHeader"
+                [expanded]="isEntityExpanded(item.entityOrHeader)"
+                (expandedChanged)="entityExpanded(item.entityOrHeader, $event)"
+                (searchFocusIn)="entityExpanded(item.entityOrHeader, true)" (searchFocusLeave)="entityExpanded(item.entityOrHeader, false)"
+                >
+            </app-policy>
+        </ng-template>
+
+    </ng-template>
+
+</app-virtual-scroll-renderer>

@@ -1,0 +1,51 @@
+$content-padding: 20px 30px;
+$footer-min-height: 70px;
+$background: $mc-background;
+$footer-padding: 0 30px;
+
+.base-modal {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+
+  .base-modal-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+
+    .title,
+    .description {
+      margin-top: 10px;
+    }
+
+    @include MulishFontStyle();
+
+    .title {
+      color: $mc-navy-90;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .description {
+      color: $mc-navy-70;
+      font-size: 13px;
+    }
+  }
+
+  .base-modal-content {
+    padding: $content-padding;
+  }
+
+  .base-modal-footer {
+    min-height: $footer-min-height;
+    background: $background;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: $footer-padding;
+  }
+}

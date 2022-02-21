@@ -1,0 +1,34 @@
+{
+  "control_description": "Access control policy and procedures developed based on the business needs, well-documented, approved and published to relevant personnel.",
+  "control_name": "Access control policy and procedures",
+  "control_requirements": [
+    {
+      "evidence": [ {
+        "evidence_instance_id": "519cf4f5-761b-473d-9af4-f3c83a1afef9",
+        "evidence_type": "LOG",
+        "evidence_exists": false,
+        "evidence_name": "Example of the method credentials are delivered to users",
+        "evidence_service_id": "OKTA",
+        "evidence_originator": "0",
+        "evidence_originator_thumbnail": "https://media-exp1.licdn.com/dms/image/C4D0BAQFqCCOdaF2DMQ/company-logo_200_200/0?e=1605139200&v=beta&t=VL4lBWOLqdY8496vInbWjrD9y8yDWER8XAXaVU3mjAE",
+        "evidence_last_collection_timestamp": {},
+        "evidence_is_applicable": true,
+        "evidence_has_automation": true,
+        "evidence_automated_by": ["OKTA", "AUTH0"]
+      }],
+      "evidence_automation": true,
+      "requirement_applicability": false,
+      "requirement_id": 728342024,
+      "requirement_name": "Access control policy and procedures",
+      "evidence_that_fulfil": [717896186]
+    },
+    {
+      "evidence": [],
+      "evidence_automation": true,
+      "requirement_applicability": true,
+      "requirement_id": 728381287,
+      "requirement_name": "Access control workflow",
+      "evidence_that_fulfil": [717896186]
+    }
+  ]
+}
