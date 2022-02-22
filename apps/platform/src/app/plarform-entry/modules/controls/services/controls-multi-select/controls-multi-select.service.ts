@@ -1,7 +1,7 @@
 import { MultiselectRootTranslationKey } from 'core/modules/multiselect/constants/constants';
 import { StatusWindowModalComponent, StatusModalWindowInputKeys, StatusType, ModalWindowService } from 'core/modules/modals';
 import { ControlsFacadeService } from 'core/modules/data/services';
-import { ControlsReportService } from '../controls-report/controls-report.service';
+import { ControlsReportService } from 'core/modules/shared-controls';
 import { MultiselectButtonDefinition } from 'core/modules/multiselect/models/multiselect-button.model';
 import { CalculatedControl } from 'core/modules/data/models';
 import { Injectable } from '@angular/core';

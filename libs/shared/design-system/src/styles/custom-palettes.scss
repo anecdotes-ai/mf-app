@@ -1,0 +1,60 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import './index';
+// Plus imports for other components in your app.
+@import '~@angular/material/theming';
+
+// TODO: Fill the pallets using angular material colors tools, add other main colors palette.
+
+$anecdotes-primary: (
+  50: #e0fbfc,
+  100: #b3f5f8,
+  200: #80eef4,
+  300: #4de7ef,
+  400: #26e1eb,
+  500: $mc-blue-50,
+  600: #00d8e5,
+  700: #00d3e2,
+  800: #00cede,
+  900: #00c5d8,
+  A100: #ffffff,
+  A200: #cdfaff,
+  A400: #9af4ff,
+  A700: #80f2ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$anecdotes-orange: (
+  500: $mc-orange-50,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  ),
+);

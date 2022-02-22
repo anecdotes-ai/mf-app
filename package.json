@@ -47,6 +47,7 @@
     "@storybook/angular": "^6.4.9",
     "@storybook/node-logger": "^6.4.9",
     "@types/amplitude-js": "^7.0.0",
+    "@types/pdfjs-dist": "^2.10.378",
     "amplitude-js": "^7.3.3",
     "autoprefixer": "^10.3.3",
     "bootstrap": "^4.5.2",

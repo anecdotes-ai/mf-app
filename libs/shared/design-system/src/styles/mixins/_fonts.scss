@@ -1,0 +1,97 @@
+// TODO: All mixins here are deprecated. We mustn't use them
+// We must replace @include baseFontStyle() and other mixins with @apply syntax from tailwind (with classes related to fonts)
+// more about @apply syntax is here: https://tailwindcss.com/docs/functions-and-directives#apply
+@mixin baseFontStyle($font-size: 13px, $line-height: 21px) {
+  font-family: Muli;
+  font-style: normal;
+  font-weight: normal;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin MerriWeatherFontStyle($font-size: 13px, $line-height: 21px) {
+  font-family: Merriweather;
+  font-style: normal;
+  font-weight: normal;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin MulishFontStyle($font-size: 13px, $line-height: 21px) {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: normal;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin MulishItalic($font-size: 13px, $line-height: 21px) {
+  @include MulishFontStyle($font-size, $line-height);
+  font-style: italic;
+  color: $mc-navy-70;
+}
+
+@mixin MulishBold($font-size: 13px, $line-height: 21px) {
+  @include MulishFontStyle($font-size, $line-height);
+  font-weight: bold;
+  color: $mc-navy-90;
+}
+
+@mixin MerriWeatherBold($font-size: 13px, $line-height: 21px) {
+  @include MerriWeatherFontStyle($font-size, $line-height);
+  font-weight: bold;
+  color: $mc-navy-90;
+}
+
+@mixin basicWhite($font-size: 13px, $line-height: 21px) {
+  @include baseFontStyle($font-size, $line-height);
+  color: $mc-white;
+}
+
+@mixin basicLight($font-size: 13px, $line-height: 21px) {
+  @include baseFontStyle($font-size, $line-height);
+  color: $mc-navy-70;
+}
+
+@mixin basicLink($font-size: 13px, $line-height: 21px) {
+  @include baseFontStyle($font-size, $line-height);
+  color: $mc-navy-90;
+}
+
+@mixin basicDark($font-size: 13px, $line-height: 21px) {
+  @include baseFontStyle($font-size, $line-height);
+  color: $mc-navy-90;
+}
+
+@mixin basicBold($font-size: 13px, $line-height: 21px) {
+  @include baseFontStyle($font-size, $line-height);
+  font-weight: bold;
+  color: $mc-navy-90;
+}
+
+// TODO: Deprecated since no longer need because of tailwind
+@mixin fontStyle($name, $family, $sizeInPx, $lineHeight: 150%, $weight: normal) {
+  .#{$name}-font-#{$sizeInPx} {
+    font-family: $family;
+    font-size: #{$sizeInPx}px;
+    line-height: $lineHeight;
+  }
+}
+
+// TODO: Deprecated since no longer need because of tailwind
+@mixin fonts($name, $family) {
+  .#{$name}-font {
+    font-family: $family;
+  };
+
+  @include fontStyle($name, $family, 10);
+  @include fontStyle($name, $family, 11);
+  @include fontStyle($name, $family, 12);
+  @include fontStyle($name, $family, 13);
+  @include fontStyle($name, $family, 14);
+  @include fontStyle($name, $family, 16);
+  @include fontStyle($name, $family, 18);
+  @include fontStyle($name, $family, 21);
+  @include fontStyle($name, $family, 24);
+  @include fontStyle($name, $family, 32);
+}

@@ -9,3 +9,4 @@ export * from './evidence-preview-service/evidence-preview.service';
 export * from './evidence-collection-modal/evidence-collection.modal.service';
 export * from './controls-switcher-modals/controls-switcher-modals.service';
 export * from './evidence-from-policy-preview/evidence-from-policy-preview.service';
+export * from './controls-report/controls-report.service';

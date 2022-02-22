@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer utilities {
+  // This style extends exisitng tailwind break-words with additional style to allow the UI break words if they overflow an element
+  // By default, break-words breaks only sentences by the whitespace
+  .break-words {
+    word-break: break-word;
+  }
+}

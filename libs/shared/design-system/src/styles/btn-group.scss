@@ -1,0 +1,26 @@
+$distance-between-buttons: 20px;
+
+@mixin commonStyles() {
+  display: flex;
+  flex-direction: row;
+  gap: $distance-between-buttons;
+}
+
+.btn-group {
+  &-left {
+    @include commonStyles();
+    justify-content: flex-start;
+  }
+
+  &-right {
+    @include commonStyles();
+    justify-content: flex-end;
+  }
+}
+
+.btn-vertical-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}

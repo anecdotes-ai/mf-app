@@ -1,0 +1,34 @@
+@import './mixins/fonts';
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 21px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 13px;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+// TODO: main-font-* and secondary-font-* are deprecated in favor of tailwind font-* (font-main and font-secondary)
+// and text-* (* is size)
+@include fonts(main, Mulish);
+@include fonts(secondary, Merriweather);
+
+.font-secondary {
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}

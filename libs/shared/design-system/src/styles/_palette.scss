@@ -1,0 +1,61 @@
+@import './variables/palette';
+
+// TODO: Deprecated
+@mixin palette($sufix, $color) {
+  .bg-#{$sufix} {
+    background-color: $color;
+  }
+
+  .font-color-#{$sufix} {
+    color: $color;
+  }
+}
+
+// TODO: All of them are deprecated in favor of background color classes from tailwind (background classes will be the same - bg-navy-90 for instance)
+// but as for font colors, font-color-* (font-color-navy-90) must be replaced with tailwind classes text-* (text-navy-90)
+
+@mixin hoverable-bg($sufix, $color, $hover-color) {
+  .hoverable-bg-#{$sufix} {
+    background-color: $color;
+  }
+
+  .hoverable-bg-#{$sufix}:hover {
+    background-color: $hover-color;
+  }
+}
+
+@include palette('blue-0', $mc-blue-0);
+@include palette('blue-10', $mc-blue-10);
+@include palette('blue-50', $mc-blue-50);
+@include palette('blue-60', $mc-blue-60);
+@include palette('blue-70', $mc-blue-70);
+@include palette('blue-90', $mc-blue-90);
+
+@include palette('orange-0', $mc-orange-0);
+@include palette('orange-10', $mc-orange-10);
+@include palette('orange-30', $mc-orange-30);
+@include palette('orange-50', $mc-orange-50);
+@include palette('orange-70', $mc-orange-70);
+@include palette('orange-90', $mc-orange-90);
+
+@include palette('pink-0', $mc-pink-0);
+@include palette('pink-10', $mc-pink-10);
+@include palette('pink-50', $mc-pink-50);
+@include palette('pink-70', $mc-pink-70);
+@include palette('pink-90', $mc-pink-90);
+
+@include palette('navy-10', $mc-navy-10);
+@include palette('navy-30', $mc-navy-30);
+@include palette('navy-40', $mc-navy-40);
+@include palette('navy-50', $mc-navy-50);
+@include palette('navy-60', $mc-navy-60);
+@include palette('navy-70', $mc-navy-70);
+@include palette('navy-80', $mc-navy-80);
+@include palette('navy-90', $mc-navy-90);
+
+@include palette('white', $mc-white);
+
+@include hoverable-bg('pink', $mc-pink-70, $mc-pink-50);
+@include hoverable-bg('navy', $mc-navy-90, $mc-navy-80);
+@include hoverable-bg('orange', $mc-orange-70, $mc-orange-50);
+@include hoverable-bg('blue', $mc-blue-60, $mc-blue-50);

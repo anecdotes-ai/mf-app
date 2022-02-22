@@ -1,0 +1,11 @@
+@import 'index';
+
+app-loading-animation::ng-deep {
+  position: absolute;
+  z-index: 997;
+  background: $mc-background;
+
+  .overlapped-background-block {
+    background: $mc-background;
+  }
+}

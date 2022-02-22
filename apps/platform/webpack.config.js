@@ -18,8 +18,8 @@ function buildRemotes() {
 
 const sharedMappings = new mf.SharedMappings();
 sharedMappings.register(path.join(__dirname, '../../tsconfig.base.json'), [
-  'core/*',
-  'modules/*'
+  'core',
+  'modules'
 ]);
 
 module.exports = {
@@ -42,13 +42,13 @@ module.exports = {
       filename: 'remoteEntry.js',
       remotes: buildRemotes(),
       exposes: {
-        './Module': 'apps/platform/src/app/remote-entry/entry.module.ts',
+        './Module': 'apps/platform/src/app/plarform-entry/platform-entry.module.ts',
       },
       shared: {
-        '@angular/core': { singleton: true, strictVersion: true },
-        '@angular/common': { singleton: true, strictVersion: true },
-        '@angular/common/http': { singleton: true, strictVersion: true },
-        '@angular/router': { singleton: true, strictVersion: true },
+        '@angular/core': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/common': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/common/http': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/router': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
         ...sharedMappings.getDescriptors(),
       },
     }),

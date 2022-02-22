@@ -33,13 +33,19 @@
     "shared-assets": {
       "tags": []
     },
-    "shell": {
-      "tags": []
-    },
     "shared-core": {
       "tags": []
     },
+    "shared-design-system": {
+      "tags": []
+    },
+    "shared-environments": {
+      "tags": []
+    },
     "shared-modules": {
+      "tags": []
+    },
+    "shell": {
       "tags": []
     }
   },

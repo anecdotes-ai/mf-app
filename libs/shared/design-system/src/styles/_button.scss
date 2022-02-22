@@ -1,0 +1,174 @@
+@import './mixins/fonts';
+@import './variables/_button.variables.scss';
+
+.btn {
+  @apply inline-flex flex-row justify-evenly items-center;
+  @apply relative overflow-hidden;
+  @apply cursor-pointer;
+  @apply font-main text-base;
+  @apply relative overflow-hidden;
+  gap: $distance-between-icon-and-text;
+  padding: 0 $padding-right-left;
+
+  svg-icon {
+    @apply min-w-5 max-w-5 min-h-5 max-h-5;
+  }
+
+  app-circle-loader {
+    width: $loading-circle-size;
+    height: $loading-circle-size;
+  }
+
+  &[disabled],
+  &.disabled {
+    pointer-events: none;
+    opacity: $disabled-opacity;
+  }
+
+  &[type='primary'] {
+    @apply bg-navy-90;
+    @apply text-white;
+    border-radius: $border-radius;
+
+    .font-color {
+      @apply fill-white;
+
+      * {
+        @apply fill-white;
+      }
+    }
+
+    .font-color-stroke {
+      @apply stroke-white;
+
+      * {
+        @apply stroke-white;
+      }
+    }
+
+    &.focused,
+    &:hover {
+      @apply bg-navy-80;
+    }
+
+    svg-icon svg path {
+      @apply stroke-white;
+    }
+  }
+
+  &[type='secondary'] {
+    @apply bg-transparent;
+    @apply text-navy-90;
+    @apply text-navy-90;
+    @apply border-navy-90;
+    border: 1px solid;
+    border-radius: $border-radius;
+
+    app-circle-loader {
+      .loaderQuart {
+        @apply border-navy-40;
+
+        &:after {
+          border-top-color: $mc-navy-90;
+        }
+      }
+    }
+
+    .font-color {
+      @apply fill-navy-90;
+
+      * {
+        @apply fill-navy-90;
+      }
+    }
+
+    .font-color-stroke {
+      @apply stroke-navy-90;
+
+      * {
+        @apply stroke-navy-90;
+      }
+    }
+
+    &.focused,
+    &:hover {
+      @apply bg-navy-90;
+      @apply text-white;
+
+      .font-color {
+        @apply fill-white;
+
+        * {
+          @apply fill-white;
+        }
+      }
+
+      .font-color-stroke {
+        @apply stroke-white;
+
+        * {
+          @apply stroke-white;
+        }
+      }
+    }
+  }
+
+  &[type='basic'] {
+    @apply bg-transparent;
+    @apply border-transparent;
+
+    &.focused,
+    &:hover {
+      @apply bg-navy-40;
+    }
+  }
+
+  &.small {
+    @apply w-10;
+  }
+
+  &.medium {
+    @apply w-40;
+  }
+
+  &.stretch {
+    @apply w-full;
+  }
+
+  &.responsive {
+    @apply px-5;
+  }
+
+  &.fixed160 {
+    @apply w-40;
+  }
+
+  /* Vertical size */
+
+  &.vs {
+    &-medium {
+      @apply h-10;
+    }
+
+    &-small {
+      @apply h-8;
+    }
+  }
+
+  /* End vertical size */
+
+  .overlay {
+    display: none;
+  }
+
+  &.focused,
+  &:hover {
+    .overlay {
+      @apply flex justify-center items-center;
+      @apply w-full h-full;
+      @apply absolute;
+      margin: 1px; // fixes size of button when there is no border
+      gap: $distance-between-icon-and-text;
+    }
+  }
+}

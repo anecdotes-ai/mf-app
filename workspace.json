@@ -30,8 +30,13 @@
                 "output": "assets/webviewer"
               }
             ],
-            "styles": ["apps/platform/src/styles.css"],
+            "styles": ["apps/platform/src/styles.scss"],
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/shared/design-system/src/styles"
+              ]
+            },
             "customWebpackConfig": {
               "path": "apps/platform/webpack.config.js"
             }
@@ -41,19 +46,19 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "7kb",
+                  "maximumError": "500kb"
                 }
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/platform/src/environments/environment.ts",
-                  "with": "apps/platform/src/environments/environment.prod.ts"
+                  "replace": "libs/shared/environments/src/environment.ts",
+                  "with": "libs/shared/environments/src/environment.prod.ts"
                 }
               ],
               "outputHashing": "all",
@@ -142,6 +147,61 @@
         }
       },
       "tags": []
+    },
+    "shared-design-system": {
+      "projectType": "library",
+      "root": "libs/shared/design-system",
+      "sourceRoot": "libs/shared/design-system/src",
+      "prefix": "mf-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/design-system"],
+          "options": {
+            "jestConfig": "libs/shared/design-system/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/design-system/src/**/*.ts",
+              "libs/shared/design-system/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-environment": {
+      "projectType": "library",
+      "root": "libs/shared/environment",
+      "sourceRoot": "libs/shared/environment/src",
+      "prefix": "mf-app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/environment"],
+          "options": {
+            "jestConfig": "libs/shared/environment/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/environment/src/**/*.ts",
+              "libs/shared/environment/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-environments": {
+      "projectType": "library",
+      "root": "libs/shared/environments",
+      "sourceRoot": "libs/shared/environments"
     },
     "shared-modules": {
       "projectType": "library",

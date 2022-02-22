@@ -12,7 +12,6 @@ import { SubscriptionDetacher } from 'core/utils';
 import { Observable } from 'rxjs';
 import { filter, map, shareReplay, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { group } from 'console';
 import { TranslateService } from '@ngx-translate/core';
 
 interface ControlsCountObject {

@@ -69,7 +69,8 @@ import {
   ControlsFocusingService,
   ControlsNavigator,
   EvidenceCollectionModalService,
-  EvidenceFromPolicyPreviewService
+  EvidenceFromPolicyPreviewService,
+  ControlsReportService
 } from './services';
 import { UtilsModule } from 'core/modules/utils';
 import { GapModule } from 'core/modules/gap';
@@ -318,7 +319,8 @@ export class ControlsSharedModule {
       providers: [
         ...FocusingMechanismModule.forRoot().providers,
         ControlsFocusingService,
-        ControlsNavigator
+        ControlsNavigator,
+        ControlsReportService
       ]
     };
   }

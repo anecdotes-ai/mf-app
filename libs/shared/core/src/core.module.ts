@@ -16,7 +16,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { NgbPopoverModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { DynamicIoModule } from 'ng-dynamic-component';
 import { LottieModule } from 'ngx-lottie';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
@@ -120,7 +119,6 @@ export const WINDOW = new InjectionToken<Window>('window');
     NgbTooltipModule,
     TranslateModule.forChild(),
     LottieModule,
-    DynamicIoModule,
     DropdownMenuModule,
     VirtualScrollerModule,
     OverlayModule,

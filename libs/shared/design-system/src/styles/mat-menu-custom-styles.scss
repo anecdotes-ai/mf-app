@@ -1,0 +1,77 @@
+@import './index';
+
+// TODO: We might want to remove this styles. Consider doing this once imports to that file are removed.
+mat-menu,
+.custom-menu {
+  @include baseFontStyle(13px, 21px);
+  font-size: 13px;
+  line-height: 21px;
+  color: $mc-background;
+  position: absolute;
+}
+
+::ng-deep .mat-menu-panel,
+.custom-menu-panel {
+  background: $mc-white;
+  box-shadow: 0px 2px 13px rgba(4, 41, 62, 0.4);
+  border-radius: 6px;
+  min-height: 0 !important;
+}
+
+.custom-menu-item {
+  padding-right: 20px;
+  padding-left: 0;
+  height: 40px;
+  span {
+    display: block;
+    color: $mc-navy-70;
+    line-height: normal;
+    letter-spacing: 0.2px;
+  }
+
+  span,
+  div {
+    padding: 0 12px;
+  }
+}
+.custom-menu-item:hover,
+.active {
+  background: $mc-background;
+  border-radius: 6px;
+
+  span,
+  div {
+    color: $mc-navy-90;
+  }
+}
+
+.custom-menu-item[disabled] {
+  span {
+    color: rgba(129, 147, 158, 0.4);
+  }
+}
+
+.custom-menu-item:focus,
+.focus {
+  border: 1px solid $mc-background;
+  box-sizing: border-box;
+  border-radius: 3px;
+
+  span {
+    padding: 0 11px;
+  }
+}
+
+::ng-deep {
+  .mat-menu-content {
+    padding: 5px 5px !important;
+  }
+
+  .custom-menu-content {
+    padding: 5px 5px;
+  }
+  .mat-menu-content,
+  .custom-menu-content {
+    min-width: 150px;
+  }
+}

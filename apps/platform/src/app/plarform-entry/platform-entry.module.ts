@@ -41,7 +41,6 @@ export function playerFactory(): LottiePlayer {
 @NgModule({
   declarations: [PlatformRemoteEntryComponent, RootComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     MatButtonModule,
     CoreModule.forRoot(),
@@ -54,7 +53,6 @@ export function playerFactory(): LottiePlayer {
         deps: [HttpBackend],
       },
     }),
-    RouterModule,
     ApmModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: environment.production,

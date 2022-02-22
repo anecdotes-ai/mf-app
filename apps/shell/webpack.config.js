@@ -40,10 +40,10 @@ module.exports = {
     new ModuleFederationPlugin({
       remotes: buildRemotes(),
       shared: {
-        '@angular/core': { singleton: true, strictVersion: true },
-        '@angular/common': { singleton: true, strictVersion: true },
-        '@angular/common/http': { singleton: true, strictVersion: true },
-        '@angular/router': { singleton: true, strictVersion: true },
+        '@angular/core': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/common': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/common/http': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
+        '@angular/router': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
         ...sharedMappings.getDescriptors(),
       },
     }),

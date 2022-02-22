@@ -3,7 +3,7 @@ import { MenuAction } from 'core/modules/dropdown-menu';
 import { CalculatedControl } from 'core/modules/data/models';
 import { ControlsFacadeService } from 'core/modules/data/services';
 import { SubscriptionDetacher } from 'core/utils';
-import { ControlsReportService } from 'src/app/modules/controls/services/controls-report/controls-report.service';
+import { ControlsReportService } from 'core/modules/shared-controls';
 import { ControlsCustomizationModalService } from '../../modules/customization/control/services';
 import { filter } from 'rxjs/operators';
 

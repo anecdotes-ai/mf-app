@@ -3,7 +3,7 @@ import { CalculatedControl } from 'core/modules/data/models';
 import { ControlsFacadeService } from 'core/modules/data/services';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
-import { ControlsReportService } from 'src/app/modules/controls/services/controls-report/controls-report.service';
+import { ControlsReportService } from 'core/modules/shared-controls';
 import { ControlsCustomizationModalService } from '../../modules/customization/control/services';
 import { ControlMenuComponent } from './control-menu.component';
 
