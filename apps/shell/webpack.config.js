@@ -18,8 +18,8 @@ function buildRemotes() {
 
 const sharedMappings = new mf.SharedMappings();
 sharedMappings.register(path.join(__dirname, '../../tsconfig.base.json'), [
-  'core/*',
-  'modules/*'
+  'core',
+  'modules'
 ]);
 
 module.exports = {

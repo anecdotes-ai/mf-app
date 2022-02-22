@@ -4,8 +4,7 @@ import { MultiselectModule } from 'core/modules/multiselect';
 import { HttpBackend } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule }from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -34,7 +33,7 @@ import { PluginsConnectionModule } from 'core/modules/plugins-connection';
 import { AppRoutingModule } from './app-routing.module';
 import { PlatformRemoteEntryComponent, RootComponent } from './components';
 
-export function playerFactory(): LottiePlayer {
+function playerFactory(): LottiePlayer {
   return player;
 }
 
@@ -59,10 +58,9 @@ export function playerFactory(): LottiePlayer {
       enabled: true,
 
     }),
-    BrowserAnimationsModule,
     PerfectScrollbarModule,
     NgCircleProgressModule.forRoot(),
-    DataModule.forRoot(),
+    // DataModule.forRoot(),
     RiskDataModule.forRoot(),
     DataManipulationModule.forRoot(),
     DataManipulationModule,

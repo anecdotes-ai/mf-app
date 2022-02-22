@@ -17,7 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
         {
           path: '',
           loadChildren: () =>
-            import('platform/Module').then((m) => m.RemoteEntryModule),
+            import('platform/Module').then((m) => m.PlatformEntryModule),
         },
       ],
       { initialNavigation: 'enabledBlocking' }

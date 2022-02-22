@@ -42,7 +42,7 @@ module.exports = {
       filename: 'remoteEntry.js',
       remotes: buildRemotes(),
       exposes: {
-        './Module': 'apps/platform/src/app/plarform-entry/platform-entry.module.ts',
+        './Module': 'apps/platform/src/app/platform-entry/platform-entry.module.ts',
       },
       shared: {
         '@angular/core': { singleton: true, strictVersion: true, requiredVersion: '12.2.16' },
