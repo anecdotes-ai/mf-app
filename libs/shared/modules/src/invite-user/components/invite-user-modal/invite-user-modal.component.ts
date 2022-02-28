@@ -21,7 +21,6 @@ import { ComponentSwitcherDirective } from 'core/modules/component-switcher/dire
 import { RoleEnum, User } from 'core/modules/auth-core/models/domain';
 import { OperationsTrackerService, TrackOperations, FrameworksFacadeService } from 'core/modules/data/services';
 import { CreateUserAction } from 'core/modules/auth-core/store';
-import { State } from 'core/modules/data/store';
 import { CustomValidators, DynamicFormGroup } from 'core/modules/dynamic-form';
 import { take } from 'rxjs/operators';
 import { FormControlKeys, InviteUserModalIds } from '../../models';
@@ -77,7 +76,7 @@ export class InviteUserModalComponent implements OnInit {
   }
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private cd: ChangeDetectorRef,
     private operationTrackingService: OperationsTrackerService,
     private switcher: ComponentSwitcherDirective,

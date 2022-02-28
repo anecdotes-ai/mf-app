@@ -7,6 +7,10 @@
     @apply bg-navy-30 py-2.5 px-8;
   }
 
+  .btn-wrapper {
+    min-width: max-content;
+  }
+
   &::ng-deep {
     & .icon-copy {
       svg-icon {

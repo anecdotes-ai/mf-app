@@ -1,8 +1,7 @@
 import { PluginConnectionFacadeService } from 'core/modules/plugins-connection/services';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
-import { Service, ServiceStatusEnum, ServiceTypeEnum } from 'core/modules/data/models/domain';
-import { CalculatedEvidence } from 'core/modules/data/models';
+import { Service, ServiceStatusEnum, ServiceTypeEnum, EvidenceInstance } from 'core/modules/data/models/domain';
 import { RoleEnum } from 'core/modules/auth-core/models/domain';
 import { AppConfigService, WindowHelperService, PluginNavigationService } from 'core';
 import { PluginService, EvidenceFacadeService } from 'core/modules/data/services';
@@ -119,9 +118,9 @@ export class PluginDetailsHeaderComponent implements OnDestroy, OnChanges {
       tap((_) => this.viewEvidenceButtonLoader$.next(true)),
       switchMap((_) => {
         return this.evidenceFacade
-          .getAllCalculatedEvidence()
+          .getAllEvidences()
           .pipe(
-            map((evidence: CalculatedEvidence[]) =>
+            map((evidence: EvidenceInstance[]) =>
             evidence.some((evidence) => evidence.evidence_service_id == this.service.service_id)
             ),
             map((isAnyCollected) => !isAnyCollected),

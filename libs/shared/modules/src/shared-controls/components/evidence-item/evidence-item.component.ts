@@ -120,6 +120,10 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
     return this.fullViewMode && this.requirementLike.resourceType === this.resourceTypes.Policy;
   }
 
+  get headerDataToDisplay(): string[] {
+    return [this.controlInstance?.control_name, this.controlRequirement?.requirement_name];
+  }
+
   displayActionLoader: boolean;
   evidence: CombinedEvidenceInstance;
   evidenceComply = true;
@@ -130,9 +134,6 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input()
   evidenceSource: EvidenceSourcesEnum = this.evidenceSources.Controls;
-
-  @Input()
-  frameworksNames: { [p: string]: string[] };
 
   @Input()
   set forceExpand(isOpen: boolean) {
@@ -243,9 +244,7 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
       context: {
         evidence: this.evidence,
         file: file,
-        framework: this.framework,
-        control: this.controlInstance,
-        requirement: this.requirementLike,
+        entityPath: [this.requirementLike?.name],
       },
       componentsToSwitch: [
         {
@@ -293,13 +292,11 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
       }
     } finally {
       this.displayActionLoader = false;
+
       await this.evidenceEventService.trackEvidenceRemove(
-        this.framework ? this.framework.framework_id : null,
-        this.controlInstance?.control_id,
-        this.controlRequirement?.requirement_id,
+        this.evidence.evidence_id,
         this.evidence.evidence_name,
         this.evidence.evidence_type,
-        null
       );
       this.cd.detectChanges();
     }
@@ -331,20 +328,15 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
       this.evidenceFromPolicyPreviewService.openEvidenceFromPolicyPreviewModal({
         eventSource: this.evidenceSource,
         evidenceLike: this.evidenceLike,
-        controlInstance: this.controlInstance,
-        controlRequirement: this.controlRequirement,
-        framework: this.framework,
+        entityPath: [this.controlInstance.control_name, this.controlRequirement.requirement_name],
       });
     }
 
     if (!this.isPolicyEvidence && this.evidenceSource === EvidenceSourcesEnum.Controls) {
       this.evidencePreviewService.openEvidencePreviewModal({
         eventSource: this.evidenceSource,
-        frameworkId: this.framework.framework_id,
-        evidenceId: this.controlInstance.is_snapshot ? this.evidenceLike.snapshot_id : this.evidence.evidence_id,
-        controlId: this.controlInstance.is_snapshot ? this.controlInstance.snapshot_id: this.controlInstance.control_id,
-        requirementId: this.controlInstance.is_snapshot ? this.controlRequirement.snapshot_id: this.controlRequirement.requirement_id,
-        isSnapshot: !!this.controlInstance.is_snapshot
+        evidence: this.evidence,
+        entityPath: [this.controlInstance.control_name, this.controlRequirement.requirement_name],
       });
     }
   }
@@ -377,10 +369,6 @@ export class EvidenceItemComponent implements OnInit, OnDestroy, OnChanges {
       this.displayActionLoader = true;
       this.cd.detectChanges();
     }
-  }
-
-  private ignore(): void {
-    this.modalWindowService.open({ template: this.ignoreConfirmationTemplate });
   }
 
   setMitigatedStatusForNewEvidence(): void {

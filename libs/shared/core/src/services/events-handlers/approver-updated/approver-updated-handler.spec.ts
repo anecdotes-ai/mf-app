@@ -3,7 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ApproverData, ApproverRoleEnum, Epoch } from 'core';
 import { PusherMessageType } from 'core/models/pusher-message-type.model';
-import { PolicyUpdatedAction, reducers } from 'core/modules/data/store';
+import { PolicySelectors, PolicyUpdatedAction, reducers } from 'core/modules/data/store';
 import { PolicyState } from 'core/modules/data/store/reducers';
 import { MessageBusService } from 'core/services';
 import { ApproverUpdatedHandler } from './approver-updated-handler';
@@ -49,7 +49,7 @@ describe('ApproverUpdatedHandler', () => {
         entities: { [policyId]: policy },
       },
     };
-    mockStore.setState({ policyState: mockServicesState });
+    mockStore.overrideSelector(PolicySelectors.SelectPolicyState, mockServicesState);
   });
 
   it('should be created', () => {

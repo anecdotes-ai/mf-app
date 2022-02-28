@@ -4,9 +4,7 @@ import { SamlService } from '../../http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SamlFacadeService {
   constructor(private samlHttpService: SamlService, private authService: AuthService) {}
 

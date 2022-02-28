@@ -49,13 +49,17 @@ export class RequirementEditModalComponent implements OnInit {
   async updateFormBtnClick(): Promise<void> {
     this.sendingRequestBtnLoader$.next(true);
     const updatedRequirement = {
-      ...this.controlRequirement,
-      requirement_name: this.formGroup.controls['newRequirementName'].value,
+      requirement_description: this.formGroup.controls['newRequirementName'].value,
       requirement_help: this.formGroup.controls['description'].value
     };
 
     try {
-      await this.requirementFacade.updateRequirement(updatedRequirement, this.controlInstance.control_id, this.currentFramework.framework_id);
+      await this.requirementFacade.updateRequirement(
+        this.controlRequirement.requirement_id,
+        updatedRequirement,
+        this.controlInstance.control_id,
+        this.currentFramework.framework_id
+      );
       this.switcher.goById(EditRequirementModalEnum.SuccessModal);
     } catch (e) {
       this.switcher.goById(EditRequirementModalEnum.ErrorModal);

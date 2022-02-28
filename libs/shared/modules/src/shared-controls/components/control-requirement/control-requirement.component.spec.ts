@@ -23,7 +23,7 @@ import {
   TrackOperations,
 } from 'core/modules/data/services';
 import { ControlRequirement, EvidenceInstance } from 'core/modules/data/models/domain';
-import { ControlRequirementApplicabilityChangeAction, reducers, State } from 'core/modules/data/store';
+import { ControlRequirementApplicabilityChangeAction, reducers } from 'core/modules/data/store';
 import { ModalWindowService } from 'core/modules/modals';
 import { ControlContextService, ControlsFocusingService, EvidenceCollectionModalService } from 'core/modules/shared-controls';
 import { RequirementCustomizationModalService } from 'core/modules/shared-controls/modules/customization/requirement/services';
@@ -48,7 +48,7 @@ describe('ControlRequirementComponent', () => {
 
   let component: ControlRequirementComponent;
   let fixture: ComponentFixture<ControlRequirementComponent>;
-  let store: MockStore<State>;
+  let store: MockStore;
   let operationsTrackerService: OperationsTrackerService;
   let testControlUpdationService: TestControlUpdationService;
   let messageBusService: MessageBusService;

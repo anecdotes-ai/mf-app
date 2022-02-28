@@ -21,7 +21,7 @@ import {
 import { FilterTabModel } from 'core/modules/data-manipulation/data-filter';
 import { Service, ServiceAvailabilityStatusEnum, ServiceStatusEnum } from 'core/modules/data/models/domain';
 import { InitServicesStateAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
+import { ServiceSelectors } from 'core/modules/data/store';
 import { groupBy, sortCallback, SubscriptionDetacher } from 'core/utils';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, take, distinctUntilChanged } from 'rxjs/operators';
@@ -79,7 +79,7 @@ export class PluginsComponent implements OnInit, AfterViewInit, OnDestroy {
   isNoFavoritePluginsState$: Observable<boolean>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private cd: ChangeDetectorRef,
     private loaderManager: LoaderManagerService,
     private intercom: IntercomService,
@@ -90,7 +90,7 @@ export class PluginsComponent implements OnInit, AfterViewInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.loaderManager.show();
     const pluginsStream$ = this.store
-      .select((x) => x.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         filter((state) => state.initialized),
         map((t) => Object.values(t.entities).map((storeEntity) => storeEntity.service)),

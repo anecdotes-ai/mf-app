@@ -31,6 +31,9 @@ import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, filter, take, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { maxNumberOfServiceAccountsAllowed, Service, ServiceFailedStatuses, ServiceNotInstalledStatuses, ServiceStatusEnum } from 'core/modules/data/models/domain';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
+import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
+import { UserEvents } from 'core';
 
 export enum FormModes {
   INITIAL = 'INITIAL',
@@ -143,7 +146,9 @@ export class PluginFormConnectionBaseComponent implements OnChanges, OnDestroy, 
     private pluginsFacadeService: PluginFacadeService,
     private cd: ChangeDetectorRef,
     private pluginsEventService: PluginsEventService,
-    private multipleAccountsHelperService: MultipleAccountsConnectionHelperService
+    private multipleAccountsHelperService: MultipleAccountsConnectionHelperService,
+    private evidenceEventService: EvidenceUserEventService,
+    private multiAccountsEventService: MultiAccountsEventService
   ) { }
 
   ngAfterViewInit(): void {
@@ -239,8 +244,14 @@ export class PluginFormConnectionBaseComponent implements OnChanges, OnDestroy, 
   }
 
   async resolveGenericInstallationProcess(): Promise<void> {
+    if (this.service.service_multi_account && this.pendingInstancesCount > 1) {
+      this.multiAccountsEventService.trackConnectAccounts(
+        this.service.service_id,
+        this.pendingInstancesCount
+      );
+    }
     let selectedInstance = this.service;
-    this.pluginsEventService.trackConnectPluginClick(this.service);
+    this.pluginsEventService.trackConnectPluginClick(this.service);   
     if (this.service.service_instances_list.some((i) => i.service_instance_id === this.currentSelectedInstance.instance_id)) {
       selectedInstance = await this.pluginsFacadeService
         .getServiceInstance(this.service.service_id, this.currentSelectedInstance.instance_id)
@@ -258,9 +269,10 @@ export class PluginFormConnectionBaseComponent implements OnChanges, OnDestroy, 
   }
 
   resolveReconnectProcess(): void {
+    const dirtyValues = this.allFormsComponentRef.getAllFormValues(TakeDynamicFormValues.DIRTY_VALUES);
     this.pluginsEventService.trackReconnectPluginClick(
       this.service,
-      this.allFormsComponentRef.getDynamicFormValues(TakeDynamicFormValues.DIRTY_VALUES)
+      dirtyValues
     );
     this.reconnectClick();
   }
@@ -316,6 +328,7 @@ export class PluginFormConnectionBaseComponent implements OnChanges, OnDestroy, 
   }
 
   async addAnotherAccountClick(): Promise<void> {
+    this.multiAccountsEventService.trackMultiAccountWithPluginName(UserEvents.ADD_MULTI_ACCOUNT, this.service.service_id);
     await this.pluginConnectionFacadeService.saveConnectionFormValuesIfPossible(
       this.service,
       this.currentSelectedInstance.instance_id,

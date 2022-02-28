@@ -1,4 +1,4 @@
-<app-evidence-wrapper *ngIf="evidence$ | async as evidence">
+<app-evidence-wrapper *ngIf="evidence">
   <app-evidence-label class="max-w-full" [evidence]="evidence" [evidenceComply]="true"> </app-evidence-label>
   <div class="flex flex-1 justify-end items-center">
     <app-date-view

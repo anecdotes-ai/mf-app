@@ -7,15 +7,11 @@
 <section>
   <app-evidence-preview-header
     *ngIf="eventSource === evidenceSources.Controls"
-    [controlName]="controlInstance.control_name"
-    [requirementName]="controlRequirement.requirement_name"
+    [dataToDisplay]="headerDataToDisplay"
   ></app-evidence-preview-header>
 
   <app-evidence-preview-item
     [evidence]="rootEvidence"
-    [controlRequirement]="controlRequirement"
-    [controlInstance]="controlInstance"
-    [framework]="framework"
     [sourceOfPreviewOpen]="eventSource"
     [isDataToPreviewExists]="false"
     [class.pr-16]="eventSource === evidenceSources.EvidencePool"
@@ -27,7 +23,7 @@
       {{ rootEvidence?.evidence_url }}
     </a>
 
-    <div class="flex gap-x-4">
+    <div class="flex gap-x-4 btn-wrapper">
       <app-new-button
         class="icon-copy"
         [type]="'secondary'"

@@ -24,8 +24,6 @@ import { spyOnMessageBusMethods } from 'core/utils/testing';
 import { configureTestSuite } from 'ng-bullet';
 import { Observable, of } from 'rxjs';
 import { JiraAutomationModalWindowComponent } from './jira-automation-modal-window.component';
-import { AppConfigService } from 'core';
-import { ConfigurationFile } from 'core';
 
 describe('JiraAutomationModalWindowComponent', () => {
   configureTestSuite();
@@ -34,13 +32,11 @@ describe('JiraAutomationModalWindowComponent', () => {
   let fixture: ComponentFixture<JiraAutomationModalWindowComponent>;
   let pluginService: PluginService;
   let windowHelperService: WindowHelperService;
-  let requirementService: RequirementService;
   let messageBusService: MessageBusService;
   let modalBuilderService: ModalsBuilderService;
   let controlsFacade: ControlsFacadeService;
   let metaFacade: PluginsMetaFacadeService;
   let modalWindowService: ModalWindowService;
-  let appConfigService: AppConfigService;
   let evidenceFacade: EvidenceFacadeService;
   let pluginFacadeService: PluginFacadeService;
 
@@ -75,7 +71,6 @@ describe('JiraAutomationModalWindowComponent', () => {
         { provide: ComponentSwitcherDirective, useValue: {} },
         { provide: ControlsFacadeService, useValue: {} },
         { provide: ModalWindowService, useValue: {} },
-        { provide: AppConfigService, useValue: {} },
         { provide: RequirementsFacadeService, useValue: {} },
         { provide: EvidenceFacadeService, useValue: {} },
       ],
@@ -96,8 +91,6 @@ describe('JiraAutomationModalWindowComponent', () => {
 
     pluginService = TestBed.inject(PluginService);
     windowHelperService = TestBed.inject(WindowHelperService);
-    requirementService = TestBed.inject(RequirementService);
-    appConfigService = TestBed.inject(AppConfigService);
     pluginFacadeService = TestBed.inject(PluginFacadeService);
     pluginFacadeService.getServiceById = jasmine.createSpy('getServiceById').and.returnValue(of({ service_id: 'some-service-id', service_display_name: 'some-service-name', service_instances_list: [{ service_id: 'service_id', service_instance_id: 'some-service-instance-id', service_instance_display_name: 'service_display_name' }] } as Service));
    
@@ -144,7 +137,6 @@ describe('JiraAutomationModalWindowComponent', () => {
 
     it('should reset issueType when set projects input value changes', async () => {
       // Arrange
-      spyOn(component.form.items.issueType, 'reset');
       const project = { anecdotes_id: '1', name: 'project' };
       metaFacade.getServiceMetadata = jasmine
         .createSpy('getServiceMetadata')
@@ -152,6 +144,7 @@ describe('JiraAutomationModalWindowComponent', () => {
 
       // Act
       fixture.detectChanges();
+      spyOn(component.form.items.issueType, 'reset');
       component.form.setValue({ project, issueType: null });
       await fixture.whenStable();
 
@@ -221,6 +214,7 @@ describe('JiraAutomationModalWindowComponent', () => {
     it('should correctly build translation key', () => {
       // Arrange
       const relativeKey = 'some-key';
+      component.translationKey = 'jiraAutomationModal';
 
       // Act
       const actual = component.buildTranslationKey(relativeKey);
@@ -234,11 +228,7 @@ describe('JiraAutomationModalWindowComponent', () => {
     it('should call windowHelperService.openUrlInNewTab with proper parameters', () => {
       // Arrange
       const intercomJiraCustomizationHelp = 'fake-customization-help';
-      (appConfigService as any).config = {
-        redirectUrls: {
-          intercomJiraCustomizationHelp,
-        },
-      } as ConfigurationFile;
+      component.articleUrl = intercomJiraCustomizationHelp;
       spyOn(windowHelperService, 'openUrlInNewTab');
 
       // Act
@@ -248,6 +238,13 @@ describe('JiraAutomationModalWindowComponent', () => {
       expect(windowHelperService.openUrlInNewTab).toHaveBeenCalledWith(intercomJiraCustomizationHelp);
     });
 
+    beforeEach(() => {
+      component.pluginData = { service_id: 'bla' };
+      component.controlRequirement = { requirement_name: 'requirement_name' };
+      const projects = [{ anecdotes_id: '1', name: 'project' }];
+      metaFacade.getServiceMetadata = jasmine.createSpy('getServiceMetadata').and.returnValue(of({ projects }));
+    });
+
     describe('#isValid', () => {
       const issueType = { anecdotes_id: 'issue1', name: 'issueType' };
       const issue_types = [issueType];
@@ -255,9 +252,10 @@ describe('JiraAutomationModalWindowComponent', () => {
 
       it('should return true if project and issue type are selected', () => {
         // Arrange
-        component.form.setValue({ project, issueType });
 
         // Act
+        fixture.detectChanges();
+        component.form.setValue({ project, issueType });
         const actual = component.isValid;
 
         // Assert
@@ -266,9 +264,10 @@ describe('JiraAutomationModalWindowComponent', () => {
 
       it('should return false if project is not selected', () => {
         // Arrange
-        component.form.setValue({ project: null, issueType: null });
-
+        
         // Act
+        fixture.detectChanges();
+        component.form.setValue({ project: null, issueType: null });
         const actual = component.isValid;
 
         // Assert
@@ -277,9 +276,10 @@ describe('JiraAutomationModalWindowComponent', () => {
 
       it('should return false if issueType is not selected', () => {
         // Arrange
-        component.form.setValue({ project, issueType: null });
-
+        
         // Act
+        fixture.detectChanges();
+        component.form.setValue({ project, issueType: null });
         const actual = component.isValid;
 
         // Assert
@@ -311,9 +311,11 @@ describe('JiraAutomationModalWindowComponent', () => {
           service_metadata: { projects: [project] },
         };
         component.controlInstance = { control_category: controlCategory, control_name: controlName, control_id: control_id };
-        component.form.setValue({ project, issueType });
         component.controlRequirement = {requirement_id: requirement_id};
         component.framework = {framework_id: framework_id};
+        fixture.detectChanges();
+        component.form.setValue({ project, issueType });
+        component.pluginData = { service_id: 'bla' };
 
       });
 

@@ -8,9 +8,7 @@ import { merge, Observable } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, take } from 'rxjs/operators';
 import { capitalizeFirstLetter } from 'core/utils';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserEventService {
   private readonly eventSecretkey = 'user-event-key:';
 

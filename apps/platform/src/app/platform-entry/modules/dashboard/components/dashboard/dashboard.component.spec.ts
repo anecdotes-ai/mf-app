@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable, of } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { State } from 'core/modules/data/store';
+import { DataFeatureState } from 'core/modules/data/store';
 import { DashboardFacadeService } from 'core/modules/data/services';
 import { Service, ServiceStatusEnum, Framework } from 'core/modules/data/models/domain';
 import { CalculatedControl } from 'core/modules/data/models';
@@ -17,7 +17,7 @@ import { LoaderManagerService, MessageBusService } from 'core';
 describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let component: DashboardComponent;
-  let mockStore: MockStore<State>;
+  let mockStore: MockStore<DataFeatureState>;
   let mockEmptyInnerStates: any;
 
   let spyPrivateLoadDashboardData: jasmine.Spy;

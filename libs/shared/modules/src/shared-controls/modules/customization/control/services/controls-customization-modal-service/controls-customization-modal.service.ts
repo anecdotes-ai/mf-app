@@ -19,9 +19,7 @@ import { ModalWindowWithSwitcher } from 'core/models/modal-window.model';
 import { ControlsFacadeService } from 'core/modules/data/services';
 import { ControlCustomizationSharedContext } from './controls-customization-shared-context';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ControlsCustomizationModalService {
   constructor(
     private modalWindowService: ModalWindowService,

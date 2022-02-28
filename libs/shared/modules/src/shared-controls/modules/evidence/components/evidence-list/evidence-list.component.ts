@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CalculatedControl, CalculatedEvidence } from 'core/modules/data/models';
-import { Framework } from 'core/modules/data/models/domain';
+import { CalculatedControl } from 'core/modules/data/models';
+import { Framework, EvidenceInstance } from 'core/modules/data/models/domain';
 import { RequirementLike } from 'core/modules/shared-controls/models';
 
 @Component({
@@ -18,7 +18,7 @@ export class EvidenceListComponent {
   @Input()
   requirementLike: RequirementLike;
 
-  selecEvidenceId(evidence: CalculatedEvidence): string {
+  selecEvidenceId(evidence: EvidenceInstance): string {
     return evidence.evidence_id;
   }
 

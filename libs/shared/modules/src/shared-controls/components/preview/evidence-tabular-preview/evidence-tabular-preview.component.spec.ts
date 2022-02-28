@@ -129,13 +129,6 @@ describe('EvidenceTabularPreviewComponent', () => {
 
   function initGridView(): void {
     component.eventSource = EvidenceSourcesEnum.Controls;
-    component.controlInstance = { control_name: 'some-name' };
-    component.requirementLike = {
-      name: 'some-name',
-      resource: {
-        requirement_related_policies_ids: ['1', '2'],
-      },
-    };
 
     component.evidenceFullData$ = of({
       someData: ['some-data'],

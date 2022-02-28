@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { ControlsReportService } from 'core/modules/shared-controls';
+import { ControlsReportService } from './controls-report.service';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { ControlsFacadeService, FrameworksFacadeService } from 'core/modules/data/services';
 

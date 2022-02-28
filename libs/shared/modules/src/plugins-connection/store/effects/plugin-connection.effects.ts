@@ -9,17 +9,16 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { State } from 'core/modules/data/store/state';
 import { Dictionary } from '@ngrx/entity';
 import { PluginConnectionFacadeService } from '../../services/facades/plugin-connection-facade/plugin-connection-facade.service';
 import { from } from 'rxjs';
-
+import { ServiceSelectors } from 'core/modules/data/store';
 
 @Injectable()
 export class PluginConnectionEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<State>,
+    private store: Store,
     private pluginConnectionFacade: PluginConnectionFacadeService
   ) { }
 
@@ -50,7 +49,7 @@ export class PluginConnectionEffects {
   operationUnderServiceHandling$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ServiceActionType.CreateTask, ServiceActionType.InstallService, ServiceActionType.ReconnectService),
-      withLatestFrom(this.store.select(pluginConnectionStateSelector).pipe(map((v) => v.entities)), this.store.select((s) => s.servicesState).pipe(map((v) => v.entities))),
+      withLatestFrom(this.store.select(pluginConnectionStateSelector).pipe(map((v) => v.entities)), this.store.select(ServiceSelectors.SelectServiceState).pipe(map((v) => v.entities))),
       map(([action, entities, serviceEntities]: [any, Dictionary<PluginConnectionEntity>, Dictionary<ServiceStoreEntity>]) => {
         const serviceIdPaylod = (action as ServiceIdPropertyActionPayload).service_id;
         let connectionEntity = entities[serviceIdPaylod];

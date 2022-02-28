@@ -17,6 +17,7 @@ import {
   AddEvidenceFromTicketAction,
   AttachRequirementPolicy,
   CreateEvidenceURLAction,
+  EvidenceSelectors,
 } from '../../../store';
 import { TrackOperations } from 'core/modules/data/services';
 import { Service, Framework } from 'core/modules/data/models/domain';
@@ -123,6 +124,7 @@ describe('EvidenceFacadeService', () => {
     mockStore.setState({
       evidencesState,
     });
+    mockStore.overrideSelector(EvidenceSelectors.SelectEvidenceState, evidencesState);
 
     requirementsFacadeMock = TestBed.inject(RequirementsFacadeService);
     controlsFacadeMock = TestBed.inject(ControlsFacadeService);

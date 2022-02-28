@@ -33,7 +33,7 @@ export class CommentPanelManagerService {
   private threadViewModels$: Observable<ThreadViewModel[]>;
 
   constructor(
-    private store: Store<any>,
+    private store: Store,
     private commentService: CommentService,
     private focusingService: FocusingService,
     private commentingUserEventsService: CommentingUserEventsService

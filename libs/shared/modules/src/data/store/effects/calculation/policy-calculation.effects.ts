@@ -5,19 +5,20 @@ import { combineLatest, EMPTY, Observable, of } from 'rxjs';
 import { catchError, debounceTime, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { PolicyCalculationService } from '../../../services';
 import { PoliciesCalculatedAction } from '../../actions';
-import { State } from '../../state';
 import { LoggerService } from 'core/services/logger/logger.service';
+import { PolicySelectors } from '../../selectors';
 
 @Injectable()
 export class PolicyCalculationEffects {
-  constructor(private store: Store<State>, private policyCalculationService: PolicyCalculationService, private loggerService: LoggerService) {}
+  constructor(private store: Store, private policyCalculationService: PolicyCalculationService, private loggerService: LoggerService) {}
 
   @Effect({ dispatch: false })
   calculatePolicies = of({ streamsDictionary: {}, streams: [] }).pipe(
     switchMap((streamsStore) => {
       return this.store
-        .select((x) => x.policyState.policies.ids)
+        .select(PolicySelectors.SelectPolicyState)
         .pipe(
+          map((policyState) => policyState.policies.ids),
           filter((policiesIds) => !!policiesIds.length),
           map((policiesIds) => {
             const oldStreamsDictionary = streamsStore.streamsDictionary;
@@ -45,8 +46,9 @@ export class PolicyCalculationEffects {
 
   private getPolicyFromStore(policyId: string): Observable<any> {
     return this.store
-      .select((x) => x.policyState.policies.entities[policyId])
+      .select(PolicySelectors.SelectPolicyState)
       .pipe(
+        map((policyState) => policyState.policies.entities[policyId]),
         filter((policy) => !!policy),
       map((policy) => this.policyCalculationService.calculatePolicy(policy)),
         shareReplay()

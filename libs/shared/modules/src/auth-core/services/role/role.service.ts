@@ -4,9 +4,7 @@ import { from, Observable, of } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class RoleService {
   private roleCache: Observable<{ role: string }>;
 

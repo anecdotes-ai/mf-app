@@ -7,14 +7,12 @@ import { AgentLog, Agent } from './../../../models/domain';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { State } from '../../../store/state';
 import { map, tap, filter, switchMap } from 'rxjs/operators';
+import {AgentSelectors} from '../../../store/selectors';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AgentsFacadeService {
-  constructor(private store: Store<State>, private actionDispatcher: ActionDispatcherService) {
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService) {
     this.setAllAgentsCache();
   }
 
@@ -27,9 +25,9 @@ export class AgentsFacadeService {
   getAgentsLog(agent_id: string): Observable<AgentLog[]> {
     this.actionDispatcher.dispatchActionAsync(AgentsActions.loadAgentLogs({ agent_id }), TrackOperations.GET_AGENT_LOGS, agent_id);
     return this.store
-      .select((state) => state.agentState.entities)
-      .pipe(map((entities) => {
-        return entities[agent_id].agentLogs;
+      .select(AgentSelectors.SelectAgentState)
+      .pipe(map((agentState) => {
+        return agentState.entities[agent_id].agentLogs;
       }));
   }
 
@@ -51,15 +49,16 @@ export class AgentsFacadeService {
 
   private setAllAgentsCache(): void {
     this.allAgentsCache$ = this.store
-      .select((state) => state.agentState.initialized)
+      .select(AgentSelectors.SelectAgentState)
       .pipe(
+        map((agentState) => agentState.initialized),
         tap((areInitialized) => {
           if (!areInitialized) {
             this.store.dispatch(AgentsActions.initAgentsState());
           }
         }),
         filter((initialized) => initialized),
-        switchMap(() => this.store.select((state) => state.agentState.entities)),
+        switchMap(() => this.store.select(AgentSelectors.SelectAgentState).pipe(map((agentState) => agentState.entities))),
         map((entity) => Object.values(entity).map((storeEntity) => storeEntity.agent)),
       );
   }

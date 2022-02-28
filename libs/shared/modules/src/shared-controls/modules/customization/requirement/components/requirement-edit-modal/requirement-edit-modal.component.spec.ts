@@ -1,5 +1,5 @@
 import { EditRequirementModalEnum } from '../../models';
-import { ControlRequirement } from 'core/modules/data/models/domain';
+import { ControlRequirement, Requirement } from 'core/modules/data/models/domain';
 import { RequirementEditSharedContext } from './../../services/requirement-customization-modal-service/requirement-edit-shared-context';
 import { RequirementsFacadeService } from 'core/modules/data/services';
 import { ComponentSwitcherDirective } from 'core/modules/component-switcher';
@@ -107,10 +107,10 @@ describe('RequirementEditModalComponent', () => {
 
       // Assert
       const funcAsJasmineSpy = facade.updateRequirement as jasmine.Spy<jasmine.Func>;
-      const passedRequirementAsArgument = funcAsJasmineSpy.calls.mostRecent().args[0] as ControlRequirement;
+      const passedRequirementAsArgument = funcAsJasmineSpy.calls.mostRecent().args[1] as Requirement;
 
       expect(passedRequirementAsArgument.requirement_help).toBe(testInputedDescription);
-      expect(passedRequirementAsArgument.requirement_name).toBe(testInputedName);
+      expect(passedRequirementAsArgument.requirement_description).toBe(testInputedName);
     });
 
     it('should switch to success modal when operation is success', async () => {

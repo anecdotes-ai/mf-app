@@ -1,10 +1,10 @@
 import { PoliciesFacadeService } from 'core/modules/data/services';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CombinedEvidenceInstance, Framework } from 'core/modules/data/models/domain';
+import { CombinedEvidenceInstance } from 'core/modules/data/models/domain';
 import { TranslateService } from '@ngx-translate/core';
 import { EvidenceTypeIconMapping } from 'core/models';
 import { SubscriptionDetacher } from 'core/utils';
-import { CalculatedControl, CalculatedRequirement, ResourceType } from 'core/modules/data/models';
+import { ResourceType } from 'core/modules/data/models';
 import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
 
 @Component({
@@ -22,16 +22,7 @@ export class EvidenceLabelComponent implements OnInit, OnDestroy {
   @Input() inPluginPage: boolean;
 
   @Input()
-  framework: Framework;
-
-  @Input()
   policyId: string;
-
-  @Input()
-  controlRequirement: CalculatedRequirement;
-
-  @Input()
-  controlInstance: CalculatedControl;
 
   @Input()
   eventSource: string;
@@ -39,8 +30,6 @@ export class EvidenceLabelComponent implements OnInit, OnDestroy {
   @Input()
   resourceType: ResourceType;
 
-  @Input()
-  frameworksNames: { [p: string]: string[] } = {};
   betaLabel: string;
   fileType: { icon: string };
   resourceTypes = ResourceType;
@@ -77,13 +66,10 @@ export class EvidenceLabelComponent implements OnInit, OnDestroy {
 
   sendEvent(): void {
     this.evidenceEventService.trackFlagHover(
-      this.framework ? this.framework.framework_id : null,
-      this.controlInstance?.control_id,
-      this.controlRequirement?.requirement_id,
+      this.evidence.evidence_id,
       this.evidence.evidence_type,
       this.evidence.evidence_name,
       this.eventSource,
-      this.frameworksNames ? Object.keys(this.frameworksNames).join(', ') : null
     );
   }
 

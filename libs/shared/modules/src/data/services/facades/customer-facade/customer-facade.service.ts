@@ -6,15 +6,15 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AccountFeatureEnum, Customer } from '../../../models/domain';
 import { CustomerUpdatedAction, OnBoardCustomer } from '../../../store/actions';
-import { State } from '../../../store/state';
+import { CustomerSelectors } from '../../../store/selectors';
 
 @Injectable()
 export class CustomerFacadeService {
   private currentCustomerCache: Observable<Customer>;
 
-  constructor(private store: Store<State>, private actionDispatcher: ActionDispatcherService) {
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService) {
     this.currentCustomerCache = this.store
-      .select((x) => x.customerState)
+      .select(CustomerSelectors.SelectCustomerState)
       .pipe(
         filter(customerState => customerState.initialized)
       )

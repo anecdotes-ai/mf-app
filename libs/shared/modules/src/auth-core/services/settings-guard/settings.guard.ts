@@ -7,9 +7,7 @@ import { AppRoutes } from 'core/constants';
 import { RoleService } from '../../services';
 import { AppSettingsRoutesSegments } from 'core/constants/routes';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SettingsGuard implements CanActivate {
   constructor(private router: Router, private roleService: RoleService) {}
 

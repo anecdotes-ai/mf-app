@@ -3,41 +3,42 @@
 import { EntityState } from '@ngrx/entity';
 import { createSelector } from '@ngrx/store';
 import { ControlRequirement } from '../../models/domain';
-import { State } from '../state';
+import { dataFeatureSelector } from './feature.selector';
 
 // ** SELECTOR FUNCTIONS ***
 
-export const selectRequirementsInitState = (state: State): boolean => state.requirementState.initialized;
-export const selectControlRequirements = (state: State): EntityState<ControlRequirement> =>
-  state.requirementState.controlRequirements;
-export const selectRequirementControlsMapping = (state: State): { [key: string]: string[] } =>
-  state.requirementState.requirementControlsMapping;
-export const selectPolicyRequirementsMapping = (state: State): { [key: string]: string[] } =>
-  state.requirementState.policyRequirementsMapping;
+const SelectRequirementState = createSelector(dataFeatureSelector, dataFeatureState => dataFeatureState.requirementState);
+ const SelectRequirementsInitState = createSelector(SelectRequirementState, (requirementState): boolean => requirementState.initialized);
+ const SelectControlRequirements = createSelector(SelectRequirementState, (requirementState): EntityState<ControlRequirement> =>
+  requirementState.controlRequirements);
+ const SelectRequirementControlsMapping = createSelector(SelectRequirementState, (requirementState): { [key: string]: string[] } =>
+  requirementState.requirementControlsMapping);
+ const SelectPolicyRequirementsMapping = createSelector(SelectRequirementState, (requirementState): { [key: string]: string[] } =>
+  requirementState.policyRequirementsMapping);
 
 // ** SELECTORS **
 
-export const selectRequirements = createSelector(
-  selectRequirementsInitState,
-  selectControlRequirements,
+ const SelectRequirements = createSelector(
+  SelectRequirementsInitState,
+  SelectControlRequirements,
   (isInitialized, requirements) => {
     return isInitialized ? Object.values(requirements.entities) : null;
   }
 );
 
-export const selectRequirementRelatedControlIds = createSelector(
-  selectRequirementControlsMapping,
+ const SelectRequirementRelatedControlIds = createSelector(
+  SelectRequirementControlsMapping,
   (requirementControlsMapping, props: { requirement_id: string }) => {
     return requirementControlsMapping[props.requirement_id];
   }
 );
 
-export const selectPolicyRelatedRequirementIds = createSelector(
-  selectPolicyRequirementsMapping,
+ const SelectPolicyRelatedRequirementIds = createSelector(
+  SelectPolicyRequirementsMapping,
   (selectPolicyRequirementsMapping) => selectPolicyRequirementsMapping
 );
 
-export const selectEvidenceRequirementMapping = createSelector(selectRequirements, (requirements) => {
+ const SelectEvidenceRequirementMapping = createSelector(SelectRequirements, (requirements) => {
   let result: { [evidenceId: string]: ControlRequirement[] };
 
   if (requirements) {
@@ -55,8 +56,8 @@ export const selectEvidenceRequirementMapping = createSelector(selectRequirement
   return result;
 });
 
-export const createRequirementsByEvidenceIdSelector = (evidenceId: string) =>
-  createSelector(selectEvidenceRequirementMapping, (mapping) => {
+ const CreateRequirementsByEvidenceIdSelector = (evidenceId: string) =>
+  createSelector(SelectEvidenceRequirementMapping, (mapping) => {
     const relatedRequirements = mapping[evidenceId];
 
     if (relatedRequirements) {
@@ -66,12 +67,27 @@ export const createRequirementsByEvidenceIdSelector = (evidenceId: string) =>
     return [];
   });
 
-export const createRequirementByIdsSelector = (requirementIds: string[]) =>
-  createSelector(selectControlRequirements, (st) => {
+ const CreateRequirementByIdsSelector = (requirementIds: string[]) =>
+  createSelector(SelectControlRequirements, (st) => {
     return Array.from(new Set(requirementIds)).map((id) => st.entities[id]).filter(req => req);
   });
 
-const selectRequirementsDictionary = (state: State) => state.requirementState.controlRequirements.entities;
+const SelectRequirementsDictionary = createSelector(SelectRequirementState, requirementState => requirementState.controlRequirements.entities);
 
-export const createRequirementSelector = (requirementId: string) =>
-    createSelector(selectRequirementsDictionary, (dic) => dic[requirementId]);
+const CreateRequirementSelector = (requirementId: string) =>
+    createSelector(SelectRequirementsDictionary, (dic) => dic[requirementId]);
+
+export const RequirementSelectors = {
+  SelectRequirementState,
+  SelectRequirementsInitState,
+  SelectControlRequirements,
+  SelectRequirementControlsMapping,
+  SelectPolicyRequirementsMapping,
+  SelectRequirements,
+  SelectRequirementRelatedControlIds,
+  SelectPolicyRelatedRequirementIds,
+  SelectEvidenceRequirementMapping,
+  CreateRequirementsByEvidenceIdSelector,
+  CreateRequirementByIdsSelector,
+  CreateRequirementSelector
+};

@@ -9,9 +9,7 @@ import { ApplicabilityTypes, ResourceType } from '../../models';
 import { ApplicabilitiesUpdate, ControlRequirement, Requirement } from '../../models/domain';
 import { AbstractService } from '../abstract-http/abstract-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class RequirementService extends AbstractService {
   constructor(http: HttpClient, configService: AppConfigService, private evidenceService: EvidenceService) {
     super(http, configService);
@@ -131,9 +129,9 @@ export class RequirementService extends AbstractService {
     );
   }
 
-  editRequirement(requirement_id: string, requirement: Requirement): Observable<Requirement> {
-    return this.http.put<Requirement>(
-      this.buildUrl((a) => a.editRequirement, { requirement_id: requirement_id }),
+  patchRequirement(requirement_id: string, requirement: Requirement): Observable<Requirement> {
+    return this.http.patch<Requirement>(
+      this.buildUrl((a) => a.patchRequirement, { requirement_id: requirement_id }),
       requirement
     );
   }

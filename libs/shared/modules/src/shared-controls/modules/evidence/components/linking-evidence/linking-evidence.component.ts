@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ComponentSwitcherDirective } from 'core/modules/component-switcher';
-import { CalculatedControl, CalculatedEvidence } from 'core/modules/data/models';
-import { Framework } from 'core/modules/data/models/domain';
+import { CalculatedControl } from 'core/modules/data/models';
+import { Framework, EvidenceInstance } from 'core/modules/data/models/domain';
 import { EvidenceFacadeService, RequirementsFacadeService } from 'core/modules/data/services';
 import { BehaviorSubject } from 'rxjs';
 import { RequirementLike } from 'core/modules/shared-controls/models';
@@ -16,7 +16,7 @@ export class LinkingEvidenceComponent {
   framework: Framework;
 
   @Input()
-  evidence: CalculatedEvidence;
+  evidence: EvidenceInstance;
 
   @Input()
   requirementLike: RequirementLike;

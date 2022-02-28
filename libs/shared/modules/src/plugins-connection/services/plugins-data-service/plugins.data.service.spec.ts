@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PluginsDataService } from './plugins.data.service';
 import { placeholderFile } from 'core/modules/plugins-connection/utils/placeholder-file';
 import { Operation } from 'fast-json-patch';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 
 describe('PluginsDataService', () => {
   let service: PluginsDataService;
@@ -21,7 +22,9 @@ describe('PluginsDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [],
+      providers: [
+        { provide: MultiAccountsEventService, useValue: {} }
+      ],
     });
 
     service = TestBed.inject(PluginsDataService);

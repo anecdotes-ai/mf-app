@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 import { AppConfigService } from 'core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuditorsPortalService extends AbstractService {
 
   constructor(http: HttpClient, configService: AppConfigService) {

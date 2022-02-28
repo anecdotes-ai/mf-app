@@ -13,9 +13,7 @@ export interface FrameworksPluginsListInputs {
   frameworkId: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FrameworksPluginsModalService {
   constructor(private modalWindowService: ModalWindowService) {}
 

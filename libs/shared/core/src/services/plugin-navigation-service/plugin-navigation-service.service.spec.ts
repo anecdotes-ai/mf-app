@@ -90,6 +90,7 @@ describe('PluginNavigationService', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, StoreModule.forRoot(reducers)],
       providers: [
+        PluginNavigationService,
         { provide: PluginService, useClass: MockPluginService },
         { provide: WindowHelperService, useValue: windowMock },
         { provide: EvidenceFacadeService, useValue: EvidenceFacadeService },
@@ -153,13 +154,13 @@ describe('PluginNavigationService', () => {
 
     beforeEach(() => {
       plugin = { service_id: 'test-id', service_display_name: 'service_display_name' };
-      getEvidenceSpy = jasmine.createSpy('getAllCalculatedEvidence');
+      getEvidenceSpy = jasmine.createSpy('getAllEvidences');
       router.navigate = jasmine.createSpy('navigate');
     });
 
     it('should navigate to evidence pool page with expected query params', async () => {
       // Arrange
-      evidenceFacadeService.getAllCalculatedEvidence = getEvidenceSpy.and.returnValue(of(false));
+      evidenceFacadeService.getAllEvidences = getEvidenceSpy.and.returnValue(of(false));
 
       const expectedQueryParams = {
         plugins: plugin.service_display_name.replace('_', '.'),

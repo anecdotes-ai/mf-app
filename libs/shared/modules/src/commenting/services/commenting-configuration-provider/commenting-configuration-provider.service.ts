@@ -9,7 +9,7 @@ import { featureSelector } from '../../store/selectors';
 
 @Injectable()
 export class CommentingConfigurationProviderService extends AbstractConfigurationProvider {
-  constructor(private authService: AuthService, private config: AppConfigService, private store: Store<any>) {
+  constructor(private authService: AuthService, private config: AppConfigService, private store: Store) {
     super();
   }
 

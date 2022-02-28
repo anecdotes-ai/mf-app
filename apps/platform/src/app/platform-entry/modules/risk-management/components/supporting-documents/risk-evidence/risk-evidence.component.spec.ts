@@ -95,7 +95,7 @@ describe('RiskEvidenceComponent', () => {
     it('should be called with correct params', () => {
       // Arrange
       const params = {
-        evidenceId: FAKE_DATA.evidence.evidence_id,
+        evidence: FAKE_DATA.evidence,
       };
 
       // Act

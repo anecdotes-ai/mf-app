@@ -6,9 +6,7 @@ import { NavigationModel } from './../models/navigation.model';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class NavigationBarEventsTrackingService {
   constructor(private userEventService: UserEventService) {}
 

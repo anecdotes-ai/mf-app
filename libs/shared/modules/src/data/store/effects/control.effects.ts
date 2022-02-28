@@ -21,7 +21,6 @@ import {
   RequirementsActionType,
   UpdateControlAction,
 } from '../actions';
-import { State } from '../state';
 import { ControlsState } from '../reducers';
 import {
   AddCustomControlAction,
@@ -33,13 +32,14 @@ import {
   ControlOwnerUpdatedAction
 } from './../actions/controls.actions';
 import { CustomControlFormData } from '../../services/controls/models/add-customer-control.model';
+import { ControlSelectors } from '../selectors';
 
 @Injectable()
 export class ControlEffects {
   constructor(
     private actions$: Actions,
     private controlsHttpService: ControlsService,
-    private store: Store<State>,
+    private store: Store,
     private operationsTrackerService: OperationsTrackerService,
     private authService: AuthService,
     @Inject(LOCALE_ID) private locale: string
@@ -184,7 +184,7 @@ export class ControlEffects {
     ofType(RequirementsActionType.RequirementRemoved),
     mergeMap((action: RequirementRemovedAction) =>
       this.store
-        .select((state) => state.controlsState)
+        .select(ControlSelectors.SelectControlsState)
         .pipe(
           take(1),
           mergeMap((state: ControlsState) => {
@@ -207,8 +207,9 @@ export class ControlEffects {
       from(
         (async () => {
           const controls = await this.store
-            .select((state) => state.controlsState.controls.entities)
+            .select(ControlSelectors.SelectControlsState)
             .pipe(
+              map((controlsState) => controlsState.controls.entities),
               map((controlEntities) =>
                 action.requirementRelatedControlIds.map((controlId) => controlEntities[controlId])
               ),

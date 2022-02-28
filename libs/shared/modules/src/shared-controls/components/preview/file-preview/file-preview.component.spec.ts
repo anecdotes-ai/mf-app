@@ -57,8 +57,6 @@ describe('FilePreviewComponent', () => {
     component = fixture.componentInstance;
 
     component.evidence = { evidence_name: 'fakeEvidence' };
-    component.controlInstance = {};
-    component.requirement = {};
     fakeFile = new File([], 'fake-file-name.any');
     evidenceServiceMock = TestBed.inject(EvidenceService);
     fileDownloadingHelperServiceMock = TestBed.inject(FileDownloadingHelperService);
@@ -68,7 +66,6 @@ describe('FilePreviewComponent', () => {
     modalWindowService.openInSwitcher = jasmine.createSpy('openInSwitcher');
     fileTypeHandlerServiceMock.isFileSupported = jasmine.createSpy('isFileSupported').and.returnValue(true);
     evidenceEventService = TestBed.inject(EvidenceUserEventService);
-    evidenceEventService.trackViewFullData = jasmine.createSpy('trackViewFullData');
     evidenceEventService.trackEvidenceDownload = jasmine.createSpy('trackEvidenceDownload');
 
     dataAggregationFacadeService = TestBed.inject(DataAggregationFacadeService);

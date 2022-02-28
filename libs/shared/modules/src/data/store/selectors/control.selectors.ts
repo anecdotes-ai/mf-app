@@ -1,37 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { EntityState } from '@ngrx/entity';
 import { createSelector } from '@ngrx/store';
 import { selectMany } from 'core/utils';
-import { Control, ControlRequirement, EvidenceInstance } from '../../models/domain';
-import { State } from '../state';
+import { Control } from '../../models/domain';
+import { dataFeatureSelector } from './feature.selector';
 
-// ** SELECTOR FUNCTIONS **
+const SelectControlsState = createSelector(dataFeatureSelector, dataFeatureState => dataFeatureState.controlsState);
+const SelectControlsDictionary = createSelector(SelectControlsState, (state) => state.controls.entities);
+const SelectControls = createSelector(SelectControlsDictionary, (dictionary) => Object.values(dictionary));
 
-export const selectEntitiesFn = (entityState: EntityState<any>) => Object.values(entityState.entities) as Control[];
-
-export const selectControlsEntitiesFn = (state: State): EntityState<Control> => state.controlsState.controls;
-
-export const selectEvidenceEntitiesDictFn = (state: State): { [evidenceId: string]: EvidenceInstance } =>
-  state.evidencesState?.evidences.entities;
-export const selectControlAllLoadedFn = (state: State): boolean => state.controlsState.areAllLoaded;
-export const selectRequirementsEntitiesDictFn = (state: State): { [requirementId: string]: ControlRequirement } =>
-  state.requirementState?.controlRequirements.entities;
-export const selectControlsByFrameworkFn = (state: State): { [key: string]: string[] } =>
-  state.controlsState.controlsByFramework;
-
-// ** SELECTORS **
-
-export const selectIsControlByFrameworkLoaded = createSelector(
-  selectControlsEntitiesFn,
-  (controls, props: { frameworkId: string }) => !!controls && props.frameworkId in controls
-);
-
-const selectControlsState = (state: State) => state.controlsState;
-export const selectControlsDictionary = createSelector(selectControlsState, (state) => state.controls.entities);
-export const selectControls = createSelector(selectControlsDictionary, (dictionary) => Object.values(dictionary));
-
-export const selectControlRequirementMapping = createSelector(selectControls, (controls) => {
+const SelectControlRequirementMapping = createSelector(SelectControls, (controls) => {
   let result: { [evidenceId: string]: Control[] };
 
   if (controls) {
@@ -49,11 +27,11 @@ export const selectControlRequirementMapping = createSelector(selectControls, (c
   return result;
 });
 
-export const createControlsByRequirementIdsSelector = (requirementIds: string[]) =>
-  createSelector(selectControlRequirementMapping, (mapping) => {
+const CreateControlsByRequirementIdsSelector = (requirementIds: string[]) =>
+  createSelector(SelectControlRequirementMapping, (mapping) => {
     const releatedControls = requirementIds.map((id) => mapping[id]);
 
-    if(!releatedControls) {
+    if (!releatedControls) {
       return [];
     }
 
@@ -62,3 +40,10 @@ export const createControlsByRequirementIdsSelector = (requirementIds: string[])
       (controls) => controls
     );
   });
+
+export const ControlSelectors = {
+  SelectControlsState,
+  SelectControlRequirementMapping,
+  CreateControlsByRequirementIdsSelector,
+  SelectControls
+};

@@ -28,14 +28,13 @@ import {
   SharePolicyAction,
   UpdatePolicyAction,
 } from '../actions/policies.actions';
-import { State } from '../state';
 
 @Injectable()
 export class PoliciesEffects {
   constructor(
     private actions$: Actions,
     private policiesHttpService: PolicyService,
-    private store: Store<State>,
+    private store: Store,
     private operationsTrackerService: OperationsTrackerService,
     private aggregationService: DataAggregationFacadeService,
     private policyManagerEventService: PolicyManagerEventService,

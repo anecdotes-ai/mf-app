@@ -7,19 +7,20 @@ import { catchError, debounceTime, distinctUntilChanged, filter, map, shareRepla
 import { ControlRequirement, EvidenceInstance, Policy } from '../../../models/domain';
 import { RequirementCalculationService } from '../../../services';
 import { RequirementsCalculatedAction } from '../../actions';
-import { State } from '../../state';
 import { LoggerService } from 'core/services/logger/logger.service';
+import { EvidenceSelectors, PolicySelectors, RequirementSelectors } from '../../selectors';
 
 @Injectable()
 export class RequirementCalculationEffects {
-  constructor(private store: Store<State>, private requirementCalculationService: RequirementCalculationService, private loggerService: LoggerService) {}
+  constructor(private store: Store, private requirementCalculationService: RequirementCalculationService, private loggerService: LoggerService) {}
 
   @Effect({ dispatch: false })
   calculateRequirements = of({ streamsDictionary: {}, streams: [] }).pipe(
     switchMap((streamsStore) => {
       return this.store
-        .select((x) => x.requirementState.controlRequirements.ids)
+        .select(RequirementSelectors.SelectRequirementState)
         .pipe(
+          map((requirementState) => requirementState.controlRequirements.ids),
           filter((requirementIds) => !!requirementIds.length),
           map((requirementIds) => {
             const oldStreamsDictionary = streamsStore.streamsDictionary;
@@ -50,9 +51,9 @@ export class RequirementCalculationEffects {
 
   private getRequirementFromStore(requirement_id: string): Observable<any> {
     return combineLatest([
-      this.store.select((x) => x.requirementState.controlRequirements.entities[requirement_id]),
-      this.store.select((x) => x.evidencesState.evidences.entities),
-      this.store.select((x) => x.policyState.policies.entities),
+      this.store.select(RequirementSelectors.SelectRequirementState).pipe(map((requirementState) => requirementState.controlRequirements.entities[requirement_id])),
+      this.store.select(EvidenceSelectors.SelectEvidenceState).pipe(map((evidencesState) => evidencesState.evidences.entities)),
+      this.store.select(PolicySelectors.SelectPolicyState).pipe(map((policyState) => policyState.policies.entities)),
     ]).pipe(
       map(([requirement, evidenceEnities, policiesEntities]) => {
         const newEvidenceEntities: Dictionary<EvidenceInstance> = {};

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ControlsFacadeService, CustomerFacadeService, FrameworksFacadeService } from 'core/modules/data/services';
-import { State } from 'core/modules/data/store';
+import { DataFeatureState } from 'core/modules/data/store';
 import { CustomerState } from 'core/modules/data/store/reducers';
 import { LoaderManagerService, MessageBusService, WindowHelperService } from 'core/services';
 import { configureTestSuite } from 'ng-bullet';
@@ -15,7 +15,7 @@ describe('ControlsPageComponent', () => {
 
   let component: ControlsPageComponent;
   let fixture: ComponentFixture<ControlsPageComponent>;
-  let mockStore: MockStore<State>;
+  let mockStore: MockStore<DataFeatureState>;
   let mockCustomerState: CustomerState;
   let windowHelperService: WindowHelperService;
   let modalWindowService: ModalWindowService;

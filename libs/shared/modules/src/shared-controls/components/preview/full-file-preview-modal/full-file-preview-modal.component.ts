@@ -1,21 +1,19 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { RegularDateFormat } from 'core';
 import { EvidenceTypeIconMapping, TipTypeEnum } from 'core/models';
 import { FileDownloadingHelperService } from 'core/services';
 import { EvidenceService } from 'core/modules/data/services';
-import { CombinedEvidenceInstance, Framework } from 'core/modules/data/models/domain';
+import { CombinedEvidenceInstance } from 'core/modules/data/models/domain';
 import { ComponentSwitcherDirective } from 'core/modules/component-switcher';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
-import { CalculatedControl, CalculatedRequirement } from 'core/modules/data/models';
 import { EvidenceSourcesEnum } from 'core/modules/shared-controls/models';
 
 export interface FullFilePreviewContext {
   file: File;
   evidence: CombinedEvidenceInstance;
-  framework: Framework;
-  control: CalculatedControl;
-  requirement: CalculatedRequirement;
+  entityPath: string[];
 }
 
 @Component({
@@ -24,9 +22,7 @@ export interface FullFilePreviewContext {
   styleUrls: ['./full-file-preview-modal.component.scss'],
 })
 export class FullFilePreviewModalComponent implements OnInit {
-  framework: Framework;
-  controlInstance: CalculatedControl;
-  requirement: CalculatedRequirement;
+  headerDataToDisplay: string[];
   evidenceIcon$: Observable<string>;
 
   fileTypeMapping: { icon: string };
@@ -46,15 +42,11 @@ export class FullFilePreviewModalComponent implements OnInit {
     const {
       evidence,
       file,
-      framework,
-      control,
-      requirement,
+      entityPath,
     }: FullFilePreviewContext = await this.componentSwitcher.sharedContext$.pipe(take(1)).toPromise();
     this.evidence = evidence;
     this.file = file;
-    this.framework = framework;
-    this.requirement = requirement;
-    this.controlInstance = control;
+    this.headerDataToDisplay = entityPath;
 
     this.fileTypeMapping = EvidenceTypeIconMapping[this.evidence.evidence_type];
     this.evidenceIcon$ = this.evidenceService.getIcon(this.evidence.evidence_service_id);
@@ -66,16 +58,24 @@ export class FullFilePreviewModalComponent implements OnInit {
     return `evidences.filePreview.${relativeKey}`;
   }
 
+  get descriptionTranslationKey(): string {
+    const translationKey = this.evidence.evidence_service_id === 'manual' ? 'manualUploadedEvidence' : 'automaticallyCollected';
+
+    return this.buildTranslationKey(translationKey);
+  }
+
+  get dateFormat(): string {
+    return RegularDateFormat;
+  }
+
   async downloadEvidence(): Promise<void> {
     this.fileDownloadingHelper.downloadFile(this.file);
+
     await this.evidenceEventService.trackEvidenceDownload(
-      this.framework ? this.framework.framework_id : null,
-      this.controlInstance.control_id,
-      this.requirement.requirement_id,
+      this.evidence.evidence_id,
       this.evidence.evidence_name,
       this.evidence.evidence_type,
       EvidenceSourcesEnum.Controls,
-      null
     );
   }
 }

@@ -17,7 +17,7 @@ import {
   FrameworkSnapshotAddedAction,
   PoliciesSnapshotAddedAction,
   RequirementsSnapshotAddedAction } from '../actions/snapshots.actions';
-import { ControlActionType, ControlsLoadedAction, ControlsReloadedAction, State } from '../index';
+import { ControlActionType, ControlsLoadedAction, ControlsReloadedAction } from '../index';
 
 @Injectable()
 export class SnapshotEffects {
@@ -28,7 +28,7 @@ export class SnapshotEffects {
     private snapshotsFacadeService: SnapshotsFacadeService,
     private controlCalculationService: ControlCalculationService,
     private requirementCalculationService: RequirementCalculationService,
-    private store: Store<State>,
+    private store: Store,
   ) { }
 
   @Effect()

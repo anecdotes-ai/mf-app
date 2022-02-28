@@ -1,28 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CalculatedControl, CalculatedRequirement } from '../../../models';
-import { TrackOperations } from '../../operations-tracker/constants/track.operations.list.constant';
-import { combineLatest, Observable, of } from 'rxjs';
-import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
-import { ControlRequirement, Requirement } from '../../../models/domain';
 import {
-  AddRequirementAction,
-  AttachRequirementPolicy,
-  EditRequirementAction,
-  RemoveRequirementAction,
-  SendRequirementTaskSlackAction,
-  UpdateControlAction,
-} from '../../../store/actions';
-import {
-  createRequirementByIdsSelector,
-  createRequirementsByEvidenceIdSelector,
-  selectPolicyRelatedRequirementIds,
-  selectRequirementRelatedControlIds,
-  selectRequirementsAfterInit,
-} from '../../../store/selectors';
-import { State } from '../../../store/state';
-import { ActionDispatcherService } from '../../action-dispatcher/action-dispatcher.service';
-import { 
   EvidenceEventData,
   EvidenceEventDataProperty,
   EvidenceSourcesEnum,
@@ -31,15 +9,35 @@ import {
   RequirementEventData,
   RequirementEventDataProperty,
   UserEvents,
- } from 'core/models';
- import { UserEventService } from 'core/services/user-event/user-event.service';
-import { FrameworksFacadeService } from '../frameworks-facade/frameworks-facade.service';
+} from 'core/models';
+import { UserEventService } from 'core/services/user-event/user-event.service';
+import { combineLatest, Observable, of } from 'rxjs';
+import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { CalculatedControl, CalculatedRequirement } from '../../../models';
+import { ControlRequirement, Requirement } from '../../../models/domain';
+import {
+  AddRequirementAction,
+  AttachRequirementPolicy,
+  BatchControlsUpdateAction,
+  RemoveRequirementAction,
+  RequirementsAdapterActions,
+  SendRequirementTaskSlackAction,
+} from '../../../store/actions';
+import {
+  CalculationSelectors,
+  ControlSelectors,
+  RequirementSelectors,
+  selectRequirementsAfterInit,
+} from '../../../store/selectors';
+import { ActionDispatcherService } from '../../action-dispatcher/action-dispatcher.service';
+import { TrackOperations } from '../../operations-tracker/constants/track.operations.list.constant';
 import { ControlsFacadeService } from '../controls-facade/controls-facade.service';
+import { FrameworksFacadeService } from '../frameworks-facade/frameworks-facade.service';
 
 @Injectable()
 export class RequirementsFacadeService {
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
     private userEventService: UserEventService,
     private controlFacade: ControlsFacadeService,
@@ -127,7 +125,7 @@ export class RequirementsFacadeService {
   }
 
   requirementRelatedControls(requirement_id: string): Observable<string[]> {
-    return this.store.select(selectRequirementRelatedControlIds, { requirement_id }).pipe(shareReplay());
+    return this.store.select(RequirementSelectors.SelectRequirementRelatedControlIds, { requirement_id }).pipe(shareReplay());
   }
 
   getControlsByRequirementId(requirement_id: string): Observable<CalculatedControl[]> {
@@ -139,25 +137,27 @@ export class RequirementsFacadeService {
   }
 
   getRequirementsByPolicyId(policy_id: string): Observable<ControlRequirement[]> {
-    return this.store.select(selectPolicyRelatedRequirementIds).pipe(
+    return this.store.select(RequirementSelectors.SelectPolicyRelatedRequirementIds).pipe(
       map(state => state[policy_id]),
-      switchMap(requirementIds => requirementIds ? this.store.select(createRequirementByIdsSelector(requirementIds)) : of([])),
+      switchMap(requirementIds => requirementIds ? this.store.select(RequirementSelectors.CreateRequirementByIdsSelector(requirementIds)) : of([])),
       shareReplay()
     );
   }
 
   getRequirementsByEvidenceId(evidenceId: string): Observable<CalculatedRequirement[]> {
-    return this.store.select(createRequirementsByEvidenceIdSelector(evidenceId));
+    return this.store.select(RequirementSelectors.CreateRequirementsByEvidenceIdSelector(evidenceId));
   }
 
   requirementRelatedFrameworks(requirement_id: string): Observable<string[]> {
     return this.store
-      .select((x) => x.requirementState.requirementControlsMapping[requirement_id])
+      .select(RequirementSelectors.SelectRequirementState)
       .pipe(
+        map((requirementState) => requirementState.requirementControlsMapping[requirement_id]),
         switchMap((controlIds) =>
           this.store
-            .select((state) => state.controlsState.controlFrameworksMapping)
+            .select(ControlSelectors.SelectControlsState)
             .pipe(
+              map((controlsState) => controlsState.controlFrameworksMapping),
               map((controlFrameworksMapping) => controlIds?.map((control_id) => controlFrameworksMapping[control_id])),
               map((x: string[][]) => x?.reduce((fst, scnd) => [...fst, ...scnd], [])),
               map((x: string[]) => new Set(x)), // to distinct framework ids
@@ -173,46 +173,46 @@ export class RequirementsFacadeService {
   }
 
   getRequirement(requirement_id: string): Observable<CalculatedRequirement> {
-    return this.store.select((state) => state.calculationState.calculatedRequirements.entities[requirement_id]).pipe(filter(req => !!req));
+    return this.store.select(CalculationSelectors.SelectCalculatedRequirements).pipe(map((calculatedRequirements) => calculatedRequirements.entities[requirement_id])).pipe(filter(req => !!req));
   }
 
   getRequirementsByIds(requirementIds: string[]): Observable<ControlRequirement[]> {
-    return this.store.select(createRequirementByIdsSelector(requirementIds));
+    return this.store.select(RequirementSelectors.CreateRequirementByIdsSelector(requirementIds));
   }
 
-  async linkEvidenceAsync(requirementId: string, evidenceId: string, withTracking = false, controlId?: string, frameworkId?: string): Promise<any> {
+  async linkEvidenceAsync(requirement_id: string, evidenceId: string, withTracking = false, controlId?: string, frameworkId?: string): Promise<any> {
     const requirement = await this.store
-      .select((state) => state.requirementState.controlRequirements.entities[requirementId])
-      .pipe(take(1))
+      .select(RequirementSelectors.SelectRequirementState)
+      .pipe(map((requirementState) => requirementState.controlRequirements.entities[requirement_id]), take(1))
       .toPromise();
-    requirement.requirement_evidence_ids = [...requirement.requirement_evidence_ids, evidenceId];
+    const requirement_related_evidence = [...requirement.requirement_evidence_ids, evidenceId];
     await this.actionDispatcher.dispatchActionAsync(
-      new EditRequirementAction(requirement),
-      TrackOperations.EDIT_REQUIREMENT
+      RequirementsAdapterActions.patchRequirement({ requirement_id, requirement: { requirement_related_evidences: requirement_related_evidence } }),
+      requirement_id,
+      TrackOperations.PATCH_REQUIREMENT
     );
-    
-    const controls = await this.controlFacade.getControlsByRequirementIds([requirementId]).pipe(take(1)).toPromise();
-    controls.forEach(control => this.store.dispatch(new UpdateControlAction(control.control_id)));
 
-    if(requirementId && frameworkId && withTracking)
+    if(requirement_id && frameworkId && withTracking)
     {
-      const eventData = await this.prepareEventDataForEvidenceAsync(requirementId, controlId, frameworkId);
+      const eventData = await this.prepareEventDataForEvidenceAsync(requirement_id, controlId, frameworkId);
       eventData[EvidenceEventDataProperty.Source] = EvidenceSourcesEnum.EvidencePool;
       this.userEventService.sendEvent(UserEvents.LINK_EVIDENCE, eventData);
     }
   }
 
   async updateRequirement(
-    updatedRequirement: ControlRequirement,
+    requirement_id: string,
+    requirement: Requirement,
     control_id: string,
     framework_id: string
   ): Promise<void> {
-    const currentRequirement = await this.getRequirement(updatedRequirement.requirement_id).pipe(take(1)).toPromise();
+    const currentRequirement = await this.getRequirement(requirement_id).pipe(take(1)).toPromise();
     await this.actionDispatcher.dispatchActionAsync(
-      new EditRequirementAction(updatedRequirement),
-      TrackOperations.EDIT_REQUIREMENT
+      RequirementsAdapterActions.patchRequirement({ requirement_id, requirement }),
+      requirement_id,
+      TrackOperations.PATCH_REQUIREMENT
     );
-    this.updateRequirementEventTracking(currentRequirement, control_id, framework_id, updatedRequirement);
+    this.updateRequirementEventTracking(currentRequirement, control_id, framework_id, requirement);
   }
 
   async attachPolicyToRequirement(requirement: ControlRequirement, policyId: string): Promise<void> {

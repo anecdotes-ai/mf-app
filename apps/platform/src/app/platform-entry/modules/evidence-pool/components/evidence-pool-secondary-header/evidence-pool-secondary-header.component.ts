@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SortDefinition, DataSortComponent } from 'core/modules/data-manipulation/sort';
-import { CalculatedEvidence } from 'core/modules/data/models/calculated-evidence.model';
+import { EvidenceInstance } from 'core/modules/data/models/domain';
 import { RootTranslationkey } from './../../constants/translation-keys.constant';
 
 @Component({
@@ -20,19 +20,19 @@ import { RootTranslationkey } from './../../constants/translation-keys.constant'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EvidencePoolSecondaryHeaderComponent implements OnInit, OnChanges {
-  sortDefinition: SortDefinition<CalculatedEvidence>[];
+  sortDefinition: SortDefinition<EvidenceInstance>[];
 
   @ViewChild(DataSortComponent, { static: true })
   sortComponent: DataSortComponent;
 
   @Input()
-  dataToDisplay: CalculatedEvidence[];
+  dataToDisplay: EvidenceInstance[];
 
   @Input()
   filteredCount: number;
 
   @Output()
-  sort = new EventEmitter<CalculatedEvidence[]>();
+  sort = new EventEmitter<EvidenceInstance[]>();
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('dataToDisplay' in changes && this.dataToDisplay) {
@@ -57,12 +57,12 @@ export class EvidencePoolSecondaryHeaderComponent implements OnInit, OnChanges {
     this.sortDefinition = [
       {
         id: 'by-date',
-        propertySelector: (e: CalculatedEvidence) => e.evidence_collection_timestamp,
+        propertySelector: (e: EvidenceInstance) => e.evidence_collection_timestamp,
         translationKey: 'By Date',
       },
       {
         id: 'by-plugin',
-        propertySelector: (e: CalculatedEvidence) => e.evidence_service_display_name,
+        propertySelector: (e: EvidenceInstance) => e.evidence_service_display_name,
         translationKey: 'By Plugin',
       },
     ];

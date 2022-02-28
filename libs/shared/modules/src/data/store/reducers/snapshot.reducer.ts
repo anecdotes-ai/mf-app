@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
-import { CalculatedControl, CalculatedEvidence, CalculatedPolicy, CalculatedRequirement } from '../../models';
+import { CalculatedControl, CalculatedPolicy, CalculatedRequirement } from '../../models';
 import {
   ControlSnapshotAddedAction,
   ControlsSnapshotsAddedAction,
@@ -10,14 +10,14 @@ import {
   ReloadSnapshotStateAction,
   FrameworkSnapshotAddedAction
 } from '../actions/snapshots.actions';
-import { Framework } from 'core/modules/data/models/domain';
+import { Framework, EvidenceInstance } from 'core/modules/data/models/domain';
 
 export interface SnapshotState {
-  firstLoad: boolean,
+  firstLoad: boolean;
   calculatedControls: EntityState<CalculatedControl>;
   calculatedRequirements: EntityState<CalculatedRequirement>;
   calculatedFrameworks: EntityState<Framework>;
-  calculatedEvidences: EntityState<CalculatedEvidence>;
+  evidences: EntityState<EvidenceInstance>;
   calculatedPolicies: EntityState<CalculatedPolicy>;
 }
 
@@ -33,7 +33,7 @@ function selectFrameworkId(f: Framework): string {
   return f.snapshot_id;
 }
 
-function selectEvidenceId(e: CalculatedEvidence): string {
+function selectEvidenceId(e: EvidenceInstance): string {
   return e.snapshot_id;
 }
 
@@ -52,7 +52,7 @@ const frameworkAdapter: EntityAdapter<Framework> = createEntityAdapter<Framework
   selectId: selectFrameworkId,
 });
 
-const evidenceAdapter: EntityAdapter<CalculatedEvidence> = createEntityAdapter<CalculatedEvidence>({
+const evidenceAdapter: EntityAdapter<EvidenceInstance> = createEntityAdapter<EvidenceInstance>({
   selectId: selectEvidenceId,
 });
 
@@ -65,7 +65,7 @@ const initialState: SnapshotState = {
   calculatedControls: controlAdapter.getInitialState(),
   calculatedRequirements: requirementAdapter.getInitialState(),
   calculatedFrameworks: frameworkAdapter.getInitialState(),
-  calculatedEvidences: evidenceAdapter.getInitialState(),
+  evidences: evidenceAdapter.getInitialState(),
   calculatedPolicies: policyAdapter.getInitialState()
 };
 
@@ -80,7 +80,7 @@ export const snapshotReducer = createReducer(
   on(EvidenceSnapshotAddedAction, (state: SnapshotState, action: { evidence }) => {
     return {
       ...state,
-      calculatedEvidences: evidenceAdapter.addMany(action.evidence, state.calculatedEvidences)
+      evidences: evidenceAdapter.addMany(action.evidence, state.evidences)
     };
   }),
   on(RequirementsSnapshotAddedAction, (state: SnapshotState, action: { requirements }) => {

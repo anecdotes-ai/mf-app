@@ -69,7 +69,7 @@ export const endpoints: EndpointsConfiguration = {
   updateRequirementEvidence: '/requirement/{{resource_id}}/evidence/{{evidence_id}}',
   removeRequirement: '/requirement/{{requirement_id}}',
   addRequirement: '/requirement',
-  editRequirement: '/requirement/{{requirement_id}}',
+  patchRequirement: '/requirement/{{requirement_id}}',
   addPolicyToRequirement: '/requirement/{{requirement_id}}/policies/{{policy_id}}',
   deletePolicyFromRequirement: '/requirement/{{requirement_id}}/policies/{{policy_id}}',
   getCustomer: '/customer',

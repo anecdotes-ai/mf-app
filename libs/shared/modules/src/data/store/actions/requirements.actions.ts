@@ -22,7 +22,7 @@ export const RequirementsActionType = {
   RequirementsAdded: '[Requirement] Requirement added',
   RequirementIndexChanged: '[Requirement] Requirement index changed',
 
-  EditRequirement: '[Requirement] Edit Requirement',
+  PatchRequirement: '[Requirement] Patch requirement',
 
   BatchUpdateRequirement: '[Requirement] Update Requirement',
   RequirementBatchUpdated: '[Requirement] Requirement Updated',
@@ -109,13 +109,6 @@ export class RequirementAddedAction implements Action {
   constructor(public requirement: ControlRequirement, public requirementRelatedControlIds: string[]) {}
 }
 
-// ** EDIT REQUIREMENT **
-export class EditRequirementAction implements Action {
-  readonly type = RequirementsActionType.EditRequirement;
-
-  constructor(public updatedRequirement: ControlRequirement) {}
-}
-
 export class RequirementIndexChangedAction implements Action {
   readonly type = RequirementsActionType.RequirementIndexChanged;
 
@@ -158,6 +151,10 @@ export const RequirementsAdapterActions = {
   controlRequirementsAdded: createAction(
     RequirementsActionType.RequirementsAdded,
     props<{ requirement: Requirement; requirementRelatedControlIds: string[] }>()
+  ),
+  patchRequirement: createAction(
+    RequirementsActionType.PatchRequirement,
+    props<{ requirement_id: string, requirement: Requirement }>()
   ),
   controlRequirementBatchUpdated: createAction(
     RequirementsActionType.ControlRequirementBatchUpdated,

@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { EvidenceTypeIconMapping, MessageBusService } from 'core';
-import { CalculatedEvidence, convertToEvidenceLike } from 'core/modules/data/models';
-import { EvidenceTypeEnum } from 'core/modules/data/models/domain';
+import { EvidenceTypeEnum, EvidenceInstance } from 'core/modules/data/models/domain';
 import { EvidenceService, FrameworksFacadeService } from 'core/modules/data/services';
 import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
 import { ModalWindowService } from 'core/modules/modals';
@@ -11,7 +10,7 @@ import { configureTestSuite } from 'ng-bullet';
 import { Observable, of } from 'rxjs';
 import { RootTranslationkey } from './../../constants/translation-keys.constant';
 import { EvidencePoolItemComponent } from './evidence-pool-item.component';
-import { EvidencePreviewService } from 'core/modules/shared-controls/services/evidence-preview-service/evidence-preview.service';
+import { EvidencePreviewModalsContext, EvidencePreviewService } from 'core/modules/shared-controls/services/evidence-preview-service/evidence-preview.service';
 
 describe('EvidencePoolItemComponent', () => {
   configureTestSuite();
@@ -29,14 +28,9 @@ describe('EvidencePoolItemComponent', () => {
 
   const evidence_type = EvidenceTypeEnum.DOCUMENT;
   const evidence_id = 'evidence_id';
-  const related_control = { control_id: 'control_id' };
-  const related_requirement = { requirement_id: 'requirement_id' };
-  const evidence: CalculatedEvidence = {
+  const evidence: EvidenceInstance = {
     evidence_type,
     evidence_id,
-    related_control,
-    related_requirement,
-    evidence_related_framework_names: {},
     evidence_instance_id: 'some-id',
   };
 
@@ -133,10 +127,8 @@ describe('EvidencePoolItemComponent', () => {
       // Assert
       expect(evidencePreviewService.openEvidencePreviewModal).toHaveBeenCalledWith({
         eventSource: component.evidenceSource,
-        evidenceId: component.evidence.evidence_id,
-        requirementId: component.evidence.related_requirement.requirement_id,
-        controlId: component.evidence.related_control.control_id,
-      });
+        evidence: component.evidence,
+      } as EvidencePreviewModalsContext);
     });
   });
 

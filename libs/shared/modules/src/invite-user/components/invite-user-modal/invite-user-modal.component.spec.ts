@@ -16,7 +16,7 @@ import { DynamicFormOutletMockComponent } from 'core/mocks';
 import { ComponentSwitcherDirective } from 'core/modules/component-switcher/directives';
 import { RoleEnum } from 'core/modules/auth-core/models/domain';
 import { FrameworksFacadeService, OperationsTrackerService, TrackOperations } from 'core/modules/data/services';
-import { State } from 'core/modules/data/store';
+import { DataFeatureState } from 'core/modules/data/store';
 import { CreateUserAction } from 'core/modules/auth-core/store';
 import { configureTestSuite } from 'ng-bullet';
 import { Observable, of, Subject } from 'rxjs';
@@ -36,7 +36,7 @@ describe('InviteUserModalComponent', () => {
   let component: InviteUserModalComponent;
   let fixture: ComponentFixture<InviteUserModalComponent>;
   let operationTrackerService: OperationsTrackerService;
-  let store: Store<State>;
+  let store: Store<DataFeatureState>;
   let switcher: MockSwitcherDir;
   let frameworkFacade: FrameworksFacadeService;
   let inviteUserEventsService: InviteUserEventsService;

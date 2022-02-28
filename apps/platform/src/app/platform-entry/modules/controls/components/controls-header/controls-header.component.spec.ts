@@ -18,7 +18,7 @@ import {
   FrameworksFacadeService,
   OperationsTrackerService,
 } from 'core/modules/data/services';
-import { State } from 'core/modules/data/store';
+import { DataFeatureState } from 'core/modules/data/store';
 import { VisibleForRoleDirective } from 'core/modules/directives/visible-for-role/visible-for-role.directive';
 import { ControlsCustomizationModalService } from 'core/modules/shared-controls/modules/customization/control/services';
 import { configureTestSuite } from 'ng-bullet';
@@ -41,8 +41,8 @@ describe('ControlsHeaderComponent', () => {
   let mockControlsArray: CalculatedControl[];
   let testFramework: Framework;
 
-  let mockStore: MockStore<State>;
-  let defaultMockStateObject: State;
+  let mockStore: MockStore<DataFeatureState>;
+  let defaultMockStateObject: DataFeatureState;
   let frameworkService: FrameworkService;
   let filterManager: DataFilterManagerService;
   let windowHelperService: WindowHelperService;
@@ -89,7 +89,7 @@ describe('ControlsHeaderComponent', () => {
   beforeEach(inject(
     [MockStore, DataFilterManagerService],
     (
-      injectedStore: MockStore<State>,
+      injectedStore: MockStore<DataFeatureState>,
       injectedfilterManager: DataFilterManagerService
     ) => {
       dataFilterManager = TestBed.inject(DataFilterManagerService);

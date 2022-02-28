@@ -9,15 +9,12 @@ import {
 } from '@angular/core';
 import { TipTypeEnum } from 'core/models';
 import { FileDownloadingHelperService } from 'core/services';
-import { ModalWindowService } from 'core/modules/modals';
-import { CombinedEvidenceInstance, Framework } from 'core/modules/data/models/domain';
-import { DataAggregationFacadeService, EvidenceService } from 'core/modules/data/services';
+import { CombinedEvidenceInstance } from 'core/modules/data/models/domain';
+import { EvidenceService } from 'core/modules/data/services';
 import { FileTypeHandlerService } from 'core/modules/file-viewer/services';
 import { SubscriptionDetacher } from 'core/utils';
-import { CalculatedControl, CalculatedRequirement } from 'core/modules/data/models';
 import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
 import { EvidenceSourcesEnum } from 'core/modules/shared-controls/models';
-import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-file-preview',
@@ -38,20 +35,13 @@ export class FilePreviewComponent implements OnInit, OnDestroy {
   }
 
   @Input()
+  headerDataToDisplay: string[];
+
+  @Input()
   evidence: CombinedEvidenceInstance;
 
   @Input()
-  framework: Framework;
-
-  @Input()
-  controlInstance: CalculatedControl;
-
-  @Input()
-  requirement: CalculatedRequirement;
-
-  @Input()
   eventSource: string;
-  frameworksNames: { [p: string]: string[] };
 
   isLoaded: boolean;
 
@@ -63,10 +53,8 @@ export class FilePreviewComponent implements OnInit, OnDestroy {
     private evidenceService: EvidenceService,
     private fileDownloadingHelper: FileDownloadingHelperService,
     private cd: ChangeDetectorRef,
-    private modalWindowService: ModalWindowService,
     private fileTypeHandler: FileTypeHandlerService,
     private evidenceEventService: EvidenceUserEventService,
-    private dataAggregationService: DataAggregationFacadeService
   ) {}
 
   ngOnDestroy(): void {
@@ -91,21 +79,12 @@ export class FilePreviewComponent implements OnInit, OnDestroy {
 
   async downloadEvidence(): Promise<void> {
     this.fileDownloadingHelper.downloadFile(this.file, this.evidence.evidence_name);
-    const frameworks = await this.dataAggregationService
-      .getEvidenceReferences(this.evidence.evidence_id)
-      .pipe(
-        map((references) => references.map((reference) => reference.framework.framework_name)),
-        take(1)
-      )
-      .toPromise();
+
     await this.evidenceEventService.trackEvidenceDownload(
-      this.framework ? this.framework.framework_id : null,
-      this.controlInstance.control_id,
-      this.requirement.requirement_id,
+      this.evidence.evidence_id,
       this.evidence.evidence_name,
       this.evidence.evidence_type,
       this.eventSource,
-      frameworks?.length ? frameworks.join(', ') : null
     );
   }
 

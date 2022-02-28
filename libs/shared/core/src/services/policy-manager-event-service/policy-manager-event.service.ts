@@ -4,17 +4,15 @@ import { take } from 'rxjs/operators';
 
 import { CalculatedPolicy } from 'core/modules/data/models';
 import { PolicyAddType, PolicyManagerEventData, PolicyManagerEventDataProperty, UserEvents } from 'core/models';
-import { selectPolicyById, State } from 'core/modules/data/store';
+import { PolicySelectors } from 'core/modules/data/store';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { PolicySettings } from 'core/modules/data/models/domain';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PolicyManagerEventService {
   constructor(
     private userEventService: UserEventService,
-    private store: Store<State>,
+    private store: Store,
   ) {}
 
   trackAddPolicyEvent(policy: CalculatedPolicy, addType: PolicyAddType): void {
@@ -56,7 +54,7 @@ export class PolicyManagerEventService {
   }
 
   async trackLinkPolicyEvent(policyId: string, pluginName: string): Promise<void> {
-    const policy = await this.store.select(selectPolicyById(policyId))
+    const policy = await this.store.select(PolicySelectors.SelectPolicyById(policyId))
       .pipe(take(1)).toPromise();
 
     this.userEventService.sendEvent(UserEvents.LINK_POLICY, {
@@ -116,7 +114,7 @@ export class PolicyManagerEventService {
   }
 
   private async prepareEventDataForPolicyAsync(policyId: string, fileName: string): Promise<PolicyManagerEventData> {
-    const policy = await this.store.select(selectPolicyById(policyId)).pipe(take(1)).toPromise();
+    const policy = await this.store.select(PolicySelectors.SelectPolicyById(policyId)).pipe(take(1)).toPromise();
     const splitFileName = fileName.split('.');
 
     return {

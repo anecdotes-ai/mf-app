@@ -1,12 +1,10 @@
 import { UserRemovedAction } from './../actions/user.actions';
-import { userStateSelector } from './../state';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { UserStatus } from 'core/models/user-status';
 import { OperationsTrackerService } from 'core/modules/data/services/operations-tracker/operations-tracker.service';
 import { TrackOperations } from 'core/modules/data/services/operations-tracker/constants/track.operations.list.constant';
-import { State } from 'core/modules/data/store';
 import { NEVER, Observable } from 'rxjs';
 import { catchError, map, mergeMap, tap, switchMap, take } from 'rxjs/operators';
 import { User } from '../../models/domain';
@@ -19,13 +17,14 @@ import {
   UserCreatedAction,
   UserUpdatedAction
 } from '../actions';
+import { UserSelectors } from '../selectors';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private usersHttpService: UserService,
     private actions$: Actions,
-    private store: Store<State>,
+    private store: Store,
     private operationsTrackerService: OperationsTrackerService
   ) { }
 
@@ -33,7 +32,7 @@ export class UserEffects {
   removeSpecificUser$: Observable<User> = this.actions$.pipe(
     ofType(UserActionType.RemoveUser),
     mergeMap((action: RemoveUserAction) => {
-      return this.store.select(userStateSelector).pipe(map((state) => state.entities[action.payload.email]), take(1)).pipe(switchMap((user) => {
+      return this.store.select(UserSelectors.SelectUserState).pipe(map((state) => state.entities[action.payload.email]), take(1)).pipe(switchMap((user) => {
         this.store.dispatch(new UserRemovedAction({ email: action.payload.email }));
         return this.usersHttpService.removeSpecificUser(action.payload.email).pipe(
           tap(() => this.operationsTrackerService.trackSuccess(action.payload.email, TrackOperations.REMOVE_USER)),

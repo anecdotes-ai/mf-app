@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityState } from '@ngrx/entity';
-import { Store } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import {
   ControlEventDataProperty,
   UserEvents,
@@ -23,12 +23,11 @@ import {
   RemoveCustomControlAction,
   UpdateControlOwnerAction,
 } from '../../../store/actions/controls.actions';
-import { State } from '../../../store/state';
 import { ActionDispatcherService } from '../../action-dispatcher/action-dispatcher.service';
 import { OperationsTrackerService } from '../../operations-tracker/operations-tracker.service';
 import { FrameworksFacadeService } from '../frameworks-facade/frameworks-facade.service';
 import { SnapshotsFacadeService } from '../snapshots-facade/snapshots-facade.service';
-import { createControlsByRequirementIdsSelector } from '../../../store/selectors';
+import { ControlSelectors, CalculationSelectors, SnapshotSelectors } from '../../../store/selectors';
 
 @Injectable()
 export class ControlsFacadeService {
@@ -38,7 +37,7 @@ export class ControlsFacadeService {
   private allControlsCache$: Observable<CalculatedControl[]>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
     private userEventService: UserEventService,
     private frameworksFacade: FrameworksFacadeService,
@@ -47,8 +46,9 @@ export class ControlsFacadeService {
   ) {
     // TODO: This probably shouldn't be used. We need to revisit this one day.
     this.controlsFrameworksMapping$ = this.store
-      .select((state) => state.controlsState.controlFrameworksMapping)
+      .select(ControlSelectors.SelectControlsState)
       .pipe(
+        map(controlsState => controlsState.controlFrameworksMapping),
         map((controlFrameworksMapping) => {
           const result = {};
 
@@ -68,7 +68,7 @@ export class ControlsFacadeService {
   }
 
   getControlsByRequirementIds(requirementIds: string[]): Observable<Control[]> {
-    return this.store.select(createControlsByRequirementIdsSelector(requirementIds) as any);
+    return this.store.select(ControlSelectors.CreateControlsByRequirementIdsSelector(requirementIds));
   }
 
   reloadControls(): void {
@@ -156,25 +156,24 @@ export class ControlsFacadeService {
   }
 
   getControl(control_id: string): Observable<CalculatedControl> {
-    return this.store.select((state) => state.calculationState.calculatedControls.entities[control_id]);
+    return this.store.select(CalculationSelectors.SelectCalculatedControls).pipe(map((calculatedControls) => calculatedControls.entities[control_id]));
   }
 
   getControlsById(controlIds: string[]): Observable<CalculatedControl[]> {
-    return this.store.select((state) =>
-      controlIds.map((control_id) => state.calculationState.calculatedControls.entities[control_id]).filter((x) => x)
-    );
+    return this.store.select(CalculationSelectors.SelectCalculatedControls).pipe(map((calculatedControls) =>
+      controlIds.map((control_id) => calculatedControls.entities[control_id]).filter((x) => x)
+    ));
   }
 
   getControlsByFrameworkId(framework_id: string): Observable<CalculatedControl[]> {
     return this.store
-      .select((state) => state.controlsState.controlsByFramework[framework_id])
+      .select(createSelector(ControlSelectors.SelectControlsState, controlsState => controlsState.controlsByFramework[framework_id]))
       .pipe(
         filter((controlIds) => !!controlIds),
         switchMap((controlIds: string[]) =>
-          this.store
-            .select((state) => state.calculationState.calculatedControls)
+          this.store.select(CalculationSelectors.SelectCalculatedControls)  
             .pipe(
-              withLatestFrom(this.store.select((state) => state.controlsState.controls.ids.length)),
+              withLatestFrom(this.store.select(ControlSelectors.SelectControlsState).pipe(map((controlsState) => controlsState.controls.ids.length))),
               filter(([calculatedControlsState, idsLength]) => calculatedControlsState.ids.length === idsLength),
               map(([calculatedControlsState]) => {
                 return controlIds.map((control_id) => calculatedControlsState.entities[control_id]).filter((x) => x);
@@ -184,17 +183,17 @@ export class ControlsFacadeService {
         shareReplay()
       );
   }
-  
+
   getFreezeControlsByFrameworkId(frameworkId: string): Observable<CalculatedControl[]> {
     return this.store
-      .select((state) => state.controlsState.controlsByFramework[frameworkId])
+      .select(ControlSelectors.SelectControlsState)
       .pipe(
+        map((controlsState) => controlsState.controlsByFramework[frameworkId]),
         filter((controlIds) => !!controlIds),
         switchMap((controlIds: string[]) =>
-          this.store
-            .select((state) => state.calculationState.calculatedControls)
+          this.store.select(CalculationSelectors.SelectCalculatedControls)  
             .pipe(
-              withLatestFrom(this.store.select((state) => state.controlsState.controls.ids.length)),
+              withLatestFrom(this.store.select(ControlSelectors.SelectControlsState).pipe(map((controlsState) => controlsState.controls.ids.length))),
               filter(([calculatedControlsState, idsLength]) => calculatedControlsState.ids.length === idsLength),
               mergeMap(async ([calculatedControlsState]) => {
                 const snapshotIds = controlIds.filter((control_id) => calculatedControlsState.entities[control_id]?.is_snapshot)
@@ -202,11 +201,11 @@ export class ControlsFacadeService {
                 await this.snapshotsFacadeService.getControlsSnapshot(snapshotIds).pipe(take(1)).toPromise();
                 return calculatedControlsState;
               }),
-              withLatestFrom(this.store.select((state) => state.snapshotState)),
+              withLatestFrom(this.store.select(SnapshotSelectors.SelectSnapshotState)),
               map(([calculatedControlsState, snapshotState]) => {
                 return controlIds.map((control_id) => {
                   const currControl = calculatedControlsState.entities[control_id];
-                  if (currControl.is_snapshot && 
+                  if (currControl.is_snapshot &&
                     snapshotState.calculatedControls.entities[currControl.snapshot_id]) {
                     return snapshotState.calculatedControls.entities[currControl.snapshot_id];
                   }
@@ -231,14 +230,16 @@ export class ControlsFacadeService {
    */
   getSingleControl(controlId: string): Observable<CalculatedControl> {
     return this.store
-      .select((state) => state.calculationState.calculatedControls.entities[controlId] as CalculatedControl)
-      .pipe(filter((control) => !!control));
+      .select(CalculationSelectors.SelectCalculatedControls)
+      .pipe(
+        map((calculatedControls) => calculatedControls.entities[controlId] as CalculatedControl),
+        filter((control) => !!control));
   }
 
   // Get Snapshot if exist otherwise get the control
   getSingleControlOrSnapshot(controlId: string): Observable<CalculatedControl> {
     return this.store
-      .select((state) => state.calculationState.calculatedControls)
+      .select(CalculationSelectors.SelectCalculatedControls)
       .pipe(
         filter((calculatedControlsState) => !!calculatedControlsState.ids.length),
         mergeMap((calculatedControlsState) => {
@@ -253,7 +254,8 @@ export class ControlsFacadeService {
   }
 
   getAreControlsLoaded(): Observable<boolean> {
-    return this.store.select((state) => state.controlsState.areAllLoaded);
+    return this.store.select(ControlSelectors.SelectControlsState)
+      .pipe(map((controlsState) => controlsState.areAllLoaded));
   }
 
   removeCustomControl(control_id: string): Promise<void> {
@@ -291,11 +293,12 @@ export class ControlsFacadeService {
 
   private setControlsByFrameworkCache(): void {
     this.controlsByFrameworkCache$ = this.store
-      .select((state) => state.controlsState.controlsByFramework)
+      .select(ControlSelectors.SelectControlsState)
       .pipe(
+        map((controlsState) => controlsState.controlsByFramework),
         switchMap((controlsByFramework) => {
           return this.store
-            .select((state) => state.calculationState.calculatedControls)
+            .select(CalculationSelectors.SelectCalculatedControls)
             .pipe(
               filter(
                 (calculatedControlsState) =>
@@ -321,11 +324,12 @@ export class ControlsFacadeService {
 
   private setAllControlsCache(): void {
     this.allControlsCache$ = this.store
-      .select((state) => state.controlsState.areAllLoaded)
+      .select(ControlSelectors.SelectControlsState)
       .pipe(
+        map(controlsState => controlsState.areAllLoaded),
         switchMap(() => {
           return this.store
-            .select((state) => state.calculationState.calculatedControls)
+            .select(CalculationSelectors.SelectCalculatedControls)
             .pipe(
               filter((calculatedControlsState) => !!calculatedControlsState.ids.length),
               map((calculatedControlsState) => Object.values(calculatedControlsState.entities))

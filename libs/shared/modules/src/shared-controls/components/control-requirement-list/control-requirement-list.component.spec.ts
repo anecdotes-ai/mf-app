@@ -5,7 +5,6 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalculatedControl } from 'core/modules/data/models';
 import { ControlRequirement } from 'core/modules/data/models/domain';
-import { State } from 'core/modules/data/store';
 import { ControlsFacadeService } from 'core/modules/data/services';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
@@ -23,7 +22,7 @@ describe('ControlRequirementListComponent', () => {
 
   let component: ControlRequirementListComponent;
   let fixture: ComponentFixture<ControlRequirementListComponent>;
-  let store: MockStore<State>;
+  let store: MockStore;
   let modalWindowService: ModalWindowService;
   let controlsFacade: ControlsFacadeService;
   let requirementCustomizationModalService: RequirementCustomizationModalService;
@@ -50,7 +49,7 @@ describe('ControlRequirementListComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(inject([MockStore], (injectedStore: MockStore<State>) => {
+  beforeEach(inject([MockStore], (injectedStore: MockStore) => {
     fixture = TestBed.createComponent(ControlRequirementListComponent);
     component = fixture.componentInstance;
     store = injectedStore;

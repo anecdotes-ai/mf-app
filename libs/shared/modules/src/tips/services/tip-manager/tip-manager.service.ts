@@ -2,9 +2,7 @@ import { HIDDEN_TIPS } from './../../constants/localstorageKeys.constants';
 import { Injectable } from '@angular/core';
 import { WindowHelperService } from 'core/services/window-helper/window-helper.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TipManagerService {
 
   constructor(private windowHelper: WindowHelperService) { }

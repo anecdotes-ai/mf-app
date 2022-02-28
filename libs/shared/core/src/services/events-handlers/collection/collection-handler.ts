@@ -9,7 +9,7 @@ import { MANUAL } from 'core/modules/data/constants';
 import { ServiceTypeEnum } from 'core/modules/data/models/domain';
 import { PluginFacadeService } from 'core/modules/data/services';
 import { EvidenceCollectionAction, LoadSpecificServiceAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
+import { ServiceSelectors } from 'core/modules/data/store';
 import { map, take } from 'rxjs/operators';
 import { EventHandler } from '../event-handler.interface';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
@@ -19,7 +19,7 @@ export class CollectionHandler implements EventHandler<PusherMessage<CollectionR
   readonly messageType = PusherMessageType.Collection;
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private pluginFacade: PluginFacadeService,
     private pluginConnectionFacade: PluginConnectionFacadeService,
     private pluginsEventService: PluginsEventService
@@ -53,7 +53,7 @@ export class CollectionHandler implements EventHandler<PusherMessage<CollectionR
       : UserEvents.EVIDENCE_COLLECTION_FAILED;
 
     const servicePulled = await this.store
-      .select((s) => s.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((state) => {
           return !!state.entities[messageObject.service_id] || state.initialized;

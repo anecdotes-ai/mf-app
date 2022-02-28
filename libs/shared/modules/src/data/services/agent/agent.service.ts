@@ -5,9 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { Agent, AgentLog } from '../../models/domain';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AgentService extends AbstractService {
   constructor(http: HttpClient, configService: AppConfigService) {
     super(http, configService);

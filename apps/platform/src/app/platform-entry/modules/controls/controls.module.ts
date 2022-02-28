@@ -100,6 +100,6 @@ const routes: Route[] = [{ path: '', component: ControlsPageComponent },
   ],
   exports: [],
   entryComponents: [],
-  providers: [ControlsMultiSelectService, ControlsSwitcherModalsService, ControlsForFilteringProvider],
+  providers: [ControlsMultiSelectService, ControlsSwitcherModalsService, ControlsForFilteringProvider, ControlsMultiSelectService],
 })
 export class ControlsModule {}

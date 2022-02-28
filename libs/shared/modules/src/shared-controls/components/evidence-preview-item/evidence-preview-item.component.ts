@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EvidenceSourcesEnum } from 'core/modules/shared-controls/models';
-import { CalculatedControl, CalculatedRequirement } from 'core/modules/data/models';
-import { CombinedEvidenceInstance, Framework } from 'core/modules/data/models/domain';
+import { CombinedEvidenceInstance } from 'core/modules/data/models/domain';
 import { DateViewTypeEnum } from 'core/modules/shared-controls/constants/dateViewType';
 
 @Component({
@@ -16,15 +15,6 @@ export class EvidencePreviewItemComponent {
   @Input() evidence: CombinedEvidenceInstance;
 
   @Input() shouldDisplayExportButton = false;
-
-  @Input()
-  framework: Framework;
-
-  @Input()
-  controlRequirement: CalculatedRequirement;
-
-  @Input()
-  controlInstance: CalculatedControl;
 
   @Input()
   searchItemAmount: number;

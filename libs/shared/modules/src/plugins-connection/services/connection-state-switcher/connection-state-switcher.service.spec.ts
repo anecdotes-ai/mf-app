@@ -7,6 +7,7 @@ import { WindowHelperService } from 'core/services/window-helper/window-helper.s
 import { TestBed } from '@angular/core/testing';
 import { ConnectionStateSwitcherService } from './connection-state-switcher.service';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 import {
   PluginConnectionStates,
   PluginConnectionStaticStateSharedContext,
@@ -19,6 +20,7 @@ describe('ConnectionStateSwitcherService', () => {
   let urlHandler: OAuthUrlHandlerService;
   let windowHelper: WindowHelperService;
   let pluginFacade: PluginConnectionFacadeService;
+  let multiAccountEventService: MultiAccountsEventService;
 
   const sharedContext: PluginConnectionStaticStateSharedContext = {
     [PluginStaticStateSharedContextInputKeys.service]: {
@@ -38,6 +40,7 @@ describe('ConnectionStateSwitcherService', () => {
         { provide: PluginNavigationService, useValue: {} },
         { provide: AuthService, useValue: {} },
         { provide: PluginsEventService, useValue: {} },
+        { provide: MultiAccountsEventService, useValue: {} }
       ],
     });
     service = TestBed.inject(ConnectionStateSwitcherService);
@@ -50,9 +53,11 @@ describe('ConnectionStateSwitcherService', () => {
   describe('Amplitude events sending', () => {
     beforeEach(() => {
       pluginsEventService = TestBed.inject(PluginsEventService);
+      multiAccountEventService = TestBed.inject(MultiAccountsEventService);
       pluginsEventService.trackConnectPluginClick = jasmine.createSpy('trackConnectPluginClick');
       pluginsEventService.trackDisconnectPluginClick = jasmine.createSpy('trackDisconnectPluginClick');
       pluginsEventService.trackUpdatePermissionClick = jasmine.createSpy('trackUpdatePermissionClick');
+      multiAccountEventService.trackMultiAccountWithPluginName = jasmine.createSpy('trackMultiAccountWithPluginName');
 
       pluginFacade = TestBed.inject(PluginConnectionFacadeService);
       pluginFacade.disconnectPlugin = jasmine.createSpy('disconnectPlugin');

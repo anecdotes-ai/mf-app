@@ -1,7 +1,4 @@
-<span *ngIf="controlName" class="font-bold">
-  {{ controlName }}
-</span>
-<span *ngIf="controlName" class="px-1 font-bold">&#47;</span>
-<span>
-  {{ requirementName }}
-</span>
+<span class="font-bold">{{ dataToDisplay[0] }}</span>
+<span *ngIf="dataToDisplay[1]" class="px-1 font-bold">&#47;</span>
+<span>{{ dataToDisplay[1] }}</span>
+

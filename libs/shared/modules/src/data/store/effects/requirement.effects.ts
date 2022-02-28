@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { RequirementEventService } from 'core';
 import { EvidenceCollectionTypeEnum } from 'core/modules/shared-controls/models/evidence-collection-modal-params';
 import { EvidenceLike, isRequirement, ResourceType } from '../../models';
-import { removeItemFromList } from 'core/utils';
+import { distinct, flattenAndDistinctArrays, removeItemFromList } from 'core/utils';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, repeat, take, tap, withLatestFrom } from 'rxjs/operators';
 import {
@@ -34,17 +34,16 @@ import {
   SendRequirementTaskSlackAction,
   UpdateControlAction,
 } from '../actions';
-import { State } from '../index';
 import { RequirementsState } from '../reducers';
 import {
   AttachRequirementPolicy,
   BatchUpdateRequirements,
-  EditRequirementAction,
   RemoveRequirementPolicy,
   RequirementAddedAction,
   RequirementBatchUpdated,
 } from './../actions/requirements.actions';
-import { createRequirementSelector } from '../selectors';
+import { ControlSelectors, RequirementSelectors } from '../selectors';
+import { ControlRequirement, Requirement } from '../../models/domain';
 
 const NO_ACTION = 'NO_ACTION';
 
@@ -52,21 +51,22 @@ const NO_ACTION = 'NO_ACTION';
 export class RequirementEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<State>,
+    private store: Store,
     private evidenceHttpService: EvidenceService,
     private requirementHttpService: RequirementService,
     private operationsTrackerService: OperationsTrackerService,
     private slackService: SlackService,
-    private requirementEventService: RequirementEventService,
+    private requirementEventService: RequirementEventService
   ) {}
 
   @Effect()
   requirementStateChanged$ = this.store
-    .select((x) => x.requirementState.controlRequirements.entities)
+    .select(RequirementSelectors.SelectRequirements)
     .pipe(
-      map((allReqsDictionary) => {
+      filter(reqs => !!reqs),
+      map((allRequirements) => {
         const policiesIndex = {};
-        Object.values(allReqsDictionary).forEach((req) => {
+        allRequirements.forEach((req) => {
           req.requirement_related_policies_ids?.forEach((policyId) => {
             if (!policiesIndex[policyId]) {
               policiesIndex[policyId] = [];
@@ -83,8 +83,9 @@ export class RequirementEffects {
   // it maps between requirements and controls so that updating a requirement would be faster
   @Effect()
   controlStateChanged$ = this.store
-    .select((x) => x.controlsState.controls.entities)
+    .select(ControlSelectors.SelectControlsState)
     .pipe(
+      map((controlsState) => controlsState.controls.entities),
       map((allControlsDictionary) => {
         const requirementsIndex = {};
         Object.values(allControlsDictionary).forEach((ctrl) => {
@@ -105,13 +106,13 @@ export class RequirementEffects {
   removeRequirement$: Observable<Action> = this.actions$.pipe(
     ofType(RequirementsActionType.RemoveRequirement),
     mergeMap((action: RemoveRequirementAction) =>
-      this.store.pipe(
+      this.store.select(RequirementSelectors.SelectRequirementState).pipe(
         take(1),
-        map((state) => ({ state, action }))
+        map((requirementState) => ({ requirementState, action }))
       )
     ),
     mergeMap((x) => {
-      const requirementRelatedControls = x.state.requirementState.requirementControlsMapping[x.action.requirement_id];
+      const requirementRelatedControls = x.requirementState.requirementControlsMapping[x.action.requirement_id];
       const isLastRequirement = requirementRelatedControls.length === 1;
 
       let call$: Observable<any>;
@@ -122,7 +123,7 @@ export class RequirementEffects {
         const newRequirementRelatedControls = requirementRelatedControls.filter(
           (reqId) => reqId !== x.action.control_id
         );
-        call$ = this.requirementHttpService.editRequirement(x.action.requirement_id, {
+        call$ = this.requirementHttpService.patchRequirement(x.action.requirement_id, {
           requirement_related_controls: newRequirementRelatedControls,
         });
       }
@@ -149,7 +150,7 @@ export class RequirementEffects {
     ofType(RequirementsActionType.ControlRequirementApplicabilityChange),
     mergeMap((action: ControlRequirementApplicabilityChangeAction) => {
       return this.requirementHttpService.changeControlRequirementApplicabilityState(action.requirement).pipe(
-        withLatestFrom(this.store.select((state) => state.requirementState)),
+        withLatestFrom(this.store.select(RequirementSelectors.SelectRequirementState)),
         map((x) => {
           const response = x[0];
           const state = x[1];
@@ -253,7 +254,7 @@ export class RequirementEffects {
     ofType(EvidenceActionType.EvidenceLinkRemoved),
     mergeMap((action: EvidenceLinkRemovedAction) =>
       this.store
-        .select((state) => state.requirementState)
+        .select(RequirementSelectors.SelectRequirementState)
         .pipe(
           take(1),
           map((state: RequirementsState) => {
@@ -280,7 +281,7 @@ export class RequirementEffects {
     ofType(RequirementsActionType.AttachPolicyToRequirement),
     mergeMap((action: AttachRequirementPolicy) =>
       this.requirementHttpService.attachPolicyToRequirement(action.requirement.requirement_id, action.policyId).pipe(
-        withLatestFrom(this.store.select((state) => state.requirementState.requirementControlsMapping)),
+        withLatestFrom(this.store.select(RequirementSelectors.SelectRequirementState).pipe(map((requirementState) => requirementState.requirementControlsMapping))),
         mergeMap(([_, reqControlsMapping]) => {
           if (!action.requirement) {
             return [{ type: NO_ACTION }];
@@ -317,12 +318,14 @@ export class RequirementEffects {
     ofType(RequirementsActionType.RemovePolicyFromRequirement),
     mergeMap((action: RemoveRequirementPolicy) =>
       this.requirementHttpService.deletePolicyFromRequirement(action.requirement.requirement_id, action.policyId).pipe(
-        withLatestFrom(this.store.select(s => s.requirementState.requirementControlsMapping[action.requirement.requirement_id])),
+        withLatestFrom(
+          this.store.select(RequirementSelectors.SelectRequirementState).pipe(map((requirementState) => requirementState.requirementControlsMapping[action.requirement.requirement_id]))
+        ),
         map(([_, controlIds]) => {
           if (!action.requirement) {
             return { type: NO_ACTION };
           }
-          controlIds?.forEach(controlId => this.store.dispatch(new UpdateControlAction(controlId)));
+          controlIds?.forEach((controlId) => this.store.dispatch(new UpdateControlAction(controlId)));
 
           return new ControlRequirementBatchUpdatedAction([
             {
@@ -374,7 +377,7 @@ export class RequirementEffects {
       const { requirement_id, ...requirement } = action.payload.requirement;
 
       if (action.payload.isExistingRequirement) {
-        return this.requirementHttpService.editRequirement(requirement_id, requirement);
+        return this.requirementHttpService.patchRequirement(requirement_id, action.payload.requirement);
       } else {
         return this.requirementHttpService.addRequirement(requirement);
       }
@@ -396,33 +399,36 @@ export class RequirementEffects {
     repeat()
   );
 
-  @Effect()
-  editRequirement$ = this.actions$.pipe(
-    ofType(RequirementsActionType.EditRequirement),
-    withLatestFrom(this.store.select((s) => s.requirementState.requirementControlsMapping)),
-    mergeMap(([action, requirementControlsMapping]) => {
-      const editRequirementAction = action as EditRequirementAction;
-      const { requirement_id, ...requirement } = editRequirementAction.updatedRequirement;
-      return this.requirementHttpService
-        .editRequirement(requirement_id, {
-          requirement_help: requirement.requirement_help,
-          requirement_description: requirement.requirement_name,
-          requirement_related_controls:
-            requirementControlsMapping[editRequirementAction.updatedRequirement.requirement_id],
-          requirement_related_evidences: [...requirement.requirement_evidence_ids],
-        })
-        .pipe(map((res) => ({ res, actionRequirement: editRequirementAction.updatedRequirement })));
-    }),
-    map(({ res, actionRequirement }) => new ControlRequirementBatchUpdatedAction([actionRequirement])),
-    tap(() => {
-      this.operationsTrackerService.trackSuccess(TrackOperations.EDIT_REQUIREMENT);
-    }),
-    catchError((error) => {
-      this.operationsTrackerService.trackError(TrackOperations.EDIT_REQUIREMENT, new Error());
-      return EMPTY;
-    }),
-    repeat()
-  );
+  patchRequirement$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(RequirementsAdapterActions.patchRequirement),
+      mergeMap((action) => {
+        return this.requirementHttpService.patchRequirement(action.requirement_id, action.requirement).pipe(
+          tap(() => {
+            this.operationsTrackerService.trackSuccess(action.requirement_id, TrackOperations.PATCH_REQUIREMENT);
+          }),
+          catchError((error) => {
+            this.operationsTrackerService.trackError(
+              action.requirement_id,
+              new Error(),
+              TrackOperations.PATCH_REQUIREMENT
+            );
+            return EMPTY;
+          }),
+          withLatestFrom(this.store.select(RequirementSelectors.SelectRequirementControlsMapping)),
+          tap(([_, mapping]) => {
+            this.store.dispatch(new BatchControlsUpdateAction(mapping[action.requirement_id]));
+          }),
+          map((_) => RequirementsAdapterActions.controlRequirementBatchUpdated({
+            controlRequirementBatch: [
+              this.convertReqToControlReq(action.requirement_id, action.requirement)
+            ]
+          })),
+        );
+      }),
+      repeat()
+    );
+  });
 
   @Effect({ dispatch: false })
   createEvidenceURL$ = this.actions$.pipe(
@@ -448,8 +454,18 @@ export class RequirementEffects {
     ofType(EvidenceAdapterActions.evidencesUploaded),
     filter((action) => action.targetResourceParams?.resourceType === ResourceType.Requirement),
     mergeMap((action) => {
-      return this.store.select(createRequirementSelector(action.targetResourceParams.resourceId), take(1)).pipe(
-        tap((req) => this.store.dispatch(new EditRequirementAction({ requirement_id: action.targetResourceParams.resourceId, requirement_evidence_ids: [...req.requirement_evidence_ids, ...action.evidences.map(({ id }) => id)] } )))
+      return this.store.select(RequirementSelectors.CreateRequirementSelector(action.targetResourceParams.resourceId)).pipe(
+        tap((req) =>
+          this.store.dispatch(
+            RequirementsAdapterActions.patchRequirement({
+              requirement_id: action.targetResourceParams.resourceId,
+              requirement: {
+                requirement_related_evidences: [...req.requirement_evidence_ids, ...action.evidences.map(({ id }) => id)],
+              },
+            })
+          )
+        ),
+        take(1)
       );
     })
   );
@@ -469,10 +485,10 @@ export class RequirementEffects {
           action.targetResourceParams.resourceId,
           action.frameworkId,
           action.controlId,
-          evidence.service_display_name,
+          evidence.service_display_name
         );
       });
-    }),
+    })
   );
 
   @Effect({ dispatch: false })
@@ -490,10 +506,10 @@ export class RequirementEffects {
           action.targetResourceParams.resourceId,
           action.frameworkId,
           action.controlId,
-          evidence.name,
+          evidence.name
         );
       });
-    }),
+    })
   );
 
   @Effect({ dispatch: false })
@@ -501,7 +517,12 @@ export class RequirementEffects {
     ofType(EvidenceActionType.AddEvidenceFromTicket),
     mergeMap((action: AddEvidenceFromTicketAction) =>
       this.requirementHttpService
-        .createRequirementTicketingEvidence(action.requirement_id, action.service_id, action.service_instance_id, action.tickets)
+        .createRequirementTicketingEvidence(
+          action.requirement_id,
+          action.service_id,
+          action.service_instance_id,
+          action.tickets
+        )
         .pipe(
           tap((data) =>
             this.operationsTrackerService.trackSuccessWithData(TrackOperations.ADD_EVIDENCE_FROM_TICKET, data)
@@ -516,4 +537,18 @@ export class RequirementEffects {
         )
     )
   );
+
+  private convertReqToControlReq(requirement_id: string, requirement: Requirement): ControlRequirement {
+    const controlRequirement: ControlRequirement = { requirement_id };
+    if (requirement.requirement_help) {
+      controlRequirement['requirement_help'] = requirement.requirement_help;
+    }
+    if (requirement.requirement_description) {
+      controlRequirement['requirement_name'] = requirement.requirement_description;
+    }
+    if (requirement.requirement_related_evidences) {
+      controlRequirement['requirement_evidence_ids'] = requirement.requirement_related_evidences;
+    }
+    return controlRequirement;
+  }
 }

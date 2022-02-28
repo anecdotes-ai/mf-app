@@ -4,9 +4,7 @@ import { RoleEnum } from './../../../auth-core/models/domain';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class InviteUserEventsService {
   constructor(private userEventService: UserEventService) {}
 

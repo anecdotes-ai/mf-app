@@ -8,7 +8,7 @@ import { FocusingResourcesMap } from '../../types';
 
 @Injectable()
 export class FocusingService {
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store) {}
 
   /** Focuses resources specified in the passed object. @see FocusingResourcesMap */
   focusResources(focusingResourcesMap: FocusingResourcesMap): void {

@@ -52,9 +52,7 @@ export interface AmplitudeUserPropertiesEntity {
   ['Account type']: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AmplitudeService implements Initializable {
   private _client: Promise<AmplitudeClient>;
   private areUserPropertiesSet: boolean;

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class CsvFormatterService {
   createCsvBlob(rows: any[][], headers?: string[]): Blob {
     const headersString = `${headers?.join(',')}\n`;

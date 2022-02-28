@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { State, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Note } from '../../models/domain';
 import { ResourceType } from 'core/modules/data/models';
 import { OperationsTrackerService, TrackOperations } from 'core/modules/data/services';
@@ -28,7 +28,7 @@ export class NoteEffects {
     private actions$: Actions,
     private noteService: NoteService,
     private operationsTrackerService: OperationsTrackerService,
-    private store: Store<State<any>>
+    private store: Store
   ) {}
 
   @Effect()

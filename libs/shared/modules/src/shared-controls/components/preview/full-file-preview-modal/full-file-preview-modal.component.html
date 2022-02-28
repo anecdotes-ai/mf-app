@@ -1,35 +1,57 @@
 <div class="full-data-modal">
+  <app-evidence-preview-header
+    *ngIf="headerDataToDisplay"
+    [dataToDisplay]="headerDataToDisplay">
+  </app-evidence-preview-header>
+
   <div class="evidence-element">
-    <app-evidence-label *ngIf="evidence" [inPluginPage]='false' [evidenceComply]="true" [inEvidencePool]="false"
-      [evidence]="evidence" [viewPreviewMode]="false">
+    <app-evidence-label
+      *ngIf="evidence"
+      [inPluginPage]='false'
+      [evidenceComply]="true"
+      [inEvidencePool]="false"
+      [evidence]="evidence"
+      [viewPreviewMode]="false">
     </app-evidence-label>
+
     <div class="evidence-attractive-elements-section">
       <section class="right-evidence-section">
         <app-metadata-view
           *ngIf="evidence?.evidence_uploaded_by"
           [metadataValue]="'@' + evidence?.evidence_uploaded_by"
-          [metadataDescriptionTranslationKey]="buildTranslationKey('uploadedBy')"
-        ></app-metadata-view>
+          [metadataDescriptionTranslationKey]="buildTranslationKey('uploadedBy')">
+        </app-metadata-view>
 
         <app-date-view
-          class="evidence-property-value-description"
+          *ngIf="evidence?.evidence_last_modified_time"
+          class="flex"
+          [date]="evidence.evidence_last_modified_time"
+          [dateFormat]="dateFormat"
+          [descriptionTranslationKey]="buildTranslationKey('lastModified')">
+        </app-date-view>
+
+        <app-date-view
+          *ngIf="evidence"
+          class="evidence-property-value-description flex"
           [date]="evidence?.evidence_collection_timestamp"
-          [descriptionTranslationKey]="buildTranslationKey('manualUploadedEvidence')"
-        >
+          [descriptionTranslationKey]="descriptionTranslationKey">
         </app-date-view>
       </section>
     </div>
   </div>
+
   <div *ngIf="evidence && evidence.evidence_tip" class="evidence-tip-wrapper">
     <app-tip [tipId]="evidence.evidence_id" [tipType]="tipTypes.TIP">
       <app-text [text]="evidence.evidence_tip"></app-text>
     </app-tip>
   </div>
+
   <div class="actions-group">
     <app-button [clickOnEnter]="true" class="main medium mulish ml-auto" (click)="downloadEvidence()">
       {{ buildTranslationKey('downloadEvidence') | translate }}
     </app-button>
   </div>
+
   <div class="file-wrapper" [ngClass]="{ 'with-tip': evidence?.evidence_tip }" data-private>
     <perfect-scrollbar>
       <app-file-viewer *ngIf="file" [file]="file" [useScroll]="true"></app-file-viewer>

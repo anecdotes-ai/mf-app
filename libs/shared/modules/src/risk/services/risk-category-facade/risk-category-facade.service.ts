@@ -6,11 +6,10 @@ import { switchMap } from 'rxjs/operators';
 import { RiskCategory } from '../../models';
 import { RisksActions } from '../../store/actions/risks.actions';
 import { RiskCategorySelectors, RiskSelectors } from '../../store/selectors';
-import { RiskDataState } from '../../store/state';
 
 @Injectable()
 export class RiskCategoryFacadeService {
-  constructor(private store: Store<RiskDataState>, private actionDispatcher: ActionDispatcherService) {}
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService) {}
 
   getAllRiskCategories(): Observable<RiskCategory[]> {
     return this.store.select(RiskCategorySelectors.selectAll);

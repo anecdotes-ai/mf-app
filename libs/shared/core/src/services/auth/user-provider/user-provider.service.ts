@@ -5,9 +5,7 @@ import { map, shareReplay, take, switchMapTo, switchMap, tap, startWith } from '
 import { AuthService } from 'core/modules/auth-core/services/auth/auth.service';
 import { UserClaims } from 'core/modules/auth-core/models/user-claims';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserProviderService {
   private userCache: Observable<UserClaims>;
   private updateSubject = new Subject();

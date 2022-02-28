@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Actions } from '@ngrx/effects';
-import { State, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { LoaderManagerService } from 'core/services';
 import { filter, take } from 'rxjs/operators';
 import { InitializeAppAction } from '../../store/actions';
@@ -10,7 +10,7 @@ import { selectInitState } from '../../store/selectors';
 @Injectable()
 export class DataInitalizationCanActivate implements CanActivate {
   constructor(
-    private store: Store<State<any>>,
+    private store: Store,
     private actions$: Actions,
     private loaderManager: LoaderManagerService
   ) {}

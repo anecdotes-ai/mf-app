@@ -4,9 +4,7 @@ import { CustomerFacadeService } from 'core/modules/data/services';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AccountFeaturesService {
   constructor(private customerFacadeService: CustomerFacadeService) {}
 

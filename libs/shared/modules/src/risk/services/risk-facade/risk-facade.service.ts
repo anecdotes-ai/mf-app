@@ -11,12 +11,11 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { DetailedRisk, EffectEnum, Risk, RiskCategory, RiskSource, StrategyEnum } from '../../models';
 import { RisksActions } from '../../store/actions/risks.actions';
 import { RiskSelectors } from '../../store/selectors';
-import { RiskDataState } from '../../store/state';
 
 @Injectable()
 export class RiskFacadeService {
   constructor(
-    private store: Store<RiskDataState>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
     private evidenceFacade: EvidenceFacadeService,
     private riskManagerEventService: RiskManagerEventService,

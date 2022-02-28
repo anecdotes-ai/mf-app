@@ -4,17 +4,13 @@
     [viewPreviewMode]="false"
     [evidenceComply]="evidence.evidence_gap === null"
     [inEvidencePool]="true"
-    [frameworksNames]="evidenceRelatedFrameworksNames$ | async"
     [eventSource]="evidenceSource"
-    [controlInstance]="evidence.related_control"
-    [controlRequirement]="evidence.related_requirement"
     class="max-w-5/12"
   >
   </app-evidence-label>
   <div class="right-content">
     <div class="evidence-related-frameworks">
       <app-linked-controls-label
-        *ngIf="evidenceRelatedFrameworksNames$ | async"
         [evidenceId]="evidence.evidence_id"
       >
       </app-linked-controls-label>

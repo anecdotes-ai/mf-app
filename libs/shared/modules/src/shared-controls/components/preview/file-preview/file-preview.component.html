@@ -14,14 +14,10 @@
 <ng-template #filePreview>
   <app-evidence-preview-header
     *ngIf="hostHaveControlHeader"
-    [controlName]="controlInstance?.control_name"
-    [requirementName]="requirement?.requirement_name"
+    [dataToDisplay]="headerDataToDisplay"
   ></app-evidence-preview-header>
 
   <app-evidence-preview-item
-    [controlRequirement]="requirement"
-    [controlInstance]="controlInstance"
-    [framework]="framework"
     [evidence]="evidence"
     [class.pr-16]="eventSource === evidenceSources.EvidencePool"
   ></app-evidence-preview-item>
@@ -47,13 +43,9 @@
 <ng-template #fallback>
   <app-evidence-preview-header
     *ngIf="eventSource === evidenceSources.Controls"
-    [controlName]="controlInstance?.control_name"
-    [requirementName]="requirement?.requirement_name"
+    [dataToDisplay]="headerDataToDisplay"
   ></app-evidence-preview-header>
   <app-evidence-preview-item
-    [controlRequirement]="requirement"
-    [controlInstance]="controlInstance"
-    [framework]="framework"
     [evidence]="evidence"
     [class.pr-16]="eventSource === evidenceSources.EvidencePool"
   ></app-evidence-preview-item>

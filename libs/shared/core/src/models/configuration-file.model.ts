@@ -24,6 +24,7 @@ export interface RedirectUrls {
   complienceProgressArticle?: string;
   intercomJiraCustomizationHelp?: string;
   intercomZendeskCustomizationHelp?: string;
+  intercomJiraServerCustomizationHelp?: string;
   multiAccountsPage?: string;
   auditorsPortal?: string;
 }
@@ -97,7 +98,7 @@ export interface EndpointsConfiguration {
   updateRequirementEvidence: string;
   removeRequirement: string;
   addRequirement: string;
-  editRequirement: string;
+  patchRequirement: string;
   addPolicyToRequirement: string;
   deletePolicyFromRequirement: string;
   getCustomer: string;

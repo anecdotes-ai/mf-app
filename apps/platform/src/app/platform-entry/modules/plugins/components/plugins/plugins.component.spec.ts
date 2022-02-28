@@ -11,7 +11,7 @@ import { allPluginsTabId, PluginFamily, PluginsComponent } from './plugins.compo
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { InitServicesStateAction, State } from 'core/modules/data/store';
+import { InitServicesStateAction, ServiceSelectors, DataFeatureState } from 'core/modules/data/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {
   RouterExtensionService,
@@ -116,7 +116,7 @@ describe('PluginsComponent', () => {
 
   let fixture: ComponentFixture<PluginsComponent>;
   let component: PluginsComponent;
-  let mockStore: MockStore<State>;
+  let mockStore: MockStore<DataFeatureState>;
   let fakePlugins: Service[];
   let loaderManager: LoaderManagerService;
   let messageBus: MessageBusService;
@@ -209,13 +209,12 @@ describe('PluginsComponent', () => {
       (x) => ({ service: x })
     );
 
-    mockStore.setState({
-      servicesState: {
-        entities: pluginsDictionary as Dictionary<ServiceStoreEntity>,
-        ids: fakePlugins.map((x) => x.service_id),
-        initialized: true,
-      },
+    mockStore.overrideSelector(ServiceSelectors.SelectServiceState, {
+      entities: pluginsDictionary as Dictionary<ServiceStoreEntity>,
+      ids: fakePlugins.map((x) => x.service_id),
+      initialized: true,
     });
+
     dataSearchComponentMock = {
       search: new EventEmitter(),
     } as DataSearchComponent;
@@ -603,12 +602,10 @@ describe('PluginsComponent', () => {
         (x) => ({ service: x })
       );
 
-      mockStore.setState({
-        servicesState: {
-          entities: pluginsDictionary1 as Dictionary<ServiceStoreEntity>,
-          ids: fakePlugins.map((x) => x.service_id),
-          initialized: true,
-        },
+      mockStore.overrideSelector(ServiceSelectors.SelectServiceState, {
+        entities: pluginsDictionary1 as Dictionary<ServiceStoreEntity>,
+        ids: fakePlugins.map((x) => x.service_id),
+        initialized: true,
       });
 
       mockStore.refreshState();

@@ -1,6 +1,6 @@
 import { MultipleAccountsFieldsEnum } from './../../../models/multiple-accounts-fields.enum';
 import { Dictionary } from '@ngrx/entity';
-import { UserEventService } from 'core/services/user-event/user-event.service';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 import { PluginFacadeService } from 'core/modules/data/services/facades/plugin-facade/plugin-facade.service';
 import { CollectionResult } from 'core/models/collection-result.model';
 import {
@@ -27,7 +27,7 @@ import { Injectable } from '@angular/core';
 import { NEVER, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, map, take, switchMap, filter } from 'rxjs/operators';
-import { pluginConnectionStateSelector, PluginsConnectionState } from '../../../store';
+import { pluginConnectionStateSelector } from '../../../store';
 import { InstallServiceAction, ServiceUpdated } from 'core/modules/data/store';
 import { PluginsDataService } from '../../plugins-data-service/plugins.data.service';
 import { PusherMessageType } from 'core/models';
@@ -42,12 +42,12 @@ export class PluginConnectionFacadeService {
   collectionHandlingDone = new Set<string>();
 
   constructor(
-    private store: Store<PluginsConnectionState>,
+    private store: Store,
     private pluginNotificationSenderService: PluginNotificationSenderService,
     private actionDispatcher: ActionDispatcherService,
     private pluginDataService: PluginsDataService,
     private pluginsFacade: PluginFacadeService,
-    private userEventService: UserEventService,
+    private multiAccountsEventService: MultiAccountsEventService,
     private pluginsEventService: PluginsEventService
   ) { }
 
@@ -192,6 +192,13 @@ export class PluginConnectionFacadeService {
     // In case if it's OAUTH plugin, it's also ok, as this type of services don't have form the operations will be resolved also correctly
     if (!instance_id) {
       instance_id = (await this.getCurrentSelectedInstance(service).pipe(take(1)).toPromise()).instance_id;
+    }
+
+    if (service.service_multi_account) {
+      this.multiAccountsEventService.trackEditAccount(
+        service.service_id,
+        (secrets['service_instance_display_name'] ? secrets['service_instance_display_name'] : null)
+      );
     }
 
     if (this.isServiceOAUTHTyped(service)) {

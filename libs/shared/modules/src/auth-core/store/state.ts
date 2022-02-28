@@ -1,5 +1,5 @@
 import * as t from './reducers';
-import { ActionReducerMap, combineReducers, compose, createFeatureSelector, createSelector } from '@ngrx/store';
+import { ActionReducerMap, combineReducers, compose, createFeatureSelector } from '@ngrx/store';
 
 export const featureKey = 'auth';
 
@@ -12,11 +12,6 @@ export const reducers: ActionReducerMap<AuthState> = {
 };
 
 export const authStateFeatureSelector = createFeatureSelector<AuthState>(featureKey);
-
-export const userStateSelector = createSelector(
-  authStateFeatureSelector,
-  (state: AuthState) => state.userState
-);
 
 // tslint:disable-next-line:typedef
 export function store(state: any, action: any): AuthState {

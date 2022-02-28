@@ -10,8 +10,7 @@
   </div>
 
   <app-evidence-preview-header
-    [controlName]="controlInstance.control_name"
-    [requirementName]="controlRequirement.requirement_name"
+    [dataToDisplay]="headerDataToDisplay"
   ></app-evidence-preview-header>
 
   <ng-container *ngTemplateOutlet="notSupportedPreview ? fallbackPolicy : filePreviewPolicy"></ng-container>
@@ -57,10 +56,7 @@
     <app-evidence-label
       [evidenceComply]="evidenceComply"
       [evidence]="evidenceLike.evidence"
-      [framework]="framework"
       [eventSource]="evidenceSources.FullData"
-      [controlInstance]="controlInstance"
-      [controlRequirement]="controlRequirement"
       [resourceType]="evidenceLike.resourceType"
       [policyId]="evidenceLike.id"
     >
@@ -128,6 +124,7 @@
   <perfect-scrollbar [style.height]="'min-content'">
     <app-policy-approval
       class="pointer-events-none"
+      [policyId]="policy.policy_id"
       [policy]="policy"
       [policyContext]="true"
     ></app-policy-approval>

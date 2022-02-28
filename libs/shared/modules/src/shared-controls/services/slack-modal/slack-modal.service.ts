@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoadSpecificServiceAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
+import { ServiceSelectors } from 'core/modules/data/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ServiceStatusEnum } from 'core/modules/data/models/domain';
@@ -12,15 +12,13 @@ export enum CheckSendSlackTaskRequestStatus {
   INITIAL_REQUEST,
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SlackModalService {
   private slackModalCache$: Observable<CheckSendSlackTaskRequestStatus>;
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store) {
     this.slackModalCache$ = this.store
-      .select((state) => state.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((state) => {
           const slackPluginInStore = state.entities['slack'] ? state.entities['slack'].service : null;

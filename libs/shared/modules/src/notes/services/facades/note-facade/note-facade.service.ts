@@ -13,7 +13,7 @@ import { buildNoteId } from '../../../store/utils';
 @Injectable()
 export class NoteFacadeService {
   constructor(
-    private store: Store<State<any>>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
     private requirementFacade: RequirementsFacadeService,
     private controlsFacade: ControlsFacadeService,
@@ -22,8 +22,9 @@ export class NoteFacadeService {
 
   getNote(resource_type: ResourceType, resource_id: string): Observable<Note> {
     return this.store
-      .select((x) => selectNoteState(x).entities[buildNoteId(resource_type, resource_id)])
+      .select(selectNoteState)
       .pipe(
+        map(noteState => noteState.entities[buildNoteId(resource_type, resource_id)]),
         tap((resourcePlaceholder) => {
           if (!resourcePlaceholder) {
             // if there is no resource placeholder in store we have to try to fetch note for the given resource

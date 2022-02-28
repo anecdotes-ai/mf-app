@@ -53,7 +53,6 @@ import {
   ChangeApprovalAction,
   ControlRequirementApplicabilityChangeAction,
   DismissRequirementTaskSlackAction,
-  State,
 } from 'core/modules/data/store';
 import { SubscriptionDetacher } from 'core/utils';
 import { Observable } from 'rxjs';
@@ -287,7 +286,7 @@ export class ControlRequirementComponent implements OnInit, OnChanges, OnDestroy
     private modalWindowService: ModalWindowService,
     private operationsTrackerService: OperationsTrackerService,
     private cd: ChangeDetectorRef,
-    private store: Store<State>,
+    private store: Store,
     private router: Router,
     private slackModalService: SlackModalService,
     private loaderManagerService: LoaderManagerService,

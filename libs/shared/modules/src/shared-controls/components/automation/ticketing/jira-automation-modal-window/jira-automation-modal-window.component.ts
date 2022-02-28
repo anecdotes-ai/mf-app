@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import {
   DropdownControl,
 } from 'core/models';
 import {
-  AppConfigService,
   MessageBusService,
   WindowHelperService,
   EvidenceCollectionMessages
@@ -34,7 +33,9 @@ export const JiraAutomationModalWindowComponentInputFields = {
   pluginData: 'pluginData',
   controlRequirement: 'controlRequirement',
   controlInstance: 'controlInstance',
-  framework: 'framework'
+  framework: 'framework',
+  translationKey: 'translationKey',
+  articleUrl: 'articleUrl'
 };
 
 interface IssueType {
@@ -75,6 +76,12 @@ export class JiraAutomationModalWindowComponent implements OnDestroy {
   @Input(JiraAutomationModalWindowComponentInputFields.framework)
   framework: Framework;
 
+  @Input(JiraAutomationModalWindowComponentInputFields.translationKey)
+  translationKey: string;
+
+  @Input(JiraAutomationModalWindowComponentInputFields.articleUrl)
+  articleUrl: string;
+
   get isValid(): boolean {
     return this.form.valid;
   }
@@ -83,29 +90,7 @@ export class JiraAutomationModalWindowComponent implements OnDestroy {
 
   buildTranslationKeyByTicketingRoot = buildTranslationKeyByTicketingRoot;
 
-  form = new DynamicFormGroup({
-    project: new DropdownControl({
-      initialInputs: {
-        data: [],
-        searchEnabled: true,
-        displayValueSelector: (project: Project) => project.name,
-        searchFieldPlaceholder: buildTranslationKeyByTicketingRoot('search'),
-        placeholderTranslationKey: this.buildTranslationKey('selectProject'),
-      },
-      validators: [Validators.required],
-    }),
-    issueType: new DropdownControl({
-      initialInputs: {
-        isDisabled: true,
-        data: [],
-        displayValueSelector: (issue: IssueType) => issue.name,
-        searchEnabled: true,
-        searchFieldPlaceholder: buildTranslationKeyByTicketingRoot('search'),
-        placeholderTranslationKey: this.buildTranslationKey('issueType'),
-      },
-      validators: [Validators.required],
-    }),
-  });
+  form: any;
 
   tabModel$: Subject<TabModel[]> = new Subject();
   isLoading$ = new BehaviorSubject<boolean>(false);
@@ -117,13 +102,36 @@ export class JiraAutomationModalWindowComponent implements OnDestroy {
     private componentsSwitcher: ComponentSwitcherDirective,
     private pluginsMetaFacade: PluginsMetaFacadeService,
     private modalWindowService: ModalWindowService,
-    private appConfig: AppConfigService,
     private cd: ChangeDetectorRef,
     private evidencesFacade: EvidenceFacadeService,
     private pluginFacadeService: PluginFacadeService
   ) { }
 
   ngOnInit(): void {
+    this.form = new DynamicFormGroup({
+      project: new DropdownControl({
+        initialInputs: {
+          data: [],
+          searchEnabled: true,
+          displayValueSelector: (project: Project) => project.name,
+          searchFieldPlaceholder: buildTranslationKeyByTicketingRoot('search'),
+          placeholderTranslationKey: this.buildTranslationKey('selectProject'),
+        },
+        validators: [Validators.required],
+      }),
+      issueType: new DropdownControl({
+        initialInputs: {
+          isDisabled: true,
+          data: [],
+          displayValueSelector: (issue: IssueType) => issue.name,
+          searchEnabled: true,
+          searchFieldPlaceholder: buildTranslationKeyByTicketingRoot('search'),
+          placeholderTranslationKey: this.buildTranslationKey('issueType'),
+        },
+        validators: [Validators.required],
+      }),
+    });
+
     this.pluginFacadeService.getServiceById(this.pluginData.service_id, true)
       .pipe(take(1), switchMap((res) => this.pluginsMetaFacade
         .getServiceMetadata(res.service_id, res.service_instances_list[0].service_instance_id)),
@@ -131,7 +139,7 @@ export class JiraAutomationModalWindowComponent implements OnDestroy {
       .subscribe((meta) => {
         this.form.items.project.inputs.data = meta?.projects;
         this.setupDependencies();
-      });
+    });
   }
 
   ngAfterViewInit(): void {
@@ -143,11 +151,11 @@ export class JiraAutomationModalWindowComponent implements OnDestroy {
   }
 
   buildTranslationKey(relativeKey: string): string {
-    return `${TicketingModalsCommonTranslationRootKey}.jiraAutomationModal.${relativeKey}`;
+    return `${TicketingModalsCommonTranslationRootKey}.${this.translationKey}.${relativeKey}`;
   }
 
   openArticle(): void {
-    this.windowHelperService.openUrlInNewTab(this.appConfig.config.redirectUrls.intercomJiraCustomizationHelp);
+    this.windowHelperService.openUrlInNewTab(this.articleUrl);
   }
 
   backButtonHandler(): void {

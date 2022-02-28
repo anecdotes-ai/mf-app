@@ -8,7 +8,7 @@ import { PusherMessageType } from 'core/models/pusher-message-type.model';
 import { PusherMessage } from 'core/models/pusher-message.model';
 import { UserEvents } from 'core/models/user-events/user-event-data.model';
 import { LoadSpecificServiceAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
+import { ServiceSelectors } from 'core/modules/data/store';
 import { filter, map, take } from 'rxjs/operators';
 import { EventHandler } from '../event-handler.interface';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
@@ -18,7 +18,7 @@ export class ConnectivityHandler implements EventHandler<PusherMessage<Connectiv
   readonly messageType = PusherMessageType.Connectivity;
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private pluginConnectionFacade: PluginConnectionFacadeService,
     private pluginEventService: PluginsEventService
   ) { }
@@ -40,7 +40,7 @@ export class ConnectivityHandler implements EventHandler<PusherMessage<Connectiv
 
   private async trackUserEvent(messageObject: ConnectivityResult): Promise<void> {
     const servicePulled = await this.store
-      .select((s) => s.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((state) => {
           return state.initialized || !!state.entities[messageObject.service_id];
@@ -50,7 +50,7 @@ export class ConnectivityHandler implements EventHandler<PusherMessage<Connectiv
       .toPromise();
 
     this.store
-      .select((x) => x.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         filter((state) => !!state?.entities && !!state?.entities[messageObject.service_id]?.service),
         map((state) => state.entities[messageObject.service_id].service),

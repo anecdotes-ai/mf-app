@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 import { SendSlackMessage, SlackChannel, SlackUser } from '../../models/slack';
 import { AbstractService } from '../abstract-http/abstract-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SlackService extends AbstractService {
   constructor(http: HttpClient, configService: AppConfigService) {
     super(http, configService);

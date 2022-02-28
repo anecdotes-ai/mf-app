@@ -6,7 +6,7 @@ import { CoreModule } from 'core';
 import { TranslateModule } from '@ngx-translate/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { FrameworkService } from 'core/modules/data/services';
-import { DashboardHeaderContentResolverService } from './services';
+import { DashboardCategoriesResolverService, DashboardFrameworksResolverService, DashboardHeaderContentResolverService } from './services';
 import { DashboardHeaderComponent } from './components';
 import { DashboardPluginsComponent } from './components';
 import { DashboardActionComponent } from './components';
@@ -39,6 +39,11 @@ const routes: Route[] = [{ path: '', component: DashboardComponent }];
   ],
   exports: [],
   entryComponents: [],
-  providers: [DashboardHeaderContentResolverService, FrameworkService],
+  providers: [
+    DashboardHeaderContentResolverService,
+    FrameworkService,
+    DashboardCategoriesResolverService,
+    DashboardFrameworksResolverService
+  ],
 })
 export class DashboardModule {}

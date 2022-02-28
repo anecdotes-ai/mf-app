@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { ControlsMultiSelectService } from './controls-multi-select.service';
-import { ControlsReportService } from 'core/modules/shared-controls';
+import { ControlsReportService } from 'core/modules/shared-controls/services';
 
 describe('ControlsMultiSelectService', () => {
   let service: ControlsMultiSelectService;

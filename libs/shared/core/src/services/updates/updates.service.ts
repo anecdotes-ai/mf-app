@@ -4,9 +4,7 @@ import { LoggerService } from '../logger/logger.service';
 
 const CHECK_UPDATE_INTERVAL = 1000 * 60 * 5; // 5 min
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UpdatesService {
   constructor(updates: SwUpdate, logger: LoggerService) {
     /**

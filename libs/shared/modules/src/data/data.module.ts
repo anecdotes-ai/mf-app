@@ -2,9 +2,6 @@ import { AgentsEffects } from './store/effects/agent.effect';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
 import {
   FrameworksEventService,
   ActionDispatcherService,
@@ -31,7 +28,9 @@ import {
   EvidenceFacadeService,
   SnapshotsService,
   SnapshotsFacadeService,
-  DataAggregationFacadeService
+  DataAggregationFacadeService,
+  RequirementService,
+  SlackService
 } from './services';
 import {
   ControlCalculationEffects,
@@ -42,32 +41,22 @@ import {
   RequirementEffects,
   ServicesEffects,
   RequirementCalculationEffects,
-  EvidenceCalculationEffects,
   PoliciesEffects,
   PolicyCalculationEffects,
   CustomerEffects,
   SnapshotEffects
 } from './store/effects';
-import { reducers } from './store/state';
+import { reducers, featureKey } from './store';
+import { StoreModule } from '@ngrx/store';
+import { AgentService } from './services/agent/agent.service';
+import { MultiAccountsEventService } from './services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
+import { EvidenceUserEventService } from './services/event-tracking/evidence-user-event.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: false,
-        strictActionImmutability: false,
-        strictStateSerializability: false,
-        strictActionSerializability: false,
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
-      },
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
-    EffectsModule.forRoot([
+    StoreModule.forFeature(featureKey, reducers),
+    EffectsModule.forFeature([
       ControlEffects,
       EvidenceEffects,
       ServicesEffects,
@@ -77,7 +66,6 @@ import { reducers } from './store/state';
       CustomerEffects,
       ControlCalculationEffects,
       RequirementCalculationEffects,
-      EvidenceCalculationEffects,
       PolicyCalculationEffects,
       PoliciesEffects,
       AgentsEffects,
@@ -96,6 +84,10 @@ export class DataModule {
         FrameworkService,
         EvidenceService,
         PluginService,
+        AgentService,
+        MultiAccountsEventService,
+        RequirementService,
+        SlackService,
         ControlCalculationService,
         RequirementCalculationService,
         PolicyCalculationService,
@@ -116,7 +108,8 @@ export class DataModule {
         EvidenceFacadeService,
         SnapshotsService,
         SnapshotsFacadeService,
-        DataAggregationFacadeService
+        DataAggregationFacadeService,
+        EvidenceUserEventService
       ],
     };
   }

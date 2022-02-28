@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActionDispatcherService } from '../../../services/action-dispatcher/action-dispatcher.service';
 import {
   CalculatedControl,
-  CalculatedEvidence,
   CalculatedPolicy,
   CalculatedRequirement,
 } from 'core/modules/data/models';
 import { Store } from '@ngrx/store';
-import { State } from '../../../store/state';
 import { debounceTime, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
@@ -19,16 +17,18 @@ import {
   AddRequirementsSnapshotAction,
 } from 'core/modules/data/store';
 import { TrackOperations } from '../../operations-tracker/constants/track.operations.list.constant';
-import { Framework } from 'core/modules/data/models/domain';
+import { SnapshotSelectors } from '../../../store/selectors';
+import { EvidenceInstance, Framework } from '../../../models/domain';
 
 @Injectable()
 export class SnapshotsFacadeService {
-  constructor(private store: Store<State>, private actionDispatcher: ActionDispatcherService) {}
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService) {}
 
   getControlSnapshot(control_id: string, snapshot_id: string): Observable<CalculatedControl> {
     return this.store
-      .select((state) => state.snapshotState.calculatedControls)
+      .select(SnapshotSelectors.SelectSnapshotState)
       .pipe(
+        map((snapshotState) => snapshotState.calculatedControls),
         mergeMap(async (calculatedControls) => {
           if (!calculatedControls.ids.length || !calculatedControls.entities[snapshot_id]) {
             await this.actionDispatcher.dispatchActionAsync(
@@ -44,8 +44,9 @@ export class SnapshotsFacadeService {
 
   getRequirementsSnapshot(snapshot_ids: string[]): Observable<CalculatedRequirement[]> {
     return this.store
-      .select((state) => state.snapshotState.calculatedRequirements)
+      .select(SnapshotSelectors.SelectSnapshotState)
       .pipe(
+        map((snapshotState) => snapshotState.calculatedRequirements),
         mergeMap(async (calculatedRequirements) => {
           let newSnaps = [];
           snapshot_ids.forEach((id) => {
@@ -68,14 +69,14 @@ export class SnapshotsFacadeService {
       );
   }
 
-  getEvidenceSnapshot(snapshot_ids: string[]): Observable<CalculatedEvidence[]> {
+  getEvidenceSnapshot(snapshot_ids: string[]): Observable<EvidenceInstance[]> {
     return this.store
-      .select((state) => state.snapshotState.calculatedEvidences)
+      .select(SnapshotSelectors.SelectSnapshotEvidenceState)
       .pipe(
-        mergeMap(async (calculatedEvidences) => {
+        mergeMap(async (evidences) => {
           let newSnaps = [];
           snapshot_ids.forEach((id) => {
-            if (!calculatedEvidences.ids.length || !calculatedEvidences.entities[id]) {
+            if (!evidences.ids.length || !evidences.entities[id]) {
               newSnaps.push(id);
             }
           });
@@ -85,15 +86,16 @@ export class SnapshotsFacadeService {
               TrackOperations.ADD_EVIDENCE_SNAPSHOT
             );
           }
-          return snapshot_ids.map((id) => calculatedEvidences.entities[id]);
+          return snapshot_ids.map((id) => evidences.entities[id]);
         }),
         map((evidence) => evidence)
       );
   }
   getPolicySnapshot(snapshot_ids: string[]): Observable<CalculatedPolicy[]> {
     return this.store
-      .select((state) => state.snapshotState.calculatedPolicies)
+      .select(SnapshotSelectors.SelectSnapshotState)
       .pipe(
+        map((snapshotState) => snapshotState.calculatedPolicies),
         mergeMap(async (calculatedPolicies) => {
           let newSnaps = [];
           snapshot_ids.forEach((id) => {
@@ -115,11 +117,12 @@ export class SnapshotsFacadeService {
 
   getControlsSnapshot(control_ids: string[]): Observable<CalculatedControl[]> {
     return this.store
-      .select((state) => state.snapshotState.firstLoad)
+      .select(SnapshotSelectors.SelectSnapshotState)
       .pipe(
+        map((snapshotState) => snapshotState.firstLoad),
         filter((firstLoad) => firstLoad),
         debounceTime(80),
-        switchMap(() => this.store.select((state) => state.snapshotState.calculatedControls)),
+        switchMap(() => this.store.select(SnapshotSelectors.SelectSnapshotState).pipe(map((snapshotState) => snapshotState.calculatedControls))),
         mergeMap(async (calculatedControls) => {
           let newSnaps = [];
           control_ids.forEach((id) => {
@@ -144,8 +147,9 @@ export class SnapshotsFacadeService {
 
   getFramewrokSnapshot(snapshot_id: string): Observable<Framework> {
     return this.store
-      .select((state) => state.snapshotState.calculatedFrameworks)
+      .select(SnapshotSelectors.SelectSnapshotState)
       .pipe(
+        map((snapshotState) => snapshotState.calculatedFrameworks),
         mergeMap(async (calculatedFrameworks) => {
           if (!calculatedFrameworks.ids.length || !calculatedFrameworks.entities[snapshot_id]) {
             await this.actionDispatcher.dispatchActionAsync(
@@ -158,14 +162,15 @@ export class SnapshotsFacadeService {
         map((framework) => framework)
       );
   }
-  
+
   getSingleControlSnapshot(snapshotId: string): Observable<CalculatedControl> {
-    return this.store.select((state) => state.snapshotState.calculatedControls.entities[snapshotId]);
+    return this.store.select(SnapshotSelectors.SelectSnapshotState).pipe(map( (snapshotState) => snapshotState.calculatedControls.entities[snapshotId]));
   }
   getSingleRequirementSnapshot(snapshotId: string): Observable<CalculatedRequirement> {
-    return this.store.select((state) => state.snapshotState.calculatedRequirements.entities[snapshotId]);
+    return this.store.select(SnapshotSelectors.SelectSnapshotState).pipe(map((snapshotState) => snapshotState.calculatedRequirements.entities[snapshotId]));
   }
-  getSingleEvidenceSnapshot(snapshotId: string): Observable<CalculatedEvidence> {
-    return this.store.select((state) => state.snapshotState.calculatedEvidences.entities[snapshotId]);
+
+  getSingleEvidenceSnapshot(snapshotId: string): Observable<EvidenceInstance> {
+    return this.store.select(SnapshotSelectors.SelectSnapshotEvidenceState).pipe(map((evidenceEntityState) => evidenceEntityState.entities[snapshotId]));
   }
 }

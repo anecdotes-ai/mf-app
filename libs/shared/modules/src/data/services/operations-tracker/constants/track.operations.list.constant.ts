@@ -48,7 +48,7 @@ export const enum TrackOperations {
   UPDATE_CONTROLS = 'update-controls',
   ADD_REQUIREMENT = 'add-requirement',
 
-  EDIT_REQUIREMENT = 'edit-requirement',
+  PATCH_REQUIREMENT = 'patch-requirement',
 
   // Requirement Notes
   ADD_REQUIREMENT_NOTE = 'add-requirement-note',

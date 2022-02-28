@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { OperationsTrackerService } from '../operations-tracker/operations-tracker.service';
-import { State } from '../../store';
 
 @Injectable()
 export class ActionDispatcherService {
-  constructor(private store: Store<State>, private operationsTrackerService: OperationsTrackerService) { }
+  constructor(private store: Store, private operationsTrackerService: OperationsTrackerService) { }
 
   /**
    * Helper method that dispatches provided action and waits

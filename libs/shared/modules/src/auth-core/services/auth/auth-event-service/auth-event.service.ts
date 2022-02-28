@@ -2,9 +2,7 @@ import { UserEventService } from 'core/services/user-event/user-event.service';
 import { Injectable } from '@angular/core';
 import { UserEvents } from 'core/models/user-events/user-event-data.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthEventService {
 
   constructor(

@@ -1,7 +1,7 @@
-import { CalculatedEvidence } from 'core/modules/data/models/calculated-evidence.model';
 import { FilterDefinition } from 'core/modules/data-manipulation/data-filter';
 import { EvidenceFacadeService } from 'core/modules/data/services/facades/evidences-facade/evidences-facade.service';
 import { EvidenceInstance, Framework } from 'core/modules/data/models/domain';
+import { FrameworkReference } from 'core/modules/data/models';
 import { SubscriptionDetacher } from 'core/utils/subscription-detacher.class';
 import { SearchInstancesManagerService } from 'core/modules/data-manipulation/search/services';
 import { DataSearchComponent } from 'core/modules/data-manipulation/search/components';
@@ -20,7 +20,10 @@ import { BehaviorSubject, Observable, combineLatest, Subject } from 'rxjs';
 import { LoaderManagerService } from 'core/services';
 import { DataFilterManagerService } from 'core/modules/data-manipulation/data-filter/services';
 import { filter, map, shareReplay, take } from 'rxjs/operators';
-import { FrameworksFacadeService } from 'core/modules/data/services';
+import {
+  FrameworksFacadeService,
+  DataAggregationFacadeService,
+} from 'core/modules/data/services';
 import { Router } from '@angular/router';
 import { AppRoutes } from 'core/constants';
 
@@ -34,13 +37,13 @@ export class EvidencePoolComponent implements OnInit {
   // ** PRIVATES **
   private detacher: SubscriptionDetacher = new SubscriptionDetacher();
   private filterStream$: Observable<EvidenceInstance[]>;
-  private filteringSubject = new Subject<CalculatedEvidence[]>();
+  private filteringSubject = new Subject<EvidenceInstance[]>();
   private currentSearchScopeKey: string;
   private dataSearch: DataSearchComponent;
   private anyDataExists$ = new BehaviorSubject(false);
   private filteringDone$ = new BehaviorSubject(false);
-  private allData: { [entityId: string]: CalculatedEvidence } = {};
-
+  private allData: { [entityId: string]: EvidenceInstance } = {};
+  private dictionaryOfFrameworkRefByEvidenceId: { [evidenceId: string]: FrameworkReference[] };
   private noEvidenceYet$ = new BehaviorSubject(false);
 
   // ** INPUTS / OUTPUTS **
@@ -52,15 +55,15 @@ export class EvidencePoolComponent implements OnInit {
 
   isNotFoundState$ = new BehaviorSubject(false);
   tipTypes = TipTypeEnum;
-  dataForSort: CalculatedEvidence[];
+  dataForSort: EvidenceInstance[];
   applicableFrameworks: Framework[];
   emptyStateRelativeKey: string;
   isEmptyState = false;
-  filteringStream$: Observable<CalculatedEvidence[]>;
-  evidence$: Observable<CalculatedEvidence[]>;
+  filteringStream$: Observable<EvidenceInstance[]>;
+  evidence$: Observable<EvidenceInstance[]>;
   noEvidenceYet: boolean;
   isOnSearch$: Observable<boolean>;
-  sortedData$: BehaviorSubject<CalculatedEvidence[]> = new BehaviorSubject<CalculatedEvidence[]>([]);
+  sortedData$: BehaviorSubject<EvidenceInstance[]> = new BehaviorSubject<EvidenceInstance[]>([]);
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -70,16 +73,19 @@ export class EvidencePoolComponent implements OnInit {
     private loaderManager: LoaderManagerService,
     private elementRef: ElementRef<HTMLElement>,
     private frameworksFacade: FrameworksFacadeService,
-    private router: Router
+    private router: Router,
+    private dataAggregationFacade: DataAggregationFacadeService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.filteringStream$ = this.filteringSubject.asObservable();
     this.loaderManager.show();
     this.currentSearchScopeKey = this.searchInstancesManagerService.getSearchScopeKey(this.elementRef.nativeElement);
-    this.filterStream$ = this.filterManager.getDataFilterEvent<CalculatedEvidence>();
-
-    this.evidence$ = this.evidenceFacadeService.getAllCalculatedEvidence().pipe(shareReplay());
+    this.filterStream$ = this.filterManager.getDataFilterEvent<EvidenceInstance>();
+    this.dataAggregationFacade.getReferencesForAllEvidence()
+      .pipe(this.detacher.takeUntilDetach())
+      .subscribe((data) => this.dictionaryOfFrameworkRefByEvidenceId = data);
+    this.evidence$ = this.evidenceFacadeService.getAllEvidences().pipe(shareReplay());
 
     this.frameworksFacade
       .getApplicableFrameworks()
@@ -87,6 +93,7 @@ export class EvidencePoolComponent implements OnInit {
       .subscribe((applicableFrameworks) => {
         this.applicableFrameworks = applicableFrameworks;
       });
+
     await this.initAsync();
   }
 
@@ -98,7 +105,7 @@ export class EvidencePoolComponent implements OnInit {
     this.noEvidenceYet$.getValue() ? this.router.navigate([AppRoutes.Plugins]) : this.dataSearch.reset();
   }
 
-  handleSort(evidences: CalculatedEvidence[]): void {
+  handleSort(evidences: EvidenceInstance[]): void {
     this.sortedData$.next(evidences);
   }
 
@@ -134,7 +141,10 @@ export class EvidencePoolComponent implements OnInit {
         take(1)
       )
       .toPromise();
-    this.isOnSearch$ = this.dataSearch.overlapsFound.pipe(map((overlapsEvent) => overlapsEvent.overlaps.length > 0), shareReplay());
+    this.isOnSearch$ = this.dataSearch.overlapsFound.pipe(
+      map((overlapsEvent) => overlapsEvent.overlaps.length > 0),
+      shareReplay()
+    );
     this.handleFiltering();
     this.cd.detectChanges();
   }
@@ -142,12 +152,9 @@ export class EvidencePoolComponent implements OnInit {
   // **** SUBSCRIPTION HANDLERS ****
 
   private handleFiltering(): void {
-    this.dataSearch.search
-      .pipe(
-        this.detacher.takeUntilDetach())
-      .subscribe((filteredData) => {
-        this.filterData(filteredData);
-      });
+    this.dataSearch.search.pipe(this.detacher.takeUntilDetach()).subscribe((filteredData) => {
+      this.filterData(filteredData);
+    });
 
     this.filterStream$.pipe(this.detacher.takeUntilDetach()).subscribe((filteredData) => {
       this.dataSearch.data = filteredData;
@@ -184,15 +191,11 @@ export class EvidencePoolComponent implements OnInit {
   // **** FILTERING ****
   private loadFilteringDefinition(): void {
     const filterDefinitionTranslationKey = `${RootTranslationkey}.filterDefinition`;
-    const filterDefinition: FilterDefinition<CalculatedEvidence>[] = [
+    const filterDefinition: FilterDefinition<EvidenceInstance>[] = [
       {
         translationKey: `${filterDefinitionTranslationKey}.frameworks`,
-        propertySelector: (e) => {
-          if (e?.evidence_related_framework_names) {
-            return Object.keys(e?.evidence_related_framework_names).filter((frameworkName) =>
-              this.applicableFrameworks.some((framework) => framework.framework_name === frameworkName)
-            );
-          }
+        propertySelector: (e: EvidenceInstance) => {
+          return this.dictionaryOfFrameworkRefByEvidenceId[e.evidence_id]?.map(ref => ref?.framework?.framework_name);
         },
         fieldId: 'frameworks',
         useSort: true,
@@ -210,7 +213,7 @@ export class EvidencePoolComponent implements OnInit {
     this.filterManager.setFilterDefinition(filterDefinition);
   }
 
-  filterData(evidence: CalculatedEvidence[]): void {
+  filterData(evidence: EvidenceInstance[]): void {
     this.isNotFoundState$.next(!evidence.length);
     this.filteringDone$.next(true);
     this.filteringSubject.next(evidence);
@@ -223,7 +226,7 @@ export class EvidencePoolComponent implements OnInit {
     this.loaderManager.hide();
   }
 
-  selectEvidenceId(evidence: CalculatedEvidence): string {
+  selectEvidenceId(evidence: EvidenceInstance): string {
     return evidence.evidence_id;
   }
 }

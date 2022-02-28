@@ -9,6 +9,7 @@ import { PluginConnectionFacadeService, PluginsDataService } from 'core/modules/
 import { ServiceStatusEnum } from 'core/modules/data/models/domain';
 import { configureTestSuite } from 'ng-bullet';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 
 describe('PluginDetailsHeaderComponent', () => {
   configureTestSuite();
@@ -41,6 +42,10 @@ describe('PluginDetailsHeaderComponent', () => {
         },
         { provide: WindowHelperService, useValue: {} },
         PluginsDataService,
+        {
+          provide: MultiAccountsEventService,
+          useValue: {}
+        },
         {
           provide: PluginNavigationService,
           useValue: {

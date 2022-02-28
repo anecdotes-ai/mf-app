@@ -1,20 +1,8 @@
-import { State } from '../state';
 import { createSelector } from '@ngrx/store';
-import { CustomerState } from '../reducers';
+import { dataFeatureSelector } from './feature.selector';
 
-export const selectCustomerState = (state: State): CustomerState => state.customerState;
+const SelectCustomerState = createSelector(dataFeatureSelector, dataFeatureState => dataFeatureState.customerState);
 
-export const selectCustomer = createSelector(
-  selectCustomerState,
-  (state: CustomerState) => state.customer
-);
-
-export const selectCustomerIsOnboarded = createSelector(
-  selectCustomerState,
-  (state: CustomerState) => state.customer?.is_onboarded
-);
-
-export const selectCustomerAccountFeatures = createSelector(
-  selectCustomerState,
-  (state: CustomerState) => state.customer?.account_features
-);
+export const CustomerSelectors = {
+  SelectCustomerState
+};

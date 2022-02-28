@@ -25,7 +25,7 @@ describe('FullFilePreviewModalComponent', () => {
   const evidence = { evidence_type, evidence_id: 'fff' };
   const control = { control_id: 'control' };
   const file = new File([], 'fake-file-name.any');
-  const requirement = { requirement_id: 'gfdg' };
+  const requirementLike = { resourceId: 'fake-requirement-id' };
 
   async function detectChanges(): Promise<any> {
     fixture.detectChanges();
@@ -43,7 +43,7 @@ describe('FullFilePreviewModalComponent', () => {
           { provide: FileDownloadingHelperService, useValue: {} },
           {
             provide: ComponentSwitcherDirective,
-            useValue: { sharedContext$: of({ evidence, file, control, requirement }) },
+            useValue: { sharedContext$: of({ evidence, file, control, requirementLike }) },
           },
           {
             provide: EvidenceUserEventService,

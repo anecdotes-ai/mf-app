@@ -2,9 +2,12 @@ import { OnboardingEventData, OnboardingDataProperty, UserEvents } from 'core/mo
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class OnboardingUserEventService {
   constructor(
     private userEventService: UserEventService

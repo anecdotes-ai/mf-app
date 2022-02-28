@@ -20,9 +20,7 @@ enum PusherStates {
   disconnected = 'disconnected',
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PusherConfigService {
   private pusherDisconnected = new Subject<any>();
   private pusherClient: Pusher;

@@ -1,4 +1,3 @@
-import { CalculatedEvidence } from 'core/modules/data/models/calculated-evidence.model';
 import { RootTranslationkey } from './../../constants/translation-keys.constant';
 import {
   ChangeDetectionStrategy,
@@ -9,13 +8,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { FrameworkService } from 'core/modules/data/services';
-import {
-  SearchDefinitionModel,
-} from 'core/modules/data-manipulation/search';
 import { ControlsCustomizationModalService } from 'core/modules/shared-controls/modules/customization/control/services/controls-customization-modal-service/controls-customization-modal.service';
 import { SubscriptionDetacher } from 'core/utils';
-import { DataSearchComponent } from 'core/modules/data-manipulation/search';
+import { DataSearchComponent, SearchDefinitionModel } from 'core/modules/data-manipulation/search';
 import { DataFilterManagerService } from 'core/modules/data-manipulation/data-filter';
+import { EvidenceInstance } from 'core/modules/data/models/domain';
 @Component({
   selector: 'app-evidence-pool-header',
   templateUrl: './evidence-pool-header.component.html',
@@ -31,7 +28,7 @@ export class EvidencePoolHeaderComponent implements OnInit {
   @ViewChild(DataSearchComponent)
   private searchComponent: DataSearchComponent;
 
-  searchDefinitions: SearchDefinitionModel<CalculatedEvidence>[] = [
+  searchDefinitions: SearchDefinitionModel<EvidenceInstance>[] = [
     {
       propertySelector: (c) => c.evidence_name,
     }

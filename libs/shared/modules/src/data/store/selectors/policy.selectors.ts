@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createSelector } from '@ngrx/store';
-import { MemoizedSelector } from '@ngrx/store/src/selector';
 import { Policy } from 'core/modules/data/models/domain';
 import { PolicyState } from 'core/modules/data/store/reducers';
-import { State } from '../state';
+import { dataFeatureSelector } from './feature.selector';
 
-export const selectPolicyState = ({ policyState }: State): PolicyState => policyState;
+const SelectPolicyState = createSelector(dataFeatureSelector, dataFeatureState => dataFeatureState.policyState);
 
-export const selectPolicyById = (policyId: string): MemoizedSelector<State, Policy | null> => createSelector(
-  selectPolicyState,
+const SelectPolicyById = (policyId: string) => createSelector(
+  SelectPolicyState,
   ({ policies }: PolicyState): Policy | null => policies.entities[policyId] || null,
 );
+
+export const PolicySelectors = {
+  SelectPolicyState,
+  SelectPolicyById
+};

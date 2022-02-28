@@ -4,6 +4,7 @@ import { AuditorsPortalComponent } from './components';
 import { Route, RouterModule } from '@angular/router';
 import { CoreModule } from 'core';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuditorsPortalService } from './services';
 
 const routes: Route[] = [{ path: '', component: AuditorsPortalComponent }];
 
@@ -16,6 +17,7 @@ const routes: Route[] = [{ path: '', component: AuditorsPortalComponent }];
     CoreModule,
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
-  ]
+  ],
+  providers: [AuditorsPortalService]
 })
 export class AuditorsPortalModule { }

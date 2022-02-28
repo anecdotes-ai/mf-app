@@ -1,52 +1,35 @@
+import { DataAggregationFacadeService } from 'core/modules/data/services';
+import { CalculatedControl } from 'core/modules/data/models';
 import { Injectable } from '@angular/core';
-import { EvidenceEventData, EvidenceEventDataProperty, UserEvents } from 'core/models';
+import { EvidenceEventData, EvidenceEventDataProperty, UserEvents, MultiAccountsData, MultiAccountsDataProperty } from 'core/models';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { ControlsFacadeService } from '../facades/controls-facade/controls-facade.service';
-import { FrameworksFacadeService } from '../facades/frameworks-facade/frameworks-facade.service';
-import { RequirementsFacadeService } from '../facades/requirements-facade/requirements-facade.service';
-import { take } from 'rxjs/operators';
+import { take, first, map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class EvidenceUserEventService {
   constructor(
     private userEventService: UserEventService,
-    private requirementFacade: RequirementsFacadeService,
-    private controlFacade: ControlsFacadeService,
-    private frameworkFacade: FrameworksFacadeService
+    private dataAggregationFacade: DataAggregationFacadeService,
+    private controlFacade: ControlsFacadeService
   ) {}
 
-  sendEvidenceEvent(eventType: UserEvents, eventData: EvidenceEventData): void {
-    this.userEventService.sendEvent(eventType, eventData);
-  }
-
   async trackCsvExport(
-    framework_id: string,
-    control_id: string,
-    requirement_id: string,
+    evidence_id: string,
     evidence_name: string,
     evidence_type: string,
-    source: string,
-    frameworks_names: string
+    source: string
   ): Promise<void> {
-    let eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id, evidence_name, evidence_type, frameworks_names);
+    let eventData = await this.prepareEventDataForRequirementAsync(evidence_id, evidence_name, evidence_type);
     eventData = {
       ...eventData,
-      [EvidenceEventDataProperty.Source]: source
+      [EvidenceEventDataProperty.Source]: source,
     };
     this.userEventService.sendEvent(UserEvents.EXPORT_EVIDENCE_TO_CSV, eventData);
   }
 
-  async trackViewFullData(
-    framework_id,
-    control_id: string,
-    requirement_id: string,
-    evidence_name: string,
-    evidence_type: string,
-    frameworks_names,
-  ): Promise<void> {
-    let eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id, evidence_name, evidence_type, frameworks_names);
+  async trackViewFullData(evidence_id: string, evidence_name: string, evidence_type: string): Promise<void> {
+    let eventData = await this.prepareEventDataForRequirementAsync(evidence_id, evidence_name, evidence_type);
     eventData = {
       ...eventData,
     };
@@ -54,31 +37,21 @@ export class EvidenceUserEventService {
   }
 
   async trackEvidenceDownload(
-    framework_id: string,
-    control_id: string,
-    requirement_id: string,
+    evidence_id: string,
     evidence_name: string,
     evidence_type: string,
-    source: string,
-    frameworks_names: string,
+    source: string
   ): Promise<void> {
-    let eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id, evidence_name, evidence_type, frameworks_names);
+    let eventData = await this.prepareEventDataForRequirementAsync(evidence_id, evidence_name, evidence_type);
     eventData = {
       ...eventData,
-      [EvidenceEventDataProperty.Source]: source
+      [EvidenceEventDataProperty.Source]: source,
     };
     this.userEventService.sendEvent(UserEvents.EVIDENCE_DOWNLOAD, eventData);
   }
 
-  async trackEvidenceRemove(
-    framework_id,
-    control_id: string,
-    requirement_id: string,
-    evidence_name: string,
-    evidence_type: string,
-    frameworks_names: string
-  ): Promise<void> {
-    let eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id, evidence_name, evidence_type, frameworks_names);
+  async trackEvidenceRemove(evidence_id: string, evidence_name: string, evidence_type: string): Promise<void> {
+    let eventData = await this.prepareEventDataForRequirementAsync(evidence_id, evidence_name, evidence_type);
     eventData = {
       ...eventData,
     };
@@ -86,19 +59,15 @@ export class EvidenceUserEventService {
   }
 
   async trackFlagHover(
-    framework_id: string,
-    control_id: string,
-    requirement_id: string,
+    evidence_id: string,
     evidence_name: string,
     evidence_type: string,
-    source: string,
-    frameworks_names: string
+    source: string
   ): Promise<void> {
-    let eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id, evidence_name, evidence_type, frameworks_names );
+    let eventData = await this.prepareEventDataForRequirementAsync(evidence_id, evidence_name, evidence_type);
     eventData = {
       ...eventData,
-
-      [EvidenceEventDataProperty.Source]: source
+      [EvidenceEventDataProperty.Source]: source,
     };
     this.userEventService.sendEvent(UserEvents.EVIDENCE_FLAG_HOVER, eventData);
   }
@@ -107,35 +76,69 @@ export class EvidenceUserEventService {
     this.userEventService.sendEvent(UserEvents.EVIDENCE_LINKED, {
       [EvidenceEventDataProperty.EvidenceName]: evidenceName,
       [EvidenceEventDataProperty.FrameworksLinked]: frameworkNames.join(', '),
-      [EvidenceEventDataProperty.AmountOfLinkedControls]: controlsAmount
+      [EvidenceEventDataProperty.AmountOfLinkedControls]: controlsAmount,
     });
   }
 
   private async prepareEventDataForRequirementAsync(
-    requirement_id: string,
-    control_id: string,
-    framework_id: string,
+    evidence_id: string,
     evidence_name: string,
-    evidence_type: string,
-    frameworks_names: string
+    evidence_type: string
   ): Promise<EvidenceEventData> {
-    let framework;
-    let requirement;
-    if (requirement_id) {
-      requirement = await this.requirementFacade.getRequirement(requirement_id).pipe(take(1)).toPromise();
-    }
-    if (framework_id) {
-      framework = await this.frameworkFacade.getFrameworkById(framework_id).pipe(take(1)).toPromise();
-    }
-    const control = await this.controlFacade.getControl(control_id).pipe(take(1)).toPromise();
+    const frameworkNames = await this.dataAggregationFacade
+      .getEvidenceReferences(evidence_id)
+      .pipe(
+        map((references) => references.map((reference) => reference.framework.framework_name).join(', ')),
+        take(1)
+      )
+      .toPromise();
+
+    const controls: CalculatedControl[] = await this.controlFacade.getAllControls().pipe(first()).toPromise();
+
+    const firstControl: CalculatedControl = controls.filter((c) => c.control_collected_all_applicable_evidence_ids.includes(evidence_id))[0];
+
+    const requirement = firstControl?.control_calculated_requirements.find((req) =>
+      req.requirement_related_evidences.find((evidenceLike) => evidenceLike.evidence.evidence_id === evidence_id)
+    );
 
     return {
-      [EvidenceEventDataProperty.FrameworkName]: framework ? framework.framework_name : frameworks_names,
-      [EvidenceEventDataProperty.ControlName]: control?.control_name,
+      [EvidenceEventDataProperty.FrameworkName]: frameworkNames || undefined,
+      [EvidenceEventDataProperty.ControlName]: firstControl?.control_name,
       [EvidenceEventDataProperty.RequirementName]: requirement?.requirement_name,
       [EvidenceEventDataProperty.RequirementType]: requirement?.requirement_is_custom ? 'custom made' : 'existed',
       [EvidenceEventDataProperty.EvidenceName]: evidence_name,
       [EvidenceEventDataProperty.EvidenceType]: evidence_type.toLowerCase(),
     };
+  }
+
+  async trackMultiAccountWithPluginName(event: UserEvents, plugin_name: string): Promise<void> {
+    this.userEventService.sendEvent(
+      event,
+      {
+        [MultiAccountsDataProperty.PluginName]: plugin_name,
+      }
+    );
+  }
+
+  async trackEditAccount(plugin_name: string, plugin_alias?: string): Promise<void> {
+    this.userEventService.sendEvent(
+      UserEvents.EDIT_ACCOUNT,
+      {
+        [MultiAccountsDataProperty.PluginName]: plugin_name,
+        [MultiAccountsDataProperty.AccountAlias]: plugin_alias ? "changed" : "not changed",
+      }
+    );
+  }
+
+  async trackConnectAccounts(plugin_name: string, number_of_connected: number, number_of_succeeded?: number, total_connected?: number): Promise<void> {
+    this.userEventService.sendEvent(
+      UserEvents.CONNECT_ACCOUNTS,
+      {
+        [MultiAccountsDataProperty.PluginName]: plugin_name,
+        [MultiAccountsDataProperty.NumberOfConnectedAccounts]: number_of_connected,
+        [MultiAccountsDataProperty.NumberOfSucceededConnections]: number_of_succeeded,
+        [MultiAccountsDataProperty.TotalConnectedAccounts]: total_connected,
+      }
+    );
   }
 }

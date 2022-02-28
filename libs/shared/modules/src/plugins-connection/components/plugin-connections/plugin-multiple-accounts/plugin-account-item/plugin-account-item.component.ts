@@ -5,6 +5,8 @@ import { multipleAccountsTranslationRootKey } from './../constants/translation.c
 import { MenuAction } from 'core/modules/dropdown-menu';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ServiceFailedStatuses, ServiceStatusEnum, ServiceInstance } from 'core/modules/data/models/domain';
+import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 
 const translationKeyFactory = (key: string): string => `${multipleAccountsTranslationRootKey}.accountItem.${key}`;
 
@@ -44,7 +46,12 @@ export class PluginAccountItemComponent {
 
   threeDotsMenuActions: MenuAction<ServiceInstance>[];
 
-  constructor(private pluginConnectionFacade: PluginConnectionFacadeService, private pluginDataService: PluginsDataService) {
+  constructor(
+    private pluginConnectionFacade: PluginConnectionFacadeService,
+    private pluginDataService: PluginsDataService,
+    private evidenceEventService: EvidenceUserEventService,
+    private multiAccountsEventService: MultiAccountsEventService
+  ) {
     this.initThreeDotsMenu();
   }
 
@@ -77,7 +84,7 @@ export class PluginAccountItemComponent {
   }
 
   private viewServiceInstanceLogs(): void {
-    this.pluginDataService.showServiceInstanceLogs(this.serviceInstance.service_instance_id);
+    this.pluginDataService.showServiceInstanceLogs(this.serviceInstance.service_instance_id, this.serviceInstance.service_id);
   }
 
   private async removeServiceInstance(): Promise<void> {

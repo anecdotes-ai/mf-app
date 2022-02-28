@@ -11,9 +11,7 @@ import {
 } from 'core/modules/modals/components';
 import { take } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MultipleAccountsConnectionHelperService {
   constructor(private pluginConnectionFacade: PluginConnectionFacadeService, private modalWindowService: ModalWindowService) { }
 

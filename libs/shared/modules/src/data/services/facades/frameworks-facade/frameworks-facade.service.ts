@@ -9,17 +9,16 @@ import { FrameworkApplicabilityChangeAction, BatchFrameworksUpdateAction, Framew
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { UserEvents, FrameworksEventDataPropertyNames } from 'core/models/user-events/user-event-data.model';
 import { Framework, StatusEnum, Audit, AuditLog, ExcludePlugin } from '../../../models/domain';
-import { State } from '../../../store/state';
 import { ActionDispatcherService } from './../../action-dispatcher/action-dispatcher.service';
 import { TrackOperations } from '../../operations-tracker/constants/track.operations.list.constant';
 import { FrameworksEventService } from '../../event-tracking/frameworks-event-service/frameworks-event-service';
-import { createFrameworksByIdsSelector } from '../../../store/selectors';
+import { AuditLogsSelector, FrameworkSelectors } from '../../../store/selectors';
 
 @Injectable()
 export class FrameworksFacadeService {
   private allFrameworksCache$: Observable<Framework[]>;
 
-  constructor(private store: Store<State>,
+  constructor(private store: Store,
     private userFacade: UserFacadeService,
     private userEventService: UserEventService,
     private actionDispatcher: ActionDispatcherService,
@@ -37,7 +36,7 @@ export class FrameworksFacadeService {
   }
 
   getFrameworksByIds(frameworkIds: string[]): Observable<Framework[]> {
-    return this.store.select(createFrameworksByIdsSelector(frameworkIds));
+    return this.store.select(FrameworkSelectors.CreateFrameworksByIdsSelector(frameworkIds));
   }
 
   /** Returns framework by framework name */
@@ -95,7 +94,7 @@ export class FrameworksFacadeService {
   }
 
   getAreFrameworksLoaded(): Observable<boolean> {
-    return this.store.select((state) => state.frameworksState.initialized);
+    return this.store.select(FrameworkSelectors.SelectFrameworkState).pipe(map((frameworksState) => frameworksState.initialized));
   }
 
   adoptFrameworkAsync(framework: Framework): Promise<void> {
@@ -198,7 +197,8 @@ export class FrameworksFacadeService {
 
   getFrameworkAuditHistory(frameworkId: string): Observable<AuditLog[]> {
     return this.store
-      .select((state) => state.auditLogsState.entities[frameworkId]?.audit_history_logs)
+      .select(AuditLogsSelector.SelectAuditLogsState)
+      .pipe(map((auditLogsState) => auditLogsState.entities[frameworkId]?.audit_history_logs))
       .pipe(shareReplay());
   }
 
@@ -269,7 +269,7 @@ export class FrameworksFacadeService {
 
   private setAllFrameworksCache(): void {
     this.allFrameworksCache$ = this.store
-      .select((state) => state.frameworksState)
+      .select(FrameworkSelectors.SelectFrameworkState)
       .pipe(
         filter((frameworksState) => !!frameworksState.ids.length),
         map((frameworksState) => Object.values(frameworksState.entities)),

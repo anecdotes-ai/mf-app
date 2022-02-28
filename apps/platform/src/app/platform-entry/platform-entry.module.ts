@@ -8,7 +8,7 @@ import { BrowserAnimationsModule }from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AmplitudeService, HttpLoaderFactory } from 'core';
+import { AmplitudeService, HttpLoaderFactory, MessageBusService } from 'core';
 import { DataManipulationModule } from 'core/modules/data-manipulation';
 import player from 'lottie-web';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -32,6 +32,9 @@ import { ApmModule } from '@elastic/apm-rum-angular';
 import { PluginsConnectionModule } from 'core/modules/plugins-connection';
 import { AppRoutingModule } from './app-routing.module';
 import { PlatformRemoteEntryComponent, RootComponent } from './components';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { MobileAndNotSupportBrowserViewGuardService, TranslateResolverService } from './services';
 
 function playerFactory(): LottiePlayer {
   return player;
@@ -56,11 +59,10 @@ function playerFactory(): LottiePlayer {
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: environment.production,
       enabled: true,
-
     }),
     PerfectScrollbarModule,
     NgCircleProgressModule.forRoot(),
-    // DataModule.forRoot(),
+    DataModule.forRoot(),
     RiskDataModule.forRoot(),
     DataManipulationModule.forRoot(),
     DataManipulationModule,
@@ -76,9 +78,26 @@ function playerFactory(): LottiePlayer {
     NavigationBarModule,
     ControlsSharedModule.forRoot(),
     SharedPoliciesModule,
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictStateImmutability: false,
+          strictActionImmutability: false,
+          strictStateSerializability: false,
+          strictActionSerializability: false,
+          strictActionWithinNgZone: true,
+          strictActionTypeUniqueness: true,
+        },
+      }
+    ),
+    EffectsModule.forRoot(),
   ],
   providers: [
+    MessageBusService,
     AmplitudeService,
+    MobileAndNotSupportBrowserViewGuardService,
+    TranslateResolverService,
     {
       provide: ErrorHandler,
       useClass: ApmErrorHandler,

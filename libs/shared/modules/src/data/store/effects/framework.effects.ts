@@ -29,7 +29,7 @@ export class FrameworkEffects {
     private actions$: Actions,
     private frameworksHttpService: FrameworkService,
     private operationsTrackerService: OperationsTrackerService,
-    private store: Store<any>
+    private store: Store
   ) {}
 
   @Effect()

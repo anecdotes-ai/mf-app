@@ -50,7 +50,9 @@ export class DataSortComponent implements OnInit, OnChanges {
       }
     }
 
-    if ('data' in changes && (changes.data.isFirstChange() || this.liveSort)) {
+    const isDataChanged = changes.data?.previousValue?.length !== changes.data?.currentValue?.length;
+
+    if ('data' in changes && (isDataChanged || this.liveSort)) {
       if (this.selectedItem) {
         this.selectSort(this.selectedItem);
       }

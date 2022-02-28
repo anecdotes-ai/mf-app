@@ -35,9 +35,8 @@ import {
   UpdateEvidenceOfResourceAction,
   UpdatePolicyAction,
 } from '../actions';
-import { State } from '../index';
 import { CollectingEvidence, EvidenceLike, ResourceType } from '../../models';
-import { createEvidenceLikesSelectorByIds } from '../selectors/evidence.selectors';
+import { EvidenceSelectors } from '../selectors/evidence.selectors';
 import { MessageBusService } from 'core/services/message-bus/message-bus.service';
 import { EvidenceCollectionMessages } from 'core/services/message-bus/constants/evidence-collection-messages.constants';
 import { MANUAL } from './../../constants/evidence';
@@ -47,7 +46,7 @@ import { v4 as guidv4 } from 'uuid';
 export class EvidenceEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<State>,
+    private store: Store,
     private evidenceHttpService: EvidenceService,
     private requirementHttpService: RequirementService,
     private operationsTrackerService: OperationsTrackerService,
@@ -508,7 +507,7 @@ export class EvidenceEffects {
   private getEvidenceInStore(evidenceIds: string[]): Observable<EvidenceLike[]> {
     const evidenceIdSet = new Set(evidenceIds);
 
-    return this.store.select(createEvidenceLikesSelectorByIds(evidenceIds)).pipe(
+    return this.store.select(EvidenceSelectors.CreateEvidenceLikesSelectorByIds(evidenceIds)).pipe(
       filter((evidences) => evidences.some((e) => evidenceIdSet.has(e.id))),
       take(1)
     );

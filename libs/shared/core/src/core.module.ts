@@ -59,6 +59,15 @@ import {
   UserFlowService,
   OwnerFilterService,
   RequirementEventService,
+  AmplitudeService,
+  AuditStartedModalService,
+  CsvFormatterService,
+  MediaQueryService,
+  PermissionsService,
+  PluginNavigationService,
+  PluginNotificationSenderService,
+  PusherConfigService,
+  WindowHelperService,
 } from './services';
 import { CollectionNotificationComponent } from './components/notifications/collection-notification/collection-notification.component';
 import { LoadersModule } from 'core/modules/loaders';
@@ -70,6 +79,12 @@ import { DropdownMenuModule } from 'core/modules/dropdown-menu';
 import { TimeAgoDateViewComponent } from './components/time-ago-date-view/time-ago-date-view.component';
 import { LogItemComponent } from './components/log-item/log-item.component';
 import { CarouselModule } from 'core/modules/carousel/carousel.module';
+import { UserEventService } from './services/user-event/user-event.service';
+import { UserProviderService } from './services/auth/user-provider/user-provider.service';
+import { GeneralEventService } from './services/general-event-service/general-event.service';
+import { MobileAndNotSupportBrowserService } from './services/mobile-and-not-support-browser/mobile-and-not-support-browser.service';
+import { OnPremEventService } from './services/on-prem-event-service/on-prem-event.service';
+import { PolicyManagerEventService } from './services/policy-manager-event-service/policy-manager-event.service';
 
 export const WINDOW = new InjectionToken<Window>('window');
 
@@ -196,6 +211,21 @@ export class CoreModule {
         AuditorPortalGuard,
         OwnerFilterService,
         RequirementEventService,
+        UserEventService,
+        AmplitudeService,
+        AuditStartedModalService,
+        UserProviderService,
+        CsvFormatterService,
+        GeneralEventService,
+        MediaQueryService,
+        MobileAndNotSupportBrowserService,
+        OnPremEventService,
+        PermissionsService,
+        PluginNavigationService,
+        PluginNotificationSenderService,
+        PolicyManagerEventService,
+        PusherConfigService,
+        WindowHelperService,
         {
           provide: WINDOW,
           useFactory: () => window,

@@ -1,18 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { convertToRequirementLike, EvidenceSourcesEnum, RequirementLike } from 'core/modules/shared-controls/models';
-import { CalculatedControl, convertToEvidenceLike, EvidenceLike } from 'core/modules/data/models';
-import { ControlRequirement, EvidenceInstance, EvidenceTypeEnum, Framework } from 'core/modules/data/models/domain';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { EvidenceSourcesEnum } from 'core/modules/shared-controls/models';
+import { EvidenceInstance, EvidenceTypeEnum } from 'core/modules/data/models/domain';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
-import {
-  ControlsFacadeService,
-  DataAggregationFacadeService,
-  EvidenceFacadeService,
-  EvidenceService,
-  FrameworksFacadeService,
-  RequirementsFacadeService,
-  SnapshotsFacadeService,
-} from 'core/modules/data/services';
+import { EvidenceService } from 'core/modules/data/services';
+import { ComponentSwitcherDirective } from 'core/modules/component-switcher';
+import { SubscriptionDetacher } from 'core/utils';
+import { EvidencePreviewModalsContext } from 'core/modules/shared-controls/services/evidence-preview-service/evidence-preview.service';
 
 export enum EvidencePreviewTypeEnum {
   EvidencePreview = 'evidence-preview',
@@ -25,68 +18,38 @@ export enum EvidencePreviewTypeEnum {
   templateUrl: './evidence-preview-host.component.html',
   styleUrls: ['./evidence-preview-host.component.scss'],
 })
-export class EvidencePreviewHostComponent implements OnInit {
+export class EvidencePreviewHostComponent implements OnInit, OnDestroy {
+  private detacher: SubscriptionDetacher = new SubscriptionDetacher();
+
   evidencePreviewTypeEnum = EvidencePreviewTypeEnum;
-
-  @Input()
   eventSource: EvidenceSourcesEnum;
-
-  @Input()
-  evidenceId: string;
-
-  @Input()
-  requirementId: string;
-
-  @Input()
-  controlId: string;
-
-  @Input()
-  frameworkId: string;
-
-  @Input()
-  isSnapshot?: boolean;
-
-  evidence$: Observable<EvidenceInstance>;
-  evidenceLike$: Observable<EvidenceLike>;
-  control$: Observable<CalculatedControl>;
-  controlRequirement$: Observable<ControlRequirement>;
-  framework$: Observable<Framework>;
-  requirementLike$: Observable<RequirementLike>;
-
+  evidence: EvidenceInstance;
   evidencePreviewData$: Observable<string>;
-  evidenceType$: Observable<EvidencePreviewTypeEnum>;
+  evidenceType: EvidencePreviewTypeEnum;
+  headerDataToDisplay: string[];
 
   constructor(
     private evidenceService: EvidenceService,
-    private evidenceFacade: EvidenceFacadeService,
-    private controlFacade: ControlsFacadeService,
-    private requirementFacade: RequirementsFacadeService,
-    private frameworkFacade: FrameworksFacadeService,
-    private snapshotsFacadeService: SnapshotsFacadeService
+    private switcher: ComponentSwitcherDirective,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    if (this.isSnapshot) {
-      this.evidence$ = this.snapshotsFacadeService.getSingleEvidenceSnapshot(this.evidenceId);
-      this.control$ = this.snapshotsFacadeService.getSingleControlSnapshot(this.controlId);
-      this.controlRequirement$ = this.snapshotsFacadeService.getSingleRequirementSnapshot(this.requirementId);
-    } else {
-      this.evidence$ = this.evidenceFacade.getEvidence(this.evidenceId);
-      this.control$ = this.controlFacade.getControl(this.controlId);
-      this.controlRequirement$ = this.requirementFacade.getRequirement(this.requirementId);
-    }
-    this.requirementLike$ = this.controlRequirement$.pipe(map((req) => convertToRequirementLike(req)));
-    this.evidenceLike$ = this.evidence$.pipe(map((evidence) => convertToEvidenceLike(evidence)));
-    this.framework$ = this.frameworkFacade.getFrameworkById(this.frameworkId);
-    this.evidenceType$ = this.evidence$.pipe(map((evidence) => this.getCurrentEvidencePreviewType(evidence)));
-    this.evidencePreviewData$ = this.evidenceType$.pipe(
-      filter((evidenceType) => evidenceType === EvidencePreviewTypeEnum.EvidencePreview),
-      switchMap(() =>
-        this.evidence$.pipe(
-          switchMap((evidence) => this.evidenceService.getEvidencePreview(evidence.evidence_instance_id))
-        )
-      )
-    );
+    this.switcher.sharedContext$
+      .pipe(this.detacher.takeUntilDetach())
+      .subscribe((payload: EvidencePreviewModalsContext) => {
+        this.eventSource = payload.eventSource;
+        this.headerDataToDisplay = payload?.entityPath;
+        this.evidence = payload.evidence;
+        this.evidenceType = this.getCurrentEvidencePreviewType(payload.evidence);
+        this.evidencePreviewData$ = this.evidenceService.getEvidencePreview(payload.evidence.evidence_instance_id);
+
+        this.cd.detectChanges();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.detacher.detach();
   }
 
   private getCurrentEvidencePreviewType(evidence: EvidenceInstance): EvidencePreviewTypeEnum {

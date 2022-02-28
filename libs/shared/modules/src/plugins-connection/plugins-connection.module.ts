@@ -35,7 +35,8 @@ import {
   PluginConnectionFacadeService,
   PluginsEventService,
   DropdownFieldHandler,
-  MultiDropdownHandler
+  MultiDropdownHandler,
+  PluginsDataService
 } from './services';
 import { RouterModule } from '@angular/router';
 import { PluginAccountsListStateComponent } from './components/plugin-connections/plugin-multiple-accounts/plugin-accounts-list-state/plugin-accounts-list-state.component';
@@ -107,6 +108,7 @@ export class PluginsConnectionModule {
       providers: [
         PluginConnectionFacadeService,
         PluginsEventService,
+        PluginsDataService
       ],
     };
   }

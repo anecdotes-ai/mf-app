@@ -1,7 +1,9 @@
 import * as t from './reducers';
 import { ActionReducerMap, combineReducers, compose } from '@ngrx/store';
 
-export interface State {
+export const featureKey = 'data';
+
+export interface DataFeatureState {
   auditLogsState?: t.AuditLogsState;
   controlsState?: t.ControlsState;
   evidencesState?: t.EvidenceState;
@@ -17,7 +19,7 @@ export interface State {
   agentState?: t.AgentsState;
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<DataFeatureState> = {
   auditLogsState: t.auditLogsReducer,
   controlsState: t.controlsReducer,
   evidencesState: t.evidencesReducer,
@@ -34,7 +36,7 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 // tslint:disable-next-line:typedef
-export function store(state: any, action: any): State {
+export function store(state: any, action: any): DataFeatureState {
   // tslint:disable-next-line:no-shadowed-variable
   const store = compose(combineReducers)(reducers);
   return store(state, action);

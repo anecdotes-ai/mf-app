@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { RoleEnum, User} from '../../../models/domain';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthState, featureKey } from '../../../store/state';
+import { UserSelectors } from '../../../store/selectors';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import { RemoveUserAction } from '../../../store/actions';
@@ -14,14 +14,14 @@ export interface ExtendedUser extends User {
 }
 @Injectable()
 export class UserFacadeService {
-  constructor(private store: Store<AuthState>, private actionDispatcher: ActionDispatcherService, private authService: AuthService) { }
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService, private authService: AuthService) { }
 
   getUsers(): Observable<User[]> {
     return this.store
-      .select((x) => x[featureKey].userState)
+      .select(UserSelectors.SelectUserState)
       .pipe(
-        filter((x) => x.isLoaded),
-        map((x) => Object.values(x.entities))
+        filter((userState) => userState.isLoaded),
+        map((userState) => Object.values(userState.entities))
       );
   }
 

@@ -15,6 +15,7 @@ describe('OnPremEventService', () => {
           provide: UserEventService,
           useValue: {},
         },
+        OnPremEventService
       ],
     });
     service = TestBed.inject(OnPremEventService);

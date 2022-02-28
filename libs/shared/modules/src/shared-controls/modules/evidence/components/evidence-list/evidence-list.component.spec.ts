@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { configureTestSuite } from 'ng-bullet';
 import { EvidenceListComponent } from './evidence-list.component';
-import { CalculatedEvidence } from 'core/modules/data/models';
+import { EvidenceInstance } from 'core/modules/data/models/domain';
 
 describe('EvidenceListComponent', () => {
   configureTestSuite();
@@ -29,7 +29,7 @@ describe('EvidenceListComponent', () => {
   describe('selecEvidenceId', () => {
     it('should return evidence id', () => {
       // Arrange
-      const evidence: CalculatedEvidence = {
+      const evidence: EvidenceInstance = {
         evidence_id: 'fake id',
       };
       // Act

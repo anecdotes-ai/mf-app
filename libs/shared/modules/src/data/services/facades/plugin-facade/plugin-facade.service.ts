@@ -3,14 +3,13 @@ import { TrackOperations } from '../../operations-tracker/constants/track.operat
 import { ActionDispatcherService } from './../../action-dispatcher/action-dispatcher.service';
 import { OnboardingPluginsIds, OnboardingPolicyPluginsIds } from './../../../constants';
 import { Service, ServiceLog, ServiceStatusEnum, ServiceTypeEnum } from '../../../models/domain';
-import { selectServiceById, selectServicesAfterInit, selectServicesEntities } from '../../../store/selectors';
+import { selectServicesAfterInit, ServiceSelectors } from '../../../store/selectors';
 import {
   AddToFavouritesAction,
   LoadSpecificServiceAction,
   LoadSpecificServiceInstanceAction,
   RemoveFromFavouritesAction
 } from '../../../store/actions';
-import { State } from '../../../store/state';
 import { NEVER, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { Dictionary } from '@ngrx/entity';
@@ -21,7 +20,7 @@ const serviceInstallationIdentifier = new Set([ServiceStatusEnum.INSTALLED, Serv
 
 @Injectable()
 export class PluginFacadeService {
-  constructor(private store: Store<State>, private dispatcher: ActionDispatcherService) { }
+  constructor(private store: Store, private dispatcher: ActionDispatcherService) { }
 
   private allServices$: Observable<Service[]>;
   private genericServices$: Observable<Service[]>;
@@ -40,19 +39,19 @@ export class PluginFacadeService {
     if (ensureFullService) {
       return this.loadSpecificPlugin(serviceId);
     }
-    return this.store.select(selectServiceById, { serviceId });
+    return this.store.select(ServiceSelectors.SelectServiceById, { serviceId });
   }
 
   getInstalledAndFailedPlugins(): Observable<Service[]> {
     return this.store
-      .select(selectServicesEntities)
+      .select(ServiceSelectors.SelectServicesEntities)
       .pipe(map((services) => services.filter((service) => serviceInstallationIdentifier.has(service.service_status))));
   }
 
 
   IsFullService(serviceId: string): Observable<boolean> {
     return this.store
-      .select((s) => s.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((s) => s.entities[serviceId]),
         map((entity) => entity.isFullService)
@@ -61,9 +60,9 @@ export class PluginFacadeService {
 
   getServiceInstance(serviceId: string, service_instance_id: string): Observable<Service> {
     return this.store
-      .select((state) => state.servicesState?.entities)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
-        map((dictionary) => dictionary[serviceId].fullServiceInstances),
+        map((servicesState) => servicesState?.entities[serviceId].fullServiceInstances),
         switchMap((fullInstance) => {
           if (!fullInstance || !fullInstance[service_instance_id]) {
             this.loadServiceInstance(serviceId, service_instance_id);
@@ -71,9 +70,9 @@ export class PluginFacadeService {
             return NEVER;
           }
           return this.store
-            .select((state) => state.servicesState?.entities)
+            .select(ServiceSelectors.SelectServiceState)
             .pipe(
-              map((dictionary) => dictionary[serviceId].fullServiceInstances),
+              map((servicesState) => servicesState?.entities[serviceId].fullServiceInstances),
               filter((fsis) => !!fsis),
               map((fsi) => fsi[service_instance_id])
             );
@@ -99,9 +98,9 @@ export class PluginFacadeService {
 
   loadSpecificPlugin(serviceId: string, forceReload?: boolean): Observable<Service> {
     return this.store
-      .select((state) => state.servicesState?.entities)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
-        map((directive) => directive[serviceId]),
+        map((servicesState) => servicesState?.entities[serviceId]),
         switchMap((service) => {
           // We can follow next logic. As GET all plugins return us partial plugins, there is no service_auth_type value there
           // But when loading specific plugin, it returns us full entity with this value
@@ -109,7 +108,7 @@ export class PluginFacadeService {
             this.store.dispatch(new LoadSpecificServiceAction({ service_id: serviceId }));
             return NEVER;
           }
-          return this.store.select(selectServiceById, { serviceId });
+          return this.store.select(ServiceSelectors.SelectServiceById, { serviceId });
         })
       );
   }
@@ -124,8 +123,9 @@ export class PluginFacadeService {
 
   areLogsLoadedForPlugin(service_id: string, service_instance_id: string): Observable<boolean> {
     return this.store
-      .select((state) => state.servicesState.entities[service_id])
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
+        map((servicesState) => servicesState.entities[service_id]),
         map(
           (serviceStoreEntity) =>
             !!serviceStoreEntity?.serviceLogs && !!serviceStoreEntity?.serviceLogs[service_instance_id]
@@ -139,7 +139,7 @@ export class PluginFacadeService {
     filterCallback: (serviceLog: ServiceLog) => boolean = null
   ): Observable<ServiceLog[]> {
     return this.store
-      .select((x) => x.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((x) => x.entities[service_id]?.serviceLogs),
         filter(logsDict => !!logsDict),
@@ -226,7 +226,7 @@ export class PluginFacadeService {
 
   getPluginsForOnboardingPlugins(): Observable<Service[]> {
     return this.store
-      .select((state) => state.servicesState)
+      .select(ServiceSelectors.SelectServiceState)
       .pipe(
         map((obj) => {
           return OnboardingPluginsIds.map((service_id) => obj.entities[service_id])

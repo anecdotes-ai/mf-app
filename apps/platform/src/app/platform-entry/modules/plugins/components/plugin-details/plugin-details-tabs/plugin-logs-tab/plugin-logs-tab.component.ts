@@ -117,7 +117,7 @@ export class PluginLogsTabComponent implements OnDestroy, OnChanges, AfterViewIn
       serviceInstanceitem.service_instance_id !==
       this.activatedRouter.root.snapshot.queryParams[RouteParams.plugin.logsForServiceId]
     ) {
-      this.pluginsDataService.showServiceInstanceLogs(serviceInstanceitem.service_instance_id);
+      this.pluginsDataService.showServiceInstanceLogs(serviceInstanceitem.service_instance_id, this.service.service_id);
     }
   }
 

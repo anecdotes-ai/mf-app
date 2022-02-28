@@ -4,7 +4,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { Agent, AgentLog } from './../../models/domain';
 
-export const featureKey = 'agents';
+// export const featureKey = 'agents';
 export interface AgentStoreEntity {
   agent: Agent;
   agentLogs?: AgentLog[];
@@ -24,8 +24,8 @@ export const agentsAdapter: EntityAdapter<AgentStoreEntity> = createEntityAdapte
 
 const initialState: AgentsState = agentsAdapter.getInitialState({ initialized: false });
 
-export const agentStateFeatureSelector = createFeatureSelector<AgentsState>(featureKey);
-export const agentStateSelector = createSelector(agentStateFeatureSelector, (state: AgentsState) => state[featureKey]);
+// export const agentStateFeatureSelector = createFeatureSelector<AgentsState>(featureKey);
+// export const agentStateSelector = createSelector(agentStateFeatureSelector, (state: AgentsState) => state[featureKey]);
 
 export function agentsReducer(state = initialState, action: Action): AgentsState {
   return adapterReducer(state, action);

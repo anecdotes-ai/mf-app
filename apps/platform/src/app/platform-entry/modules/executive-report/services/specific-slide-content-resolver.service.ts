@@ -12,9 +12,12 @@ import {
 } from '../models';
 import { DashboardCategoriesResolverService } from '../../dashboard/services';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class SpecificSlideContentResolverService {
   constructor(
     private categoriesResolver: DashboardCategoriesResolverService,

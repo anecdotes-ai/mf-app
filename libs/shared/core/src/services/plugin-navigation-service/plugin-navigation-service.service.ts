@@ -5,30 +5,22 @@ import { CollectionNotificationData } from 'core/models/connectivity-notificatio
 import { NotificationInputNames } from 'core/modules/data/models';
 import { Service } from 'core/modules/data/models/domain';
 import {
-  ActionDispatcherService,
-  ControlsFacadeService,
   EvidenceFacadeService,
   PluginNotificationFacadeService,
   PluginService,
 } from 'core/modules/data/services';
 import { filter, take, timeout } from 'rxjs/operators';
 import { PluginPageQueryParams } from 'core/models';
-import { LoaderManagerService } from '../loader-manager/loader-manager.service';
 import { WindowHelperService } from './../window-helper/window-helper.service';
 
 const REFRESH_TIMEOUT = 60;
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PluginNavigationService {
   private selectedPluginsFamilyFilterTab: string;
 
   constructor(
     private router: Router,
-    private controlsFacade: ControlsFacadeService,
     private notificationFacade: PluginNotificationFacadeService,
-    private loaderManager: LoaderManagerService,
-    private actionDispatcher: ActionDispatcherService,
     private pluginService: PluginService,
     private windowHelper: WindowHelperService,
     private evidenceFacade: EvidenceFacadeService
@@ -37,7 +29,7 @@ export class PluginNavigationService {
   async redirectToEvidencePool(service: Service): Promise<void> {
     try {
       await this.evidenceFacade
-        .getAllCalculatedEvidence()
+        .getAllEvidences()
         .pipe(
           filter((e) => !!e?.length),
           timeout(REFRESH_TIMEOUT),

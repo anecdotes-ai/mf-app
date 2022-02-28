@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { State } from '../state';
+import { dataFeatureSelector } from './feature.selector';
 
-export const selectDashboardInitState = (state: State): boolean => state.dashboardState.initialized;
+const selectDashboardState = createSelector(dataFeatureSelector, dataFeatureState => dataFeatureState.dashboardState);
+export const selectDashboardInitState = createSelector(selectDashboardState, (dashboardState) => dashboardState.initialized);
 
 export const selectDashboard = createSelector(selectDashboardInitState, (isInit) => isInit);

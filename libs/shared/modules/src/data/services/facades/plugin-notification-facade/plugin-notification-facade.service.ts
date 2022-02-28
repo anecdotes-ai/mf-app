@@ -5,11 +5,10 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { PushNotificationAction, RemoveNotificationAction, UpsertNotificationAction } from '../../../store/actions';
 import { selectPluginNotificationsAfterInit } from '../../../store/selectors';
-import { State } from '../../../store/state';
 
 @Injectable()
 export class PluginNotificationFacadeService {
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store) {}
 
   getAllNotifications(): Observable<NotificationDefinition[]> {
     return this.store.pipe(selectPluginNotificationsAfterInit, shareReplay());

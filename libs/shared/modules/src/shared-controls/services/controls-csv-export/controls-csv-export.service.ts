@@ -14,9 +14,7 @@ export const csvHeaders = ['Category', 'Control name', 'Control description', 'F
 
 export const tscHeaders = ['Trusted service Criteria ', 'Control name', 'Control description'];
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ControlsCsvExportService {
   constructor(
     private csvFormatterService: CsvFormatterService,

@@ -1,7 +1,7 @@
-import { State } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { featureKey } from '../constants';
-import { InitState } from '../reducers';
+import { InitFeatureState } from '../state';
 
-export function selectInitState(state: State<any>): InitState {
-    return state[featureKey].initState;
-}
+const selectInitFeature = createFeatureSelector<InitFeatureState>(featureKey);
+export const selectInitState = createSelector(selectInitFeature, initFeatureState => initFeatureState.initState);
+

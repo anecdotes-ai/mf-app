@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Dictionary } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { NotificationDefinition } from 'core/modules/data/models';
-import { RemoveNotificationAction, State } from 'core/modules/data/store';
-import { SubscriptionDetacher } from 'core/utils';
+import { RemoveNotificationAction, PluginNotificationSelectors } from 'core/modules/data/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,10 +21,10 @@ export class NotificationOutletComponent implements OnInit {
 
   $enititesObs: Observable<Dictionary<NotificationDefinition>>;
 
-  constructor(private store: Store<State>, private cd: ChangeDetectorRef) {}
+  constructor(private store: Store, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.$enititesObs = this.store.select((t) => t.pluginsNotificationsState).pipe(map((state) => state.entities));
+    this.$enititesObs = this.store.select(PluginNotificationSelectors.SelectPluginNotificationState).pipe(map((state) => state.entities));
   }
 
   comparisonFn(): number {

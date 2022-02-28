@@ -5,9 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { PusherMessage, PusherMessageType, ServiceMetaUpdated } from 'core/models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PluginsMetaFacadeService {
   private _serviceMetaCache$: { [serviceInstanceId: string]: BehaviorSubject<any> } = {};
 

@@ -18,11 +18,11 @@ import { CustomItemModel } from '../../../../customization/models';
 import { ResourceType, CalculatedPolicy } from '../../../models';
 import { CustomPolicy, Policy, PolicySettings, PolicyShare, ApproveOnBehalf } from '../../../models/domain';
 import { AddEvidenceToResourceAction, UpdateEvidenceOfResourceAction } from '../../../store/actions/evidences.actions';
-import { State } from '../../../store/state';
 import { ActionDispatcherService } from '../../action-dispatcher/action-dispatcher.service';
 import { PolicyService } from '../../policy/policy.service';
 import { PolicyManagerEventService } from 'core/services/policy-manager-event-service/policy-manager-event.service';
 import { PolicyTypesEnum } from 'core/modules/data/models';
+import { CalculationSelectors } from '../../../store/selectors';
 
 @Injectable()
 export class PoliciesFacadeService {
@@ -31,21 +31,22 @@ export class PoliciesFacadeService {
   private allNotApplicablePolicies$: Observable<Array<Policy>>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
     private policyService: PolicyService,
     private policyManagerEventService: PolicyManagerEventService
   ) {
     this.allPoliciesCache$ = this.store
-      .select((x) => x.calculationState.arePoliciesCalculated)
+      .select(CalculationSelectors.SelectCalculationState)
       .pipe(
+        map((calculationState) => calculationState.arePoliciesCalculated),
         tap((areCalculated) => {
           if (!areCalculated) {
             this.store.dispatch(new InitPoliciesStateAction());
           }
         }),
         filter((areCalculated) => areCalculated),
-        switchMap((_) => this.store.select((state) => state.calculationState.calculatedPolicies.entities)),
+        switchMap((_) => this.store.select(CalculationSelectors.SelectCalculatedPolicies).pipe(map((calculatedPolicies) => calculatedPolicies.entities))),
         map((calculatedPolicies) => Object.values(calculatedPolicies)),
         shareReplay()
       );
@@ -82,7 +83,7 @@ export class PoliciesFacadeService {
   }
 
   getPolicy(policyId: string): Observable<CalculatedPolicy> {
-    return this.store.select((state) => state.calculationState.calculatedPolicies.entities[policyId]);
+    return this.store.select(CalculationSelectors.SelectCalculatedPolicies).pipe(map((calculatedPolicies) => calculatedPolicies.entities[policyId]));
   }
 
   getAllApplicableWithCategoriesOrderAndSort(): Observable<Array<CalculatedPolicy>> {

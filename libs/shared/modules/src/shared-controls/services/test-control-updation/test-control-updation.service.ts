@@ -4,9 +4,7 @@ import { PusherMessage, PusherMessageType } from 'core/models';
 import { Observable } from 'rxjs';
 import { filter, map, take} from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TestControlUpdationService {
   constructor(private messageBus: MessageBusService) {}
 

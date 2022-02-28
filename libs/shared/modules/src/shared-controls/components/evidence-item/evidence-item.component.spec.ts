@@ -1,3 +1,5 @@
+import { EvidencePreviewModalsContext } from './../../services/evidence-preview-service/evidence-preview.service';
+import { EvidenceFromPolicyModalsContext } from './../../services/evidence-from-policy-preview/evidence-from-policy-preview.service';
 import { FullFilePreviewModalComponent } from './../preview/full-file-preview-modal/full-file-preview-modal.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, SimpleChanges } from '@angular/core';
@@ -12,7 +14,7 @@ import { HtmlElementReferenceDirective } from 'core/modules/directives';
 import { ModalWindowService } from 'core/modules/modals';
 import { EvidenceInstance, EvidenceStatusEnum, EvidenceTypeEnum } from 'core/modules/data/models/domain';
 import { EvidenceFacadeService, EvidenceService, OperationsTrackerService } from 'core/modules/data/services';
-import { reducers, State } from 'core/modules/data/store';
+import { reducers } from 'core/modules/data/store';
 import { ANECDOTES_EVIDENCE_ID } from 'core/utils/userflow';
 import { configureTestSuite } from 'ng-bullet';
 import { Observable, of } from 'rxjs';
@@ -23,14 +25,12 @@ import {
   WindowHelperService
 } from 'core';
 import { SharedContextAccessorDirective } from '../../directives';
-import { ControlContextService, ControlsFocusingService } from '../../services';
 import { EvidenceItemComponent } from './evidence-item.component';
 import { EvidenceUserEventService } from 'core/modules/data/services/event-tracking/evidence-user-event.service';
 import { PolicyModalService } from 'core/modules/shared-policies/services';
 import { EvidenceSourcesEnum } from '../../models';
 import { ResourceType } from 'core/modules/data/models';
-import { EvidencePreviewService } from 'core/modules/shared-controls/services/evidence-preview-service/evidence-preview.service';
-import { EvidenceFromPolicyPreviewService } from 'core/modules/shared-controls/services/evidence-from-policy-preview/evidence-from-policy-preview.service';
+import { ControlContextService, ControlsFocusingService, EvidencePreviewService, EvidenceFromPolicyPreviewService } from 'core/modules/shared-controls/services';
 
 describe('EvidenceItemComponent', () => {
   configureTestSuite();
@@ -42,7 +42,7 @@ describe('EvidenceItemComponent', () => {
   let modalWindowService: ModalWindowService;
   let windowHelperService: WindowHelperService;
   let fileDownloadingHelperService: FileDownloadingHelperService;
-  let store: MockStore<State>;
+  let store: MockStore;
   let windowMock: Window;
   let evidenceFacadeService: EvidenceFacadeService;
   let evidenceEventService: EvidenceUserEventService;
@@ -589,15 +589,11 @@ describe('EvidenceItemComponent', () => {
       component.evidenceSource = EvidenceSourcesEnum.Controls;
 
       component.controlRequirement = {
-        requirement_id: 'requirement_id',
-      };
-
-      component.framework = {
-        framework_id: 'framework_id',
+        requirement_name: 'requirement_name',
       };
 
       component.controlInstance = {
-        control_id: 'control_id',
+        control_name: 'control_name',
       };
 
       // Act
@@ -606,12 +602,9 @@ describe('EvidenceItemComponent', () => {
       // Assert
       expect(evidencePreviewService.openEvidencePreviewModal).toHaveBeenCalledWith({
         eventSource: component.evidenceSource,
-        evidenceId: component.evidenceLike.evidence.evidence_id,
-        requirementId: component.controlRequirement.requirement_id,
-        frameworkId: component.framework.framework_id,
-        controlId: component.controlInstance.control_id,
-        isSnapshot: false
-      });
+        evidence: component.evidenceLike.evidence,
+        entityPath: ['control_name', 'requirement_name']
+      } as EvidencePreviewModalsContext);
     });
 
     it('should call open with fullDataModalParameters if evidenceSource is Controls and the evidence of policy type ', () => {
@@ -621,15 +614,11 @@ describe('EvidenceItemComponent', () => {
       spyOnProperty(component, 'isPolicyEvidence').and.returnValue(true);
 
       component.controlRequirement = {
-        requirement_id: 'requirement_id',
-      };
-
-      component.framework = {
-        framework_id: 'framework_id',
+        requirement_name: 'requirement_name',
       };
 
       component.controlInstance = {
-        control_id: 'control_id',
+        control_name: 'control_name',
       };
 
       // Act
@@ -639,10 +628,8 @@ describe('EvidenceItemComponent', () => {
       expect(evidenceFromPolicyPreviewService.openEvidenceFromPolicyPreviewModal).toHaveBeenCalledWith({
         eventSource: component.evidenceSource,
         evidenceLike: component.evidenceLike,
-        controlInstance: component.controlInstance,
-        controlRequirement: component.controlRequirement,
-        framework: component.framework,
-      });
+        entityPath: ['control_name', 'requirement_name']
+      } as EvidenceFromPolicyModalsContext);
     });
 
     it('should call setMitigatedStatusForNewEvidence if evidence is not ignored & is not preview mode & preview supported & click is not on actions or statuses & evidence is in status NEW', () => {
@@ -680,8 +667,6 @@ describe('EvidenceItemComponent', () => {
       const id = 'full-file-preview-modal';
       const file = new File([], 'name');
       component.evidence = { evidence_id: 'evId' };
-      component.framework = { framework_id: 'ads' };
-      component.controlInstance = { control_id: 'controlid' };
       component.requirementLike = { resource: { requirement_id: 'some_id', requirement_related_policies_ids: [] } };
 
       const expectedObjToCall = {
@@ -689,9 +674,7 @@ describe('EvidenceItemComponent', () => {
         context: {
           evidence: component.evidence,
           file: file,
-          framework: component.framework,
-          control: component.controlInstance,
-          requirement: component.requirementLike,
+          entityPath: [component.requirementLike.name],
         },
         componentsToSwitch: [
           {

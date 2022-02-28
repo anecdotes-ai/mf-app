@@ -1,5 +1,5 @@
 <ng-container *ngIf="evidence.evidence_is_applicable || shouldDisplay">
-    <app-date-view *ngIf="evidence.evidence_last_modified_time" class="last_modified_time"
+    <app-date-view *ngIf="evidence.evidence_last_modified_time" class="last_modified_time flex"
         [date]="evidence.evidence_last_modified_time" [dateFormat]="dateFormat"
         [descriptionTranslationKey]="buildTranslationKey('lastModified')"></app-date-view>
 

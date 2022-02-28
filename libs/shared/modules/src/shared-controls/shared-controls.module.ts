@@ -70,7 +70,10 @@ import {
   ControlsNavigator,
   EvidenceCollectionModalService,
   EvidenceFromPolicyPreviewService,
-  ControlsReportService
+  ControlsReportService,
+  SlackModalService,
+  TestControlUpdationService,
+  EvidencePreviewService
 } from './services';
 import { UtilsModule } from 'core/modules/utils';
 import { GapModule } from 'core/modules/gap';
@@ -122,6 +125,7 @@ import { ControlOwnerComponent } from './components/control-owner/control-owner.
 import { UrlPreviewComponent } from './components/preview/url-preview/url-preview.component';
 import { InviteUserModule } from 'core/modules/invite-user';
 import { ModalsModule } from 'core/modules/modals';
+import { ModalsBuilderService } from './components/automation/ticketing/services';
 
 @NgModule({
   imports: [
@@ -297,7 +301,12 @@ import { ModalsModule } from 'core/modules/modals';
     FrameworksPluginsModalService,
     FrameworksFacadeService,
     EvidenceCollectionModalService,
-    EvidenceFromPolicyPreviewService
+    EvidenceFromPolicyPreviewService,
+    ControlsReportService,
+    SlackModalService,
+    TestControlUpdationService,
+    EvidencePreviewService,
+    ModalsBuilderService
   ],
 })
 export class ControlsSharedModule {
@@ -319,8 +328,7 @@ export class ControlsSharedModule {
       providers: [
         ...FocusingMechanismModule.forRoot().providers,
         ControlsFocusingService,
-        ControlsNavigator,
-        ControlsReportService
+        ControlsNavigator
       ]
     };
   }

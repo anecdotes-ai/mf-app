@@ -5,7 +5,7 @@ import { PusherMessage, PusherMessageType, UserEvents } from 'core';
 import { CollectionResult } from 'core/models/collection-result.model';
 import { Service } from 'core/modules/data/models/domain';
 import { ControlsFacadeService, PluginFacadeService } from 'core/modules/data/services';
-import { reducers } from 'core/modules/data/store';
+import { reducers, ServiceSelectors } from 'core/modules/data/store';
 import { ServicesState } from 'core/modules/data/store/reducers';
 import { CollectionHandler } from './collection-handler';
 import { PluginConnectionFacadeService } from 'core/modules/plugins-connection/services';
@@ -70,9 +70,8 @@ describe('CollectionHandler', () => {
     controlsFacade.reloadControls = jasmine.createSpy('reloadControls');
 
     mockStore = TestBed.inject(MockStore);
-    mockStore.setState({
-      servicesState,
-    });
+
+    mockStore.overrideSelector(ServiceSelectors.SelectServiceState, servicesState);
   });
 
   describe('Amplitude events sending', () => {

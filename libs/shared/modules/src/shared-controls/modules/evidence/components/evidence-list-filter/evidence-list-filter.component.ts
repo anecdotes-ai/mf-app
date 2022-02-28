@@ -11,9 +11,8 @@ import {
 import { FormControl } from '@angular/forms';
 import { SearchDefinitionModel } from 'core/modules/data-manipulation/search';
 import { SortDefinition } from 'core/modules/data-manipulation/sort';
-import { CalculatedEvidence } from 'core/modules/data/models';
-import { Service } from 'core/modules/data/models/domain';
-import { DataAggregationFacadeService, EvidenceFacadeService, RequirementsFacadeService } from 'core/modules/data/services';
+import { Service, EvidenceInstance } from 'core/modules/data/models/domain';
+import { DataAggregationFacadeService, RequirementsFacadeService } from 'core/modules/data/services';
 import { SubscriptionDetacher } from 'core/utils';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
@@ -28,11 +27,11 @@ import { DropdownControlComponent } from 'core/modules/dropdown-menu';
 export class EvidenceListFilterComponent implements OnInit, OnDestroy {
   private detacher: SubscriptionDetacher = new SubscriptionDetacher();
   private translationKey = 'connectEvidenceModal.evidenceConnectFromRequirement';
-  private filteredEvidencesSubject = new BehaviorSubject<CalculatedEvidence[]>([]);
+  private filteredEvidencesSubject = new BehaviorSubject<EvidenceInstance[]>([]);
   private currentPluginFilter: string;
-  private sortedEvidence: CalculatedEvidence[];
+  private sortedEvidence: EvidenceInstance[];
 
-  sortDefinitions: SortDefinition<CalculatedEvidence>[] = [
+  sortDefinitions: SortDefinition<EvidenceInstance>[] = [
     {
       id: 'evidence_name',
       propertySelector: (e) => e.evidence_name,
@@ -40,11 +39,21 @@ export class EvidenceListFilterComponent implements OnInit, OnDestroy {
     },
   ];
 
-  searchDefinitions: SearchDefinitionModel<CalculatedEvidence>[] = [
+  searchDefinitions: SearchDefinitionModel<EvidenceInstance>[] = [
     {
       propertySelector: (e) => e.evidence_name,
     },
   ];
+
+  searchTerm: string;
+  selectedPlugin: Service;
+  allEvidences$: Observable<EvidenceInstance[]>;
+  filteredEvidences$: Observable<EvidenceInstance[]>;
+  filteredEvidence: EvidenceInstance[];
+  pluginNames: string[];
+  pluginFilterControl: FormControl;
+
+  @ViewChild(DropdownControlComponent) private dropdownControlComponent: DropdownControlComponent;
 
   @Input() requirementId: string;
   @Input() frameworkId: string;
@@ -55,16 +64,6 @@ export class EvidenceListFilterComponent implements OnInit, OnDestroy {
       this.handleKeyboardEvent();
     }
   }
-
-  @ViewChild(DropdownControlComponent) private dropdownControlComponent: DropdownControlComponent;
-
-  searchTerm: string;
-  selectedPlugin: Service;
-  allEvidences$: Observable<CalculatedEvidence[]>;
-  filteredEvidences$: Observable<CalculatedEvidence[]>;
-  filteredEvidence: CalculatedEvidence[];
-  pluginNames: string[];
-  pluginFilterControl: FormControl;
 
   constructor(
     private requirementFacade: RequirementsFacadeService,
@@ -84,7 +83,7 @@ export class EvidenceListFilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSearch(foundEvidence: CalculatedEvidence[]): void {
+  handleSearch(foundEvidence: EvidenceInstance[]): void {
     this.filteredEvidencesSubject.next(foundEvidence);
   }
 
@@ -94,7 +93,7 @@ export class EvidenceListFilterComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  handleSort(sortedEvidence: CalculatedEvidence[]): void {
+  handleSort(sortedEvidence: EvidenceInstance[]): void {
     this.sortedEvidence = sortedEvidence;
     this.filterEvidence();
     this.cd.detectChanges();

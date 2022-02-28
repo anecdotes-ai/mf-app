@@ -1,14 +1,13 @@
-<div class="loading-animation-wrapper" *ngIf="displayAnimationLoader">
+<div *ngIf="displayAnimationLoader" class="loading-animation-wrapper">
   <app-loading-animation class="loading-animation"></app-loading-animation>
 </div>
 <section searchScope>
-  <app-secondary-loading-animation *ngIf="displayLoader | async"> </app-secondary-loading-animation>
-
-  <div *ngIf="(gridView$ | async) && rootEvidence.evidence_tip" class="evidence-tip-wrapper">
+  <div *ngIf="rootEvidence.evidence_tip" class="evidence-tip-wrapper">
     <app-tip [tipId]="rootEvidence.evidence_id" [tipType]="tipTypes.TIP">
       <app-text [text]="rootEvidence.evidence_tip"></app-text>
     </app-tip>
   </div>
+
   <ng-container *ngTemplateOutlet="displayAnimationLoader ? null : evidencePreview"></ng-container>
 </section>
 
@@ -16,14 +15,10 @@
   <ng-container *ngIf="gridView$ | async as data; else errorTemplate">
     <app-evidence-preview-header
       *ngIf="eventSource === evidenceSources.Controls"
-      [controlName]="controlInstance.control_name"
-      [requirementName]="requirementLike.name"
+      [dataToDisplay]="headerDataToDisplay"
     ></app-evidence-preview-header>
 
     <app-evidence-preview-item
-      [controlRequirement]="controlRequirement"
-      [controlInstance]="controlInstance"
-      [framework]="framework"
       [evidence]="evidenceDistinct$ | async"
       [searchItemAmount]="searchItemAmount"
       [evidenceDistinct]="evidenceDistinct$ | async"
@@ -37,23 +32,21 @@
     <div class="actions-group grid grid-cols-4 gap-x-8 items-end">
       <div class="evidence-history flex flex-col w-full m-0">
         <div class="title flex items-center mb-1">
-          <ng-container *ngIf="isHelpNeeded">
-            <ng-container
-              *ngTemplateOutlet="
-                helpIcon;
-                context: {
-                  placement: 'bottom-left',
-                  margin: 'margin-right',
-                  text: helpInfoTooltip,
-                  tooltipClass: 'evidence-help-tooltip'
-                }
-              "
-            >
-            </ng-container>
+          <ng-container
+            *ngTemplateOutlet="
+              helpIcon;
+              context: {
+                placement: 'bottom-left',
+                margin: 'margin-right',
+                text: helpInfoTooltip,
+                tooltipClass: 'evidence-help-tooltip'
+              }
+            "
+          >
           </ng-container>
-
           <span class="text-navy-90">{{ buildTranslationKey('evidenceHistory') | translate }}</span>
         </div>
+
         <app-snapshot-menu
           class="w-full"
           [evidenceId]="rootEvidence.evidence_id"
@@ -86,6 +79,7 @@
           [lastDate]="snapshotLastTime"
         ></app-service-instance-menu>
       </div>
+
       <ng-container *ngIf="filterEvidenceData">
         <div class="filter-evidence flex flex-col m-0">
           <div class="title flex items-center mb-1">
@@ -109,6 +103,7 @@
           ></app-dropdown-control>
         </div>
       </ng-container>
+
       <app-data-search
         class="w-full"
         [placeholderTranslationKey]="buildTranslationKey('search')"
@@ -121,21 +116,21 @@
     </div>
   </ng-container>
 
-    <div class="grid-wrapper pt-4" #fullDataWrapper>
-      <app-search-results-pagination> </app-search-results-pagination>
-      <app-not-found
-        *ngIf="isNotFoundScreenDisplayed"
-        (backToAllDataBtnClick)="resetSearch()"
-        [mainInfoTranslationKey]="buildTranslationKey('notFound.info')"
-        [backToAllDataTranslationKey]="buildTranslationKey('notFound.button')"
-        [userAdviceDisabled]="true"
-      >
-      </app-not-found>
+  <div class="grid-wrapper pt-4" #fullDataWrapper>
+    <app-search-results-pagination> </app-search-results-pagination>
+    <app-not-found
+      *ngIf="isNotFoundScreenDisplayed"
+      (backToAllDataBtnClick)="resetSearch()"
+      [mainInfoTranslationKey]="buildTranslationKey('notFound.info')"
+      [backToAllDataTranslationKey]="buildTranslationKey('notFound.button')"
+      [userAdviceDisabled]="true"
+    >
+    </app-not-found>
 
-      <ng-container *ngIf="isDataToPreviewExists; else noDataToPreviewState">
-        <ng-container *ngTemplateOutlet="defaultState"></ng-container>
-      </ng-container>
-    </div>
+    <ng-container *ngIf="isDataToPreviewExists; else noDataToPreviewState">
+      <ng-container *ngTemplateOutlet="defaultState"></ng-container>
+    </ng-container>
+  </div>
 
   <ng-template #defaultState>
     <div [class.hidden]="isNotFoundScreenDisplayed" class="middle-content" [class.empty-data]="isGridEmpty">
@@ -193,17 +188,6 @@
     <app-evidence-report></app-evidence-report>
   </div>
 
-  <ng-template #attachLinkModal let-pluginData="pluginData">
-    <app-attach-link-modal-window
-      [evidence]="rootEvidence"
-      [filterCollectionResultFn]="filterCollectionResult.bind(this)"
-      [requirementLike]="requirementLike"
-      [pluginData]="pluginData"
-      [wasResourceUpdatedFn]="wasParentResourceUpdated"
-    >
-    </app-attach-link-modal-window>
-  </ng-template>
-
   <ng-template #helpInfoTooltip>
     <div class="help-tooltip">
       <section>
@@ -240,7 +224,6 @@
       [keepOnHover]="true"
       [stretch]="true"
       [class.tooltip-opened]="tooltipOnPreview.isOpen()"
-      [class.invisible]="!isHelpNeeded"
       #tooltipOnPreview="ngbTooltip"
       [placement]="placementCfg"
       src="info-help"

@@ -1,9 +1,9 @@
-import { EventEmitter } from '@angular/core';
+import { DataAggregationFacadeService, FrameworksFacadeService } from 'core/modules/data/services';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { FrameworksFacadeService } from 'core/modules/data/services';
 import { LoaderManagerService } from 'core';
 import { DataSortComponent } from 'core/modules/data-manipulation/sort';
 import { DataFilterManagerService } from 'core/modules/data-manipulation/data-filter';
@@ -18,6 +18,7 @@ import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 import { EvidencePoolSecondaryHeaderComponent } from './../evidence-pool-secondary-header/evidence-pool-secondary-header.component';
 import { EvidencePoolComponent } from './evidence-pool.component';
+import { CalculatedControl } from 'core/modules/data/models';
 import { take } from 'rxjs/operators';
 
 describe('EvidencePoolComponent', () => {
@@ -35,30 +36,36 @@ describe('EvidencePoolComponent', () => {
   let filterManager: DataFilterManagerService;
   let evidenceFacadeService: EvidenceFacadeService;
   let frameworksFacade: FrameworksFacadeService;
+  let dataAggregationFacadeService: DataAggregationFacadeService;
 
   let filteredEvidence;
 
-
+  const fakeControls: CalculatedControl = {};
   const applicableEvidence = [
     { evidence_id: 'evidence_id1', evidence_is_applicable: true },
     { evidence_id: 'evidence_id2', evidence_is_applicable: true },
   ];
-  const allCalculatedEvidence = [...applicableEvidence, { evidence_id: 'evidence_id3', evidence_is_applicable: false }];
+  const allEvidences = [...applicableEvidence];
 
-  let mockEvidence = allCalculatedEvidence;
+  let mockEvidence = allEvidences;
 
 
   beforeAll(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, TranslateModule.forRoot()],
-      declarations: [EvidencePoolComponent, EvidencePoolSecondaryHeaderComponent, DataSortComponent],
+      declarations: [EvidencePoolComponent,
+        EvidencePoolSecondaryHeaderComponent,
+        DataSortComponent
+      ],
       providers: [
         { provide: SearchInstancesManagerService, useValue: {} },
         { provide: LoaderManagerService, useValue: {} },
         { provide: DataFilterManagerService, useValue: {} },
         { provide: EvidenceFacadeService, useValue: {} },
-        { provide: FrameworksFacadeService, useValue: {} }
+        { provide: FrameworksFacadeService, useValue: {} },
+        { provide: DataAggregationFacadeService, useValue: {} }
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -97,12 +104,15 @@ describe('EvidencePoolComponent', () => {
     filterManager.setData = jasmine.createSpy('setData');
 
     evidenceFacadeService = TestBed.inject(EvidenceFacadeService);
-    evidenceFacadeService.getAllCalculatedEvidence = jasmine
-      .createSpy('getAllCalculatedEvidence')
+    evidenceFacadeService.getAllEvidences = jasmine
+      .createSpy('getAllEvidences')
       .and.callFake(() => of(mockEvidence));
 
     frameworksFacade = TestBed.inject(FrameworksFacadeService);
     frameworksFacade.getApplicableFrameworks = jasmine.createSpy('getApplicableFrameworks').and.returnValue(of([]));
+
+    dataAggregationFacadeService = TestBed.inject(DataAggregationFacadeService);
+    dataAggregationFacadeService.getReferencesForAllEvidence = jasmine.createSpy('getReferencesForAllEvidence').and.returnValue(of([fakeControls]));
   });
 
   it('should create', () => {
@@ -168,7 +178,7 @@ describe('EvidencePoolComponent', () => {
       await fixture.whenStable();
 
       // Assert
-      expect(filterManager.setData).toHaveBeenCalledWith(applicableEvidence);
+      expect(filterManager.setData).toHaveBeenCalledWith(allEvidences);
     });
 
     it('should open filter on first filtering', async () => {
@@ -206,6 +216,7 @@ describe('EvidencePoolComponent', () => {
         secondaryHeaderComponent.sort.emit(sortedData);
         dataSearchMock.search.emit([]);
         dataSearchMock.search.emit([]); // because of skip
+        const a = component.isNotFoundState$.getValue();
 
         expect(component.isNotFoundState$.getValue()).toBeTrue();
       });
@@ -242,7 +253,7 @@ describe('EvidencePoolComponent', () => {
 
       it('should display tip if isEmptyState === false', async () => {
         // Arrange
-        mockEvidence = allCalculatedEvidence;
+        mockEvidence = allEvidences;
         fixture.detectChanges();
 
         // Act
@@ -270,7 +281,7 @@ describe('EvidencePoolComponent', () => {
 
       it('should not display evidence-not-found component if isEmptyState === false', async () => {
         // Arrange
-        mockEvidence = allCalculatedEvidence;
+        mockEvidence = allEvidences;
         fixture.detectChanges();
 
         // Act

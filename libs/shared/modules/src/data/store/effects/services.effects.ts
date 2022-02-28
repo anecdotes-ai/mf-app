@@ -21,12 +21,12 @@ import {
   ServiceAdapterActions,
   ServiceUpdated,
 } from '../actions/services.actions';
-import { State } from '../index';
 import {
   ReconnectServiceAction,
   ServiceCreateTaskAction,
   ServiceTaskCreatedAction,
 } from './../actions/services.actions';
+import { ServiceSelectors } from '../selectors';
 
 @Injectable()
 export class ServicesEffects {
@@ -34,7 +34,7 @@ export class ServicesEffects {
     private actions$: Actions,
     private pluginsHttpService: PluginService,
     private operationsTrackerService: OperationsTrackerService,
-    private store: Store<State>,
+    private store: Store,
     private pluginFacade: PluginFacadeService
   ) { }
 
@@ -216,7 +216,7 @@ export class ServicesEffects {
   serviceConnectivityHandling$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ServiceAdapterActions.serviceConnectivityHandling),
-      withLatestFrom(this.store.select((s) => s.servicesState).pipe(map((v) => v.entities))),
+      withLatestFrom(this.store.select(ServiceSelectors.SelectServiceState).pipe(map((v) => v.entities))),
       filter(([action, entities]) => !!entities[action.service_id]),
       map(([action, entities]) => {
         const currentService = entities[action.service_id];

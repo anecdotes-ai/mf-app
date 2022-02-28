@@ -253,7 +253,7 @@
                 "output": "assets"
               }
             ],
-            "styles": ["apps/shell/src/styles.css"],
+            "styles": ["apps/shell/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "apps/shell/webpack.config.js"

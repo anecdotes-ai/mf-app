@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EvidencePreviewService } from './evidence-preview.service';
+import { EvidencePreviewModalsContext, EvidencePreviewService } from './evidence-preview.service';
 import { ModalWindowService } from 'core/modules/modals';
 import { EvidencePreviewHostComponent } from 'core/modules/shared-controls/components/preview/evidence-preview-host/evidence-preview-host.component';
 
@@ -26,7 +26,7 @@ describe('EvidencePreviewService', () => {
     // Arrange
 
     // Act
-    service.openEvidencePreviewModal({});
+    service.openEvidencePreviewModal({} as EvidencePreviewModalsContext);
 
     // Assert
     expect(modalWindowService.openInSwitcher).toHaveBeenCalledWith({
@@ -34,9 +34,9 @@ describe('EvidencePreviewService', () => {
         {
           id: 'evidence-preview-modal',
           componentType: EvidencePreviewHostComponent,
-          contextData: {},
         },
       ],
+      context: {},
     });
   });
 });

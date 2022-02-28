@@ -24,10 +24,4 @@ export interface Requirement {
    * The requirement related evidence
    */
   requirement_related_evidences?: string[];
-
-  /**
-   * The requirement related evidence ids
-   * NOTE: We dont' get this from the API. It gets fulfilled when breaking down control in ApiModelMapperService
-   */
-  requirement_evidence_ids?: string[];
 }

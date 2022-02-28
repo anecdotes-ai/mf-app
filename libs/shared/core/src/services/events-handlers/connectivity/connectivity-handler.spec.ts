@@ -12,7 +12,7 @@ import {
 } from 'core';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 import { Service, ServiceStatusEnum, ServiceTypeEnum } from 'core/modules/data/models/domain';
-import { LoadSpecificServiceAction, reducers, ServiceUpdated } from 'core/modules/data/store';
+import { LoadSpecificServiceAction, reducers, ServiceSelectors, ServiceUpdated } from 'core/modules/data/store';
 import { ServicesState } from 'core/modules/data/store/reducers';
 import { ConnectivityHandler } from './connectivity-handler';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
@@ -51,7 +51,7 @@ describe('ConnectivityHandler', () => {
     mockStore = TestBed.inject(MockStore);
     mockStore.dispatch = spyOn(mockStore, 'dispatch');
     mockServicesState = { initialized: false, ids: [], entities: {} };
-    mockStore.setState({ servicesState: mockServicesState });
+    mockStore.overrideSelector(ServiceSelectors.SelectServiceState, mockServicesState);
     pluginsEventService = TestBed.inject(PluginsEventService);
     pluginsEventService.trackPluginConnectionResult = jasmine.createSpy('trackPluginConnectionResult');
   });
@@ -91,7 +91,8 @@ describe('ConnectivityHandler', () => {
       messageObject.status = true;
 
       // Act
-      mockStore.setState({ servicesState: mockServicesState });
+      mockStore.overrideSelector(ServiceSelectors.SelectServiceState, mockServicesState);
+
       mockStore.refreshState();
       serviceUnderTest.handle(message);
       tick();
@@ -114,7 +115,7 @@ describe('ConnectivityHandler', () => {
       messageObject.status = false;
 
       // Act
-      mockStore.setState({ servicesState: mockServicesState });
+      mockStore.overrideSelector(ServiceSelectors.SelectServiceState, mockServicesState);
       mockStore.refreshState();
       serviceUnderTest.handle(message);
       tick();

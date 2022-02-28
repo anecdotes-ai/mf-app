@@ -11,25 +11,27 @@ import {
   PluginsAutomationModalInputFields,
   PluginsAutomationModalWindowComponent,
 } from '../../plugins-automation-modal-window/plugins-automation-modal-window.component';
+import { AppConfigService } from 'core/services';
 
 export enum TicketingModalEnum {
   AddNewTicketingEvidence = 'TicketingModalEnum - AddNewTicketingEvidence',
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ModalsBuilderService {
 
-  constructor(private modalWindowService: ModalWindowService) { }
+  constructor(private modalWindowService: ModalWindowService, private appConfig: AppConfigService) { }
 
   openTicketingModalForPlugin(plugin: Service, control: CalculatedControl, requirement: CalculatedRequirement, framework: Framework): void {
     switch (plugin.service_id) {
       case 'jira':
-        this.openJiraTicketingModal(plugin, control, requirement, framework);
+        this.openJiraTicketingModal(plugin, control, requirement, framework, 'jiraAutomationModal', this.appConfig.config.redirectUrls.intercomJiraCustomizationHelp);
         break;
       case 'zendesk':
         this.openZendeskTicketingModal(plugin, control, requirement, framework);
+        break;
+      case 'jira_server':
+        this.openJiraTicketingModal(plugin, control, requirement, framework, 'jiraServerAutomationModal', this.appConfig.config.redirectUrls.intercomJiraServerCustomizationHelp);
         break;
     }
   }
@@ -54,7 +56,7 @@ export class ModalsBuilderService {
     });
   }
 
-  private openJiraTicketingModal(plugin: Service, control: CalculatedControl, requirement: CalculatedRequirement, framework: Framework): void {
+  private openJiraTicketingModal(plugin: Service, control: CalculatedControl, requirement: CalculatedRequirement, framework: Framework, translationKey: string, articleUrl: string): void {
     const componentToSwitch = {
       id: TicketingModalEnum.AddNewTicketingEvidence,
       componentType: JiraAutomationModalWindowComponent,
@@ -63,6 +65,8 @@ export class ModalsBuilderService {
         [JiraAutomationModalWindowComponentInputFields.controlRequirement]: requirement,
         [JiraAutomationModalWindowComponentInputFields.controlInstance]: control,
         [JiraAutomationModalWindowComponentInputFields.framework]: framework,
+        [JiraAutomationModalWindowComponentInputFields.translationKey]: translationKey,
+        [JiraAutomationModalWindowComponentInputFields.articleUrl]: articleUrl
       },
     };
     this.openTicketingModal(componentToSwitch);

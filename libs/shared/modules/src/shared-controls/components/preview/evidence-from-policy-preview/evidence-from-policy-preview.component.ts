@@ -11,10 +11,8 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { EvidenceSourcesEnum } from 'core/modules/shared-controls/models';
-import { CalculatedControl, EvidenceLike, CalculatedPolicy } from 'core/modules/data/models';
-import { ControlRequirement, Framework } from 'core/modules/data/models/domain';
-import { map, take } from 'rxjs/operators';
-import { EvidenceService, DataAggregationFacadeService, PoliciesFacadeService } from 'core/modules/data/services';
+import { EvidenceLike, CalculatedPolicy } from 'core/modules/data/models';
+import { EvidenceService, PoliciesFacadeService } from 'core/modules/data/services';
 import { TipTypeEnum } from 'core/models';
 import { FileDownloadingHelperService } from 'core/services';
 import { FileTypeHandlerService } from 'core/modules/file-viewer/services';
@@ -59,14 +57,12 @@ export class EvidenceFromPolicyPreviewComponent implements OnInit, AfterViewInit
   // **** Public properties ****
 
   evidenceLike: EvidenceLike;
-  framework: Framework;
-  controlInstance: CalculatedControl;
   policy: CalculatedPolicy;
-  controlRequirement: ControlRequirement;
   isLoaded: boolean;
   showTabular: boolean;
   notSupportedPreview: boolean;
   file: File;
+  headerDataToDisplay: string[];
 
   // **** Getters ****
 
@@ -75,7 +71,7 @@ export class EvidenceFromPolicyPreviewComponent implements OnInit, AfterViewInit
   }
 
   get hasPreview(): boolean {
-    return this.policy.has_roles || this.hasSchedules;
+    return this.policy?.has_roles || this.hasSchedules;
   }
 
   get evidenceComply(): boolean {
@@ -95,7 +91,6 @@ export class EvidenceFromPolicyPreviewComponent implements OnInit, AfterViewInit
     private cd: ChangeDetectorRef,
     private fileTypeHandler: FileTypeHandlerService,
     private evidenceEventService: EvidenceUserEventService,
-    private dataAggregationService: DataAggregationFacadeService,
     private switcher: ComponentSwitcherDirective,
     private policiesFacade: PoliciesFacadeService
   ) {}
@@ -108,9 +103,7 @@ export class EvidenceFromPolicyPreviewComponent implements OnInit, AfterViewInit
       .subscribe((payload: EvidenceFromPolicyModalsContext) => {
         this.eventSource = payload.eventSource;
         this.evidenceLike = payload.evidenceLike;
-        this.controlInstance = payload.controlInstance;
-        this.controlRequirement = payload.controlRequirement;
-        this.framework = payload.framework;
+        this.headerDataToDisplay = payload.entityPath;
       });
 
     this.evidenceService
@@ -152,21 +145,12 @@ export class EvidenceFromPolicyPreviewComponent implements OnInit, AfterViewInit
 
   async downloadEvidence(): Promise<void> {
     this.fileDownloadingHelper.downloadFile(this.file, this.evidenceLike.evidence.evidence_name);
-    const frameworks = await this.dataAggregationService
-      .getEvidenceReferences(this.evidenceLike.evidence.evidence_id)
-      .pipe(
-        map((references) => references.map((reference) => reference.framework.framework_name)),
-        take(1)
-      )
-      .toPromise();
+
     await this.evidenceEventService.trackEvidenceDownload(
-      this.framework ? this.framework.framework_id : null,
-      this.controlInstance.control_id,
-      this.controlRequirement.requirement_id,
+      this.evidenceLike.evidence.evidence_id,
       this.evidenceLike.evidence.evidence_name,
       this.evidenceLike.evidence.evidence_type,
       this.eventSource,
-      frameworks?.length ? frameworks.join(', ') : null
     );
   }
 

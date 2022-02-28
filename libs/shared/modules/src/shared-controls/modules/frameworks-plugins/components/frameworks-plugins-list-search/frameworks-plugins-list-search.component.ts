@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { SearchDefinitionModel } from 'core/modules/data-manipulation/search';
-import { Service, ServiceStatusEnum } from 'core/modules/data/models/domain';
+import { Service, EvidenceInstance } from 'core/modules/data/models/domain';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EvidenceFacadeService, PluginFacadeService } from 'core/modules/data/services';
 import { SubscriptionDetacher } from 'core/utils';
 import { FormControl } from '@angular/forms';
 import { shareReplay, take } from 'rxjs/operators';
-import { CalculatedEvidence } from 'core/modules/data/models';
 
 @Component({
   selector: 'app-frameworks-plugins-list-search',
@@ -17,7 +16,7 @@ export class FrameworksPluginsListSearchComponent implements OnInit, OnDestroy {
   private detacher: SubscriptionDetacher = new SubscriptionDetacher();
   private translationKey = 'frameworksPlugins.frameworksPluginsList.search';
   private foundPluginsSubject = new BehaviorSubject<Service[]>([]);
-  private allEvidencesList: CalculatedEvidence[];
+  private allEvidencesList: EvidenceInstance[];
 
   searchDefinitions: SearchDefinitionModel<Service>[] = [
     {
@@ -64,7 +63,7 @@ export class FrameworksPluginsListSearchComponent implements OnInit, OnDestroy {
 
   private setUpDataForFiltering(): void {
     this.evidenceFacadeService
-      .getAllCalculatedEvidence()
+      .getAllEvidences()
       .pipe(this.detacher.takeUntilDetach())
       .subscribe((evidences) => {
         this.allEvidencesList = evidences;
@@ -85,10 +84,10 @@ export class FrameworksPluginsListSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getEvidenceListForPlugin(plugin_id: string): CalculatedEvidence[] {
-    const calculatedEvidencesOfPlugin: CalculatedEvidence[] = this.allEvidencesList.filter(
+  private getEvidenceListForPlugin(plugin_id: string): EvidenceInstance[] {
+    const evidencesOfPlugin: EvidenceInstance[] = this.allEvidencesList.filter(
       (e) => e.evidence_service_id == plugin_id && e.evidence_collection_timestamp
     );
-    return calculatedEvidencesOfPlugin;
+    return evidencesOfPlugin;
   }
 }

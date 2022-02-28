@@ -5,9 +5,12 @@ import { DashboardHeaderItem } from '../../models';
 import { Service, ServiceStatusEnum } from 'core/modules/data/models/domain';
 import { CalculatedControl } from 'core/modules/data/models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class DashboardHeaderContentResolverService {
   constructor() { }
 

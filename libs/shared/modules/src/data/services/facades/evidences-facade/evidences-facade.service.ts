@@ -5,9 +5,7 @@ import { ControlRequirement, EvidenceInstance, EvidenceStatusEnum, EvidenceRunHi
 import { TrackOperations } from '../../operations-tracker/constants/track.operations.list.constant';
 import { PoliciesFacadeService } from '../policies-facade/policies-facade.service';
 import { NEVER, Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
-import { State } from '../../../store/state';
-import { CalculatedEvidence } from './../../../models/calculated-evidence.model';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import {
   AddEvidenceFromDeviceAction,
   AddEvidenceFromTicketAction,
@@ -19,7 +17,6 @@ import {
   SetEvidenceStatusAction,
 } from './../../../store/actions/evidences.actions';
 import { ActionDispatcherService } from './../../action-dispatcher/action-dispatcher.service';
-import { UserEventService } from 'core/services/user-event/user-event.service';
 import { EvidenceEventData, EvidenceEventDataProperty, EvidenceSourcesEnum, UserEvents } from 'core/models';
 import { AttachRequirementPolicy } from '../../../store';
 import { RequirementsFacadeService } from '../requirements-facade/requirements-facade.service';
@@ -28,37 +25,36 @@ import { ControlsFacadeService } from '../controls-facade/controls-facade.servic
 import { EvidenceLike } from '../../../models';
 import { MANUAL } from '../../../constants';
 import { PluginFacadeService } from '../plugin-facade/plugin-facade.service';
-import { EvidenceUserEventService } from '../../event-tracking/evidence-user-event.service';
-import { createEvidenceLikesSelectorByIds, createEvidenceLikeSelectorById } from '../../../store/selectors/evidence.selectors';
+import { EvidenceSelectors } from '../../../store/selectors';
+import { UserEventService } from 'core/services/user-event/user-event.service';
 
 @Injectable()
 export class EvidenceFacadeService {
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private actionDispatcher: ActionDispatcherService,
-    private userEventService: UserEventService,
     private requirementFacade: RequirementsFacadeService,
     private controlFacade: ControlsFacadeService,
     private frameworkFacade: FrameworksFacadeService,
     private pluginFacade: PluginFacadeService,
     private policyFacade: PoliciesFacadeService,
-    private evidenceEventService: EvidenceUserEventService
+    private userEventService: UserEventService,
   ) {
-    this.setAllCalculatedEvidenceCache();
+    this.setAllEvidenceCache();
   }
 
-  private allEvidenceCache$: Observable<CalculatedEvidence[]>;
+  private allEvidenceCache$: Observable<EvidenceInstance[]>;
 
   getEvidence(evidence_id: string): Observable<EvidenceInstance> {
-    return this.store.select((state) => state.evidencesState.evidences.entities[evidence_id]);
+    return this.store.select(EvidenceSelectors.SelectEvidenceState).pipe(map((evidencesState) => evidencesState.evidences.entities[evidence_id]));
   }
 
   getEvidenceLike(evidence_id: string): Observable<EvidenceLike> {
-    return this.store.select(createEvidenceLikeSelectorById(evidence_id));
+    return this.store.select(EvidenceSelectors.CreateEvidenceLikeSelectorById(evidence_id));
   }
-  
+
   getEvidenceByIds(evidenceIds: string[]): Observable<EvidenceLike[]> {
-    return this.store.select(createEvidenceLikesSelectorByIds(evidenceIds));
+    return this.store.select(EvidenceSelectors.CreateEvidenceLikesSelectorByIds(evidenceIds));
   }
 
   updateEvidence(evidence: EvidenceInstance): Promise<void> {
@@ -79,20 +75,21 @@ export class EvidenceFacadeService {
 
   getEvidenceHistoryRun(evidence_id: string, lastDate: number = undefined): Observable<EvidenceRunHistoryEntity> {
     return this.store
-      .select((state) => state.evidencesState?.evidence_history_run)
+      .select(EvidenceSelectors.SelectEvidenceState)
       .pipe(
+        map((evidencesState) => evidencesState?.evidence_history_run),
         map((directive) => directive[evidence_id]),
         switchMap((service) => {
           if (!service) {
             this.store.dispatch(EvidenceAdapterActions.loadEvidenceHistoryRun({ evidence_id, lastDate }));
             return NEVER;
           }
-          return this.store.select((s) => s.evidencesState.evidence_history_run[evidence_id]);
+          return this.store.select(EvidenceSelectors.SelectEvidenceState).pipe(map((evidencesState) => evidencesState.evidence_history_run[evidence_id]));
         })
       );
   }
 
-  getAllCalculatedEvidence(): Observable<CalculatedEvidence[]> {
+  getAllEvidences(): Observable<EvidenceInstance[]> {
     return this.allEvidenceCache$;
   }
 
@@ -113,7 +110,7 @@ export class EvidenceFacadeService {
       framework_id
     );
     eventData[EvidenceEventDataProperty.SelectedPolicy] = policy.policy_name;
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.ADD_EVIDENCE_POLICY, eventData);
+    this.userEventService.sendEvent(UserEvents.ADD_EVIDENCE_POLICY, eventData);
   }
 
   async createRequirementUrlEvidenceAsync(
@@ -129,7 +126,7 @@ export class EvidenceFacadeService {
     );
     const eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id);
     eventData[EvidenceEventDataProperty.AddedUrl] = url;
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.ADD_EVIDENCE_URL, eventData);
+    this.userEventService.sendEvent(UserEvents.ADD_EVIDENCE_URL, eventData);
     return evidenceIds;
   }
 
@@ -185,7 +182,7 @@ export class EvidenceFacadeService {
     const eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id);
     const service = await this.pluginFacade.getServiceById(service_id).pipe(take(1)).toPromise();
     eventData[EvidenceEventDataProperty.Type] = service.service_display_name;
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.ADD_EVIDENCE_TICKETING, eventData);
+    this.userEventService.sendEvent(UserEvents.ADD_EVIDENCE_TICKETING, eventData);
     return evidenceIds;
   }
 
@@ -205,7 +202,7 @@ export class EvidenceFacadeService {
     const eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id);
     eventData[EvidenceEventDataProperty.EvidenceName] = evidence.evidence_name;
     eventData[EvidenceEventDataProperty.Clicked] = 'mark for review';
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.EVIDENCE_MARK_FOR_REVIEW, eventData);
+    this.userEventService.sendEvent(UserEvents.EVIDENCE_MARK_FOR_REVIEW, eventData);
   }
 
   async setMitigatedStatus(
@@ -224,13 +221,13 @@ export class EvidenceFacadeService {
     const eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id);
     eventData[EvidenceEventDataProperty.EvidenceName] = evidence.evidence_name;
     eventData[EvidenceEventDataProperty.Clicked] = 'got it';
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.EVIDENCE_MARK_FOR_REVIEW, eventData);
+    this.userEventService.sendEvent(UserEvents.EVIDENCE_MARK_FOR_REVIEW, eventData);
   }
 
   async evidencePoolCollectionEvent(requirement_id: string, control_id: string, framework_id: string): Promise<void> {
     const eventData = await this.prepareEventDataForRequirementAsync(requirement_id, control_id, framework_id);
     eventData[EvidenceEventDataProperty.Source] = EvidenceSourcesEnum.CollectEvidence;
-    this.evidenceEventService.sendEvidenceEvent(UserEvents.LINK_EVIDENCE, eventData);
+    this.userEventService.sendEvent(UserEvents.LINK_EVIDENCE, eventData);
   }
 
   private async prepareEventDataForRequirementAsync(
@@ -250,13 +247,9 @@ export class EvidenceFacadeService {
     };
   }
 
-  private setAllCalculatedEvidenceCache(): void {
-    this.allEvidenceCache$ = this.store
-      .select((state) => state.calculationState.areEvidenceCalculated)
+  private setAllEvidenceCache(): void {
+    this.allEvidenceCache$ = this.store.select(EvidenceSelectors.SelectEvidences)
       .pipe(
-        filter((areLoaded) => areLoaded),
-        switchMap((_) => this.store.select((state) => state.calculationState.calculatedEvidences.entities)),
-        map((calculatedEvidences) => Object.values(calculatedEvidences)),
         shareReplay()
       );
   }

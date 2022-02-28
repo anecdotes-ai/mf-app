@@ -130,6 +130,15 @@ export enum UserEvents {
   SAVE_POLICY_SETTINGS = 'Policy manager - policy settings',
   POLICY_LINKED = 'Policy manager - linked',
 
+  // Multi Accounts
+  ADD_MULTI_ACCOUNT = 'Multi-Accounts - add multi account',
+  CONNECT_ACCOUNTS = 'Multi-Accounts - connect accounts',
+  EDIT_ACCOUNT = 'Multi-Accounts - edit account',
+  REMOVE_ACCOUNT = 'Multi-Accounts - remove account',
+  DISCONNECT_ACCOUNT = 'Multi-Accounts - disconnect account',
+  VIEW_ACCOUNT_LOGS = 'Multi-Accounts - view logs',
+  ADD_ACCOUNT = 'Multi-Accounts - add account',
+
   // Risk Management
   ADD_SUPPORTING_DOCUMENT = 'Risk - add item',
   CREATE_RISK = 'Risk - create risk',
@@ -614,6 +623,22 @@ export type CommentingEventData = {
   [CommentingEventDataProperty.mentioned]: 'yes' | 'no';
 };
 
+export const enum MultiAccountsDataProperty {
+  PluginName = "plugin name",
+  NumberOfConnectedAccounts = 'number of accounts connected',
+  NumberOfSucceededConnections = 'number connections succeeded',
+  TotalConnectedAccounts = 'total number of connected accounts',
+  AccountAlias = 'account alias',
+}
+
+export interface MultiAccountsData {
+  [MultiAccountsDataProperty.PluginName]?: string;
+  [MultiAccountsDataProperty.NumberOfConnectedAccounts]?: number;
+  [MultiAccountsDataProperty.NumberOfSucceededConnections]?: number;
+  [MultiAccountsDataProperty.TotalConnectedAccounts]?: number;
+  [MultiAccountsDataProperty.AccountAlias]?: 'empty' | 'non empty' | 'changed' | 'not changed';
+}
+
 export type UserEventDataTypeMapping = {
   [UserEvents.LOGIN]: void;
   [UserEvents.LOGOUT]: void;
@@ -733,6 +758,15 @@ export type UserEventDataTypeMapping = {
   [UserEvents.SEND_FOR_APPROVAL]: PolicyManagerEventData;
   [UserEvents.SAVE_POLICY_SETTINGS]: PolicyManagerEventData;
   [UserEvents.POLICY_LINKED]: PolicyManagerEventData;
+
+  // Multi-Accounts
+  [UserEvents.ADD_ACCOUNT]: MultiAccountsData;
+  [UserEvents.EDIT_ACCOUNT]: MultiAccountsData;
+  [UserEvents.REMOVE_ACCOUNT]: MultiAccountsData;
+  [UserEvents.CONNECT_ACCOUNTS]: MultiAccountsData;
+  [UserEvents.VIEW_ACCOUNT_LOGS]: MultiAccountsData;
+  [UserEvents.ADD_MULTI_ACCOUNT]: MultiAccountsData;
+  [UserEvents.DISCONNECT_ACCOUNT]: MultiAccountsData;
 
   // Risk Management
   [UserEvents.ADD_SUPPORTING_DOCUMENT]: RiskManagerEventData;

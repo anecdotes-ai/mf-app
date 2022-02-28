@@ -9,6 +9,7 @@ import { OAuthUrlHandlerService } from '../oauth-url-handler/oauth-url-handler.s
 import { WindowHelperService } from 'core/services/window-helper/window-helper.service';
 import { ComponentToSwitch } from 'core/modules/component-switcher/models/component-to-switch';
 import { Injectable } from '@angular/core';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
 // Local imports
 import {
   EvidenceCollectionHasStarted_TranslationKey,
@@ -39,6 +40,7 @@ import { PluginConnectionFacadeService } from '../facades';
 import { PluginGenericConnectionComponent } from '../../components/plugin-connections';
 import { map, take } from 'rxjs/operators';
 import { PluginsEventService } from 'core/modules/plugins-connection/services/plugins-event-service/plugins-event.service';
+import { UserEvents } from 'core/models/user-events/user-event-data.model';
 
 @Injectable()
 export class ConnectionStateSwitcherService {
@@ -52,7 +54,8 @@ export class ConnectionStateSwitcherService {
     private windowHelper: WindowHelperService,
     private urlHandlerService: OAuthUrlHandlerService,
     private pluginConnectionFacade: PluginConnectionFacadeService,
-    private pluginsEventService: PluginsEventService
+    private pluginsEventService: PluginsEventService,
+    private multiAccountsEventService: MultiAccountsEventService
   ) {
     this._connectionStatePages = this.getDefaultPluginConnectionStates();
   }
@@ -289,24 +292,35 @@ export class ConnectionStateSwitcherService {
     };
   }
 
-  private getRemoveServiceAccountConfirmationStateContext(): PluginStaticStateInputsToTypesMapping {
-    return this.getDisableConfirmationStateContext(ConfirmServiceAccountRemove_TranslationKey);
-  }
-
   private getDisconnectServiceAccountConfirmationStateContext(): PluginStaticStateInputsToTypesMapping {
     return this.getDisableConfirmationStateContext(ConfirmServiceAccountDisconnect_TranslationKey);
   }
 
   private getDisconnectPluginConfirmationStateContext(): PluginStaticStateInputsToTypesMapping {
-    return this.getDisableConfirmationStateContext(ConfirmPluginDisconnect_TranslationKey);
+    let stateContext = this.getDisableConfirmationStateContext(ConfirmServiceAccountDisconnect_TranslationKey);
+    let originalAction = stateContext.mainButton.action;
+    stateContext.mainButton.action = (_, sharedContext: PluginConnectionStaticStateSharedContext) => {
+       this.multiAccountsEventService.trackMultiAccountWithPluginName(UserEvents.DISCONNECT_ACCOUNT, sharedContext[PluginStaticStateSharedContextInputKeys.service].service_id);
+       originalAction(_, sharedContext); 
+    };
+    return stateContext;
   }
+
+  private getRemoveServiceAccountConfirmationStateContext(): PluginStaticStateInputsToTypesMapping {
+    let stateContext = this.getDisableConfirmationStateContext(ConfirmServiceAccountRemove_TranslationKey);
+    let originalAction = stateContext.mainButton.action;
+    stateContext.mainButton.action = (_, sharedContext: PluginConnectionStaticStateSharedContext) => {
+       this.multiAccountsEventService.trackMultiAccountWithPluginName(UserEvents.REMOVE_ACCOUNT, sharedContext[PluginStaticStateSharedContextInputKeys.service].service_id);
+       originalAction(_, sharedContext); 
+    };
+    return stateContext;
+ }
 
   private getDisableConfirmationStateContext(sectionKey: string): PluginStaticStateInputsToTypesMapping {
     return {
       mainButton: {
         translationKey: getMainButtonTranslationKeyBySectionKey(sectionKey),
         action: (_, sharedContext: PluginConnectionStaticStateSharedContext) => {
-          // Amplitude tracking, has to be adjusted with new multipel accounts logic
           this.pluginsEventService.trackDisconnectPluginClick(sharedContext[PluginStaticStateSharedContextInputKeys.service]);
           this.pluginConnectionFacade.disconnectPlugin(sharedContext[PluginStaticStateSharedContextInputKeys.service].service_id);
         }

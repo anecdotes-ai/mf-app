@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import * as jsonPatch from 'fast-json-patch';
 import { Router } from '@angular/router';
 import { placeholderFile } from 'core/modules/plugins-connection/utils/placeholder-file';
+import { MultiAccountsEventService } from 'core/modules/data/services/event-tracking/multi-accounts-event-service/multi-accounts-event.service';
+import { UserEvents } from 'core/models/user-events/user-event-data.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PluginsDataService {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private multiAccountsEventService: MultiAccountsEventService) { }
 
   resolveReconnectOperations(
     allPreviousValues: { [key: string]: any },
@@ -46,7 +46,8 @@ export class PluginsDataService {
     return operations;
   }
 
-  async showServiceInstanceLogs(serviceInstanceId: string): Promise<boolean> {
+  async showServiceInstanceLogs(serviceInstanceId: string, service_id: string): Promise<boolean> {
+    this.multiAccountsEventService.trackMultiAccountWithPluginName(UserEvents.VIEW_ACCOUNT_LOGS, service_id);
     return await this.router.navigate([], {
       queryParams: {
         tab: RouteParams.plugin.logsQueryParamValue,

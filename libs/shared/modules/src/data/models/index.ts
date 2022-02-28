@@ -1,6 +1,5 @@
 export * from './calculated-control.model';
 export * from './calculated-requirement.model';
-export * from './calculated-evidence.model';
 export * from './change-applicability.model';
 export * from './notification-definition.model';
 // export * from './service-installation.models';

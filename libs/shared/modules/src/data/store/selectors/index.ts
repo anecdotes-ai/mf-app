@@ -6,3 +6,8 @@ export * from './requirement.selectors';
 export * from './service.selectors';
 export * from './framework.selectors';
 export * from './policy.selectors';
+export * from './agent.selectors';
+export * from './calculation.selectors';
+export * from './snapshot.selectors';
+export * from './evidence.selectors';
+export * from './audit-logs.selectors';

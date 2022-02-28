@@ -19,6 +19,7 @@ import {
   AddCustomPolicyAction,
   AddEvidencePayload,
   AddEvidenceToResourceAction,
+  CalculationSelectors,
   EditCustomPolicyAction,
   UpdateEvidenceOfResourceAction,
 } from '../../../store';
@@ -83,8 +84,6 @@ describe('PoliciesFacadeService', () => {
     },
     calculatedControls: undefined,
     calculatedRequirements: undefined,
-    calculatedEvidences: undefined,
-    areEvidenceCalculated: false,
     arePoliciesCalculated: true,
     areControlsCalculated: false
   };
@@ -115,7 +114,7 @@ describe('PoliciesFacadeService', () => {
     policyManagerEventService.trackSavePolicySettingsEvent = jasmine.createSpy('trackSavePolicySettingsEvent');
 
     mockStore = TestBed.inject(MockStore);
-    mockStore.setState({ calculationState });
+    mockStore.overrideSelector(CalculationSelectors.SelectCalculationState, calculationState);
   });
 
   it('should be created', () => {
@@ -173,9 +172,9 @@ describe('PoliciesFacadeService', () => {
 
     it('should return all existing policies types', async () => {
       // Arrange
-      service.getAllApplicableWithCategoriesOrderAndSort = 
+      service.getAllApplicableWithCategoriesOrderAndSort =
         jasmine.createSpy('getAllApplicableWithCategoriesOrderAndSort').and.returnValue(of([policy]));
-        
+
       // Act
       const res = await service.getPolicyTypesSorted().pipe(take(1)).toPromise();
 

@@ -4,7 +4,6 @@ import { DashboardData } from 'core/models/dashboard-data.model';
 import { ControlsFacadeService } from '../controls-facade/controls-facade.service';
 import { FrameworksFacadeService } from '../frameworks-facade/frameworks-facade.service';
 import { PluginFacadeService } from '../plugin-facade/plugin-facade.service';
-import { State } from '../../../store/state';
 import { selectDashboardAfterInit } from '../../../store/selectors';
 import { generateControls } from 'core/utils/generate-controls.function';
 import { combineLatest, Observable } from 'rxjs';
@@ -13,7 +12,7 @@ import { debounceTime, map, shareReplay } from 'rxjs/operators';
 @Injectable()
 export class DashboardFacadeService {
   constructor(
-    private store: Store<State>,
+    private store: Store,
     private controlsFacade: ControlsFacadeService,
     private frameworksFacade: FrameworksFacadeService,
     private pluginFacade: PluginFacadeService

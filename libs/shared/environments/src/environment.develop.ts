@@ -82,6 +82,8 @@ const config: ConfigurationFile = {
       'https://intercom.help/anecdotes/en/articles/5067844-how-to-customize-evidence-from-jira-cloud',
     intercomZendeskCustomizationHelp:
       'https://intercom.help/anecdotes/en/articles/5365221-how-to-customize-evidence-from-zendesk',
+    intercomJiraServerCustomizationHelp:
+      'https://intercom.help/anecdotes/en/articles/5920608-how-to-customize-evidence-from-jira-server',
     auditorsPortal: 'https://auditors.anecdotes.dev',
   },
   pdfTron: {

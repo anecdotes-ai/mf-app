@@ -11,9 +11,12 @@ import { UserEventService } from '../user-event/user-event.service';
 import { CalculatedControl, ResourceType } from 'core/modules/data/models';
 import { Framework } from 'core/modules/data/models/domain';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class GeneralEventService {
   constructor(private userEventService: UserEventService) {}
 

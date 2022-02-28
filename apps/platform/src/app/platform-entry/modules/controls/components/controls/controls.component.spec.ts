@@ -6,7 +6,6 @@ import { FrameworksFacadeService } from 'core/modules/data/services';
 import { configureTestSuite } from 'ng-bullet';
 import { LoaderManagerService } from 'core';
 import { Framework } from 'core/modules/data/models/domain';
-import { State } from 'core/modules/data/store';
 import { ControlsComponent } from './controls.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
@@ -31,7 +30,7 @@ describe('ControlsComponent', () => {
 
   let component: ControlsComponent;
   let fixture: ComponentFixture<ControlsComponent>;
-  let mockStore: MockStore<State>;
+  let mockStore: MockStore;
   let initialState: any;
   let loaderManager: LoaderManagerService;
   let facadeService: FrameworksFacadeService;

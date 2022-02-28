@@ -11,7 +11,7 @@ export class NotificationEffects {
   constructor(
     private actions$: Actions,
     private notificationsService: NotificationsService,
-    private store: Store<any>
+    private store: Store
   ) {}
 
   loadNotifications$: Observable<Action> = createEffect(() => {

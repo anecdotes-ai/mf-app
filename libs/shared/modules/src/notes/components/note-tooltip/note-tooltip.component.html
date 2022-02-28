@@ -8,11 +8,8 @@
       <span [innerHtml]="note.note_text | linkify" class="text"></span>
     </div>
     <div class="metadata-info flex flex-row">
-      <app-metadata-view
-        class="flex flex-row-reverse"
-        metadataValue="@{{ removeWhiteSpacesFunc(note.note_updated_by) }}"
-        [metadataDescriptionTranslationKey]="buildTranslationKey('tooltip.lastModifiedBy')"
-      ></app-metadata-view>
+      <span>{{buildTranslationKey('tooltip.lastModifiedBy') | translate }}
+        {{removeWhiteSpacesFunc(note.note_updated_by)}}</span>
       &nbsp;
       <span>{{ buildTranslationKey('tooltip.onDateText') | translate }}</span>
       &nbsp;

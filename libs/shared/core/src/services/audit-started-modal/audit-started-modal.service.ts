@@ -3,7 +3,12 @@ import { ModalWindowService } from 'core/modules/modals/services';
 import { AUDIT_STARTED_MODAL } from 'core/modules/shared-framework/constants/localstorageKeys.constants';
 import { WindowHelperService } from '../window-helper/window-helper.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable(
+    // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+    {
+      providedIn: 'root' 
+    }
+)
 export class AuditStartedModalService {
     private localStorage: Storage;
 

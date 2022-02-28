@@ -17,15 +17,12 @@ import {
   NotificationInputNames,
 } from 'core/modules/data/models';
 import { UpsertNotificationAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
 import { map, take } from 'rxjs/operators';
 import { TunnelConnectivityResult } from 'core/models/tunnel-connectivity-result';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PluginNotificationSenderService {
-  constructor(private store: Store<State>, private pluginFacade: PluginFacadeService) {}
+  constructor(private store: Store, private pluginFacade: PluginFacadeService) {}
 
   sendConnectionStartedNotification(data: ConnectivityResult): any {
     const notificationDef = this.constructConnectivityNotificationDefinition({

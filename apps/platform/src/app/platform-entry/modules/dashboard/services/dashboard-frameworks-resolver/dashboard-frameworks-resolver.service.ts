@@ -6,9 +6,12 @@ import { DashboardFrameworksSectionData } from '../../models';
 import { FrameworkStatus } from 'core/modules/data/models';
 import { ProgressCoverage } from '../../models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class DashboardFrameworksResolverService {
   constructor(private frameworkService: FrameworkService) {}
 

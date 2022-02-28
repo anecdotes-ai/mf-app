@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  CalculatedControl,
-  CalculatedRequirement,
-  EvidenceLike,
-  FrameworkReference
-} from '../../../models';
+import { CalculatedControl, EvidenceLike, FrameworkReference } from '../../../models';
 import { Control, EvidenceInstance, Framework } from '../../../models/domain';
 import { ControlsFacadeService } from '../controls-facade/controls-facade.service';
 import { FrameworksFacadeService } from '../frameworks-facade/frameworks-facade.service';
 import { RequirementsFacadeService } from '../requirements-facade/requirements-facade.service';
 import { groupBy, toDictionary } from 'core/utils';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, debounceTime } from 'rxjs/operators';
 import { EvidenceFacadeService } from '../evidences-facade/evidences-facade.service';
 import { PoliciesFacadeService } from '../policies-facade/policies-facade.service';
 
@@ -37,7 +32,7 @@ export class DataAggregationFacadeService {
     return this.frameworksFacade.getFrameworkById(frameworkId).pipe(
       switchMap((framework) => {
         return this.evidenceFacade
-          .getAllCalculatedEvidence()
+          .getAllEvidences()
           .pipe(map((evidences) => this.filterNotRelevantEvidence(framework, evidences)));
       })
     );
@@ -114,6 +109,26 @@ export class DataAggregationFacadeService {
           })
         );
       })
+    );
+  }
+
+  getReferencesForAllEvidence(): Observable<{ [evidenceId: string]: FrameworkReference[] }> {
+    return this.evidenceFacade.getAllEvidences().pipe(
+      switchMap((evidences) => {
+        return combineLatest(
+          evidences.map((evidence) => {
+            return this.getEvidenceReferences(evidence.evidence_id).pipe(
+              map((frameworkRefs: FrameworkReference[]) => ({ [evidence.evidence_id]: frameworkRefs }))
+            );
+          })
+        );
+      }),
+      debounceTime(100),
+      map((frameworkRef: { [evidenceId: string]: FrameworkReference[] } []) =>
+        frameworkRef.reduce((result, current) => {
+          return { ...result, ...current };
+        }, {})
+      )
     );
   }
 

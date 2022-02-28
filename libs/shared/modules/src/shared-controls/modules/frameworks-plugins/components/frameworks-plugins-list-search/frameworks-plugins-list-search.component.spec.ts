@@ -55,8 +55,8 @@ describe('FrameworksPluginsListSearchComponent', () => {
     fixture = TestBed.createComponent(FrameworksPluginsListSearchComponent);
     component = fixture.componentInstance;
     evidenceFacadeService = TestBed.inject(EvidenceFacadeService);
-    evidenceFacadeService.getAllCalculatedEvidence = jasmine
-      .createSpy('getAllCalculatedEvidence')
+    evidenceFacadeService.getAllEvidences = jasmine
+      .createSpy('getAllEvidences')
       .and.callFake(() => of([]));
     pluginFacadeService = TestBed.inject(PluginFacadeService);
     pluginFacadeService.getInstalledAndFailedPlugins = jasmine.createSpy('getInstalledAndFailedPlugins').and.callFake(() => of(mockAllPluginsList));

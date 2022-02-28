@@ -3,16 +3,20 @@
 import { Dictionary } from '@ngrx/entity';
 import { createSelector } from '@ngrx/store';
 import { convertToEvidenceLike, EvidenceLike } from '../../models';
-import { State } from '../state';
+import { dataFeatureSelector } from './feature.selector';
+import { PolicySelectors } from './policy.selectors';
 
-export const selectEvidenceLikeDictionary = createSelector(
-  (state: State) => state.evidencesState,
-  (state: State) => state.policyState,
-  (evidenceState, policyState) => {
+const SelectEvidenceState = createSelector(dataFeatureSelector, (dataFeatureState => dataFeatureState.evidencesState));
+const SelectEvidenceDictionary = createSelector(SelectEvidenceState, (evidenceState) => evidenceState.evidences.entities);
+const SelectEvidences = createSelector(SelectEvidenceDictionary, (evidenceDictionary) => Object.values(evidenceDictionary));
+const SelectEvidenceLikeDictionary = createSelector(
+  SelectEvidences,
+  PolicySelectors.SelectPolicyState,
+  (evidences, policyState) => {
     const evidenceLikeDictionary = {} as Dictionary<EvidenceLike>;
 
-    const evidenceEvidenceLikes = evidenceState.evidences.ids.map((id) =>
-      convertToEvidenceLike(evidenceState.evidences.entities[id])
+    const evidenceEvidenceLikes = evidences.map((evidence) =>
+      convertToEvidenceLike(evidence)
     );
     const policiesEvidenceLikes = policyState.policies.ids
       .map((id) => policyState.policies.entities[id])
@@ -27,15 +31,24 @@ export const selectEvidenceLikeDictionary = createSelector(
   }
 );
 
-export const selectAllEvidenceLikes = createSelector(selectEvidenceLikeDictionary, (dictionary) =>
+const SelectAllEvidenceLikes = createSelector(SelectEvidenceLikeDictionary, (dictionary) =>
   Object.values(dictionary)
 );
-export const createEvidenceLikesSelectorByIds = (evidenceIds: string[]) =>
-  createSelector(selectEvidenceLikeDictionary, (dictionary) =>
+const CreateEvidenceLikesSelectorByIds = (evidenceIds: string[]) =>
+  createSelector(SelectEvidenceLikeDictionary, (dictionary) =>
     Array.from(new Set(evidenceIds))
       .map((id) => dictionary[id])
       .filter((evidence) => evidence)
   );
 
-export const createEvidenceLikeSelectorById = (evidenceId: string) =>
-  createSelector(selectEvidenceLikeDictionary, (dictionary) => dictionary[evidenceId]);
+const CreateEvidenceLikeSelectorById = (evidenceId: string) =>
+  createSelector(SelectEvidenceLikeDictionary, (dictionary) => dictionary[evidenceId]);
+
+export const EvidenceSelectors = {
+  CreateEvidenceLikeSelectorById,
+  CreateEvidenceLikesSelectorByIds,
+  SelectAllEvidenceLikes,
+  SelectEvidenceLikeDictionary,
+  SelectEvidenceState,
+  SelectEvidences
+};

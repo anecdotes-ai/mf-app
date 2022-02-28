@@ -6,8 +6,10 @@ import { of } from 'rxjs';
 import { SnapshotsFacadeService } from './snapshots-facade.service';
 import { reducers } from 'core/modules/data/store/state';
 import { SnapshotState } from 'core/modules/data/store/reducers';
-import { CalculatedControl, CalculatedEvidence, CalculatedPolicy, CalculatedRequirement } from 'core/modules/data/models';
+import { CalculatedControl, CalculatedPolicy, CalculatedRequirement } from 'core/modules/data/models';
 import { take } from 'rxjs/operators';
+import { SnapshotSelectors } from '../../../store/selectors';
+import { EvidenceInstance } from 'core/modules/data/models/domain';
 
 describe('SnapshotsFacadeService', () => {
   let service: SnapshotsFacadeService;
@@ -33,7 +35,7 @@ describe('SnapshotsFacadeService', () => {
       snapshot_id: 'second_snap_requirement_id',
     },
   ];
-  const mockEvidence: CalculatedEvidence[] = [
+  const mockEvidence: EvidenceInstance[] = [
     {
       evidence_id: 'first_evidence_id',
       evidence_instance_id: 'first_snap_evidence_id',
@@ -58,7 +60,7 @@ describe('SnapshotsFacadeService', () => {
     firstLoad: true,
     calculatedControls: {
       ids: mockControls.map((c) => c.snapshot_id),
-      entities: 
+      entities:
       {
         [mockControls[0].snapshot_id]: mockControls[0],
         [mockControls[1].snapshot_id]: mockControls[1],
@@ -66,16 +68,16 @@ describe('SnapshotsFacadeService', () => {
     },
     calculatedRequirements: {
       ids: mockRequirements.map((c) => c.snapshot_id),
-      entities: 
+      entities:
       {
         [mockRequirements[0].snapshot_id]: mockRequirements[0],
         [mockRequirements[1].snapshot_id]: mockRequirements[1],
       },
     },
     calculatedFrameworks: undefined,
-    calculatedEvidences: {
+    evidences: {
       ids: mockEvidence.map((c) => c.evidence_instance_id),
-      entities: 
+      entities:
       {
         [mockEvidence[0].evidence_instance_id]: mockEvidence[0],
         [mockEvidence[1].evidence_instance_id]: mockEvidence[1],
@@ -83,7 +85,7 @@ describe('SnapshotsFacadeService', () => {
     },
     calculatedPolicies: {
       ids: mockPolicies.map((c) => c.snapshot_id),
-      entities: 
+      entities:
       {
         [mockPolicies[0].snapshot_id]: mockPolicies[0],
         [mockPolicies[1].snapshot_id]: mockPolicies[1],
@@ -110,9 +112,7 @@ describe('SnapshotsFacadeService', () => {
     service = TestBed.inject(SnapshotsFacadeService);
     mockStore = TestBed.inject(MockStore);
 
-    mockStore.setState({
-      snapshotState,
-    });
+    mockStore.overrideSelector(SnapshotSelectors.SelectSnapshotState, snapshotState);
   });
 
   it('should be created', () => {

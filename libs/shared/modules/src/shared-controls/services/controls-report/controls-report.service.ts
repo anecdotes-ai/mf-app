@@ -7,9 +7,7 @@ import { UserEvents, ControlEventDataProperty } from 'core/models/user-events/us
 import {ControlsFacadeService, FrameworksFacadeService} from 'core/modules/data/services';
 import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ControlsReportService {
   constructor(private windowService: WindowHelperService,
               private userEventService: UserEventService,

@@ -16,7 +16,7 @@ import {
 export class NotificationsFacadeService {
   notificationsCache$: Observable<Notification[]>;
 
-  constructor(private store: Store<any>, private actionDispatcher: ActionDispatcherService) {
+  constructor(private store: Store, private actionDispatcher: ActionDispatcherService) {
     this.notificationsCache$ = this.store.select(selectNotificationsLoaded).pipe(
       tap((areLoaded) => {
         if (!areLoaded) {

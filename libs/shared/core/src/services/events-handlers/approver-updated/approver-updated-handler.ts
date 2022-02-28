@@ -5,8 +5,8 @@ import { PusherMessageType } from 'core/models/pusher-message-type.model';
 import { PusherMessage } from 'core/models/pusher-message.model';
 import { ApproverInstance, PolicySettings } from 'core/modules/data/models/domain';
 import { PolicyUpdatedAction } from 'core/modules/data/store/actions';
-import { State } from 'core/modules/data/store/state';
-import { take } from 'rxjs/operators';
+import { PolicySelectors } from 'core/modules/data/store';
+import { map, take } from 'rxjs/operators';
 import { EventHandler } from '../event-handler.interface';
 
 type SettingsKeys = keyof PolicySettings;
@@ -15,7 +15,7 @@ type SettingsKeys = keyof PolicySettings;
 export class ApproverUpdatedHandler implements EventHandler<PusherMessage> {
   readonly messageType = PusherMessageType.ApproverUpdated;
   
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store) { }
   
   async handle(message: PusherMessage<ApproverData>): Promise<void> {
     if (!message.message_object.policy_id || !message.message_object.approver) {
@@ -24,7 +24,7 @@ export class ApproverUpdatedHandler implements EventHandler<PusherMessage> {
 
     const approverData = message.message_object;
     const currentPolicy = await this.store
-      .select((s) => s.policyState.policies.entities[approverData.policy_id])
+      .select(PolicySelectors.SelectPolicyState).pipe(map((policyState) => policyState.policies.entities[approverData.policy_id]))
       .pipe(take(1))
       .toPromise();
     const updatedSettings = this.updateApprover(currentPolicy.policy_settings, approverData.approver);

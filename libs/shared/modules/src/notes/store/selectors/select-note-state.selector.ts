@@ -1,7 +1,6 @@
-import { State } from '@ngrx/store';
+import { createFeatureSelector, createSelector, State } from '@ngrx/store';
 import { featureKey } from '../constants';
-import { NoteState } from '../reducers';
+import { NoteFeatureState } from '../state';
 
-export function selectNoteState(state: State<any>): NoteState {
-  return state[featureKey].noteState;
-}
+const noteFeatureSelector = createFeatureSelector<NoteFeatureState>(featureKey);
+export const selectNoteState = createSelector(noteFeatureSelector, noteFeatureState => noteFeatureState.noteState);

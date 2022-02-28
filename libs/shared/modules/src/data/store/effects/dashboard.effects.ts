@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { combineLatest, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { State } from '../index';
 import { ControlActionType, ControlAdapterActions } from './../actions/controls.actions';
 import {
   DashboardStateInitializedAction,
@@ -30,7 +28,7 @@ export class DashboardEffects {
     FrameworkActionType.SpecificFrameworkLoaded,
   ];
 
-  constructor(private actions$: Actions, private store: Store<State>) {}
+  constructor(private actions$: Actions) {}
 
   @Effect()
   updateDashboardTime$ = merge(

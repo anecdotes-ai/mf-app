@@ -7,9 +7,12 @@ import { Category } from '../../models';
 import { DefaultCategories } from '../../models/category';
 import { getPercents } from 'core/utils/percentage.function';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class DashboardCategoriesResolverService {
   controlBaseline = DefaultCategories;
 

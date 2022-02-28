@@ -5,12 +5,12 @@ import { CoreModule } from 'core/core.module';
 import { AccountFeatureEnabledDirective } from './directives';
 import { ExclusiveFeatureButtonComponent, ExclusiveFeatureModalComponent } from './components';
 import { ButtonsModule } from 'core/modules/buttons';
-import { ExclusiveFeatureModalService } from './services';
+import { AccountFeaturesService, ExclusiveFeatureModalService } from './services';
 
 @NgModule({
   declarations: [AccountFeatureEnabledDirective, ExclusiveFeatureModalComponent, ExclusiveFeatureButtonComponent],
   imports: [CommonModule, CoreModule, TranslateModule.forChild(), ButtonsModule],
-  providers: [ ExclusiveFeatureModalService ],
+  providers: [ExclusiveFeatureModalService, AccountFeaturesService],
   exports: [AccountFeatureEnabledDirective, ExclusiveFeatureButtonComponent],
 })
 export class AccountFeaturesModule {}

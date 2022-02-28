@@ -5,9 +5,7 @@ import { AppConfigService } from 'core/services/config/app.config.service';
 import { AbstractService } from '../abstract-http/abstract-service';
 import { User } from '../../../models/domain';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService extends AbstractService {
   constructor(http: HttpClient, configService: AppConfigService) {
     super(http, configService);

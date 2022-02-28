@@ -3,9 +3,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from 'core/modules/auth-core/models/domain';
 import { FilterDefinition } from 'core/modules/data-manipulation/data-filter';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class OwnerFilterService {
   constructor(private translateService: TranslateService) {}
 

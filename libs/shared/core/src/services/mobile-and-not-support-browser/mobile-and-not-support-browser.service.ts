@@ -3,9 +3,12 @@ import { WindowHelperService } from '../window-helper/window-helper.service';
 import { AppConfigService } from 'core/services';
 import { MobileTypes } from 'core/models/mobile-types';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+  // TODO: Must be removed. Currently cannot be removed since it breaks lots of tests
+  {
+    providedIn: 'root' 
+  }
+)
 export class MobileAndNotSupportBrowserService {
   isMobile: MobileTypes;
   isBrowserSupported: boolean;

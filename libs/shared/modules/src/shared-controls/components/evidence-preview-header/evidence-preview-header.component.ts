@@ -7,8 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class EvidencePreviewHeaderComponent {
   @Input()
-  controlName: string;
-
-  @Input()
-  requirementName: string;
+  dataToDisplay: string[] = [];
 }

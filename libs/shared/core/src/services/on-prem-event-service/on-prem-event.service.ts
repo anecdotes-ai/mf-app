@@ -3,9 +3,7 @@ import { OnPremEventDataProperty, UserEvents } from 'core';
 import { Service } from 'core/modules/data/models/domain';
 import { UserEventService } from 'core/services/user-event/user-event.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class OnPremEventService {
   constructor(private userEventService: UserEventService) {}
 
